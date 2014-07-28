@@ -175,6 +175,8 @@ function layerModel(options, parent) {
     self.active = ko.observable(false);
     // is the layer visible?
     self.visible = ko.observable(false);
+	// is the layer loading?
+	self.loading = ko.observable(false);
 
     self.activeSublayer = ko.observable(false);
     self.visibleSublayer = ko.observable(false);

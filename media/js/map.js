@@ -1,3 +1,94 @@
+LayerLoadData = function(layer) {
+	this.layer = layer;
+	this.isLoading = false;
+}
+
+var LayerLoading = OpenLayers.Class(OpenLayers.Control, {
+	CLASS_NAME: "LayerLoading",
+	element: null, 
+	autoActivate: true,
+	layerData: {},
+	onLoading: function(layerName) {},
+	onStartLoading: function(layerName) {},
+	onFinishLoading: function(layerName) {},
+	initialize: function(options) {
+		OpenLayers.Control.prototype.initialize.apply(this, arguments);
+		this.loadingLayers = {};
+	},
+	activate: function() {
+		if (OpenLayers.Control.prototype.activate.apply(this, arguments)) {
+			this.map.events.register('addlayer', this, this.beginWatchingLoadingTiles);
+			this.map.events.register('zoomend', this, this.beginWatchingLoadingTiles);
+			this.map.events.register('moveend', this, this.beginWatchingLoadingTiles);
+			return true;
+		}
+		else {
+			return false;
+		}
+	},
+	decativate: function() {
+		if (OpenLayers.Control.prototype.deactivate.apply(this, arguments)) {
+			this.map.events.unregister('move', this, this.beginCountingLoadingTiles);
+			this.map.events.unregister('addlayer', this, this.beginCountingLoadingTiles);
+			return true;
+		}
+		else {
+			return false; 
+		}
+	},
+	startWatching: function() {
+		this.counterRunning = setTimeout(this.watchLoadingTiles.bind(this), 200);
+	},
+	beginWatchingLoadingTiles: function() {
+		if (this.counterRunning) {
+			return;
+		}
+
+		this.watchLoadingTiles();
+	},
+	watchLoadingTiles: function() {
+		for (var i = 0; i < this.map.layers.length; i++) {
+			var layer = this.map.layers[i];
+			
+			if (typeof(layer.numLoadingTiles) == 'undefined') {
+				continue; 
+			}
+			
+			var name = layer.name;
+			var layerIsLoading = (layer.numLoadingTiles > 0);
+			
+			// Determine if the layer is loading, whether it just started, or
+			// whether it finished. 
+			
+			if (layerIsLoading) {
+				if (!this.loadingLayers[name]) {
+					this.loadingLayers[name] = true;
+					this.onStartLoading(name);
+				}
+				else {
+					this.onLoading(name);
+				}
+			}
+			else {
+				if (this.loadingLayers[name]) {
+					this.onFinishLoading(name);
+					delete this.loadingLayers[name];
+				}
+			}
+		}
+		
+		// if any layers are still loading, then call ourselves back
+		for (var name in this.loadingLayers) {
+			if (this.loadingLayers[name]) {
+				this.startWatching(); 
+				return;
+			}
+		}
+		
+		this.counterRunning = false; 
+	}
+});
+
 app.init = function() {
     var max_zoom,
         min_zoom;
@@ -84,7 +175,46 @@ app.init = function() {
 
     //map.addLayers([esriOcean]);
     esriOcean.setZIndex(100);
+	
+	app.layerLoader = new LayerLoading({
+		onStartLoading: function(layerName) {
+			var layerModel;
+			var activeLayers = app.viewModel.activeLayers();
+			for (var i = 0; i < activeLayers.length; i++) {
+				if (activeLayers[i].name == layerName) {
+					layerModel = activeLayers[i];
+					break;
+				}
+			}
+			
+			if (!layerModel) {
+				return;
+			}
+			
+			layerModel.loading(true); 
+		},
+		onLoading: function(layerName) {
 
+		},
+		onFinishLoading: function(layerName) {
+			var layerModel;
+			var activeLayers = app.viewModel.activeLayers();
+			for (var i = 0; i < activeLayers.length; i++) {
+				if (activeLayers[i].name == layerName) {
+					layerModel = activeLayers[i];
+					break;
+				}
+			}
+			
+			if (!layerModel) {
+				return;
+			}
+			
+			layerModel.loading(false); 
+		}
+	});
+	map.addControl(app.layerLoader);
+	
     map.addControl(new SimpleLayerSwitcher());
 
     //Scale Bar
