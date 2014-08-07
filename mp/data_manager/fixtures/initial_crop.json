@@ -82,10 +82,10 @@
     "model": "data_manager.toc", 
     "fields": {
         "themes": [
-            27, 
             30, 
             29, 
             28, 
+            27, 
             31, 
             32
         ], 
@@ -421,6 +421,7 @@
     "fields": {
         "layers": [
             360, 
+            358, 
             359
         ], 
         "display_name": "Administrative & Regulatory", 
@@ -8838,7 +8839,7 @@
         "data_notes": "", 
         "name": "Sediment Discharge Locations", 
         "sublayers": [], 
-        "url": "http://localhost:8001/tiles/PROutflowPoints/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/PROutflowPoints/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -8887,7 +8888,7 @@
         "data_notes": "", 
         "name": "Watersheds", 
         "sublayers": [], 
-        "url": "http://localhost:8001/tiles/PRWatersheds/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/PRWatersheds/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -8932,7 +8933,7 @@
         "data_notes": "", 
         "name": "Watersheds with Legend", 
         "sublayers": [], 
-        "url": "http://localhost:8001/tiles/PRWatersheds_legend/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/PRWatersheds_legend/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -8977,7 +8978,7 @@
         "data_notes": "", 
         "name": "PR Roads", 
         "sublayers": [], 
-        "url": "http://localhost:8001/tiles/PRRoads2/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/PRRoads2/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -9163,7 +9164,7 @@
         "data_notes": "", 
         "name": "USVI Roads", 
         "sublayers": [], 
-        "url": "http://localhost:8001/tiles/USVIRoads_2/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/USVIRoads_2/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
