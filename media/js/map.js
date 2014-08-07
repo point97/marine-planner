@@ -690,8 +690,8 @@ app.addVectorLayerToMap = function(layer) {
         //title: 'testing'
         pointRadius: 2,
         externalGraphic: layer.graphic,
-        graphicWidth: 8,
-        graphicHeight: 8,
+        graphicWidth: 15,
+        graphicHeight: 15,
         graphicOpacity: layer.defaultOpacity
     });
     if (layer.proxy_url) {
