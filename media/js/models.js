@@ -142,14 +142,14 @@ function layerModel(options, parent) {
     // opacity
     self.opacity.subscribe(function(newOpacity) {
         if (self.layer.CLASS_NAME === "OpenLayers.Layer.Vector") {
-            self.layer.styleMap.styles.default.defaultStyle.strokeOpacity = newOpacity;
-            self.layer.styleMap.styles.default.defaultStyle.graphicOpacity = newOpacity;
+            self.layer.styleMap.styles['default'].defaultStyle.strokeOpacity = newOpacity;
+            self.layer.styleMap.styles['default'].defaultStyle.graphicOpacity = newOpacity;
             //fill is currently turned off for many of the vector layers
             //the following should not override the zeroed out fill opacity
             //however we do still need to account for shipping lanes (in which styling is handled via lookup)
             if (self.fillOpacity > 0) {
                 var newFillOpacity = self.fillOpacity - (self.defaultOpacity - newOpacity);
-                self.layer.styleMap.styles.default.defaultStyle.fillOpacity = newFillOpacity;
+                self.layer.styleMap.styles['default'].defaultStyle.fillOpacity = newFillOpacity;
             }
             self.layer.redraw();
         } else {
@@ -945,6 +945,8 @@ function viewModel() {
 
     self.mapLinks = new mapLinksModel();
 
+    self.enableDrawing = ko.observable(false);   
+
     // text for tooltip popup
     self.layerToolTipText = ko.observable();
 
@@ -1030,6 +1032,9 @@ function viewModel() {
     */
     // hide tours for smaller screens
     self.hideTours = ko.observable(false);
+
+    // show/hide bottom buttons (Tour and Add Layer)
+    self.showBottomButtons = ko.observable(true);
 
     // set the error type
     // can be one of:
