@@ -167,6 +167,16 @@ app.init = function() {
                                 hasAllAttributes = true;
                             }
                         });
+                        if (hasAllAttributes && (potential_layer.id === 362 || potential_layer.id === 369)) {
+                            if ( !('VULN_MEAN' in info.data) && !('SDR' in info.data) ) {
+                                hasAllAttributes = false;
+                            }
+                        }
+                        if (hasAllAttributes && (potential_layer.id === 361 || potential_layer.name === 370)) {
+                            if ( ('VULN_MEAN' in info.data) || ('SDR' in info.data) ) {
+                                hasAllAttributes = false;
+                            }
+                        }
                         if (!hasAllAttributes && potential_layer.parent) {
                             parentHasAllAttributes = true;
                             if (!potential_layer.parent.attributes.length) {
