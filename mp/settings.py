@@ -44,14 +44,16 @@ GEOJSON_SRID = 3857
 
 APP_NAME = "Marine Planner Data Portal"
 SERVER_ADMIN = 'edwin@pointnineseven.com'
-DEFAULT_FROM_EMAIL = 'USVI <developers@pointnineseven.com>'
+DEFAULT_FROM_EMAIL = 'MP <developers@pointnineseven.com>'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 MANAGERS = ADMINS
 EMAIL_SUBJECT_PREFIX = 'Marine Planner'
-ADMINS = (
-    ('Edwin Knuth', 'edwin@pointnineseven.com'),
-    ('Scott Fletcher', 'scott@pointnineseven.com'),
-)
+ADMINS = [
+    'Wil Black <wil@pointnineseven.com>',
+    'Tim Glaser <tim.glaser@pointnineseven.com>',
+    'Scott Fletcher <scott@pointnineseven.com>'
+]
+
 
 
 

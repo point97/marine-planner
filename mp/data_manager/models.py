@@ -1,6 +1,9 @@
 from django.db import models
 from utils import get_domain
 from django.template.defaultfilters import slugify
+from django.conf import settings
+from django.core.mail import send_mail  
+import requests
 #from sorl.thumbnail import ImageField
 
 
@@ -342,6 +345,20 @@ class Layer(models.Model):
         return layers_dict
         
     def save(self, *args, **kwargs):
+        # update the data catalog (cms-crop)
+        catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
+        response = requests.get(catalog_url)
+        if response.status_code != 200:
+            # email admins?
+            subject = 'CROP - Failed Data Catalog Save Attempt'
+            message = 'Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s', response.status_code
+            from_email = "%s <%s>" % ('CROP', settings.DEFAULT_FROM_EMAIL)
+            recipients = settings.ADMINS                 
+            try:              
+                send_mail(subject, message, from_email, recipients)
+            except:
+                pass
+        # other stuff
         self.slug_name = self.slug
         super(Layer, self).save(*args, **kwargs)
 
