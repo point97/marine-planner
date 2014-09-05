@@ -40,7 +40,15 @@ class TOCTheme(models.Model):
             'is_toc_theme': True
         }
         return themes_dict
-
+    
+    def save(self, *args, **kwargs):
+        # update the data catalog (cms-crop)
+        catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
+        response = requests.get(catalog_url)
+        # if get request failed, notify admins
+        if response.status_code != 200:
+            pass            
+        super(Layer, self).save(*args, **kwargs)
 
 
 class Theme(models.Model):
@@ -79,6 +87,15 @@ class Theme(models.Model):
             'description': self.description
         }
         return themes_dict
+
+    def save(self, *args, **kwargs):
+        # update the data catalog (cms-crop)
+        catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
+        response = requests.get(catalog_url)
+        # if get request failed, notify admins
+        if response.status_code != 200:
+            pass            
+        super(Layer, self).save(*args, **kwargs)
 
 class Layer(models.Model):
     TYPE_CHOICES = (
@@ -348,16 +365,18 @@ class Layer(models.Model):
         # update the data catalog (cms-crop)
         catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
         response = requests.get(catalog_url)
+        # if get request failed, notify admins
         if response.status_code != 200:
+            pass
             # email admins?
-            subject = 'CROP - Failed Data Catalog Save Attempt'
-            message = 'Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s', response.status_code
-            from_email = "%s" % (settings.DEFAULT_FROM_EMAIL)
-            recipients = settings.ADMINS                 
-            try:              
-                send_mail(subject, message, from_email, recipients)
-            except:
-                pass
+            # subject = 'CROP - Failed Data Catalog Save Attempt'
+            # message = 'Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s', response.status_code
+            # from_email = "%s" % (settings.DEFAULT_FROM_EMAIL)
+            # recipients = settings.ADMINS                 
+            # try:              
+            #     send_mail(subject, message, from_email, recipients)
+            # except:
+            #     pass
         # other stuff
         self.slug_name = self.slug
         super(Layer, self).save(*args, **kwargs)
