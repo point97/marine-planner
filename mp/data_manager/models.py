@@ -40,7 +40,17 @@ class TOCTheme(models.Model):
             'is_toc_theme': True
         }
         return themes_dict
-    
+
+    @property 
+    def simpleLayerList(self):
+        layers = list(self.layers.all().exclude(layer_type__in=['placeholder', 'checkbox', 'radio']).order_by('name'))
+        parent_layers = self.layers.filter(layer_type__in=['checkbox', 'radio'])
+        for layer in parent_layers:
+            for sublayer in layer.sublayer_list:
+                layers.append(sublayer)
+        layers.sort(key=lambda x: x.name)
+        return layers
+
     def save(self, *args, **kwargs):
         # update the data catalog (cms-crop)
         catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
