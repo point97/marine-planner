@@ -390,7 +390,7 @@ class Layer(models.Model):
             subject = "CROP - Failed Data Catalog Save Attempt"
             message = "Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog succeeded."
             from_email = "%s" %(settings.DEFAULT_FROM_EMAIL)
-            recipients = "Scott Fletcher <scott@pointnineseven.com>"          
+            recipients = ["Scott Fletcher <scott@pointnineseven.com>"]
             try:              
                 send_mail(subject, message, from_email, recipients)
             except:
