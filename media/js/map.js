@@ -86,6 +86,8 @@ app.init = function() {
     esriOcean.setZIndex(100);
 
     map.addControl(new SimpleLayerSwitcher());
+    map.addControl(new OpenLayers.Control.TouchNavigation());
+    map.addControl(new OpenLayers.Control.PinchZoom());
 
     //Scale Bar
     var scalebar = new OpenLayers.Control.ScaleBar({
@@ -736,7 +738,7 @@ app.addUtfLayerToMap = function(layer) {
     var opts = {
         displayInLayerSwitcher: false
     };
-    console.log(layer);
+    // console.log(layer);
     layer.utfgrid = new OpenLayers.Layer.UTFGrid({
         layerModel: layer,
         url: layer.utfurl ? layer.utfurl : layer.parent.utfurl,

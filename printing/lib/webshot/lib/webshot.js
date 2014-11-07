@@ -81,14 +81,15 @@ function spawnPhantom(site, path, options, cb) {
   , options.shotSize.height
   , options.userAgent
   , options.script
+  , options.session
   ].map(function(arg) {
-    return arg.toString();
+    return arg ? arg.toString() : null;
   });
 
   childProcess
     .spawn(options.phantomPath, phantomArgs)
     .on('exit', function(code) {
-      console.log('phantom exited');
+      // console.log('phantom exited');
       cb(code
         ? new Error('PhantomJS exited with return value ' + code)
         : null);
