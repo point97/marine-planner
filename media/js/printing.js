@@ -42,7 +42,7 @@
                     "my": "right top",
                     "at": "left middle",
                     "of": self.$button,
-                    offset: "0px -30px"
+                    offset: "-200px"
                 });
             }
 		};
@@ -134,7 +134,7 @@
 			// save the old value and adjust the steps
 			$('.ui-spinner-input').each(function (i, input) {
 				var $input = $(input), val = $input.val();
-				console.log(val);
+				// console.log(val);
 				$input.spinner('option', { 'step': steps});
 				$input.val(val);
 			});
@@ -223,7 +223,8 @@
 				paperSize: self.paperSize(),
 				// extent pixel size in meters for world file
 				extent:  app.map.getExtent().toArray(),
-				pixelSize: app.map.getGeodesicPixelSize().w * 1000
+				pixelSize: app.map.getGeodesicPixelSize().w * 1000,
+				session: app.session  || null
 
 			}, function (data) {
 				self.jobStatus("Job is Complete");
@@ -254,7 +255,7 @@
 	
 	$(document).on('map-ready', function () {
 		app.map.events.register('changebaselayer', null, function (event) {
-			console.log('base layer changed');
+			// console.log('base layer changed');
 			app.viewModel.printing.isGoogle(/Google/.test(event.layer.name));
 		});
 

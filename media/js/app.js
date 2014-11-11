@@ -69,7 +69,10 @@ app.viewModel.loadLayersFromServer().done(function() {
   // if we have the hash state go ahead and load it now
   if (app.hash) {
     app.loadStateFromHash(app.hash);
-  }
+  } else if (app.MPSettings.default_hash) {
+    app.loadStateFromDefaultHash(app.MPSettings.default_hash);
+  } 
+  
   // autocomplete for filter
   $('.search-box').typeahead({
     source: app.typeAheadSource
@@ -137,22 +140,31 @@ $(document).ready(function() {
      $(event.target).closest('form').find('input').val(null).focus();
   });
 
+  if(app.MPSettings.enable_drawing === "True") {
+    app.viewModel.enableDrawing(true);
+  }
+  
+
   //fixes a problem in which the data accordion scrollbar was reinitialized before the app switched back to the data tab
   //causing the data tab to appear empty
   //the following appears to fix that problem
   $('#dataTab[data-toggle="tab"]').on('shown', function(e) {
+    app.viewModel.showBottomButtons(true);
     app.viewModel.updateScrollBars();
     app.viewModel.showLegend(false);
   });
   $('#activeTab[data-toggle="tab"]').on('shown', function(e) {
+    app.viewModel.showBottomButtons(true);
     app.viewModel.updateScrollBars();
     app.viewModel.showLegend(false);
   });
   $('#designsTab[data-toggle="tab"]').on('shown', function(e) {
+    app.viewModel.showBottomButtons(false);
     app.viewModel.updateAllScrollBars();
     setTimeout(function() {$('.group-members-popover').popover({html: true, trigger: 'hover'});}, 2000);
   });
   $('#legendTab[data-toggle="tab"]').on('shown', function(e) {
+    app.viewModel.showBottomButtons(true);
     app.viewModel.showLegend(true);
     app.viewModel.updateScrollBars();
   });
@@ -272,27 +284,27 @@ $(document).ready(function() {
     } else if ( $(e.relatedTarget).hasClass('basey') ) { //handler for ff
         $('#basemaps').addClass('open');
     } else {
-        $('#SimpleLayerSwitcher_28').hide();
+        $('.SimpleLayerSwitcher').hide();
     }
   });
 
   //hide basemaps drop-down on mouseout
-  $('#SimpleLayerSwitcher_28').mouseleave( function() {
-    $('#SimpleLayerSwitcher_28').hide();
+  $('.SimpleLayerSwitcher').mouseleave( function() {
+    $('.SimpleLayerSwitcher').hide();
     if (!app.pageguide.preventBasemapsClose) {
         $('#basemaps').removeClass('open');
     }
   });
 
   //hide basemaps drop-down on mouseout
-  $('#SimpleLayerSwitcher_28').mousedown( function() {
+  $('.SimpleLayerSwitcher').mousedown( function() {
     if (!app.pageguide.preventBasemapsClose) {
         $('#basemaps').removeClass('open');
     }
   });
 
   //hide basemaps drop-down on mouseout
-  $('#SimpleLayerSwitcher_28').mouseenter( function() {
+  $('.SimpleLayerSwitcher').mouseenter( function() {
     $('#basemaps').addClass('open');
   });
 
@@ -393,7 +405,7 @@ $(document).mousedown(function(e) {
   }
 
   //ensure layer switcher is removed
-  $('#SimpleLayerSwitcher_28').hide();
+  $('.SimpleLayerSwitcher').hide();
 
   //removing layer tooltip popover from view
   var layer_pvr_event = $(e.target).closest(".layer-popover").length;

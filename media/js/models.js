@@ -142,14 +142,14 @@ function layerModel(options, parent) {
     // opacity
     self.opacity.subscribe(function(newOpacity) {
         if (self.layer.CLASS_NAME === "OpenLayers.Layer.Vector") {
-            self.layer.styleMap.styles.default.defaultStyle.strokeOpacity = newOpacity;
-            self.layer.styleMap.styles.default.defaultStyle.graphicOpacity = newOpacity;
+            self.layer.styleMap.styles['default'].defaultStyle.strokeOpacity = newOpacity;
+            self.layer.styleMap.styles['default'].defaultStyle.graphicOpacity = newOpacity;
             //fill is currently turned off for many of the vector layers
             //the following should not override the zeroed out fill opacity
             //however we do still need to account for shipping lanes (in which styling is handled via lookup)
             if (self.fillOpacity > 0) {
                 var newFillOpacity = self.fillOpacity - (self.defaultOpacity - newOpacity);
-                self.layer.styleMap.styles.default.defaultStyle.fillOpacity = newFillOpacity;
+                self.layer.styleMap.styles['default'].defaultStyle.fillOpacity = newFillOpacity;
             }
             self.layer.redraw();
         } else {
@@ -945,6 +945,8 @@ function viewModel() {
 
     self.mapLinks = new mapLinksModel();
 
+    self.enableDrawing = ko.observable(false);   
+
     // text for tooltip popup
     self.layerToolTipText = ko.observable();
 
@@ -1031,6 +1033,9 @@ function viewModel() {
     // hide tours for smaller screens
     self.hideTours = ko.observable(false);
 
+    // show/hide bottom buttons (Tour and Add Layer)
+    self.showBottomButtons = ko.observable(true);
+
     // set the error type
     // can be one of:
     //  restoreState
@@ -1055,7 +1060,7 @@ function viewModel() {
 
     //show/hide the list of basemaps
     self.showBasemaps = function(self, event) {
-        var $layerSwitcher = $('#SimpleLayerSwitcher_28'),
+        var $layerSwitcher = $('.SimpleLayerSwitcher'),
             $button = $('#basemaps'); //$(event.target).closest('.btn');
         if ($layerSwitcher.is(":visible")) {
             $layerSwitcher.hide();
@@ -1479,9 +1484,21 @@ function viewModel() {
 
     self.getLayerBySlug = function(slug) {
         for (var x=0; x<self.themes().length; x++) {
-            var layer_list = $.grep(self.themes()[x].layers(), function(layer) { return self.convertToSlug(layer.name) === slug; });
+            var layer_list = $.grep(self.themes()[x].layers(), function(layer) { 
+                return self.convertToSlug(layer.name) === slug; 
+            });
             if (layer_list.length > 0) {
                 return layer_list[0];
+            }
+        }
+        for (var x=0; x<self.themes().length; x++) {
+            for (var y=0; y<self.themes()[x].layers().length; y++) {
+                var sublayer_list = $.grep(self.themes()[x].layers()[y].subLayers, function(sublayer) {
+                    return self.convertToSlug(sublayer.name) === slug;
+                });
+                if (sublayer_list.length > 0) {
+                    return sublayer_list[0];
+                }
             }
         }
         return false;
