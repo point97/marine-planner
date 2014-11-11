@@ -1,6 +1,7 @@
 # Django settings for lot project.
 from madrona.common.default_settings import *
 
+POSTGIS_TEMPLATE = 'template_postgis'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TIME_ZONE = 'America/Vancouver'
 ROOT_URLCONF = 'urls'
@@ -35,7 +36,8 @@ INSTALLED_APPS += ('django_extensions',
                    'django.contrib.humanize',
                    'flatblocks',
                    'mp_proxy',
-                   'map_proxy'
+                   'map_proxy',
+                   'scenarios',
                    )
 
 GEOMETRY_DB_SRID = 99996
