@@ -27,7 +27,27 @@ Marine Planner is a lightweight map viewer and data catalog built using Django, 
  * Simple Pageguide.js support for showing your users how to use the map
 
 ##Installation
-Instructions for automated installation using Chef coming soon
+NOTE:  These instructions are NOT complete...
+
+To get Marine Planner working on your local machine
+* Clone the repository
+* Perform the following from the base directory (marine-planner)
+* ```vagrant up```
+* update your settings_local.py file to include values for
+  * ```SECRET_KEY```
+  * ```ADMIN_MEDIA_PATH = '/home/vagrant/.virtualenvs/marine-planner/lib/python2.7/site-packages/django/contrib/admin/static/admin/'```
+  * ```MEDIA_ROOT = '/home/vagrant/marine-planner/media'```
+  * ```MEDIA_URL = '/media/'```
+  * ```SOCIAL_AUTH_GOOGLE_PLUS_KEY```
+  * ```SOCIAL_AUTH_GOOGLE_PLUS_SECRET```
+* ssh into your vagrant box, ```vagrant ssh```, and perform the following
+* ```dj syncdb``` (dj can be used as a shortcut 
+* ```dj migrate```
+* load fixtures or add data for the mp_settings and data_manager app
+* ```djrun``` (equivalent to ```python manage.py runserver 0.0.0.0:8000```)
+
+You should now be able to view the site at ```localhost:8000/planner```
+
 
 ##Questions
 If you have questions, feature requests, etc, feel free to email us at marine-dev@ecotrust.org
