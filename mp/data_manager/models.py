@@ -27,7 +27,7 @@ class TOCTheme(models.Model):
         return "\n".join([toc.name for toc in self.toc_set.all()])
 
     def __unicode__(self):
-        return unicode('%s' % (self.name))
+        return unicode('%s' % (self.display_name))
 
     @property
     def toDict(self):
@@ -125,9 +125,9 @@ class Layer(models.Model):
     arcgis_layers = models.CharField(max_length=255, blank=True, null=True, help_text="IDs separated by commas (no spaces)")
     wms_slug = models.CharField(max_length=255, blank=True, null=True)
     sublayers = models.ManyToManyField('self', blank=True, null=True)
+    is_sublayer = models.BooleanField(default=False)
     themes = models.ManyToManyField("Theme", blank=True, null=True)
     toc_themes = models.ManyToManyField(TOCTheme, through=TOCTheme.layers.through, blank=True)
-    is_sublayer = models.BooleanField(default=False)
     utfurl = models.CharField(max_length=255, blank=True, null=True, help_text="For XYZ MBTiles this should be the same URL as entered above, but ending with .grid.json rather than .png")
     utfjsonp = models.BooleanField(default=False, help_text="For MBTiles, check this box")
     legend = models.CharField(max_length=255, blank=True, null=True, help_text="Path to Lagend png (/media/crop/legends/legend.png or http://somewhere.else.com/legend.png")

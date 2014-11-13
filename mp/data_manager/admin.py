@@ -25,8 +25,8 @@ class LayerAdmin(admin.ModelAdmin):
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "sublayers":
             kwargs["queryset"] = Layer.objects.order_by('name')
-        if db_field.name == "themes":
-            kwargs["queryset"] = Theme.objects.order_by('name')
+        if db_field.name == "toc_themes":
+            kwargs["queryset"] = TOCTheme.objects.order_by('display_name')
         if db_field.name == "attribute_fields":
             kwargs["queryset"] = AttributeInfo.objects.order_by('field_name')
         return super(LayerAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
