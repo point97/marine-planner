@@ -15,6 +15,7 @@ portal/*.sql
 /mp-media
 /mp.log
 /grassdata
+/tmp
 /mp/clipping/fixtures/clipping_layers.json
 /docs/mockups/archive
 /docs/mockups/assets
