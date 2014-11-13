@@ -691,6 +691,7 @@ app.addVectorLayerToMap = function(layer) {
         fillOpacity: layer.fillOpacity,
         //strokeDashStyle: "dash",
         //strokeOpacity: 1,
+        strokeWidth: 1,
         strokeColor: layer.color,
         strokeOpacity: layer.defaultOpacity,
         //strokeLinecap: "square",
