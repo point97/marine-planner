@@ -43,10 +43,10 @@
     "fields": {
         "layers": [
             364, 
-            353, 
             365, 
-            367, 
-            368
+            368, 
+            353, 
+            367
         ], 
         "display_name": "Coastal Critical Infrastructure", 
         "name": "infrastructure", 
@@ -140,7 +140,7 @@
         "data_notes": "", 
         "name": "Puerto Rico Hotels", 
         "sublayers": [], 
-        "url": "/media/data_manager/geojson/pr_inf_hotels_2012.json", 
+        "url": "/media/crop/geojson/pr_inf_hotels_2012.json", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -572,7 +572,7 @@
         "data_notes": "", 
         "name": "USVI Commercial Ports", 
         "sublayers": [], 
-        "url": "/media/data_manager/geojson/usvi_inf_commercialports_2008.json", 
+        "url": "/media/crop/geojson/usvi_inf_commercialports_2008.json", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -620,7 +620,7 @@
         "data_notes": "", 
         "name": "USVI Mangroves", 
         "sublayers": [], 
-        "url": "/media/data_manager/geojson/usvi_mar_mangroves.json", 
+        "url": "/media/crop/geojson/usvi_mar_mangroves.json", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -668,7 +668,7 @@
         "data_notes": "", 
         "name": "Puerto Rico Hospitals", 
         "sublayers": [], 
-        "url": "/media/data_manager/geojson/pr_inf_hospitals.json", 
+        "url": "/media/crop/geojson/pr_inf_hospitals.json", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -863,8 +863,8 @@
             354, 
             356, 
             357, 
-            376, 
-            379
+            379, 
+            376
         ], 
         "url": "", 
         "proxy_url": false, 
@@ -912,7 +912,7 @@
         "slug_name": null, 
         "summarize_to_grid": false, 
         "lookup_field": "", 
-        "legend": "", 
+        "legend": "/media/crop/legends/pr_moot_planninggrid_750m_2014.png", 
         "shareable_url": true, 
         "data_source": "", 
         "data_notes": "", 
@@ -1123,7 +1123,7 @@
         "sublayers": [
             371
         ], 
-        "url": "/media/data_manager/geojson/usvi_poli_3nmlimit.json", 
+        "url": "/media/crop/geojson/usvi_poli_3nmlimit.json", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": null, 
