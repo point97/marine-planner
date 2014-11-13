@@ -111,6 +111,10 @@
 	color: #03871D;
 }
 
+.crop #data-accordion .dropdown-menu {
+  max-height: 140px;
+}
+
 .crop .dropdown-menu > li > a {
 	background: inherit;
 	color: #03871D;
