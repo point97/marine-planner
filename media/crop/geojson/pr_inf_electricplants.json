@@ -1,0 +1,26 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "AEE_NPROY": "VEGA BAJA" }, "geometry": { "type": "Point", "coordinates": [ -7390735.5921048084, 2089887.0010050698 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "PALO SECO" }, "geometry": { "type": "Point", "coordinates": [ -7363586.1555758193, 2090801.9243980821 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "SAN JUAN STEAM PLANT" }, "geometry": { "type": "Point", "coordinates": [ -7358777.9175948501, 2087651.285252254 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "DOS BOCAS" }, "geometry": { "type": "Point", "coordinates": [ -7421357.0697046537, 2076919.2478901579 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "CAONILLAS 1" }, "geometry": { "type": "Point", "coordinates": [ -7418557.9989145026, 2069984.441849977 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "TURBINAS DE GAS MAYAGUEZ" }, "geometry": { "type": "Point", "coordinates": [ -7476245.764454701, 2063201.5335770906 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "CAONILLAS 2" }, "geometry": { "type": "Point", "coordinates": [ -7421585.8363759518, 2065636.3857961167 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "TORO NEGRO 2 HP" }, "geometry": { "type": "Point", "coordinates": [ -7404040.0118196094, 2057062.7530195811 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "TORO NEGRO 1 HP" }, "geometry": { "type": "Point", "coordinates": [ -7401390.2662155675, 2052981.7624845249 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "RIO BLANCO HP" }, "geometry": { "type": "Point", "coordinates": [ -7323153.1232983489, 2066069.7521907229 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "DAGUAO" }, "geometry": { "type": "Point", "coordinates": [ -7309210.0086905379, 2065884.6825170738 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "YAUCO HP 2" }, "geometry": { "type": "Point", "coordinates": [ -7445528.1346511533, 2043853.5088152399 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "YAUCO HP 1" }, "geometry": { "type": "Point", "coordinates": [ -7444051.1078968253, 2050458.699288368 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "COSTA SUR" }, "geometry": { "type": "Point", "coordinates": [ -7430985.1936854348, 2037748.3061559498 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "SALTO GARZAS 1" }, "geometry": { "type": "Point", "coordinates": [ -7428865.2314731162, 2048591.8965486167 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "SALTO GARZAS 2" }, "geometry": { "type": "Point", "coordinates": [ -7428501.6372068673, 2046111.5971082987 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "FOTOVOLTAICA JUANA DIAZ" }, "geometry": { "type": "Point", "coordinates": [ -7403996.1399037577, 2042913.7330767878 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "JET JABUCOA" }, "geometry": { "type": "Point", "coordinates": [ -7328746.9333847743, 2049137.3059372986 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "AGUIRRE" }, "geometry": { "type": "Point", "coordinates": [ -7372719.5077115251, 2031935.7495718233 ] } },
+{ "type": "Feature", "properties": { "AEE_NPROY": "JOBOS" }, "geometry": { "type": "Point", "coordinates": [ -7362633.8015163457, 2033035.3633345996 ] } }
+]
+}

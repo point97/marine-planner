@@ -42,6 +42,9 @@
     "model": "data_manager.toctheme", 
     "fields": {
         "layers": [
+            386, 
+            387, 
+            388, 
             364, 
             365, 
             368, 
@@ -1476,6 +1479,157 @@
     }
 },
 {
+    "pk": 386, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "XYZ", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": null, 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": null, 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": null, 
+        "utfurl": "http://util.point97.io/tiles/crop/pr_inf_devindparks/${z}/${x}/${y}.grid.json", 
+        "data_download": "/media/crop/shapefiles/pr_inf_devindparks.zip", 
+        "metadata": "/media/crop/metadata/pr_inf_devindparks.html", 
+        "opacity": 0.5, 
+        "vector_color": "", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            28
+        ], 
+        "attribute_fields": [], 
+        "vector_fill": null, 
+        "data_overview": null, 
+        "slug_name": null, 
+        "summarize_to_grid": false, 
+        "lookup_field": null, 
+        "legend": "/media/crop/legends/pr_inf_devindparks.png", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "PR Development and Industrial Parks", 
+        "sublayers": [], 
+        "url": "http://util.point97.io/tiles/crop/pr_inf_devindparks/${z}/${x}/${y}.png", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": null, 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": true, 
+        "wms_slug": ""
+    }
+},
+{
+    "pk": 387, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "Vector", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": null, 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": null, 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": null, 
+        "utfurl": "", 
+        "data_download": "/media/crop/shapefiles/pr_inf_electricplants.zip", 
+        "metadata": "/media/crop/metadata/pr_inf_electricplants.html", 
+        "opacity": 0.5, 
+        "vector_color": "#69B1CA", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            28
+        ], 
+        "attribute_fields": [
+            150
+        ], 
+        "vector_fill": 0.8, 
+        "data_overview": null, 
+        "slug_name": null, 
+        "summarize_to_grid": false, 
+        "lookup_field": null, 
+        "legend": "/media/crop/legends/pr_inf_electricplants.png", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "PR Electrical Plants", 
+        "sublayers": [], 
+        "url": "/media/crop/geojson/pr_inf_electricplants.json", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": null, 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": false, 
+        "wms_slug": ""
+    }
+},
+{
+    "pk": 388, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "Vector", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": null, 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": null, 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": null, 
+        "utfurl": "", 
+        "data_download": "/media/crop/shapefiles/pr_inf_electricsubstations.zip", 
+        "metadata": "/media/crop/metadata/pr_inf_electricsubstations.html", 
+        "opacity": 0.5, 
+        "vector_color": "#CBCB6C", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            28
+        ], 
+        "attribute_fields": [
+            151, 
+            152, 
+            153, 
+            154
+        ], 
+        "vector_fill": 0.8, 
+        "data_overview": null, 
+        "slug_name": null, 
+        "summarize_to_grid": false, 
+        "lookup_field": null, 
+        "legend": "/media/crop/legends/pr_inf_electricsubstations.png", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "PR Electrical Substations", 
+        "sublayers": [], 
+        "url": "/media/crop/geojson/pr_inf_electricsubstations.json", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": null, 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": false, 
+        "wms_slug": ""
+    }
+},
+{
     "pk": 136, 
     "model": "data_manager.attributeinfo", 
     "fields": {
@@ -1613,6 +1767,56 @@
         "display_name": "", 
         "precision": null, 
         "order": 1
+    }
+},
+{
+    "pk": 150, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "AEE_NPROY", 
+        "display_name": "", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 151, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "NOMBRE", 
+        "display_name": "", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 152, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "AREAA", 
+        "display_name": "Area", 
+        "precision": null, 
+        "order": 2
+    }
+},
+{
+    "pk": 153, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "DISTRITO", 
+        "display_name": "District", 
+        "precision": null, 
+        "order": 3
+    }
+},
+{
+    "pk": 154, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "PUEBLO", 
+        "display_name": "Town", 
+        "precision": null, 
+        "order": 4
     }
 }
 ]
