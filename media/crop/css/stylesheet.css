@@ -253,6 +253,11 @@
 	color: #7F8184;
 	/* color: #00446D; */
 }
+
+.crop #legend-content .accordion-inner{
+	padding-left: 0px;
+	padding-right: 20px;
+}
 /*
 
 @font-face {
