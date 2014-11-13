@@ -52,20 +52,20 @@ class TOCTheme(models.Model):
         return layers
 
     def save(self, *args, **kwargs):
-        # update the data catalog (cms-crop)
-        catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
-        response = requests.get(catalog_url)
-        # if get request failed, notify admins
-        if response.status_code != 200:
-            # email admins?
-            subject = "CROP - Failed Data Catalog Save Attempt"
-            message = "Attempting to update CMS CROP Data Catalog...Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s" %(response.status_code)
-            from_email = "%s" %(settings.DEFAULT_FROM_EMAIL)
-            recipients = settings.ADMINS                 
-            try:              
-                send_mail(subject, message, from_email, recipients)
-            except:
-                pass                    
+        # # update the data catalog (cms-crop)
+        # catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
+        # response = requests.get(catalog_url)
+        # # if get request failed, notify admins
+        # if response.status_code != 200:
+        #     # email admins?
+        #     subject = "CROP - Failed Data Catalog Save Attempt"
+        #     message = "Attempting to update CMS CROP Data Catalog...Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s" %(response.status_code)
+        #     from_email = "%s" %(settings.DEFAULT_FROM_EMAIL)
+        #     recipients = settings.ADMINS                 
+        #     try:              
+        #         send_mail(subject, message, from_email, recipients)
+        #     except:
+        #         pass                    
         super(TOCTheme, self).save(*args, **kwargs)
 
 
@@ -128,11 +128,11 @@ class Layer(models.Model):
     themes = models.ManyToManyField("Theme", blank=True, null=True)
     toc_themes = models.ManyToManyField(TOCTheme, through=TOCTheme.layers.through, blank=True)
     is_sublayer = models.BooleanField(default=False)
+    utfurl = models.CharField(max_length=255, blank=True, null=True, help_text="For XYZ MBTiles this should be the same URL as entered above, but ending with .grid.json rather than .png")
+    utfjsonp = models.BooleanField(default=False, help_text="For MBTiles, check this box")
     legend = models.CharField(max_length=255, blank=True, null=True, help_text="Path to Lagend png (/media/crop/legends/legend.png or http://somewhere.else.com/legend.png")
     legend_title = models.CharField(max_length=255, blank=True, null=True, help_text="If no value is entered, the layer name will be used as the Legend Title")
     legend_subtitle = models.CharField(max_length=255, blank=True, null=True)
-    utfurl = models.CharField(max_length=255, blank=True, null=True, help_text="For XYZ MBTiles this should be the same URL as entered above, but ending with .grid.json rather than .png")
-    utfjsonp = models.BooleanField(default=False, help_text="For MBTiles, check this box")
     summarize_to_grid = models.BooleanField(default=False)
     # TODO: summarize_to_grid and filterable are basically the same.
     filterable = models.BooleanField(default=False)
@@ -168,8 +168,8 @@ class Layer(models.Model):
     attribute_event = models.CharField(max_length=35, choices=EVENT_CHOICES, default='click', help_text="Only 'click' is available at this time")
     lookup_field = models.CharField(max_length=255, blank=True, null=True)
     lookup_table = models.ManyToManyField('LookupInfo', blank=True, null=True)
-    vector_color = models.CharField(max_length=7, blank=True, null=True)
-    vector_fill = models.FloatField(blank=True, null=True)
+    vector_color = models.CharField(max_length=7, blank=True, null=True, help_text="Outline color represented in a hex format (e.g. #00ff00)")
+    vector_fill = models.FloatField(blank=True, null=True, help_text="Fill color represented in a hex format (e.g. #00ff00)")
     vector_graphic = models.CharField(max_length=255, blank=True, null=True)
     opacity = models.FloatField(default=.5, blank=True, null=True)
     
@@ -372,22 +372,22 @@ class Layer(models.Model):
         return layers_dict
         
     def save(self, *args, **kwargs):
-        # update the data catalog (cms-crop)
-        catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
-        response = requests.get(catalog_url)
-        # if get request failed, notify admins
-        if response.status_code != 200:
-            # email admins?
-            subject = "CROP - Failed Data Catalog Save Attempt"
-            message = "Attempting to update CMS CROP Data Catalog...Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s" %(response.status_code)
-            from_email = "%s" %(settings.DEFAULT_FROM_EMAIL)
-            recipients = settings.ADMINS                 
-            try:              
-                send_mail(subject, message, from_email, recipients)
-            except:
-                pass        
-        # other stuff
-        self.slug_name = self.slug
+        # # update the data catalog (cms-crop)
+        # catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
+        # response = requests.get(catalog_url)
+        # # if get request failed, notify admins
+        # if response.status_code != 200:
+        #     # email admins?
+        #     subject = "CROP - Failed Data Catalog Save Attempt"
+        #     message = "Attempting to update CMS CROP Data Catalog...Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s" %(response.status_code)
+        #     from_email = "%s" %(settings.DEFAULT_FROM_EMAIL)
+        #     recipients = settings.ADMINS                 
+        #     try:              
+        #         send_mail(subject, message, from_email, recipients)
+        #     except:
+        #         pass        
+        # # other stuff
+        # self.slug_name = self.slug
         super(Layer, self).save(*args, **kwargs)
 
 class AttributeInfo(models.Model):

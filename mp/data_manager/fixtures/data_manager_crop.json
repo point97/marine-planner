@@ -894,7 +894,11 @@
         "toc_themes": [
             27
         ], 
-        "attribute_fields": [], 
+        "attribute_fields": [
+            144, 
+            146, 
+            145
+        ], 
         "vector_fill": null, 
         "data_overview": "", 
         "slug_name": null, 
@@ -1197,6 +1201,36 @@
     "fields": {
         "field_name": "NAME", 
         "display_name": "Area Name", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 144, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "Wind_Min", 
+        "display_name": "", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 145, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "Wind_Max", 
+        "display_name": "", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 146, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "Wind_Avg", 
+        "display_name": "", 
         "precision": null, 
         "order": 1
     }
