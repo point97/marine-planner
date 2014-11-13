@@ -20,6 +20,11 @@
     "fields": {
         "layers": [
             371, 
+            372, 
+            373, 
+            374, 
+            375, 
+            376, 
             359, 
             360
         ], 
@@ -33,8 +38,8 @@
     "model": "data_manager.toctheme", 
     "fields": {
         "layers": [
-            353, 
             364, 
+            353, 
             365, 
             367, 
             368
@@ -61,10 +66,10 @@
     "model": "data_manager.toctheme", 
     "fields": {
         "layers": [
-            361, 
-            362, 
             369, 
-            370
+            370, 
+            362, 
+            361
         ], 
         "display_name": "Maritime", 
         "name": "maritime", 
@@ -114,6 +119,9 @@
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            28
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -159,6 +167,7 @@
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -206,6 +215,7 @@
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -253,6 +263,7 @@
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -300,6 +311,9 @@
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            27
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -345,6 +359,9 @@
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            27
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -383,13 +400,16 @@
         "source": "", 
         "lookup_table": [], 
         "proj": "", 
-        "utfurl": "http://util.point97.io/tiles/PROutflowPoints/${z}/${x}/${y}.grid.json", 
+        "utfurl": "http://util.point97.io/tiles/crop/PROutflowPoints/${z}/${x}/${y}.grid.json", 
         "data_download": "", 
         "metadata": "", 
         "opacity": 0.5, 
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            30
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -402,7 +422,7 @@
         "data_notes": "", 
         "name": "Puerto Rico Sediment Discharge Locations", 
         "sublayers": [], 
-        "url": "http://util.point97.io/tiles/PROutflowPoints/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/crop/PROutflowPoints/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -428,13 +448,16 @@
         "source": "", 
         "lookup_table": [], 
         "proj": "", 
-        "utfurl": "http://util.point97.io/tiles/PRWatersheds/${z}/${x}/${y}.grid.json", 
+        "utfurl": "http://util.point97.io/tiles/crop/PRWatersheds/${z}/${x}/${y}.grid.json", 
         "data_download": "", 
         "metadata": "", 
         "opacity": 0.5, 
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            30
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -447,7 +470,7 @@
         "data_notes": "", 
         "name": "Puerto Rico Watersheds", 
         "sublayers": [], 
-        "url": "http://util.point97.io/tiles/PRWatersheds/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/crop/PRWatersheds/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -480,6 +503,9 @@
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            28
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -492,7 +518,7 @@
         "data_notes": "", 
         "name": "PR Roads", 
         "sublayers": [], 
-        "url": "http://util.point97.io/tiles/PRRoads/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/crop/PRRoads/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -525,6 +551,9 @@
         "vector_color": "#00B5FF", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            28
+        ], 
         "attribute_fields": [], 
         "vector_fill": 0.8, 
         "data_overview": "", 
@@ -570,6 +599,9 @@
         "vector_color": "#267300", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            29
+        ], 
         "attribute_fields": [], 
         "vector_fill": 0.8, 
         "data_overview": "", 
@@ -615,6 +647,9 @@
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            28
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -660,6 +695,9 @@
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            28
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -672,7 +710,7 @@
         "data_notes": "", 
         "name": "USVI Roads", 
         "sublayers": [], 
-        "url": "http://util.point97.io/tiles/USVIRoads/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/crop/USVIRoads/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -698,13 +736,16 @@
         "source": "", 
         "lookup_table": [], 
         "proj": "", 
-        "utfurl": "http://util.point97.io/tiles/USVIWatersheds/${z}/${x}/${y}.grid.json", 
+        "utfurl": "http://util.point97.io/tiles/crop/USVIWatersheds/${z}/${x}/${y}.grid.json", 
         "data_download": "", 
         "metadata": "", 
         "opacity": 0.5, 
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            30
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -717,7 +758,7 @@
         "data_notes": "", 
         "name": "USVI Watersheds", 
         "sublayers": [], 
-        "url": "http://util.point97.io/tiles/USVIWatersheds/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/crop/USVIWatersheds/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -743,13 +784,16 @@
         "source": "", 
         "lookup_table": [], 
         "proj": "", 
-        "utfurl": "http://util.point97.io/tiles/USVIOutflowPoints/${z}/${x}/${y}.grid.json", 
+        "utfurl": "http://util.point97.io/tiles/crop/USVIOutflowPoints/${z}/${x}/${y}.grid.json", 
         "data_download": "", 
         "metadata": "", 
         "opacity": 0.5, 
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            30
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -762,7 +806,7 @@
         "data_notes": "", 
         "name": "USVI Sediment Discharge Locations", 
         "sublayers": [], 
-        "url": "http://util.point97.io/tiles/USVIOutflowPoints/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/crop/USVIOutflowPoints/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
@@ -795,6 +839,9 @@
         "vector_color": "", 
         "attribute_event": "click", 
         "description": "", 
+        "toc_themes": [
+            27
+        ], 
         "attribute_fields": [], 
         "vector_fill": null, 
         "data_overview": "", 
@@ -819,6 +866,339 @@
         "attribute_title": "", 
         "utfjsonp": false, 
         "wms_slug": ""
+    }
+},
+{
+    "pk": 372, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "XYZ", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": "", 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": "", 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": "", 
+        "utfurl": "http://util.point97.io/tiles/crop/PlanningGrid/${z}/${x}/${y}.grid.json", 
+        "data_download": "", 
+        "metadata": "", 
+        "opacity": 0.5, 
+        "vector_color": "", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            27
+        ], 
+        "attribute_fields": [], 
+        "vector_fill": null, 
+        "data_overview": "", 
+        "slug_name": null, 
+        "summarize_to_grid": false, 
+        "lookup_field": "", 
+        "legend": "", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "Planning Grid", 
+        "sublayers": [], 
+        "url": "http://util.point97.io/tiles/crop/PlanningGrid/${z}/${x}/${y}.png", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": "", 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": true, 
+        "wms_slug": ""
+    }
+},
+{
+    "pk": 373, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "XYZ", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": "", 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": "", 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": "", 
+        "utfurl": "http://util.point97.io/tiles/crop/pr_poli_ANP_2014/${z}/${x}/${y}.grid.json", 
+        "data_download": "", 
+        "metadata": "", 
+        "opacity": 0.5, 
+        "vector_color": "", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            27
+        ], 
+        "attribute_fields": [
+            136, 
+            137, 
+            138
+        ], 
+        "vector_fill": null, 
+        "data_overview": "", 
+        "slug_name": null, 
+        "summarize_to_grid": false, 
+        "lookup_field": "", 
+        "legend": "", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "PR Protected Areas", 
+        "sublayers": [], 
+        "url": "http://util.point97.io/tiles/crop/pr_poli_ANP_2014/${z}/${x}/${y}.png", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": "", 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": true, 
+        "wms_slug": ""
+    }
+},
+{
+    "pk": 374, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "XYZ", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": "", 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": "", 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": "", 
+        "utfurl": "http://util.point97.io/tiles/crop/pr_poli_ANP_DRNA_uses_facilities/${z}/${x}/${y}.grid.json", 
+        "data_download": "", 
+        "metadata": "", 
+        "opacity": 0.5, 
+        "vector_color": "", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            27
+        ], 
+        "attribute_fields": [
+            136, 
+            137, 
+            138
+        ], 
+        "vector_fill": null, 
+        "data_overview": "", 
+        "slug_name": null, 
+        "summarize_to_grid": false, 
+        "lookup_field": "", 
+        "legend": "", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "PR DRNA Protected Areas with Uses and Facilities", 
+        "sublayers": [], 
+        "url": "http://util.point97.io/tiles/crop/pr_poli_ANP_DRNA_uses_facilities/${z}/${x}/${y}.png", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": "", 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": true, 
+        "wms_slug": ""
+    }
+},
+{
+    "pk": 375, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "XYZ", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": "", 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": "", 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": "", 
+        "utfurl": "http://util.point97.io/tiles/crop/usvi_poli_protectedareas_201403/${z}/${x}/${y}.grid.json", 
+        "data_download": "", 
+        "metadata": "", 
+        "opacity": 0.5, 
+        "vector_color": "", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            27
+        ], 
+        "attribute_fields": [
+            139, 
+            140, 
+            141, 
+            142
+        ], 
+        "vector_fill": null, 
+        "data_overview": "", 
+        "slug_name": null, 
+        "summarize_to_grid": false, 
+        "lookup_field": "", 
+        "legend": "", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "USVI Protected Areas", 
+        "sublayers": [], 
+        "url": "http://util.point97.io/tiles/crop/usvi_poli_protectedareas_201403/${z}/${x}/${y}.png", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": "", 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": true, 
+        "wms_slug": ""
+    }
+},
+{
+    "pk": 376, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "Vector", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": null, 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": null, 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": null, 
+        "utfurl": "", 
+        "data_download": "", 
+        "metadata": "", 
+        "opacity": 0.5, 
+        "vector_color": "", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            27
+        ], 
+        "attribute_fields": [], 
+        "vector_fill": null, 
+        "data_overview": null, 
+        "slug_name": "usvi-3-nautical-mile-boundary", 
+        "summarize_to_grid": false, 
+        "lookup_field": null, 
+        "legend": "", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "USVI 3 nautical mile boundary", 
+        "sublayers": [], 
+        "url": "/media/data_manager/geojson/usvi_poli_3nmlimit.json", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": null, 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": false, 
+        "wms_slug": ""
+    }
+},
+{
+    "pk": 136, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "STEW_AREA", 
+        "display_name": "Area Name", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 137, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "Class", 
+        "display_name": "Class", 
+        "precision": null, 
+        "order": 2
+    }
+},
+{
+    "pk": 138, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "Manejo", 
+        "display_name": "Managed by", 
+        "precision": null, 
+        "order": 3
+    }
+},
+{
+    "pk": 139, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "AREANAM", 
+        "display_name": "Area Name", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 140, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "DSGNTN_L", 
+        "display_name": "Class", 
+        "precision": null, 
+        "order": 2
+    }
+},
+{
+    "pk": 141, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "AGENCY", 
+        "display_name": "Managed by", 
+        "precision": null, 
+        "order": 3
+    }
+},
+{
+    "pk": 142, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "PROTDATE", 
+        "display_name": "Protection Date", 
+        "precision": null, 
+        "order": 4
+    }
+},
+{
+    "pk": 143, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "NAME", 
+        "display_name": "Area Name", 
+        "precision": null, 
+        "order": 1
     }
 }
 ]
