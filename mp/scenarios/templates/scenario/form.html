@@ -107,30 +107,16 @@
             app.viewModel.scenarios.scenarioFormModel.updateRemainingBlocks();
         }
               
-        // WIND SPEED UPDATED
-        //Update Leaseblocks
-        //slide ensures that leaseblocks are updated when the slider is adjusted
-        //slidechange ensures that leaseblocks are updated when the text area is modified
-        $('#slider-input_avg_wind_speed').bind( "slide slidechange", function(event, ui) {
-            //var $left_side = $(event.target).find('.ui-slider-range');
-            if (app.viewModel.scenarios.scenarioFormModel) {
-                app.viewModel.scenarios.scenarioFormModel.change_wind_message(ui.value);
-                app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'wind', 'value': ui.value});
-                updateRemaininLeaseBlocks();
-            }
-        });
-              
         // DISTANCE TO SHORE UPDATED
         //Update Remaining Leaseblocks 
-        $('#slider-input_distance_to_shore').bind( "slide slidechange", function(event, ui) {
+        $('#slider-input_coast_distance').bind( "slide slidechange", function(event, ui) {
             if (app.viewModel.scenarios.scenarioFormModel) { //this condition prevents error thrown at form creation time
-                app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'min_distance', 'value': ui.values[0]});
-                app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'max_distance', 'value': ui.values[1]});
+                app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'min_distance', 'value': parseInt(ui.values[0])*1000});
+                app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'max_distance', 'value': parseInt(ui.values[1])*1000});
                 //Update Remaining Leaseblocks 
                 updateRemaininLeaseBlocks();
             }
         });  
-        
         
         // DEPTH RANGE UPDATED
         //Update Remaining Leaseblocks 
@@ -143,60 +129,6 @@
             }
         });
             
-            
-        // DISTANCE TO SUBSTATION UPDATED
-        //Update Remaining Leaseblocks 
-        $('#slider-input_distance_to_substation').bind( "slide slidechange", function(event, ui) {
-            if (app.viewModel.scenarios.scenarioFormModel) { //this condition prevents error thrown at form creation time
-                app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'substation', 'value': ui.value});
-                //Update Remaining Leaseblocks 
-                updateRemaininLeaseBlocks();
-            }
-        }); 
-        
-         
-        // DISTANCE TO AWC UPDATED
-        //Update Remaining Leaseblocks 
-        $('#slider-input_distance_to_awc').bind( "slide slidechange", function(event, ui) {
-            if (app.viewModel.scenarios.scenarioFormModel) { //this condition prevents error thrown at form creation time
-                app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'awc', 'value': ui.value});
-                //Update Remaining Leaseblocks 
-                updateRemaininLeaseBlocks();
-            }
-        }); 
-
-        
-        // DISTANCE TO SHIPPING LANES UPDATED
-        //Update Remaining Leaseblocks 
-        $('#slider-input_distance_to_shipping').bind( "slide slidechange", function(event, ui) {
-            if (app.viewModel.scenarios.scenarioFormModel) { //this condition prevents error thrown at form creation time
-                app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'tsz', 'value': ui.value});
-                //Update Remaining Leaseblocks 
-                updateRemaininLeaseBlocks();
-            }
-        }); 
-           
-        
-        // TRAFFIC DENSITY UPDATED 
-        /*
-        $('#ship_traffic_density_widget').click( function(e) {
-            if ( ! app.viewModel.scenarios.scenarioFormModel.shipTrafficDensityParameter() ) {
-                app.viewModel.scenarios.scenarioFormModel.shipTrafficDensityParameter(true);
-                $('#id_input_filter_ais_density').attr('checked', 'checked');
-                app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'ais', 'value': 1});
-                //Update Remaining Leaseblocks 
-                updateRemaininLeaseBlocks();
-            } else {
-                app.viewModel.scenarios.scenarioFormModel.shipTrafficDensityParameter(false);
-                $('#id_input_filter_ais_density').removeAttr('checked');
-                app.viewModel.scenarios.scenarioFormModel.removeFilter('ais');
-                updateRemaininLeaseBlocks();
-            }
-        });
-        */
-                
-        
-        
         $('#button_prev').click( function() { wizard('prev'); });
         $('#button_next').click( function() { wizard('next'); });
         wizard();
@@ -510,6 +442,35 @@
                 </div>
             </div>
         </li>
+        <li>
+            <div class="accordion" id="coast-distance-accordion">
+                <div class="accordion-heading" data-bind="click: toggleCoastDistanceWidget">
+                    <label class="accordion-toggle">
+                        {{ form.input_parameter_distance_to_shore }} 
+                        <i class="check icon-large icon-check" data-bind="visible: coastDistanceParameter()"></i>
+                        <i class="check icon-large icon-check-empty"></i>
+                        <span class="parameter-label" style="margin-left: 5px">Distance to Shore</span>
+                        <i class="info-icon icon-info-sign" rel="popover" 
+                            data-content="Distance to the official NOAA shoreline."
+                            data-placement="right"
+                            data-container="body">
+                        </i>
+                    </label>
+                </div>
+                <div id="coast_distance_widget" class="inputfield accordion-body collapse" 
+                     data-bind="css: {'in': coastDistanceParameter()}">
+                    <div class="accordion-inner">
+                        <span> 
+                            {{ form.input_min_coast_distance }}            
+                            to
+                            {{ form.input_max_coast_distance }} km
+                        </span>
+                        {{ form.input_coast_distance }} 
+                        {{ form.input_coast_distance.errors }} 
+                    </div>
+                </div>
+            </div>
+        </li>
         </ul>
     </div>
     <p></p>
@@ -518,8 +479,11 @@
   <div id="step2" class="step">
     <p class="step-text"><i>Step 2 of 3 </i></p>
     <p class="instructions">Choose any filtering criteria from other sectors </p>
-    <label class="step-header">Shipping</label>
+    <label class="step-header">Wind Energy</label>
     <div id="step2_inputs">
+        <ul class="parameters">
+
+            </li>
         {% comment %}
         <ul class="parameters">
         <li>
@@ -585,8 +549,8 @@
                 </div>
             </div>
         </li>
-        </ul>
         {% endcomment %}
+        </ul>
     </div>
     <p></p>
     <label class="step-header">Security</label>
