@@ -354,7 +354,10 @@ app.init = function() {
     };
 
     app.utils.trim = function(str) {
-        return str.replace(/^\s+|\s+$/g, '');
+        if (str) {
+            return str.replace(/^\s+|\s+$/g, '');
+        }
+        return str;
     };
 
     app.utils.getObjectFromList = function(list, field, value) {
