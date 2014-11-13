@@ -169,16 +169,7 @@ app.init = function() {
                                 hasAllAttributes = true;
                             }
                         });
-                        if (hasAllAttributes && (potential_layer.id === 362 || potential_layer.id === 369)) {
-                            if ( !('VULN_MEAN' in info.data) && !('SDR' in info.data) ) {
-                                hasAllAttributes = false;
-                            }
-                        }
-                        if (hasAllAttributes && (potential_layer.id === 361 || potential_layer.name === 370)) {
-                            if ( ('VULN_MEAN' in info.data) || ('SDR' in info.data) ) {
-                                hasAllAttributes = false;
-                            }
-                        }
+                        
                         if (!hasAllAttributes && potential_layer.parent) {
                             parentHasAllAttributes = true;
                             if (!potential_layer.parent.attributes.length) {
@@ -220,7 +211,9 @@ app.init = function() {
                             });
                             var title = potential_layer.name,
                                 text = attribute_objs;
-                            if (title === 'Wind Speed') {
+                            if ( title === 'Planning Grid' ) {
+                                text = app.viewModel.getGridAttributes(info.data);
+                            } else if (title === 'Wind Speed') {
                                 text = app.viewModel.getWindSpeedAttributes(title, info.data);
                             }
                             clickAttributes[title] = text;
