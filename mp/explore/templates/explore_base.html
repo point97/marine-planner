@@ -50,13 +50,13 @@
                                 <link rel="stylesheet" href="{{MEDIA_URL}}css/mp_style.ie.css">
                         <![endif]-->        
                         
-                        <link rel="stylesheet" href="{{MEDIA_URL}}assets/bootstrap/bootstrap.css">
-                        <link rel="stylesheet" href="{{MEDIA_URL}}assets/bootstrap/bootstrap-responsive.css">
+                        <link rel="stylesheet" href="/media/assets/bootstrap/bootstrap.css">
+                        <link rel="stylesheet" href="/media/assets/bootstrap/bootstrap-responsive.css">
 
                         <!-- marine planner stylesheet -->
-                        <link rel="stylesheet" href="{{MEDIA_URL}}css/mp_style.css">
+                        <link rel="stylesheet" href="/media/css/mp_style.css">
                         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css">
-                        <link rel="shortcut icon" href="{{MEDIA_URL}}ico/favicon.ico">
+                        <link rel="shortcut icon" href="/media/ico/favicon.ico">
                         <style>
                             body {
                                 /*margin-top: 110px;*/
@@ -81,20 +81,22 @@
                                 <div class="navbar-inner">
                                 <div class="container">
                                     <div class="row-fluid">
-                                        <div class="span4">
-                                            <a href="/portal">
+                                        <div class="span8">
+                                            <a href="/planner">
+                                                <img style="height: 77px;" src="/media/crop/img/crop-logo-web-header.jpg"/>
+                                                <!-- <h1 id="project-name-header">Caribbean Regional Ocean Portal</h1> -->
                                                 {% if project_logo %}
-                                                <img style="height: 77px;" src="{{project_logo}}"/>
+                                                <!-- <img style="height: 77px;" src="{{project_logo}}"/> -->
                                                 {% else %}
                                                     {% if project_name %}
-                                                    <h1 id="project-name-header">{{project_name}}</h1>
+                                                    <!-- <h1 id="project-name-header">{{project_name}}</h1> -->
                                                     {% else %}
-                                                    <h1 id="project-name-header">Marine Planner</h1>
+                                                    <!-- <h1 id="project-name-header">Marine Planner</h1> -->
                                                     {% endif %}
                                                 {% endif %}
                                             </a>
                                         </div>
-                                        <div class="span8">
+                                        <div class="span4">
                                         </div>
                                         <!--/.nav-collapse -->
                                     </div>
@@ -162,14 +164,14 @@
                             </div>
                             <!-- end #container -->
                             <!-- scripts are now optimized via Modernizr.load -->
-                            <script src="{{MEDIA_URL}}assets/jquery/jquery.js"></script>  
-                            <script src="{{MEDIA_URL}}assets/jquery/jquery-ui.js"></script>
-                            <script src="{{MEDIA_URL}}assets/bootstrap/bootstrap-transition.js"></script>
-                            <script src="{{MEDIA_URL}}assets/bootstrap/bootstrap-typeahead.js"></script>   
-                            <script src="{{MEDIA_URL}}assets/bootstrap/bootstrap-tooltip.js"></script>
-                            <script src="{{MEDIA_URL}}assets/bootstrap/bootstrap-popover.js"></script>
-                            <script src="{{MEDIA_URL}}assets/bootstrap/bootstrap-modal.js"></script>
-                            <script src="{{MEDIA_URL}}assets/bootstrap/bootstrap-collapse.js"></script>  
+                            <script src="/media/assets/jquery/jquery.js"></script>  
+                            <script src="/media/assets/jquery/jquery-ui.js"></script>
+                            <script src="/media/assets/bootstrap/bootstrap-transition.js"></script>
+                            <script src="/media/assets/bootstrap/bootstrap-typeahead.js"></script>   
+                            <script src="/media/assets/bootstrap/bootstrap-tooltip.js"></script>
+                            <script src="/media/assets/bootstrap/bootstrap-popover.js"></script>
+                            <script src="/media/assets/bootstrap/bootstrap-modal.js"></script>
+                            <script src="/media/assets/bootstrap/bootstrap-collapse.js"></script>  
                             <script>
                             if (!Array.prototype.indexOf) {
 
