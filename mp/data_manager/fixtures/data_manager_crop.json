@@ -50,11 +50,14 @@
             391, 
             392, 
             393, 
+            394, 
+            395, 
+            396, 
+            367, 
+            353, 
             364, 
             365, 
-            368, 
-            367, 
-            353
+            368
         ], 
         "display_name": "Coastal Critical Infrastructure", 
         "name": "infrastructure", 
@@ -510,9 +513,9 @@
         "source": "", 
         "lookup_table": [], 
         "proj": "", 
-        "utfurl": "", 
-        "data_download": "", 
-        "metadata": "", 
+        "utfurl": "http://util.point97.io/tiles/crop/pr_inf_roadsTIGER_201408/${z}/${x}/${y}.grid.json", 
+        "data_download": "/media/crop/shapefiles/pr_inf_roadsTIGER_201408.zip", 
+        "metadata": "/media/crop/metadata/pr_inf_roadsTIGER_201408.html", 
         "opacity": 0.5, 
         "vector_color": "", 
         "attribute_event": "click", 
@@ -520,25 +523,28 @@
         "toc_themes": [
             28
         ], 
-        "attribute_fields": [], 
+        "attribute_fields": [
+            167, 
+            168
+        ], 
         "vector_fill": null, 
         "data_overview": "", 
         "slug_name": "pr-roads", 
         "summarize_to_grid": false, 
         "lookup_field": "", 
-        "legend": "/media/crop/legends/PRRoads.png", 
+        "legend": "/media/crop/legends/pr_inf_roadsTIGER_201408.png", 
         "shareable_url": true, 
         "data_source": "", 
         "data_notes": "", 
         "name": "PR Roads", 
         "sublayers": [], 
-        "url": "http://util.point97.io/tiles/crop/PRRoads/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/crop/pr_inf_roadsTIGER_201408/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
         "legend_title": "", 
         "attribute_title": "", 
-        "utfjsonp": false, 
+        "utfjsonp": true, 
         "wms_slug": ""
     }
 },
@@ -559,8 +565,8 @@
         "lookup_table": [], 
         "proj": "", 
         "utfurl": "", 
-        "data_download": "", 
-        "metadata": "", 
+        "data_download": "/media/crop/shapefiles/usvi_inf_commercialports_2008.zip", 
+        "metadata": "/media/crop/metadata/usvi_inf_commercialports.html", 
         "opacity": 0.5, 
         "vector_color": "#00B5FF", 
         "attribute_event": "click", 
@@ -568,7 +574,9 @@
         "toc_themes": [
             28
         ], 
-        "attribute_fields": [], 
+        "attribute_fields": [
+            175
+        ], 
         "vector_fill": 0.8, 
         "data_overview": "", 
         "slug_name": "usvi-commercial-ports", 
@@ -702,9 +710,9 @@
         "source": "", 
         "lookup_table": [], 
         "proj": "", 
-        "utfurl": "", 
-        "data_download": "", 
-        "metadata": "", 
+        "utfurl": "http://util.point97.io/tiles/crop/usvi_inf_roadsTIGER_201408/${z}/${x}/${y}.grid.json", 
+        "data_download": "/media/crop/shapefiles/usvi_inf_roadsTIGER_201408.zip", 
+        "metadata": "/media/crop/metadata/usvi_inf_roadsTIGER_201408.html", 
         "opacity": 0.5, 
         "vector_color": "", 
         "attribute_event": "click", 
@@ -712,25 +720,28 @@
         "toc_themes": [
             28
         ], 
-        "attribute_fields": [], 
+        "attribute_fields": [
+            167, 
+            168
+        ], 
         "vector_fill": null, 
         "data_overview": "", 
         "slug_name": "usvi-roads", 
         "summarize_to_grid": false, 
         "lookup_field": "", 
-        "legend": "/media/crop/legends/USVIRoads.png", 
+        "legend": "/media/crop/legends/usvi_inf_roadsTIGER_201408.png", 
         "shareable_url": true, 
         "data_source": "", 
         "data_notes": "", 
         "name": "USVI Roads", 
         "sublayers": [], 
-        "url": "http://util.point97.io/tiles/crop/USVIRoads/${z}/${x}/${y}.png", 
+        "url": "http://util.point97.io/tiles/crop/usvi_inf_roadsTIGER_201408/${z}/${x}/${y}.png", 
         "proxy_url": false, 
         "arcgis_layers": "", 
         "bookmark": "", 
         "legend_title": "", 
         "attribute_title": "", 
-        "utfjsonp": false, 
+        "utfjsonp": true, 
         "wms_slug": ""
     }
 },
@@ -1893,6 +1904,160 @@
     }
 },
 {
+    "pk": 394, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "Vector", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": null, 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": null, 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": null, 
+        "utfurl": "", 
+        "data_download": "/media/crop/shapefiles/pr_inf_sewagetreatment.zip", 
+        "metadata": "/media/crop/metadata/pr_inf_sewagetreatment.html", 
+        "opacity": 0.5, 
+        "vector_color": "#4FE30A", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            28
+        ], 
+        "attribute_fields": [
+            169, 
+            170, 
+            171
+        ], 
+        "vector_fill": 0.8, 
+        "data_overview": null, 
+        "slug_name": null, 
+        "summarize_to_grid": false, 
+        "lookup_field": null, 
+        "legend": "/media/crop/legends/pr_inf_sewagetreatment.png", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "PR Sewage Treatment Plants", 
+        "sublayers": [], 
+        "url": "/media/crop/geojson/pr_inf_sewagetreatment.json", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": null, 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": false, 
+        "wms_slug": ""
+    }
+},
+{
+    "pk": 395, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "Vector", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": null, 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": null, 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": null, 
+        "utfurl": "", 
+        "data_download": "/media/crop/shapefiles/prusvi_inf_airports.zip", 
+        "metadata": "/media/crop/metadata/prusvi_inf_airports.html", 
+        "opacity": 0.5, 
+        "vector_color": "#0C4198", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            28
+        ], 
+        "attribute_fields": [
+            172, 
+            173
+        ], 
+        "vector_fill": 0.8, 
+        "data_overview": null, 
+        "slug_name": null, 
+        "summarize_to_grid": false, 
+        "lookup_field": null, 
+        "legend": "/media/crop/legends/prusvi_inf_airports.png", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "PR USVI Airports", 
+        "sublayers": [], 
+        "url": "/media/crop/geojson/pr_inf_airports.json", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": null, 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": false, 
+        "wms_slug": ""
+    }
+},
+{
+    "pk": 396, 
+    "model": "data_manager.layer", 
+    "fields": {
+        "layer_type": "Vector", 
+        "themes": [], 
+        "is_sublayer": false, 
+        "compress_display": false, 
+        "map_tiles": null, 
+        "legend_subtitle": "", 
+        "filterable": false, 
+        "vector_graphic": "", 
+        "kml": null, 
+        "source": "", 
+        "lookup_table": [], 
+        "proj": null, 
+        "utfurl": "", 
+        "data_download": "/media/crop/shapefiles/usvi_inf_marinas.zip", 
+        "metadata": "/media/crop/metadata/usvi_inf_marinas.html", 
+        "opacity": 0.5, 
+        "vector_color": "#A5FD79", 
+        "attribute_event": "click", 
+        "description": "", 
+        "toc_themes": [
+            28
+        ], 
+        "attribute_fields": [
+            175, 
+            176
+        ], 
+        "vector_fill": 0.8, 
+        "data_overview": null, 
+        "slug_name": null, 
+        "summarize_to_grid": false, 
+        "lookup_field": null, 
+        "legend": "/media/crop/legends/usvi_inf_marinas.png", 
+        "shareable_url": true, 
+        "data_source": "", 
+        "data_notes": "", 
+        "name": "USVI Marinas", 
+        "sublayers": [], 
+        "url": "/media/crop/geojson/usvi_inf_marinas.json", 
+        "proxy_url": false, 
+        "arcgis_layers": "", 
+        "bookmark": null, 
+        "legend_title": "", 
+        "attribute_title": "", 
+        "utfjsonp": false, 
+        "wms_slug": ""
+    }
+},
+{
     "pk": 136, 
     "model": "data_manager.attributeinfo", 
     "fields": {
@@ -2200,6 +2365,106 @@
         "display_name": "Municipality", 
         "precision": null, 
         "order": 3
+    }
+},
+{
+    "pk": 167, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "FULLNAME", 
+        "display_name": "", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 168, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "MTFCC", 
+        "display_name": "Feature Class Code", 
+        "precision": null, 
+        "order": 2
+    }
+},
+{
+    "pk": 169, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "FNAME", 
+        "display_name": "", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 170, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "TNAME", 
+        "display_name": "Type", 
+        "precision": null, 
+        "order": 2
+    }
+},
+{
+    "pk": 171, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "MUNICIP", 
+        "display_name": "Municipality", 
+        "precision": null, 
+        "order": 3
+    }
+},
+{
+    "pk": 172, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "DESCRIP", 
+        "display_name": "", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 173, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "CITY", 
+        "display_name": "City", 
+        "precision": null, 
+        "order": 2
+    }
+},
+{
+    "pk": 174, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "NAME", 
+        "display_name": "", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 175, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "Name", 
+        "display_name": "", 
+        "precision": null, 
+        "order": 1
+    }
+},
+{
+    "pk": 176, 
+    "model": "data_manager.attributeinfo", 
+    "fields": {
+        "field_name": "Type", 
+        "display_name": "Type", 
+        "precision": null, 
+        "order": 2
     }
 }
 ]
