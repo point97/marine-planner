@@ -455,30 +455,18 @@ function scenarioFormModel(options) {
     
     self.updateLeaseblocksLeft = function() {
         //self.leaseblocksLeft(23);
-        var list = app.viewModel.scenarios.leaseblockList,
-            count = 0;
+        var list = app.viewModel.scenarios.leaseblockList;
+        var count = 0;
         
-        // note: refactor to 
-        /* for() {
-            if () { continue; }
-            if () { continue; }
-            ...
-            count++;
-        }*/
-        for ( var i=0; i<list.length; i++ ) {
-            var addOne = true;
-            if (self.filters['max_distance'] && list[i].avg_distance > self.filters['max_distance'] || 
-                self.filters['min_distance'] && list[i].avg_distance < self.filters['min_distance'] ) {
-                addOne = false;
+        for (var i = 0; i < list.length; i++) {
+            if (list[i].avg_distance >= self.filters['min_distance'] && 
+                list[i].avg_distance <= self.filters['max_distance']) {
+                count++; 
             } 
-            if (self.filters['bathy_avg_min'] && list[i].bathy_avg < self.filters['bathy_avg_min'] || 
-                self.filters['bathy_avg_max'] && list[i].bathy_avg > self.filters['bathy_avg_max'] ) {
-                addOne = false;
+            else if (list[i].bathy_avg >= self.filters['bathy_avg_min'] && 
+                     list[i].bathy_avg <= self.filters['bathy_avg_max']) {
+                count++;
             } 
-
-            if (addOne) {
-                count += 1;
-            }
         }     
         self.leaseblocksLeft(count);
     };
