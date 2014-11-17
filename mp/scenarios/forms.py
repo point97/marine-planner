@@ -1,3 +1,4 @@
+# coding: utf-8
 from madrona.features.forms import FeatureForm, SpatialFeatureForm
 from django import forms
 from django.forms import ModelMultipleChoiceField, CheckboxSelectMultiple
@@ -51,17 +52,6 @@ class ScenarioForm(FeatureForm):
     description = forms.CharField(
         widget=forms.Textarea(attrs={'cols': 30, 'rows': 3}), required=False)
     
-    # Depth Range (meters, avg: 350m - 0m)
-    # input_parameter_depth = forms.BooleanField(
-    #         widget=CheckboxInput(attrs={'class': 'parameters'}), required=False)
-    # input_min_depth = forms.FloatField(initial=10,
-    #         widget=forms.TextInput(attrs={'class': 'slidervalue'}))
-    # input_max_depth = forms.FloatField(initial=50,
-    #         widget=forms.TextInput(attrs={'class': 'slidervalue'}))
-    # input_depth = forms.FloatField(
-    #     widget=DualSliderWidget('input_min_depth','input_max_depth', min=0,
-    #                             max=300, step=1), required=False)
-    
     # Distance to Coastline (meters, avg: 17km - 300m)
     input_parameter_coast_distance = forms.BooleanField(
         widget=CheckboxInput(attrs={'class': 'parameters'}), required=False)
@@ -74,22 +64,30 @@ class ScenarioForm(FeatureForm):
                                 'input_max_coast_distance', min=0, max=18,
                                 step=1), required=False)
 
+    # Depth Range (meters, avg: 350m - 0m)
+    # Boolean field is the anchor, and used as the base name for rendering the
+    # form. 
+    # - Help_text on the boolean is included in the popup text "info" icon.
+    # - Label is used as the icon label 
     bathy_avg = forms.BooleanField(label="Average Depth",
-        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), 
+        required=False, help_text="Average bathymetric depth")
     bathy_avg_min = forms.FloatField(initial=10,
         widget=forms.TextInput(attrs={'class':'slidervalue'}))
     bathy_avg_max = forms.FloatField(initial=50,
         widget=TextInputWithUnit(attrs={'class':'slidervalue'}, unit='meters'))
     bathy_avg_input = forms.FloatField(widget=DualSliderWidget('bathy_avg_min', 
-                                       'bathy_avg_max', min=1, max=100, step=1))
+                                       'bathy_avg_max', min=1, max=300, step=1))
 
-    wind_avg = forms.BooleanField(widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    wind_avg_min = forms.FloatField(initial=20,
+    # Wind range 72 - 400 W/m^2
+    wind_avg = forms.BooleanField(help_text="Potential wind energy generation, in watts per square meter", 
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
+    wind_avg_min = forms.FloatField(initial=100,
         widget=forms.TextInput(attrs={'class':'slidervalue'}))
-    wind_avg_max = forms.FloatField(initial=40,
-        widget=TextInputWithUnit(unit='meters', attrs={'class':'slidervalue'}))
+    wind_avg_max = forms.FloatField(initial=200,
+        widget=TextInputWithUnit(unit='W/m²', attrs={'class':'slidervalue'}))
     wind_avg_input = forms.FloatField(widget=DualSliderWidget('wind_avg_min', 
-                                     'wind_avg_max', min=1, max=100, step=1))
+                                     'wind_avg_max', min=72, max=400, step=1))
 
     subs_avgd = forms.BooleanField(
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)

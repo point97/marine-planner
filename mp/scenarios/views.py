@@ -237,7 +237,7 @@ def get_leaseblocks(request):
             'id': ocs_block.id,
             'avg_distance': ocs_block.coast_avg,
             'substation_min_distance': ocs_block.subs_mind,
-            'avg_depth': -ocs_block.bathy_avg,
+            'bathy_avg': -ocs_block.bathy_avg,
             'min_wind_speed': ocs_block.wind_min,
         })
     return HttpResponse(dumps(json))

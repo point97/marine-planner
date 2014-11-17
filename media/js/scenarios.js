@@ -427,12 +427,12 @@ function scenarioFormModel(options) {
     };
     
     self.updateFiltersAndLeaseBlocks = function() {
-        if ( self.depthRangeParameter() ) {
-            self.updateFilters({'key': 'min_depth', 'value': $('#id_input_min_depth')[0].value});
-            self.updateFilters({'key': 'max_depth', 'value': $('#id_input_max_depth')[0].value});
+        if ( self.bathy_avg() ) {            
+            self.updateFilters({'key': 'bathy_avg_min', 'value': $('#id_bathy_avg_min')[0].value});
+            self.updateFilters({'key': 'bathy_avg_max', 'value': $('#id_bathy_avg_max')[0].value});
         } else {
-            self.removeFilter('min_depth');
-            self.removeFilter('max_depth');
+            self.removeFilter('bathy_avg_min');
+            self.removeFilter('bathy_avg_max');
         }
         if ( self.coastDistanceParameter() ) {
             /* The form shows distances in kilometers. 
@@ -471,8 +471,8 @@ function scenarioFormModel(options) {
                 self.filters['min_distance'] && list[i].avg_distance < self.filters['min_distance'] ) {
                 addOne = false;
             } 
-            if (self.filters['max_depth'] && list[i].avg_depth > self.filters['max_depth'] || 
-                self.filters['min_depth'] && list[i].avg_depth < self.filters['min_depth'] ) {
+            if (self.filters['bathy_avg_min'] && list[i].bathy_avg < self.filters['bathy_avg_min'] || 
+                self.filters['bathy_avg_max'] && list[i].bathy_avg > self.filters['bathy_avg_max'] ) {
                 addOne = false;
             } 
 
@@ -530,18 +530,18 @@ function scenarioFormModel(options) {
                     })
                 );
             }
-            if ( self.depthRangeParameter() ) {
+            if ( self.bathy_avg() ) {
                 filter.filters.push(
                     new OpenLayers.Filter.Comparison({ // if DEPTHM_MAX >= self.filters['min_distance']
                         type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO,
                         // property: "DEPTH_MEAN",
                         property: "Bathy_Avg", 
-                        value: (-self.filters['min_depth'])
+                        value: (-self.filters['bathy_avg_min'])
                     }),
                     new OpenLayers.Filter.Comparison({ // if DEPTHM_MIN <= self.filters['max_distance']
                         type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO,
                         property: "Bathy_Avg", 
-                        value: (-self.filters['max_depth'])
+                        value: (-self.filters['bathy_avg_max'])
                     })
                 );
             }
