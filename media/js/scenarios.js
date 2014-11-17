@@ -154,6 +154,19 @@ function scenarioFormModel(options) {
     self.vi_apc_max = ko.observable(0);
 
 
+    self.filterParameters = {
+        'wind_avg': ['wind_avg', 'wind_avg_min', 'wind_avg_max'],
+        'subs_avgd': ['subs_avgd', 'subs_avgd_min', 'subs_avgd_max'],
+        'bathy_avg': ['bathy_avg', 'bathy_avg_min', 'bathy_avg_max'],
+        'coast_avg': ['coast_avg', 'coast_avg_min', 'coast_avg_max'],
+        'mangrove_percent': ['mangrove_percent', 'mangrove_min', 'mangrove_max'],
+        'coral_percent': ['coral_percent', 'coral_min', 'coral_max'],
+        'subveg_percent': ['subveg_percent', 'subveg_min', 'subveg_max'],
+        'protarea_percent': ['protarea_percent', 'protarea_min', 'protarea_max'],
+        'pr_apc_percent': ['pr_apc_percent', 'pr_apc_min', 'pr_apc_max'],
+        'pr_ape_percent': ['pr_ape_percent', 'pr_ape_min', 'pr_ape_max'],
+        'vi_apc_percent': ['vi_apc_percent', 'vi_apc_min', 'vi_apc_max']
+    }
 
     
     self.windSpeedParameter = ko.observable(false);
@@ -173,7 +186,6 @@ function scenarioFormModel(options) {
             self.hideLeaseblockLayer();
         }
     });
-    //self.isLeaseblockButtonActivated = ko.observable(false);
         
     self.activateLeaseblockLayer = function() {
         self.isLeaseblockLayerVisible(true);
@@ -457,17 +469,21 @@ function scenarioFormModel(options) {
         //self.leaseblocksLeft(23);
         var list = app.viewModel.scenarios.leaseblockList;
         var count = 0;
-        
+                
         for (var i = 0; i < list.length; i++) {
-            if (list[i].avg_distance >= self.filters['min_distance'] && 
-                list[i].avg_distance <= self.filters['max_distance']) {
-                count++; 
-            } 
-            else if (list[i].bathy_avg >= self.filters['bathy_avg_min'] && 
-                     list[i].bathy_avg <= self.filters['bathy_avg_max']) {
-                count++;
-            } 
-        }     
+            for (var param in self.filterParameters) {
+                var f = self.filterParameters[param][0];    // filter name
+                var a = self.filterParameters[param][1];    // min value
+                var b = self.filterParameters[param][2];    // max value
+
+                if (list[i][f] >= self.filters[a] && 
+                    list[i][f] <= self.filters[b]) {
+                    count++; 
+                    break;
+                }
+            }
+        }
+            
         self.leaseblocksLeft(count);
     };
     
