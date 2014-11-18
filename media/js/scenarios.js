@@ -153,12 +153,6 @@ function scenarioFormModel(options) {
     self.vi_apc_p_min = ko.observable(0);
     self.vi_apc_p_max = ko.observable(0);
 
-
-    // self.windSpeedParameter = ko.observable(false);
-    // self.coastDistanceParameter = ko.observable(false);
-    // self.depthRangeParameter = ko.observable(false);
-    // self.distanceToSubstationParameter = ko.observable(false);
-        
     var initial_leaseblocks_left = app.viewModel.scenarios.leaseblockList.length || 3426;
     self.leaseblocksLeft = ko.observable(initial_leaseblocks_left);
     self.showLeaseblockSpinner = ko.observable(false);
@@ -219,197 +213,6 @@ function scenarioFormModel(options) {
         }
     }
     
-    // self.toggleWindSpeedWidget = function() {
-    //     if ( self.windSpeedParameter() ) {
-    //         self.windSpeedParameter(false);
-    //         $('#id_input_parameter_wind_speed').removeAttr('checked');
-    //         $('#wind_speed_widget').css('display', 'none');
-    //     } else {
-    //         var value = $('#id_input_avg_wind_speed')[0].value;
-    //         $('#id_input_parameter_wind_speed').attr('checked', 'checked');
-    //         self.windSpeedParameter(true);
-    //         self.change_wind_message(value);
-    //         $('#wind_speed_widget').css('display', 'block');
-    //     }
-    //     //update scrollbar
-    //     self.updateDesignScrollBar();
-    //     //Update Remaining Leaseblocks
-    //     self.updateFiltersAndLeaseBlocks();
-    //     self.updateRemainingBlocks();
-    // };
-    
-    // self.toggleCoastDistanceWidget = function() {
-    //     if ( self.coastDistanceParameter() ) {
-    //         self.coastDistanceParameter(false);
-    //         $('#id_input_parameter_coast_distance_parameter').removeAttr('checked');
-    //         $('#coast_distance_widget').css('display', 'none');
-    //     } else {
-    //         var minValue = $('#id_input_min_coast_distance')[0].value,
-    //             maxValue = $('#id_input_max_coast_distance')[0].value;
-    //         $('#id_input_parameter_coast_distance_parameter').attr('checked', 'checked');
-    //         self.coastDistanceParameter(true);
-    //         $('#coast_distance_widget').css('display', 'block');
-    //     }
-    //     //update scrollbar
-    //     self.updateDesignScrollBar();
-    //     //Update Remaining Leaseblocks
-    //     self.updateFiltersAndLeaseBlocks();
-    //     self.updateRemainingBlocks();
-    // };
-    
-    // self.toggleDepthWidget = function() {
-    //     if ( self.depthRangeParameter() ) {
-    //         self.depthRangeParameter(false);
-    //         $('#id_input_parameter_depth').removeAttr('checked');
-    //         $('#depth_widget').css('display', 'none');
-    //     } else {
-    //         var minValue = $('#id_input_min_depth')[0].value,
-    //             maxValue = $('#id_input_max_depth')[0].value;
-    //         $('#id_input_parameter_depth').attr('checked', 'checked');
-    //         self.depthRangeParameter(true);
-    //         $('#depth_widget').css('display', 'block');
-    //     }
-    //     //update scrollbar
-    //     self.updateDesignScrollBar();
-    //     //Update Remaining Leaseblocks
-    //     self.updateFiltersAndLeaseBlocks();
-    //     self.updateRemainingBlocks();
-    // };
-    
-    // self.toggleSubstationWidget = function() {
-    //     if ( self.distanceToSubstationParameter() ) {
-    //         $('#id_input_parameter_distance_to_substation').removeAttr('checked');
-    //         self.distanceToSubstationParameter(false);
-    //         $('#distance_to_substation_widget').css('display', 'none');
-    //     } else {
-    //         var value = $('#id_input_distance_to_substation')[0].value;
-    //         $('#id_input_parameter_distance_to_substation').attr('checked', 'checked');
-    //         self.distanceToSubstationParameter(true);
-    //         $('#distance_to_substation_widget').css('display', 'block');
-    //     }
-    //     //update scrollbar
-    //     self.updateDesignScrollBar();
-    //     //Update Remaining Leaseblocks
-    //     self.updateFiltersAndLeaseBlocks();
-    //     self.updateRemainingBlocks();
-    // };
-    
-    // self.toggleAWCWidget = function() {
-    //     if ( self.distanceToAWCParameter() ) {
-    //         $('#id_input_parameter_distance_to_awc').removeAttr('checked');
-    //         self.distanceToAWCParameter(false);
-    //         $('#distance_to_awc_widget').css('display', 'none');
-    //     } else {
-    //         var value = $('#id_input_distance_to_awc')[0].value;
-    //         $('#id_input_parameter_distance_to_awc').attr('checked', 'checked');
-    //         self.distanceToAWCParameter(true);
-    //         $('#distance_to_awc_widget').css('display', 'block');
-    //     }
-    //     //update scrollbar
-    //     self.updateDesignScrollBar();
-    //     //Update Remaining Leaseblocks
-    //     self.updateFiltersAndLeaseBlocks();
-    //     self.updateRemainingBlocks();
-    // };
-    
-    // self.toggleShippingLanesWidget = function() {
-    //     if ( self.distanceToShippingParameter() ) {
-    //         $('#id_input_filter_distance_to_shipping').removeAttr('checked');
-    //         self.distanceToShippingParameter(false);
-    //         $('#distance_to_shipping_widget').css('display', 'none');
-    //     } else {
-    //         var value = $('#id_input_distance_to_shipping')[0].value;
-    //         $('#id_input_filter_distance_to_shipping').attr('checked', 'checked');
-    //         self.distanceToShippingParameter(true);
-    //         $('#distance_to_shipping_widget').css('display', 'block');
-    //     }
-    //     //update scrollbar
-    //     self.updateDesignScrollBar();
-    //     //Update Remaining Leaseblocks
-    //     self.updateFiltersAndLeaseBlocks();
-    //     self.updateRemainingBlocks();
-    // };
-    
-    // self.toggleShipTrafficWidget = function() {
-    //     if ( self.shipTrafficDensityParameter() ) {
-    //         self.shipTrafficDensityParameter(false);
-    //         $('#id_input_filter_ais_density').removeAttr('checked');
-    //     } else {
-    //         var value = 1;
-    //         self.shipTrafficDensityParameter(true);
-    //         $('#id_input_filter_ais_density').attr('checked', 'checked');
-    //     }
-    //     //update scrollbar
-    //     self.updateDesignScrollBar();
-    //     //Update Remaining Leaseblocks
-    //     self.updateFiltersAndLeaseBlocks();
-    //     self.updateRemainingBlocks();
-    // };
-    
-    // self.toggleUXOWidget = function() {
-    //     if ( self.uxoParameter() ) {
-    //         self.uxoParameter(false);
-    //         $('#id_input_filter_uxo').removeAttr('checked');
-    //     } else {
-    //         self.uxoParameter(true);
-    //         $('#id_input_filter_uxo').attr('checked', 'checked');
-    //     }
-    //     //update scrollbar
-    //     self.updateDesignScrollBar();
-    //     //Update Remaining Leaseblocks
-    //     self.updateFiltersAndLeaseBlocks();
-    //     self.updateRemainingBlocks();
-    // };
-    
-    // self.change_wind_message = function(value) {
-    //     var $text = $('#wind_speed_text'),
-    //         $label = $text.closest('.label');
-    //         $label.css('color', 'black');
-    //     if (value < 7.0) {
-    //         $text.html('Fair');
-    //         $label.css('background', "#377EB8");
-    //     } else if (value < 7.25) {
-    //         $text.html('Good');
-    //         $label.css('background', "#377EB8");
-    //     } else if (value < 7.5) {
-    //         $text.html('Good');
-    //         $label.css('background', "#377EB8");
-    //     } else if (value < 7.75) {
-    //         $text.html('Excellent');
-    //         $label.css('background', "#40B3A7");
-    //     } else if (value < 8.0) {
-    //         $text.html('Excellent');
-    //         $label.css('background', "#45B06C");
-    //     } else if (value < 8.25) {
-    //         $text.html('Outstanding');
-    //         $label.css('background', "#84D439");
-    //     } else if (value < 8.5) {
-    //         $text.html('Outstanding');
-    //         $label.css('background', "#CCED26");
-    //     } else if (value < 8.75) {
-    //         $text.html('Outstanding');
-    //         $label.css('background', "#FFFF12");
-    //     } else if (value < 9.0) {
-    //         $text.html('Superb');
-    //         $label.css('background', "#FFE712");
-    //     } else if (value < 9.25) {
-    //         $text.html('Superb');
-    //         $label.css('background', "#FCA326");
-    //     } else if (value < 9.5) {
-    //         $text.html('Superb');
-    //         $label.css('background', "#F07224");
-    //     } else {
-    //         $text.html('Superb');
-    //         $label.css('background', "#E35539");
-    //     }
-    //     //Poor       < 12.5      (< 5.6)     ffff00
-    //     //Fair       14.3-15.7   (6.4-7.0)   ff0000
-    //     //Good       15.7-16.8   (7.0-7.5)   ff0077
-    //     //Excellent  16.8-17.9   (7.5-8.0)   ff00ff
-    //     //Oustanding 17.9-19.7   (8.0-8.8)   7700ff
-    //     //Superb     > 19.7      (> 8.8)     0000ff
-    // }
-    
     self.filters = {};
     
     /** Add a filter. 
@@ -435,15 +238,10 @@ function scenarioFormModel(options) {
 
     self.removeFilter = function(key) {
         delete self.filters[key];
-        //if ( $.isEmptyObject(self.filters) ) {
-        //    self.isLeaseblockButtonActivated(false);
-        //}
     };
     
     self.updateFiltersAndLeaseBlocks = function() {
         if ( self.bathy_avg() ) {            
-            // self.updateFilters({'key': 'bathy_avg_min', 'value': $('#id_bathy_avg_min')[0].value});
-            // self.updateFilters({'key': 'bathy_avg_max', 'value': $('#id_bathy_avg_max')[0].value});
             self.updateFilters('bathy_avg', parseInt($('#id_bathy_avg_min')[0].value),
                                parseInt($('#id_bathy_avg_max')[0].value));
         } else {
@@ -509,9 +307,7 @@ function scenarioFormModel(options) {
     
     self.showRemainingBlocks = function() {
         if ( self.isLeaseblockLayerVisible() ) {
-            //console.log('showing remaining blocks');
             self.showLeaseblockSpinner(true);
-            //var blockLayer = app.map.getLayersByName('OCS Test')[0];
             if ( ! app.viewModel.scenarios.leaseblockLayer()) {
                 app.viewModel.scenarios.loadLeaseblockLayer();
             } 
@@ -536,67 +332,6 @@ function scenarioFormModel(options) {
                 }
             }
             
-            // if ( self.windSpeedParameter() ) {
-            //     filter.filters.push(
-            //         new OpenLayers.Filter.Comparison({ // if WINDREV_MI >= self.filters['wind']
-            //             type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO,
-            //             property: "WINDREV_MI",
-            //             value: self.filters['wind']
-            //         })
-            //     );
-            // }
-            // if ( self.coastDistanceParameter() ) {
-            //     filter.filters.push(
-            //         new OpenLayers.Filter.Comparison({
-            //             type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO,
-            //             property: "Coast_Avg",
-            //             value: self.filters['min_distance']
-            //         }),
-            //         new OpenLayers.Filter.Comparison({
-            //             type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO,
-            //             property: "Coast_Avg",
-            //             value: self.filters['max_distance']
-            //         })
-            //     );
-            // }
-            // if ( self.bathy_avg() ) {
-            //     filter.filters.push(
-            //         new OpenLayers.Filter.Comparison({ // if DEPTHM_MAX >= self.filters['min_distance']
-            //             type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO,
-            //             // property: "DEPTH_MEAN",
-            //             property: "Bathy_Avg",
-            //             value: (-self.filters['bathy_avg_min'])
-            //         }),
-            //         new OpenLayers.Filter.Comparison({ // if DEPTHM_MIN <= self.filters['max_distance']
-            //             type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO,
-            //             property: "Bathy_Avg",
-            //             value: (-self.filters['bathy_avg_max'])
-            //         })
-            //     );
-            // }
-            // if ( self.distanceToSubstationParameter() ) {
-            //     filter.filters.push(
-            //         new OpenLayers.Filter.Comparison({ // if SUBSTAMIN <= self.filters['substation']
-            //             type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO,
-            //             property: "SUBSTAMIN",
-            //             value: self.filters['substation']
-            //         }),
-            //         new OpenLayers.Filter.Comparison({ // if SUBSTAMIN <= self.filters['substation']
-            //             type: OpenLayers.Filter.Comparison.NOT_EQUAL_TO,
-            //             property: "SUBSTAMIN",
-            //             value: 0
-            //         })
-            //     );
-            // }
-            // if ( self.uxoParameter() ) {
-            //     filter.filters.push(
-            //         new OpenLayers.Filter.Comparison({ // if UXO == 0
-            //             type: OpenLayers.Filter.Comparison.EQUAL_TO,
-            //             property: "UXO",
-            //             value: 0
-            //         })
-            //     );
-            // }
             blockLayer.styleMap.styles['default'].rules[0] = new OpenLayers.Rule({
                 filter: filter, 
                 symbolizer: { strokeColor: '#fff' } 
@@ -605,7 +340,6 @@ function scenarioFormModel(options) {
             
             self.showLeaseblockLayer(blockLayer);
         }
-        
     };
     
     self.showLeaseblockLayer = function(layer) {
@@ -638,79 +372,6 @@ function scenarioFormModel(options) {
         }
     };
     
-    // self.windSpeedLayer = app.viewModel.getLayerById(7);
-    // self.toggleWindSpeedLayer = function(formModel, event) {
-    //     if ( self.windSpeedLayer.active() ) {
-    //         self.windSpeedLayer.deactivateLayer();
-    //     } else {
-    //         self.windSpeedLayer.activateLayer();
-    //     }
-    //     return true;
-    // };
-    // self.toggleWindSpeedDescription = function(formModel) {
-    //     if ( self.windSpeedLayer.infoActive() ) {
-    //         self.windSpeedLayer.hideDescription(self.windSpeedLayer);
-    //     } else {
-    //         self.windSpeedLayer.showDescription(self.windSpeedLayer);
-    //     }
-    //     return true;
-    // };
-    //
-    // self.awcLayer = app.viewModel.getLayerById(65);
-    // self.toggleAWCLayer = function(formModel, event) {
-    //     if ( self.awcLayer.active() ) {
-    //         self.awcLayer.deactivateLayer();
-    //     } else {
-    //         self.awcLayer.activateLayer();
-    //     }
-    //     return true;
-    // };
-    // self.toggleAWCDescription = function(formModel) {
-    //     if ( self.awcLayer.infoActive() ) {
-    //         self.awcLayer.hideDescription(self.awcLayer);
-    //     } else {
-    //         self.awcLayer.showDescription(self.awcLayer);
-    //     }
-    //     return true;
-    // };
-    
-    // self.depthZonesLayer = app.viewModel.getLayerById(96);
-    // self.toggleDepthZonesLayer = function(formModel, event) {
-    //     if ( self.depthZonesLayer.active() ) {
-    //         self.depthZonesLayer.deactivateLayer();
-    //     } else {
-    //         self.depthZonesLayer.activateLayer();
-    //     }
-    //     return true;
-    // };
-    // self.toggleDepthZonesDescription = function(formModel) {
-    //     if ( self.depthZonesLayer.infoActive() ) {
-    //         self.depthZonesLayer.hideDescription(self.depthZonesLayer);
-    //     } else {
-    //         self.depthZonesLayer.showDescription(self.depthZonesLayer);
-    //     }
-    //     return true;
-    // };
-    
-    // self.shippingLanesLayer = app.viewModel.getLayerById(64); // original shipping lanes layer (geojson)
-    // //self.shippingLanesLayer = app.viewModel.getLayerById(103); // mmc (wms) shipping lanes layer
-    // self.toggleShippingLanesLayer = function(formModel, event) {
-    //     if ( self.shippingLanesLayer.active() ) {
-    //         self.shippingLanesLayer.deactivateLayer();
-    //     } else {
-    //         self.shippingLanesLayer.activateLayer();
-    //     }
-    //     return true;
-    // };
-    // self.toggleShippingLanesDescription = function(formModel) {
-    //     if ( self.shippingLanesLayer.infoActive() ) {
-    //         self.shippingLanesLayer.hideDescription(self.shippingLanesLayer);
-    //     } else {
-    //         self.shippingLanesLayer.showDescription(self.shippingLanesLayer);
-    //     }
-    //     return true;
-    // };
-    //
     return self;
 } // end scenarioFormModel
 
