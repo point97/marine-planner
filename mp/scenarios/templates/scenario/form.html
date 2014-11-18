@@ -4,7 +4,10 @@
 {% load flatblock_tags %}
 
 <script type="text/javascript" charset="utf-8">
-
+function updateRemaininLeaseBlocks() {
+    app.viewModel.scenarios.scenarioFormModel.updateLeaseblocksLeft();
+    app.viewModel.scenarios.scenarioFormModel.updateRemainingBlocks();
+}
 madrona.onShow(function(){
     madrona.setupForm($('#wind-design-form'));
     
@@ -102,11 +105,6 @@ madrona.onShow(function(){
         }
     }
     
-    function updateRemaininLeaseBlocks() {
-        app.viewModel.scenarios.scenarioFormModel.updateLeaseblocksLeft();
-        app.viewModel.scenarios.scenarioFormModel.updateRemainingBlocks();
-    }
-          
     // DISTANCE TO SHORE UPDATED
     //Update Remaining Leaseblocks 
     $('#slider-input_coast_distance').bind( "slide slidechange", function(event, ui) {
@@ -117,18 +115,7 @@ madrona.onShow(function(){
             updateRemaininLeaseBlocks();
         }
     });  
-    
-    // DEPTH RANGE UPDATED
-    //Update Remaining Leaseblocks 
-    $('#slider-input_depth').bind( "slide slidechange", function(event, ui) {
-        if (app.viewModel.scenarios.scenarioFormModel) { //this condition prevents error thrown at form creation time
-            app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'min_depth', 'value': ui.values[0]});
-            app.viewModel.scenarios.scenarioFormModel.updateFilters({'key': 'max_depth', 'value': ui.values[1]});
-            //Update Remaining Leaseblocks 
-            updateRemaininLeaseBlocks();
-        }
-    });
-        
+
     $('#button_prev').click( function() { wizard('prev'); });
     $('#button_next').click( function() { wizard('next'); });
     wizard();
@@ -234,7 +221,6 @@ madrona.onShow(function(){
 
 {% if form.media %} {{ form.media }} {% endif %}
 <h4>Wind Energy Siting</h4>
-
 <form id="wind-design-form" action="{{action}}" method="post" name="wind-design-form">
     {% for hidden in form.hidden_fields %}
         <div style="display:none;">
@@ -242,14 +228,19 @@ madrona.onShow(function(){
         </div>{{ hidden }} 
     {% endfor %}
     <div id="error_bar"></div>
-    <div id="step1" class="step">
-    <div id="step1_inputs">
-        <p class="step-text"><i>Step 1 of 3 </i></p>
+        
+    {% for step in form.get_steps %}
+    <div id="step{{ forloop.counter }}" class="step">
+        <p class="step-text"><i>Step {{ forloop.counter }} of 3 </i></p>
         <p class="instructions">Select 1 or more criteria for this sector </p>
+        {% if forloop.counter == 1 %}
         <label class="step-header">Wind Energy</label>
-        <div id="step1_inputs">
+        {% elif forloop.counter == 2 %}
+        <label class="step-header">Step Two</label>
+        {% endif %}
+        <div id="step{{ forloop.counter }}_inputs">
             <ul class="parameters">
-                {% for field, field_min, field_max, field_input in form.get_step_1_fields %}
+                {% for field, field_min, field_max, field_input in step %}
                 <li>
                     <div class="accordion" id="{{ field.html_name }}_accordion">
                         <div class="accordion-heading" data-bind="click: parameterToggler('{{ field.html_name }}')">
@@ -259,7 +250,7 @@ madrona.onShow(function(){
                                 <i class="check icon-large icon-check-empty"></i>
                                 <span class="parameter-label" style="margin-left: 5px">{{ field.label }}</span> 
                                 <i class="info-icon icon-info-sign" rel="popover" 
-                                   data-content="{{ field.html_name }} data-content-here"
+                                   data-content="{{ field.help_text }}"
                                    data-placement="right"
                                    data-container="body">
                                 </i>
@@ -268,13 +259,22 @@ madrona.onShow(function(){
                         <div id="{{ field.html_name }}_widget" class="inputfield accordion-body collapse" data-bind="css: {'in': {{ field.html_name }}()}">
                             <div class="accordion-inner">
                                 <div>
-                                Param Description (units)
+                                {{ field.help_text }}
                                 {{ field_min.as_widget }}<br>
                                 to<br>
 
                                 {{ field_max.as_widget }} {{ field_max.field.widget.unit }}<br>
                                 {{ field_input.as_widget }}<br>
-                                {{ field.errors }}<br>
+                                {{ field.errors }}
+                                <script type="text/javascript">
+                                $('#slider-{{ field_input.html_name }}').bind( "slide slidechange", function(event, ui) {
+                                    if (app.viewModel.scenarios.scenarioFormModel) {
+                                        app.viewModel.scenarios.scenarioFormModel.updateFilters('{{ field.html_name }}', ui.values[0], ui.values[1]);
+                                        updateRemaininLeaseBlocks();
+                                    }
+                                });  
+                                </script>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -283,47 +283,33 @@ madrona.onShow(function(){
             </ul>
         </div>
     </div>
+    {% endfor %}
+    
     <p></p>
-    <div id="step2" class="step">
-        <p class="step-text"><i>Step 2 of 3 </i></p>
-        <p class="instructions">Choose any filtering criteria from other sectors </p>
-        <label class="step-header">Wind Energy</label>
-        <div id="step2_inputs">
-            <ul class="parameters">
-            <li></li>
-        </ul>
-        </div>
-
-        <p></p>
-        <label class="step-header">Security</label>
-        <div id="step2_inputs">
-    </div>
-    <p></p>
-  </div>
-
-<div id="step3" class="step">
-    <p class="step-text"><i>Step 3 of 3 </i>
-    <p class="instructions">Provide a <b>Name</b> to identify your Wind Energy Siting </p>
-    <div class="step3-inputs">
-        <div class="step3-param">
-            {{ form.name.errors }}
-            {{ form.name }} 
-            <div id="invalid-name-message" class="control-group error" style="display: none; margin-top: -10px; margin-left: -5px;">
-                <span class="help-inline">The <b>Name</b> field is required.</span>
-            </div>           
-        </div>
-        <p class="instructions">Optionally, you may add a <b>Description</b> <!--and/or attach a file--> </p>
-        <div class="step3-param">
-            {{ form.description.errors }}
-            {{ form.description }}            
-        </div>
-        <div id="scenario-cp">
-            <!--<input type="color" value="#ff0667" data-text="hidden" style="height:20px;width:20px;" />-->
+    
+    <div id="step3" class="step">
+        <p class="step-text"><i>Step 3 of 3 </i>
+        <p class="instructions">Provide a <b>Name</b> to identify your Wind Energy Siting </p>
+        <div class="step3-inputs">
+            <div class="step3-param">
+                {{ form.name.errors }}
+                {{ form.name }} 
+                <div id="invalid-name-message" class="control-group error" style="display: none; margin-top: -10px; margin-left: -5px;">
+                    <span class="help-inline">The <b>Name</b> field is required.</span>
+                </div>           
+            </div>
+            <p class="instructions">Optionally, you may add a <b>Description</b> <!--and/or attach a file--> </p>
+            <div class="step3-param">
+                {{ form.description.errors }}
+                {{ form.description }}            
+            </div>
+            <div id="scenario-cp">
+                <!--<input type="color" value="#ff0667" data-text="hidden" style="height:20px;width:20px;" />-->
+            </div>
         </div>
     </div>
-</div>
 
-<p><button type="submit" value="submit" class="btn-submit btn">submit</button></p>
+    <p><button type="submit" value="submit" class="btn-submit btn">submit</button></p>
 </form>
 
 <div class="show-blocks-btn" data-bind="visible: app.viewModel.modernBrowser()">
