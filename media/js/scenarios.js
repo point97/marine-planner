@@ -113,9 +113,9 @@ function scenarioFormModel(options) {
     self.wind_avg_min = ko.observable(0);
     self.wind_avg_max = ko.observable(0);
     
-    self.subs_avgd = ko.observable(false);
-    self.subs_avgd_min = ko.observable(0);
-    self.subs_avgd_max = ko.observable(0);
+    self.subs_mind = ko.observable(false);
+    self.subs_mind_min = ko.observable(0);
+    self.subs_mind_max = ko.observable(0);
     
     self.bathy_avg = ko.observable(false);
     self.bathy_avg_min = ko.observable(0);
