@@ -235,10 +235,10 @@ def get_leaseblocks(request):
     for ocs_block in LeaseBlock.objects.all():
         json.append({
             'id': ocs_block.id,
-            'avg_distance': ocs_block.coast_avg,
-            'substation_min_distance': ocs_block.subs_mind,
-            'bathy_avg': -ocs_block.bathy_avg,
-            'min_wind_speed': ocs_block.wind_min,
+            'coast_avg': ocs_block.coast_avg,
+            'subs_mind': ocs_block.subs_mind,
+            'bathy_avg': ocs_block.bathy_avg,
+            'wind_avg': ocs_block.wind_avg,
         })
     return HttpResponse(dumps(json))
 
