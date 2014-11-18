@@ -214,6 +214,10 @@ function scenarioFormModel(options) {
     }
     
     self.filters = {};
+    self.masterFilter = new OpenLayers.Filter.Logical({
+        type: OpenLayers.Filter.Logical.AND,
+        filters: []
+    });
     
     /** Add a filter. 
     Filters are value name (e.g., bathy_avg), the min value (e.g., 30), and 
@@ -233,7 +237,21 @@ function scenarioFormModel(options) {
         if (typeof param_name != 'string') {
             debugger;
         }
-        self.filters[param_name] = [min, max];
+        
+        var filter = new OpenLayers.Filter.Comparison({
+            type: OpenLayers.Filter.Comparison.BETWEEN,
+            property: param_name,
+            lowerBoundary: min,
+            upperBoundary: max,
+        });
+
+        self.filters[param_name] = filter;
+
+        self.masterFilter.filters = [];
+
+        for (var p in self.filters) {
+            self.masterFilter.filters.push(self.filters[p]);
+        }
     }
 
     self.removeFilter = function(key) {
@@ -241,12 +259,12 @@ function scenarioFormModel(options) {
     };
     
     self.updateFiltersAndLeaseBlocks = function() {
-        if ( self.bathy_avg() ) {            
-            self.updateFilters('bathy_avg', parseInt($('#id_bathy_avg_min')[0].value),
-                               parseInt($('#id_bathy_avg_max')[0].value));
-        } else {
-            self.removeFilter('bathy_avg');
-        }
+        // if ( self.bathy_avg() ) {
+        //     self.updateFilters('bathy_avg', parseInt($('#id_bathy_avg_min')[0].value),
+        //                        parseInt($('#id_bathy_avg_max')[0].value));
+        // } else {
+        //     self.removeFilter('bathy_avg');
+        // }
         // if ( self.coastDistanceParameter() ) {
         //     /* The form shows distances in kilometers.
         //        The data is in meters. x1000 to align units */
@@ -271,22 +289,8 @@ function scenarioFormModel(options) {
         var list = app.viewModel.scenarios.leaseblockList;
         var count = 0;
             
-        var add;
         for (var i = 0; i < list.length; i++) {
-            add = true; 
-            for (var param in self.filters) {
-                var a = self.filters[param][0];    // min value
-                var b = self.filters[param][1];    // max value
-
-                // if (!self[param]()) {
-                //     continue;
-                // }
-                if (list[i][param] < a || list[i][param] > b) {
-                    add = false;
-                    break;
-                }
-            }
-            if (add) {
+            if (self.masterFilter.evaluate(list[i])) {
                 count++; 
             }
         }
@@ -312,31 +316,11 @@ function scenarioFormModel(options) {
                 app.viewModel.scenarios.loadLeaseblockLayer();
             } 
             var blockLayer = app.viewModel.scenarios.leaseblockLayer();
-            var filter = new OpenLayers.Filter.Logical({
-                type: OpenLayers.Filter.Logical.AND,
-                filters: []
-            });
-            
-            for (var param in self.filters) {
-                var a = self.filters[param][0];
-                var b = self.filters[param][1];
-                
-                if (self[param]()) {
-                    var between = new OpenLayers.Filter.Comparison({
-                        type: OpenLayers.Filter.Comparison.BETWEEN,
-                        property: param,
-                        lowerBoundary: a,
-                        upperBoundary: b,
-                    });
-                    filter.filters.push(between);
-                }
-            }
             
             blockLayer.styleMap.styles['default'].rules[0] = new OpenLayers.Rule({
-                filter: filter, 
+                filter: self.masterFilter, 
                 symbolizer: { strokeColor: '#fff' } 
             });
-            //console.log(blockLayer);
             
             self.showLeaseblockLayer(blockLayer);
         }
