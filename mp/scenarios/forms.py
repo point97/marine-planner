@@ -71,7 +71,7 @@ class ScenarioForm(FeatureForm):
     # - Label is used as the icon label 
     bathy_avg = forms.BooleanField(label="Average Depth",
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), 
-        required=False, help_text="Average bathymetric depth")
+        required=False, help_text="Average bathymetric depth (meters)")
     bathy_avg_min = forms.FloatField(initial=10,
         widget=forms.TextInput(attrs={'class':'slidervalue'}))
     bathy_avg_max = forms.FloatField(initial=50,
@@ -80,7 +80,8 @@ class ScenarioForm(FeatureForm):
                                        'bathy_avg_max', min=1, max=300, step=1))
 
     # Wind range 72 - 400 W/m^2
-    wind_avg = forms.BooleanField(help_text="Potential wind energy generation, in watts per square meter", 
+    wind_avg = forms.BooleanField(label="Wind energy potential",
+                                  help_text="Wind energy generation potential (watts per square meter).", 
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
     wind_avg_min = forms.FloatField(initial=100,
         widget=forms.TextInput(attrs={'class':'slidervalue'}))
@@ -89,42 +90,54 @@ class ScenarioForm(FeatureForm):
     wind_avg_input = forms.FloatField(widget=DualSliderWidget('wind_avg_min', 
                                      'wind_avg_max', min=72, max=400, step=1))
 
-    subs_avgd = forms.BooleanField(
+    subs_mind = forms.BooleanField(label="Substation distance",
+        help_text="Distance to a power substation (meters).",
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    subs_avgd_min = forms.FloatField()
-    subs_avgd_max = forms.FloatField(
+    subs_mind_min = forms.FloatField()
+    subs_mind_max = forms.FloatField(
         widget=TextInputWithUnit(unit='meters', attrs={'class':'slidervalue'}))
-
-    coast_avg = forms.BooleanField(
+    subs_mind_input = forms.FloatField(widget=DualSliderWidget('subs_mind_min', 
+                                     'subs_mind_max', min=425, max=108430, step=1))
+    coast_avg = forms.BooleanField(label="Coastline Distance",
+        help_text="Average distance to coastline (meters).",
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
     coast_avg_min = forms.FloatField()
     coast_avg_max = forms.FloatField()
-    
-    mangrove_percent = forms.BooleanField()
+    coast_avg_input = forms.FloatField(widget=DualSliderWidget('coast_avg_min', 
+                                     'coast_avg_max', min=380, max=17845, step=1))
+
+    mangrove_percent = forms.BooleanField(
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
     mangrove_min = forms.FloatField()
     mangrove_max = forms.FloatField()
     
-    coral_percent = forms.BooleanField()
+    coral_percent = forms.BooleanField(
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
     coral_min = forms.FloatField()
     coral_max = forms.FloatField()
     
-    subveg_percent = forms.BooleanField()
+    subveg_percent = forms.BooleanField(
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
     subveg_min = forms.FloatField()
     subveg_max = forms.FloatField()
     
-    protarea_percent = forms.BooleanField()
+    protarea_percent = forms.BooleanField(
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
     protarea_min = forms.FloatField()
     protarea_max = forms.FloatField()
     
-    pr_apc_percent = forms.BooleanField()
+    pr_apc_percent = forms.BooleanField(
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
     pr_apc_min = forms.FloatField()
     pr_apc_max = forms.FloatField()
     
-    pr_ape_percent = forms.BooleanField()
+    pr_ape_percent = forms.BooleanField(
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
     pr_ape_min = forms.FloatField()
     pr_ape_max = forms.FloatField()
     
-    vi_apc_percent = forms.BooleanField()
+    vi_apc_percent = forms.BooleanField(
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
     vi_apc_min = forms.FloatField()
     vi_apc_max = forms.FloatField()
     
@@ -136,8 +149,8 @@ class ScenarioForm(FeatureForm):
         """
         names = (('bathy_avg', 'bathy_avg_min', 'bathy_avg_max', 'bathy_avg_input'), 
                  ('wind_avg', 'wind_avg_min', 'wind_avg_max', 'wind_avg_input',),
-                 ('subs_avgd', 'subs_avgd_min', 'subs_avgd_max',),
-                 ('coast_avg', 'coast_avg_min', 'coast_avg_max',),)
+                 ('subs_mind', 'subs_mind_min', 'subs_mind_max', 'subs_mind_input',),
+                 ('coast_avg', 'coast_avg_min', 'coast_avg_max', 'coast_avg_input', ),)
 
         return self._get_fields(names)
 
@@ -157,6 +170,9 @@ class ScenarioForm(FeatureForm):
                 ('vi_apc_percent', 'vi_apc_min', 'vi_apc_max',),)
         
         return self._get_fields(names)
+
+    def get_steps(self):
+        return self.get_step_1_fields(), self.get_step_2_fields()
 
     def _get_fields(self, names):
         fields = []
