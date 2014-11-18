@@ -125,39 +125,39 @@ function scenarioFormModel(options) {
     self.coast_avg_min = ko.observable(0);
     self.coast_avg_max = ko.observable(0);
     
-    self.mangrove_percent = ko.observable(false);
-    self.mangrove_min = ko.observable(0);
-    self.mangrove_max = ko.observable(0);
+    self.mangrove_p = ko.observable(false);
+    self.mangrove_p_min = ko.observable(0);
+    self.mangrove_p_max = ko.observable(0);
 
-    self.coral_percent = ko.observable(false);
-    self.coral_min = ko.observable(0);
-    self.coral_max = ko.observable(0);
+    self.coral_p = ko.observable(false);
+    self.coral_p_min = ko.observable(0);
+    self.coral_p_max = ko.observable(0);
     
-    self.subveg_percent = ko.observable(false);
-    self.subveg_min = ko.observable(0);
-    self.subveg_max = ko.observable(0);
+    self.subveg_p = ko.observable(false);
+    self.subveg_p_min = ko.observable(0);
+    self.subveg_p_max = ko.observable(0);
     
-    self.protarea_percent = ko.observable(false);
-    self.protarea_min = ko.observable(0);
-    self.protarea_max = ko.observable(0);
+    self.protarea_p = ko.observable(false);
+    self.protarea_p_min = ko.observable(0);
+    self.protarea_p_max = ko.observable(0);
     
-    self.pr_apc_percent = ko.observable(false);
-    self.pr_apc_min = ko.observable(0);
-    self.pr_apc_max = ko.observable(0);
+    self.pr_apc_p = ko.observable(false);
+    self.pr_apc_p_min = ko.observable(0);
+    self.pr_apc_p_max = ko.observable(0);
     
-    self.pr_ape_percent = ko.observable(false);
-    self.pr_ape_min = ko.observable(0);
-    self.pr_ape_max = ko.observable(0);
+    self.pr_ape_p = ko.observable(false);
+    self.pr_ape_p_min = ko.observable(0);
+    self.pr_ape_p_max = ko.observable(0);
     
-    self.vi_apc_percent = ko.observable(false);
-    self.vi_apc_min = ko.observable(0);
-    self.vi_apc_max = ko.observable(0);
+    self.vi_apc_p = ko.observable(false);
+    self.vi_apc_p_min = ko.observable(0);
+    self.vi_apc_p_max = ko.observable(0);
 
 
-    self.windSpeedParameter = ko.observable(false);
-    self.coastDistanceParameter = ko.observable(false);
-    self.depthRangeParameter = ko.observable(false);
-    self.distanceToSubstationParameter = ko.observable(false);
+    // self.windSpeedParameter = ko.observable(false);
+    // self.coastDistanceParameter = ko.observable(false);
+    // self.depthRangeParameter = ko.observable(false);
+    // self.distanceToSubstationParameter = ko.observable(false);
         
     var initial_leaseblocks_left = app.viewModel.scenarios.leaseblockList.length || 3426;
     self.leaseblocksLeft = ko.observable(initial_leaseblocks_left);
@@ -219,196 +219,196 @@ function scenarioFormModel(options) {
         }
     }
     
-    self.toggleWindSpeedWidget = function() {
-        if ( self.windSpeedParameter() ) {
-            self.windSpeedParameter(false);
-            $('#id_input_parameter_wind_speed').removeAttr('checked');
-            $('#wind_speed_widget').css('display', 'none');
-        } else {
-            var value = $('#id_input_avg_wind_speed')[0].value;
-            $('#id_input_parameter_wind_speed').attr('checked', 'checked');
-            self.windSpeedParameter(true);
-            self.change_wind_message(value);
-            $('#wind_speed_widget').css('display', 'block');
-        }
-        //update scrollbar
-        self.updateDesignScrollBar();
-        //Update Remaining Leaseblocks 
-        self.updateFiltersAndLeaseBlocks();
-        self.updateRemainingBlocks();
-    };
+    // self.toggleWindSpeedWidget = function() {
+    //     if ( self.windSpeedParameter() ) {
+    //         self.windSpeedParameter(false);
+    //         $('#id_input_parameter_wind_speed').removeAttr('checked');
+    //         $('#wind_speed_widget').css('display', 'none');
+    //     } else {
+    //         var value = $('#id_input_avg_wind_speed')[0].value;
+    //         $('#id_input_parameter_wind_speed').attr('checked', 'checked');
+    //         self.windSpeedParameter(true);
+    //         self.change_wind_message(value);
+    //         $('#wind_speed_widget').css('display', 'block');
+    //     }
+    //     //update scrollbar
+    //     self.updateDesignScrollBar();
+    //     //Update Remaining Leaseblocks
+    //     self.updateFiltersAndLeaseBlocks();
+    //     self.updateRemainingBlocks();
+    // };
     
-    self.toggleCoastDistanceWidget = function() {
-        if ( self.coastDistanceParameter() ) {
-            self.coastDistanceParameter(false);
-            $('#id_input_parameter_coast_distance_parameter').removeAttr('checked');
-            $('#coast_distance_widget').css('display', 'none');
-        } else {
-            var minValue = $('#id_input_min_coast_distance')[0].value,
-                maxValue = $('#id_input_max_coast_distance')[0].value;
-            $('#id_input_parameter_coast_distance_parameter').attr('checked', 'checked');
-            self.coastDistanceParameter(true);
-            $('#coast_distance_widget').css('display', 'block');
-        }
-        //update scrollbar
-        self.updateDesignScrollBar();
-        //Update Remaining Leaseblocks 
-        self.updateFiltersAndLeaseBlocks();
-        self.updateRemainingBlocks();
-    };
+    // self.toggleCoastDistanceWidget = function() {
+    //     if ( self.coastDistanceParameter() ) {
+    //         self.coastDistanceParameter(false);
+    //         $('#id_input_parameter_coast_distance_parameter').removeAttr('checked');
+    //         $('#coast_distance_widget').css('display', 'none');
+    //     } else {
+    //         var minValue = $('#id_input_min_coast_distance')[0].value,
+    //             maxValue = $('#id_input_max_coast_distance')[0].value;
+    //         $('#id_input_parameter_coast_distance_parameter').attr('checked', 'checked');
+    //         self.coastDistanceParameter(true);
+    //         $('#coast_distance_widget').css('display', 'block');
+    //     }
+    //     //update scrollbar
+    //     self.updateDesignScrollBar();
+    //     //Update Remaining Leaseblocks
+    //     self.updateFiltersAndLeaseBlocks();
+    //     self.updateRemainingBlocks();
+    // };
     
-    self.toggleDepthWidget = function() {
-        if ( self.depthRangeParameter() ) {
-            self.depthRangeParameter(false);
-            $('#id_input_parameter_depth').removeAttr('checked');
-            $('#depth_widget').css('display', 'none');
-        } else {
-            var minValue = $('#id_input_min_depth')[0].value,
-                maxValue = $('#id_input_max_depth')[0].value;
-            $('#id_input_parameter_depth').attr('checked', 'checked');
-            self.depthRangeParameter(true);
-            $('#depth_widget').css('display', 'block');
-        }
-        //update scrollbar
-        self.updateDesignScrollBar();
-        //Update Remaining Leaseblocks 
-        self.updateFiltersAndLeaseBlocks();
-        self.updateRemainingBlocks();
-    };
+    // self.toggleDepthWidget = function() {
+    //     if ( self.depthRangeParameter() ) {
+    //         self.depthRangeParameter(false);
+    //         $('#id_input_parameter_depth').removeAttr('checked');
+    //         $('#depth_widget').css('display', 'none');
+    //     } else {
+    //         var minValue = $('#id_input_min_depth')[0].value,
+    //             maxValue = $('#id_input_max_depth')[0].value;
+    //         $('#id_input_parameter_depth').attr('checked', 'checked');
+    //         self.depthRangeParameter(true);
+    //         $('#depth_widget').css('display', 'block');
+    //     }
+    //     //update scrollbar
+    //     self.updateDesignScrollBar();
+    //     //Update Remaining Leaseblocks
+    //     self.updateFiltersAndLeaseBlocks();
+    //     self.updateRemainingBlocks();
+    // };
     
-    self.toggleSubstationWidget = function() {
-        if ( self.distanceToSubstationParameter() ) {
-            $('#id_input_parameter_distance_to_substation').removeAttr('checked');
-            self.distanceToSubstationParameter(false);
-            $('#distance_to_substation_widget').css('display', 'none');
-        } else {
-            var value = $('#id_input_distance_to_substation')[0].value;
-            $('#id_input_parameter_distance_to_substation').attr('checked', 'checked');
-            self.distanceToSubstationParameter(true);
-            $('#distance_to_substation_widget').css('display', 'block');
-        }
-        //update scrollbar
-        self.updateDesignScrollBar();
-        //Update Remaining Leaseblocks 
-        self.updateFiltersAndLeaseBlocks();
-        self.updateRemainingBlocks();
-    };
+    // self.toggleSubstationWidget = function() {
+    //     if ( self.distanceToSubstationParameter() ) {
+    //         $('#id_input_parameter_distance_to_substation').removeAttr('checked');
+    //         self.distanceToSubstationParameter(false);
+    //         $('#distance_to_substation_widget').css('display', 'none');
+    //     } else {
+    //         var value = $('#id_input_distance_to_substation')[0].value;
+    //         $('#id_input_parameter_distance_to_substation').attr('checked', 'checked');
+    //         self.distanceToSubstationParameter(true);
+    //         $('#distance_to_substation_widget').css('display', 'block');
+    //     }
+    //     //update scrollbar
+    //     self.updateDesignScrollBar();
+    //     //Update Remaining Leaseblocks
+    //     self.updateFiltersAndLeaseBlocks();
+    //     self.updateRemainingBlocks();
+    // };
     
-    self.toggleAWCWidget = function() {
-        if ( self.distanceToAWCParameter() ) {
-            $('#id_input_parameter_distance_to_awc').removeAttr('checked');
-            self.distanceToAWCParameter(false);
-            $('#distance_to_awc_widget').css('display', 'none');
-        } else {
-            var value = $('#id_input_distance_to_awc')[0].value;
-            $('#id_input_parameter_distance_to_awc').attr('checked', 'checked');
-            self.distanceToAWCParameter(true);
-            $('#distance_to_awc_widget').css('display', 'block');
-        }
-        //update scrollbar
-        self.updateDesignScrollBar();
-        //Update Remaining Leaseblocks 
-        self.updateFiltersAndLeaseBlocks();
-        self.updateRemainingBlocks();
-    };
+    // self.toggleAWCWidget = function() {
+    //     if ( self.distanceToAWCParameter() ) {
+    //         $('#id_input_parameter_distance_to_awc').removeAttr('checked');
+    //         self.distanceToAWCParameter(false);
+    //         $('#distance_to_awc_widget').css('display', 'none');
+    //     } else {
+    //         var value = $('#id_input_distance_to_awc')[0].value;
+    //         $('#id_input_parameter_distance_to_awc').attr('checked', 'checked');
+    //         self.distanceToAWCParameter(true);
+    //         $('#distance_to_awc_widget').css('display', 'block');
+    //     }
+    //     //update scrollbar
+    //     self.updateDesignScrollBar();
+    //     //Update Remaining Leaseblocks
+    //     self.updateFiltersAndLeaseBlocks();
+    //     self.updateRemainingBlocks();
+    // };
     
-    self.toggleShippingLanesWidget = function() {
-        if ( self.distanceToShippingParameter() ) {
-            $('#id_input_filter_distance_to_shipping').removeAttr('checked');
-            self.distanceToShippingParameter(false);
-            $('#distance_to_shipping_widget').css('display', 'none');
-        } else {
-            var value = $('#id_input_distance_to_shipping')[0].value;
-            $('#id_input_filter_distance_to_shipping').attr('checked', 'checked');
-            self.distanceToShippingParameter(true);
-            $('#distance_to_shipping_widget').css('display', 'block');
-        }
-        //update scrollbar
-        self.updateDesignScrollBar();
-        //Update Remaining Leaseblocks 
-        self.updateFiltersAndLeaseBlocks();
-        self.updateRemainingBlocks();
-    };
+    // self.toggleShippingLanesWidget = function() {
+    //     if ( self.distanceToShippingParameter() ) {
+    //         $('#id_input_filter_distance_to_shipping').removeAttr('checked');
+    //         self.distanceToShippingParameter(false);
+    //         $('#distance_to_shipping_widget').css('display', 'none');
+    //     } else {
+    //         var value = $('#id_input_distance_to_shipping')[0].value;
+    //         $('#id_input_filter_distance_to_shipping').attr('checked', 'checked');
+    //         self.distanceToShippingParameter(true);
+    //         $('#distance_to_shipping_widget').css('display', 'block');
+    //     }
+    //     //update scrollbar
+    //     self.updateDesignScrollBar();
+    //     //Update Remaining Leaseblocks
+    //     self.updateFiltersAndLeaseBlocks();
+    //     self.updateRemainingBlocks();
+    // };
     
-    self.toggleShipTrafficWidget = function() {
-        if ( self.shipTrafficDensityParameter() ) {
-            self.shipTrafficDensityParameter(false);
-            $('#id_input_filter_ais_density').removeAttr('checked');
-        } else {
-            var value = 1;
-            self.shipTrafficDensityParameter(true);
-            $('#id_input_filter_ais_density').attr('checked', 'checked');
-        }
-        //update scrollbar
-        self.updateDesignScrollBar();
-        //Update Remaining Leaseblocks 
-        self.updateFiltersAndLeaseBlocks();
-        self.updateRemainingBlocks();
-    };
+    // self.toggleShipTrafficWidget = function() {
+    //     if ( self.shipTrafficDensityParameter() ) {
+    //         self.shipTrafficDensityParameter(false);
+    //         $('#id_input_filter_ais_density').removeAttr('checked');
+    //     } else {
+    //         var value = 1;
+    //         self.shipTrafficDensityParameter(true);
+    //         $('#id_input_filter_ais_density').attr('checked', 'checked');
+    //     }
+    //     //update scrollbar
+    //     self.updateDesignScrollBar();
+    //     //Update Remaining Leaseblocks
+    //     self.updateFiltersAndLeaseBlocks();
+    //     self.updateRemainingBlocks();
+    // };
     
-    self.toggleUXOWidget = function() {
-        if ( self.uxoParameter() ) {
-            self.uxoParameter(false);
-            $('#id_input_filter_uxo').removeAttr('checked');
-        } else {
-            self.uxoParameter(true);
-            $('#id_input_filter_uxo').attr('checked', 'checked');
-        }
-        //update scrollbar
-        self.updateDesignScrollBar();
-        //Update Remaining Leaseblocks 
-        self.updateFiltersAndLeaseBlocks();
-        self.updateRemainingBlocks();
-    };
+    // self.toggleUXOWidget = function() {
+    //     if ( self.uxoParameter() ) {
+    //         self.uxoParameter(false);
+    //         $('#id_input_filter_uxo').removeAttr('checked');
+    //     } else {
+    //         self.uxoParameter(true);
+    //         $('#id_input_filter_uxo').attr('checked', 'checked');
+    //     }
+    //     //update scrollbar
+    //     self.updateDesignScrollBar();
+    //     //Update Remaining Leaseblocks
+    //     self.updateFiltersAndLeaseBlocks();
+    //     self.updateRemainingBlocks();
+    // };
     
-    self.change_wind_message = function(value) {
-        var $text = $('#wind_speed_text'),
-            $label = $text.closest('.label');
-            $label.css('color', 'black');
-        if (value < 7.0) {
-            $text.html('Fair');
-            $label.css('background', "#377EB8");
-        } else if (value < 7.25) {
-            $text.html('Good');
-            $label.css('background', "#377EB8");
-        } else if (value < 7.5) {
-            $text.html('Good');
-            $label.css('background', "#377EB8");
-        } else if (value < 7.75) {
-            $text.html('Excellent');
-            $label.css('background', "#40B3A7");
-        } else if (value < 8.0) {
-            $text.html('Excellent');
-            $label.css('background', "#45B06C");
-        } else if (value < 8.25) {
-            $text.html('Outstanding');
-            $label.css('background', "#84D439");
-        } else if (value < 8.5) {
-            $text.html('Outstanding');
-            $label.css('background', "#CCED26");
-        } else if (value < 8.75) {
-            $text.html('Outstanding');
-            $label.css('background', "#FFFF12");
-        } else if (value < 9.0) {
-            $text.html('Superb');
-            $label.css('background', "#FFE712");
-        } else if (value < 9.25) {
-            $text.html('Superb');
-            $label.css('background', "#FCA326");
-        } else if (value < 9.5) {
-            $text.html('Superb');
-            $label.css('background', "#F07224");
-        } else {
-            $text.html('Superb');
-            $label.css('background', "#E35539");
-        }
-        //Poor       < 12.5      (< 5.6)     ffff00
-        //Fair       14.3-15.7   (6.4-7.0)   ff0000
-        //Good       15.7-16.8   (7.0-7.5)   ff0077
-        //Excellent  16.8-17.9   (7.5-8.0)   ff00ff
-        //Oustanding 17.9-19.7   (8.0-8.8)   7700ff
-        //Superb     > 19.7      (> 8.8)     0000ff
-    }
+    // self.change_wind_message = function(value) {
+    //     var $text = $('#wind_speed_text'),
+    //         $label = $text.closest('.label');
+    //         $label.css('color', 'black');
+    //     if (value < 7.0) {
+    //         $text.html('Fair');
+    //         $label.css('background', "#377EB8");
+    //     } else if (value < 7.25) {
+    //         $text.html('Good');
+    //         $label.css('background', "#377EB8");
+    //     } else if (value < 7.5) {
+    //         $text.html('Good');
+    //         $label.css('background', "#377EB8");
+    //     } else if (value < 7.75) {
+    //         $text.html('Excellent');
+    //         $label.css('background', "#40B3A7");
+    //     } else if (value < 8.0) {
+    //         $text.html('Excellent');
+    //         $label.css('background', "#45B06C");
+    //     } else if (value < 8.25) {
+    //         $text.html('Outstanding');
+    //         $label.css('background', "#84D439");
+    //     } else if (value < 8.5) {
+    //         $text.html('Outstanding');
+    //         $label.css('background', "#CCED26");
+    //     } else if (value < 8.75) {
+    //         $text.html('Outstanding');
+    //         $label.css('background', "#FFFF12");
+    //     } else if (value < 9.0) {
+    //         $text.html('Superb');
+    //         $label.css('background', "#FFE712");
+    //     } else if (value < 9.25) {
+    //         $text.html('Superb');
+    //         $label.css('background', "#FCA326");
+    //     } else if (value < 9.5) {
+    //         $text.html('Superb');
+    //         $label.css('background', "#F07224");
+    //     } else {
+    //         $text.html('Superb');
+    //         $label.css('background', "#E35539");
+    //     }
+    //     //Poor       < 12.5      (< 5.6)     ffff00
+    //     //Fair       14.3-15.7   (6.4-7.0)   ff0000
+    //     //Good       15.7-16.8   (7.0-7.5)   ff0077
+    //     //Excellent  16.8-17.9   (7.5-8.0)   ff00ff
+    //     //Oustanding 17.9-19.7   (8.0-8.8)   7700ff
+    //     //Superb     > 19.7      (> 8.8)     0000ff
+    // }
     
     self.filters = {};
     
@@ -1264,52 +1264,52 @@ function scenarioModel(options) {
         // }
         
     };
-    /*
-    self.editScenario = function() {
-        var scenario = this;
-        return $.ajax({
-            url: '/features/scenario/' + scenario.uid + '/form/', 
-            success: function(data) {
-                //$('#scenario-form').append(data);
-                app.viewModel.scenarios.scenarioForm(true);
-                $('#scenario-form').html(data);
-                app.viewModel.scenarios.scenarioFormModel = new scenarioFormModel();
-                ko.applyBindings(app.viewModel.scenarios.scenarioFormModel, document.getElementById('scenario-form'));
-                app.viewModel.scenarios.scenarioFormModel.updateFiltersAndLeaseBlocks();
-                
-                if ($('#id_input_parameter_wind_speed').is(':checked')) {
-                    //app.viewModel.scenarios.scenarioFormModel.windSpeedParameter(true);
-                    app.viewModel.scenarios.scenarioFormModel.toggleWindSpeedWidget();
-                } 
-                if ($('#id_input_parameter_depth').is(':checked')) {
-                    app.viewModel.scenarios.scenarioFormModel.toggleDepthWidget();
-                } 
-                if ($('#id_input_parameter_distance_to_shore').is(':checked')) {
-                    app.viewModel.scenarios.scenarioFormModel.toggleDistanceToShoreWidget();
-                } 
-                if ($('#id_input_parameter_distance_to_substation').is(':checked')) {
-                    app.viewModel.scenarios.scenarioFormModel.toggleSubstationWidget();
-                } 
-                if ($('#id_input_parameter_distance_to_awc').is(':checked')) {
-                    app.viewModel.scenarios.scenarioFormModel.toggleAWCWidget();
-                } 
-                if ($('#id_input_filter_distance_to_shipping').is(':checked')) {
-                    app.viewModel.scenarios.scenarioFormModel.toggleShippingLanesWidget();
-                } 
-                if ($('#id_input_filter_ais_density').is(':checked')) {
-                    app.viewModel.scenarios.scenarioFormModel.toggleShipTrafficWidget();
-                } 
-                if ($('#id_input_filter_uxo').is(':checked')) {
-                    app.viewModel.scenarios.scenarioFormModel.toggleUXOWidget();
-                } 
-                app.viewModel.scenarios.scenarioFormModel.updateFiltersAndLeaseBlocks();
-            },
-            error: function (result) { 
-                //debugger; 
-            }
-        });
-    }; 
-    */
+
+    // self.editScenario = function() {
+    //     var scenario = this;
+    //     return $.ajax({
+    //         url: '/features/scenario/' + scenario.uid + '/form/',
+    //         success: function(data) {
+    //             //$('#scenario-form').append(data);
+    //             app.viewModel.scenarios.scenarioForm(true);
+    //             $('#scenario-form').html(data);
+    //             app.viewModel.scenarios.scenarioFormModel = new scenarioFormModel();
+    //             ko.applyBindings(app.viewModel.scenarios.scenarioFormModel, document.getElementById('scenario-form'));
+    //             app.viewModel.scenarios.scenarioFormModel.updateFiltersAndLeaseBlocks();
+    //
+    //             if ($('#id_input_parameter_wind_speed').is(':checked')) {
+    //                 //app.viewModel.scenarios.scenarioFormModel.windSpeedParameter(true);
+    //                 app.viewModel.scenarios.scenarioFormModel.toggleWindSpeedWidget();
+    //             }
+    //             if ($('#id_input_parameter_depth').is(':checked')) {
+    //                 app.viewModel.scenarios.scenarioFormModel.toggleDepthWidget();
+    //             }
+    //             if ($('#id_input_parameter_distance_to_shore').is(':checked')) {
+    //                 app.viewModel.scenarios.scenarioFormModel.toggleDistanceToShoreWidget();
+    //             }
+    //             if ($('#id_input_parameter_distance_to_substation').is(':checked')) {
+    //                 app.viewModel.scenarios.scenarioFormModel.toggleSubstationWidget();
+    //             }
+    //             if ($('#id_input_parameter_distance_to_awc').is(':checked')) {
+    //                 app.viewModel.scenarios.scenarioFormModel.toggleAWCWidget();
+    //             }
+    //             if ($('#id_input_filter_distance_to_shipping').is(':checked')) {
+    //                 app.viewModel.scenarios.scenarioFormModel.toggleShippingLanesWidget();
+    //             }
+    //             if ($('#id_input_filter_ais_density').is(':checked')) {
+    //                 app.viewModel.scenarios.scenarioFormModel.toggleShipTrafficWidget();
+    //             }
+    //             if ($('#id_input_filter_uxo').is(':checked')) {
+    //                 app.viewModel.scenarios.scenarioFormModel.toggleUXOWidget();
+    //             }
+    //             app.viewModel.scenarios.scenarioFormModel.updateFiltersAndLeaseBlocks();
+    //         },
+    //         error: function (result) {
+    //             //debugger;
+    //         }
+    //     });
+    // };
+
     self.createCopyScenario = function() {
         var scenario = this;
     
