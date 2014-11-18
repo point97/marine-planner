@@ -154,21 +154,6 @@ function scenarioFormModel(options) {
     self.vi_apc_max = ko.observable(0);
 
 
-    self.filterParameters = {
-        'wind_avg': ['wind_avg', 'wind_avg_min', 'wind_avg_max'],
-        'subs_avgd': ['subs_avgd', 'subs_avgd_min', 'subs_avgd_max'],
-        'bathy_avg': ['bathy_avg', 'bathy_avg_min', 'bathy_avg_max'],
-        'coast_avg': ['coast_avg', 'coast_avg_min', 'coast_avg_max'],
-        'mangrove_percent': ['mangrove_percent', 'mangrove_min', 'mangrove_max'],
-        'coral_percent': ['coral_percent', 'coral_min', 'coral_max'],
-        'subveg_percent': ['subveg_percent', 'subveg_min', 'subveg_max'],
-        'protarea_percent': ['protarea_percent', 'protarea_min', 'protarea_max'],
-        'pr_apc_percent': ['pr_apc_percent', 'pr_apc_min', 'pr_apc_max'],
-        'pr_ape_percent': ['pr_ape_percent', 'pr_ape_min', 'pr_ape_max'],
-        'vi_apc_percent': ['vi_apc_percent', 'vi_apc_min', 'vi_apc_max']
-    }
-
-    
     self.windSpeedParameter = ko.observable(false);
     self.coastDistanceParameter = ko.observable(false);
     self.depthRangeParameter = ko.observable(false);
@@ -427,10 +412,27 @@ function scenarioFormModel(options) {
     
     self.filters = {};
     
-    self.updateFilters = function(object) {
-        self.filters[object.key] = object.value;
-        //self.isLeaseblockButtonActivated(true);
-    };
+    /** Add a filter. 
+    Filters are value name (e.g., bathy_avg), the min value (e.g., 30), and 
+    the max value (e.g., 130). 
+    If you want a one-sided relation of value greater than min (param > min), 
+    then pass null for max 
+    If you want a one-sided relation of value less than max (param < max), 
+    then pass null for min 
+    */
+    self.updateFilters = function(param_name, min, max) {
+        if (!min) {
+            min = -Infinity; 
+        }
+        if (!max) {
+            max = Infinity
+        }
+        if (typeof param_name != 'string') {
+            debugger;
+        }
+        self.filters[param_name] = [min, max];
+    }
+
     self.removeFilter = function(key) {
         delete self.filters[key];
         //if ( $.isEmptyObject(self.filters) ) {
@@ -440,27 +442,28 @@ function scenarioFormModel(options) {
     
     self.updateFiltersAndLeaseBlocks = function() {
         if ( self.bathy_avg() ) {            
-            self.updateFilters({'key': 'bathy_avg_min', 'value': $('#id_bathy_avg_min')[0].value});
-            self.updateFilters({'key': 'bathy_avg_max', 'value': $('#id_bathy_avg_max')[0].value});
+            // self.updateFilters({'key': 'bathy_avg_min', 'value': $('#id_bathy_avg_min')[0].value});
+            // self.updateFilters({'key': 'bathy_avg_max', 'value': $('#id_bathy_avg_max')[0].value});
+            self.updateFilters('bathy_avg', parseInt($('#id_bathy_avg_min')[0].value),
+                               parseInt($('#id_bathy_avg_max')[0].value));
         } else {
-            self.removeFilter('bathy_avg_min');
-            self.removeFilter('bathy_avg_max');
+            self.removeFilter('bathy_avg');
         }
-        if ( self.coastDistanceParameter() ) {
-            /* The form shows distances in kilometers. 
-               The data is in meters. x1000 to align units */
-            self.updateFilters({
-                'key': 'min_distance', 
-                'value': 1000 * parseInt($('#id_input_min_coast_distance')[0].value)
-            });
-            self.updateFilters({
-                'key': 'max_distance', 
-                'value': 1000 * parseInt($('#id_input_max_coast_distance')[0].value)
-            });
-        } else {
-            self.removeFilter('min_distance');
-            self.removeFilter('max_distance');
-        }
+        // if ( self.coastDistanceParameter() ) {
+        //     /* The form shows distances in kilometers.
+        //        The data is in meters. x1000 to align units */
+        //     self.updateFilters({
+        //         'key': 'min_distance',
+        //         'value': 1000 * parseInt($('#id_input_min_coast_distance')[0].value)
+        //     });
+        //     self.updateFilters({
+        //         'key': 'max_distance',
+        //         'value': 1000 * parseInt($('#id_input_max_coast_distance')[0].value)
+        //     });
+        // } else {
+        //     self.removeFilter('min_distance');
+        //     self.removeFilter('max_distance');
+        // }
         self.updateLeaseblocksLeft();
     
     };
@@ -473,16 +476,14 @@ function scenarioFormModel(options) {
         var add;
         for (var i = 0; i < list.length; i++) {
             add = true; 
-            for (var param in self.filterParameters) {
-                var f = self.filterParameters[param][0];    // filter name
-                var a = self.filterParameters[param][1];    // min value
-                var b = self.filterParameters[param][2];    // max value
+            for (var param in self.filters) {
+                var a = self.filters[param][0];    // min value
+                var b = self.filters[param][1];    // max value
 
-                if (!self[f]) {
-                    continue;
-                }
-                if (list[i][f] < self.filters[a] ||
-                    list[i][f] > self.filters[b]) {
+                // if (!self[param]()) {
+                //     continue;
+                // }
+                if (list[i][param] < a || list[i][param] > b) {
                     add = false;
                     break;
                 }
@@ -519,6 +520,22 @@ function scenarioFormModel(options) {
                 type: OpenLayers.Filter.Logical.AND,
                 filters: []
             });
+            
+            for (var param in self.filters) {
+                var a = self.filters[param][0];
+                var b = self.filters[param][1];
+                
+                if (self[param]()) {
+                    var between = new OpenLayers.Filter.Comparison({
+                        type: OpenLayers.Filter.Comparison.BETWEEN,
+                        property: param,
+                        lowerBoundary: a,
+                        upperBoundary: b,
+                    });
+                    filter.filters.push(between);
+                }
+            }
+            
             // if ( self.windSpeedParameter() ) {
             //     filter.filters.push(
             //         new OpenLayers.Filter.Comparison({ // if WINDREV_MI >= self.filters['wind']
@@ -528,35 +545,35 @@ function scenarioFormModel(options) {
             //         })
             //     );
             // }
-            if ( self.coastDistanceParameter() ) {
-                filter.filters.push(
-                    new OpenLayers.Filter.Comparison({
-                        type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO,
-                        property: "Coast_Avg",
-                        value: self.filters['min_distance']
-                    }),
-                    new OpenLayers.Filter.Comparison({
-                        type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO,
-                        property: "Coast_Avg",
-                        value: self.filters['max_distance']
-                    })
-                );
-            }
-            if ( self.bathy_avg() ) {
-                filter.filters.push(
-                    new OpenLayers.Filter.Comparison({ // if DEPTHM_MAX >= self.filters['min_distance']
-                        type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO,
-                        // property: "DEPTH_MEAN",
-                        property: "Bathy_Avg", 
-                        value: (-self.filters['bathy_avg_min'])
-                    }),
-                    new OpenLayers.Filter.Comparison({ // if DEPTHM_MIN <= self.filters['max_distance']
-                        type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO,
-                        property: "Bathy_Avg", 
-                        value: (-self.filters['bathy_avg_max'])
-                    })
-                );
-            }
+            // if ( self.coastDistanceParameter() ) {
+            //     filter.filters.push(
+            //         new OpenLayers.Filter.Comparison({
+            //             type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO,
+            //             property: "Coast_Avg",
+            //             value: self.filters['min_distance']
+            //         }),
+            //         new OpenLayers.Filter.Comparison({
+            //             type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO,
+            //             property: "Coast_Avg",
+            //             value: self.filters['max_distance']
+            //         })
+            //     );
+            // }
+            // if ( self.bathy_avg() ) {
+            //     filter.filters.push(
+            //         new OpenLayers.Filter.Comparison({ // if DEPTHM_MAX >= self.filters['min_distance']
+            //             type: OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO,
+            //             // property: "DEPTH_MEAN",
+            //             property: "Bathy_Avg",
+            //             value: (-self.filters['bathy_avg_min'])
+            //         }),
+            //         new OpenLayers.Filter.Comparison({ // if DEPTHM_MIN <= self.filters['max_distance']
+            //             type: OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO,
+            //             property: "Bathy_Avg",
+            //             value: (-self.filters['bathy_avg_max'])
+            //         })
+            //     );
+            // }
             // if ( self.distanceToSubstationParameter() ) {
             //     filter.filters.push(
             //         new OpenLayers.Filter.Comparison({ // if SUBSTAMIN <= self.filters['substation']
