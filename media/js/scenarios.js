@@ -469,18 +469,26 @@ function scenarioFormModel(options) {
         //self.leaseblocksLeft(23);
         var list = app.viewModel.scenarios.leaseblockList;
         var count = 0;
-                
+            
+        var add;
         for (var i = 0; i < list.length; i++) {
+            add = true; 
             for (var param in self.filterParameters) {
                 var f = self.filterParameters[param][0];    // filter name
                 var a = self.filterParameters[param][1];    // min value
                 var b = self.filterParameters[param][2];    // max value
 
-                if (list[i][f] >= self.filters[a] && 
-                    list[i][f] <= self.filters[b]) {
-                    count++; 
+                if (!self[f]) {
+                    continue;
+                }
+                if (list[i][f] < self.filters[a] ||
+                    list[i][f] > self.filters[b]) {
+                    add = false;
                     break;
                 }
+            }
+            if (add) {
+                count++; 
             }
         }
             
