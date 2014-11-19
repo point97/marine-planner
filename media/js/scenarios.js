@@ -228,16 +228,13 @@ function scenarioFormModel(options) {
     then pass null for min 
     */
     self.updateFilters = function(param_name, min, max) {
-        if (!min) {
+        if (Number(min) != min) {
             min = -Infinity; 
         }
-        if (!max) {
+        if (Number(max) != max) {
             max = Infinity
         }
-        if (typeof param_name != 'string') {
-            debugger;
-        }
-        
+
         var filter = new OpenLayers.Filter.Comparison({
             type: OpenLayers.Filter.Comparison.BETWEEN,
             property: param_name,
