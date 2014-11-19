@@ -191,11 +191,25 @@ function scenarioFormModel(options) {
             param_bool(false);
             param_element.removeAttr('checked');
             param_widget.css('display', 'none');
+            self.removeFilter(param);
         }
         else {
+            var min;
+            var max;
+            var param_element_min = $('#id_' + param + '_min')[0];
+            if (param_element_min) {
+                min = param_element_min.value;
+            }
+            var param_element_max = $('#id_' + param + '_max')[0];
+            if (param_element_max) {
+                max = param_element_max.value;
+            }
+            
             param_bool(true);
             param_element.attr('checked', 'checked');
             param_widget.css('display', 'block');
+                        
+            self.updateFilters(param, min, max);
         }
         
         self.updateDesignScrollBar();
