@@ -52,18 +52,6 @@ class ScenarioForm(FeatureForm):
     description = forms.CharField(
         widget=forms.Textarea(attrs={'cols': 30, 'rows': 3}), required=False)
     
-    # Distance to Coastline (meters, avg: 17km - 300m)
-    input_parameter_coast_distance = forms.BooleanField(
-        widget=CheckboxInput(attrs={'class': 'parameters'}), required=False)
-    input_min_coast_distance = forms.FloatField(initial=2,
-        widget=forms.TextInput(attrs={'class':'slidervalue'}))
-    input_max_coast_distance = forms.FloatField(initial=5,
-        widget=forms.TextInput(attrs={'class':'slidervalue'}))
-    input_coast_distance = forms.FloatField(
-        widget=DualSliderWidget('input_min_coast_distance',
-                                'input_max_coast_distance', min=0, max=18,
-                                step=1), required=False)
-
     # Depth Range (meters, avg: 350m - 0m)
     # Boolean field is the anchor, and used as the base name for rendering the
     # form. 
@@ -71,7 +59,7 @@ class ScenarioForm(FeatureForm):
     # - Label is used as the icon label 
     bathy_avg = forms.BooleanField(label="Average Depth",
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), 
-        required=False, help_text="Average bathymetric depth (meters)")
+        help_text="Average bathymetric depth (meters)")
     bathy_avg_min = forms.FloatField(initial=10,
         widget=forms.TextInput(attrs={'class':'slidervalue'}))
     bathy_avg_max = forms.FloatField(initial=50,
@@ -82,84 +70,84 @@ class ScenarioForm(FeatureForm):
     # Wind range 72 - 400 W/m^2
     wind_avg = forms.BooleanField(label="Wind energy potential",
                                   help_text="Wind energy generation potential (watts per square meter).", 
-        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    wind_avg_min = forms.FloatField(initial=200,
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    wind_avg_min = forms.FloatField(initial=200, required=False,
         widget=forms.TextInput(attrs={'class':'slidervalue'}))
-    wind_avg_max = forms.FloatField(initial=400,
+    wind_avg_max = forms.FloatField(initial=400, required=False,
         widget=TextInputWithUnit(unit='W/m²', attrs={'class':'slidervalue'}))
-    wind_avg_input = forms.FloatField(widget=DualSliderWidget('wind_avg_min', 
+    wind_avg_input = forms.FloatField(required=False, widget=DualSliderWidget('wind_avg_min', 
                                      'wind_avg_max', min=72, max=400, step=1))
 
-    subs_mind = forms.BooleanField(label="Substation distance",
+    subs_mind = forms.BooleanField(label="Substation distance", 
         help_text="Distance to a power substation (meters).",
-        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    subs_mind_min = forms.FloatField(initial=425)
-    subs_mind_max = forms.FloatField(initial=15000,
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    subs_mind_min = forms.FloatField(required=False, initial=425)
+    subs_mind_max = forms.FloatField(required=False, initial=15000,
         widget=TextInputWithUnit(unit='meters', attrs={'class':'slidervalue'}))
     subs_mind_input = forms.FloatField(widget=DualSliderWidget('subs_mind_min', 
                                      'subs_mind_max', min=425, max=108430, step=1))
 
-    coast_avg = forms.BooleanField(label="Coastline Distance",
+    coast_avg = forms.BooleanField(label="Coastline Distance",  
         help_text="Average distance to coastline (meters).",
-        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    coast_avg_min = forms.FloatField(initial=380)
-    coast_avg_max = forms.FloatField(initial=10000)
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    coast_avg_min = forms.FloatField(required=False, initial=380)
+    coast_avg_max = forms.FloatField(required=False, initial=10000)
     coast_avg_input = forms.FloatField(widget=DualSliderWidget('coast_avg_min', 
                                      'coast_avg_max', min=380, max=17845, step=1))
 
-    mangrove_p = forms.BooleanField(required=False, label="Mangrove %",
+    mangrove_p = forms.BooleanField(label="Mangrove %",
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
-    mangrove_p_min = forms.FloatField(initial=0)
-    mangrove_p_max = forms.FloatField(initial=50)
-    mangrove_p_input = forms.FloatField(
+    mangrove_p_min = forms.FloatField(required=False, initial=0)
+    mangrove_p_max = forms.FloatField(required=False, initial=50)
+    mangrove_p_input = forms.FloatField(required=False, 
         widget=DualSliderWidget('mangrove_p_min', 'mangrove_p_max', 
                                 min=0, max=100, step=1))
     
     coral_p = forms.BooleanField(label="Coral %", 
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    coral_p_min = forms.FloatField(initial=0)
-    coral_p_max = forms.FloatField(initial=50)
-    coral_p_input = forms.FloatField(
+    coral_p_min = forms.FloatField(required=False, initial=0)
+    coral_p_max = forms.FloatField(required=False, initial=50)
+    coral_p_input = forms.FloatField(required=False, 
         widget=DualSliderWidget('coral_p_min', 'coral_p_max', 
                                 min=0, max=100, step=1))
 
     subveg_p = forms.BooleanField(label="Subveg %",
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    subveg_p_min = forms.FloatField(initial=0)
-    subveg_p_max = forms.FloatField(initial=50)
-    subveg_p_input = forms.FloatField(
+    subveg_p_min = forms.FloatField(required=False, initial=0)
+    subveg_p_max = forms.FloatField(required=False, initial=50)
+    subveg_p_input = forms.FloatField(required=False, 
         widget=DualSliderWidget('subveg_p_min', 'subveg_p_max', 
                                 min=0, max=100, step=1))
 
     protarea_p = forms.BooleanField(label="Prot Area %",
-        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    protarea_p_min = forms.FloatField(initial=0)
-    protarea_p_max = forms.FloatField(initial=50)
-    protarea_p_input = forms.FloatField(
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    protarea_p_min = forms.FloatField(required=False, initial=0)
+    protarea_p_max = forms.FloatField(required=False, initial=50)
+    protarea_p_input = forms.FloatField(required=False, 
         widget=DualSliderWidget('protarea_p_min', 'protarea_p_max', 
                                 min=0, max=100, step=1))
 
-    pr_apc_p = forms.BooleanField(label="PR APC %",
-        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    pr_apc_p_min = forms.FloatField(initial=0)
-    pr_apc_p_max = forms.FloatField(initial=50)
-    pr_apc_p_input = forms.FloatField(
+    pr_apc_p = forms.BooleanField(label="PR APC %", 
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    pr_apc_p_min = forms.FloatField(required=False, initial=0)
+    pr_apc_p_max = forms.FloatField(required=False, initial=50)
+    pr_apc_p_input = forms.FloatField(required=False, 
         widget=DualSliderWidget('pr_apc_p_min', 'pr_apc_p_max', 
                                 min=0, max=100, step=1))
 
     pr_ape_p = forms.BooleanField(label="PR APE %",
-        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    pr_ape_p_min = forms.FloatField(initial=0)
-    pr_ape_p_max = forms.FloatField(initial=50)
-    pr_ape_p_input = forms.FloatField(
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    pr_ape_p_min = forms.FloatField(required=False, initial=0)
+    pr_ape_p_max = forms.FloatField(required=False, initial=50)
+    pr_ape_p_input = forms.FloatField(required=False, 
         widget=DualSliderWidget('pr_ape_p_min', 'pr_ape_p_max', 
                                 min=0, max=100, step=1))
 
     vi_apc_p = forms.BooleanField(label="VI APC %",
-        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}), required=False)
-    vi_apc_p_min = forms.FloatField(initial=0)
-    vi_apc_p_max = forms.FloatField(initial=50)
-    vi_apc_p_input = forms.FloatField(
+        widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    vi_apc_p_min = forms.FloatField(required=False, initial=0)
+    vi_apc_p_max = forms.FloatField(required=False, initial=50)
+    vi_apc_p_input = forms.FloatField(required=False, 
         widget=DualSliderWidget('vi_apc_p_min', 'vi_apc_p_max', 
                                 min=0, max=100, step=1))
     

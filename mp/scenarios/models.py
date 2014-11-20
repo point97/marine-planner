@@ -11,6 +11,7 @@ from madrona.common.jsonutils import get_properties_json, get_feature_json
 from madrona.features import register
 from madrona.analysistools.models import Analysis
 from general.utils import miles_to_meters, feet_to_meters, meters_to_feet, mph_to_mps, mps_to_mph, format
+from django.contrib.gis.geos import MultiPolygon
 
 
 class KMLCache(models.Model):
@@ -148,7 +149,6 @@ class Scenario(Analysis):
             except:
                 pass
         
-        from django.contrib.gis.geos import MultiPolygon
         if type(dissolved_geom) == MultiPolygon:
             self.geometry_dissolved = dissolved_geom
         else:
@@ -320,7 +320,6 @@ class Scenario(Analysis):
         """ % (self.uid, escape(self.name))
 
     @property 
-    @cache_kml
     def kml(self):  
         #from general.utils import format 
         import time
