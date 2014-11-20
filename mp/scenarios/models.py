@@ -18,54 +18,67 @@ class KMLCache(models.Model):
     val = PickledObjectField()
     date_modified = models.DateTimeField(auto_now=True)   
     
-from scenarios.kml_caching import cache_kml, remove_kml_cache #has to follow KMLCache to prevent circular imports
 @register
 class Scenario(Analysis):
-    #Input Parameters
-    #input_objectives = models.ManyToManyField("Objective")
-    #input_parameters = models.ManyToManyField("Parameter")
-    
-    #input_parameter_dist_shore = models.BooleanField(verbose_name='Distance to Shore Parameter')
-    #input_min_dist_shore = models.FloatField(verbose_name='Minimum Distance to Shore', null=True, blank=True)
-    #input_max_dist_shore = models.FloatField(verbose_name='Minimum Distance to Shore', null=True, blank=True)
-    #input_dist_shore = models.FloatField(verbose_name='Distance from Shoreline')
-    #input_dist_port = models.FloatField(verbose_name='Distance to Port')
-    
-    #GeoPhysical
-    
-    input_parameter_depth = models.BooleanField(verbose_name='Depth Parameter')
-    input_min_depth = models.FloatField(verbose_name='Minimum Depth', null=True, blank=True)
-    input_max_depth = models.FloatField(verbose_name='Maximum Depth', null=True, blank=True)
-    
-    input_parameter_distance_to_shore = models.BooleanField(verbose_name='Distance to Shore')
-    input_min_distance_to_shore = models.FloatField(verbose_name='Minimum Distance to Shore', null=True, blank=True)
-    input_max_distance_to_shore = models.FloatField(verbose_name='Maximum Distance to Shore', null=True, blank=True)
-    
-    #Wind Energy 
-    
-    input_parameter_wind_speed = models.BooleanField(verbose_name='Wind Speed Parameter')
-    input_avg_wind_speed = models.FloatField(verbose_name='Average Wind Speed', null=True, blank=True)
-    
-#     input_parameter_distance_to_substation = models.BooleanField(verbose_name='Distance to Coastal Substation')
-#     input_distance_to_substation = models.FloatField(verbose_name='Maximum Distance to Coastal Substation', null=True, blank=True)
+    bathy_avg = models.BooleanField()
+    bathy_avg_min = models.FloatField(null=True, blank=True)
+    bathy_avg_max = models.FloatField(null=True, blank=True)
 
-    #Security
+    wind_avg = models.BooleanField()
+    wind_avg_min = models.FloatField(null=True, blank=True)
+    wind_avg_max = models.FloatField(null=True, blank=True)
+
+    subs_mind = models.BooleanField()
+    subs_mind_min = models.FloatField(null=True, blank=True)
+    subs_mind_max = models.FloatField(null=True, blank=True)
+
+    coast_avg = models.BooleanField()
+    coast_avg_min = models.FloatField(null=True, blank=True)
+    coast_avg_max = models.FloatField(null=True, blank=True)
+
+    mangrove_p = models.BooleanField()
+    mangrove_p_min = models.FloatField(null=True, blank=True)
+    mangrove_p_max = models.FloatField(null=True, blank=True)
     
-    input_filter_uxo = models.BooleanField(verbose_name='Excluding Areas with UXO')
-    
-    #Descriptors (name field is inherited from Analysis)
+    coral_p = models.BooleanField()
+    coral_p_min = models.FloatField(null=True, blank=True)
+    coral_p_max = models.FloatField(null=True, blank=True)
+
+    subveg_p = models.BooleanField()
+    subveg_p_max = models.FloatField(null=True, blank=True)
+    subveg_p_min = models.FloatField(null=True, blank=True)
+
+    protarea_p = models.BooleanField()
+    protarea_p_min = models.FloatField(null=True, blank=True)
+    protarea_p_max = models.FloatField(null=True, blank=True)
+
+    pr_apc_p = models.BooleanField()
+    pr_apc_p_min = models.FloatField(null=True, blank=True)
+    pr_apc_p_max = models.FloatField(null=True, blank=True)
+
+    pr_ape_p = models.BooleanField()
+    pr_ape_p_min = models.FloatField(null=True, blank=True)
+    pr_ape_p_max = models.FloatField(null=True, blank=True)
+
+    vi_apc_p = models.BooleanField()
+    vi_apc_p_min = models.FloatField(null=True, blank=True)
+    vi_apc_p_max = models.FloatField(null=True, blank=True)
+
     
     description = models.TextField(null=True, blank=True)
     satisfied = models.BooleanField(default=True, help_text="Am I satisfied?")
     active = models.BooleanField(default=True)
             
-    #I'm finding myself wishing lease_blocks was spelled without the underscore...
-    lease_blocks = models.TextField(verbose_name='Lease Block IDs', null=True, blank=True)
-    geometry_final_area = models.FloatField(verbose_name='Total Area', null=True, blank=True)
-    geometry_dissolved = models.MultiPolygonField(srid=settings.GEOMETRY_DB_SRID, null=True, blank=True, verbose_name="Scenario result dissolved")
+    lease_blocks = models.TextField(verbose_name='Lease Block IDs', null=True, 
+                                    blank=True)
+    geometry_final_area = models.FloatField(verbose_name='Total Area', 
+                                            null=True, blank=True)
+    geometry_dissolved = models.MultiPolygonField(srid=settings.GEOMETRY_DB_SRID, 
+                                                  null=True, blank=True, 
+                                                  verbose_name="Scenario result dissolved")
                 
     @property
-    def serialize_attributes(self):
+    def serialize_attributes_is_this_used(self):
         from general.utils import format
         attributes = []
         return { 'event': 'click', 'attributes': attributes }
@@ -106,50 +119,28 @@ class Scenario(Analysis):
         return get_feature_json(json_geom, json.dumps(props))
     
     def run(self):
-    
         result = LeaseBlock.objects.all()
         
-        #import pdb
-        #pdb.set_trace()
-        #GeoPhysical
-        if self.input_parameter_distance_to_shore:
+        if self.input_parameter_coast_distance:
             #why isn't this max_distance >= input.min_distance && min_distance <= input.max_distance ???
             result = result.filter(avg_distance__gte=self.input_min_distance_to_shore, avg_distance__lte=self.input_max_distance_to_shore)
+
         if self.input_parameter_depth:
             #note:  converting input to negative values and converted to meters (to match db)
             input_min_depth = -self.input_min_depth
             input_max_depth = -self.input_max_depth
-            #result = result.filter(min_depth__lte=input_min_depth, max_depth__gte=input_max_depth)
-            result = result.filter(avg_depth__lte=input_min_depth, avg_depth__gte=input_max_depth)
-            result = result.filter(avg_depth__lt=0) #not sure this is doing anything, but do want to ensure 'no data' values are not included
-        '''
-        if self.input_parameter_substrate:
-            input_substrate = [s.substrate_name for s in self.input_substrate.all()]
-            result = result.filter(majority_seabed__in=input_substrate)
-        if self.input_parameter_sediment:
-            input_sediment = [s.sediment_name for s in self.input_sediment.all()]
-            result = result.filter(majority_sediment__in=input_sediment)
-        '''
+
+            result = result.filter(bathy_avg__lte=input_min_depth, 
+                                   bathy_avg__gte=input_max_depth)
+#             result = result.filter(avg_depth__lt=0) #not sure this is doing anything, but do want to ensure 'no data' values are not included
+
+
         #Wind Energy
+
         if self.input_parameter_wind_speed:
             #input_wind_speed = mph_to_mps(self.input_avg_wind_speed)
             result = result.filter(min_wind_speed_rev__gte=self.input_avg_wind_speed)
-        if self.input_parameter_wea:
-            input_wea = [wea.wea_id for wea in self.input_wea.all()]
-            result = result.filter(wea_number__in=input_wea)
-        if self.input_parameter_distance_to_awc:
-            result = result.filter(awc_min_distance__lte=self.input_distance_to_awc)
-        if self.input_parameter_distance_to_substation:
-            result = result.filter(substation_min_distance__lte=self.input_distance_to_substation)
-        #Shipping
-        if self.input_filter_ais_density:
-            result = result.filter(ais_all_vessels_maj__lte=1)
-        if self.input_filter_distance_to_shipping:
-            result = result.filter(tsz_min_distance__gte=self.input_distance_to_shipping)
-        #Security
-        if self.input_filter_uxo:
-            result = result.filter(uxo=0)
-            
+
         dissolved_geom = result[0].geometry
         for lb in result:
             try:
@@ -164,14 +155,10 @@ class Scenario(Analysis):
             self.geometry_dissolved = MultiPolygon(dissolved_geom, srid=dissolved_geom.srid)
         self.active = True
         
-        
         self.geometry_final_area = sum([lb.geometry.area for lb in result.all()])
         leaseblock_ids = [lb.id for lb in result.all()]
         self.lease_blocks = ','.join(map(str, leaseblock_ids))
-        
-        #pdb.set_trace()
-        
-        
+       
         if self.lease_blocks == '':
             self.satisfied = False
         else:
