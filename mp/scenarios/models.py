@@ -120,30 +120,58 @@ class Scenario(Analysis):
         return get_feature_json(json_geom, json.dumps(props))
     
     def run(self):
-        result = LeaseBlock.objects.all()
+        query = LeaseBlock.objects.all()
         
-        if self.input_parameter_coast_distance:
-            #why isn't this max_distance >= input.min_distance && min_distance <= input.max_distance ???
-            result = result.filter(avg_distance__gte=self.input_min_distance_to_shore, avg_distance__lte=self.input_max_distance_to_shore)
-
-        if self.input_parameter_depth:
-            #note:  converting input to negative values and converted to meters (to match db)
-            input_min_depth = -self.input_min_depth
-            input_max_depth = -self.input_max_depth
-
-            result = result.filter(bathy_avg__lte=input_min_depth, 
-                                   bathy_avg__gte=input_max_depth)
-#             result = result.filter(avg_depth__lt=0) #not sure this is doing anything, but do want to ensure 'no data' values are not included
-
-
-        #Wind Energy
-
-        if self.input_parameter_wind_speed:
-            #input_wind_speed = mph_to_mps(self.input_avg_wind_speed)
-            result = result.filter(min_wind_speed_rev__gte=self.input_avg_wind_speed)
-
-        dissolved_geom = result[0].geometry
-        for lb in result:
+        # TODO: This would be nicer if it generically knew how to filter fields
+        # by name. 
+        
+        if self.bathy_avg:
+            query = query.filter(bathy_avg__range=(self.bathy_avg_min, 
+                                                   self.bathy_avg_max))
+        
+        if self.wind_avg:
+            query = query.filter(wind_avg__range=(self.wind_avg_min, 
+                                                  self.wind_avg_max))
+        
+        if self.subs_mind:
+            query = query.filter(subs_mind__range=(self.subs_mind_min, 
+                                                   self.subs_mind_max))
+        
+        if self.coast_avg:
+            query = query.filter(coast_avg__range=(self.coast_avg_min, 
+                                                   self.coast_avg_max))
+        
+        if self.mangrove_p:
+            query = query.filter(mangrove_p__range=(self.mangrove_p_min, 
+                                                    self.mangrove_p_max))
+        
+        if self.coral_p:
+            query = query.filter(coral_p__range=(self.coral_p_min, 
+                                                 self.coral_p_max))
+        
+        if self.subveg_p:
+            query = query.filter(subveg_p__range=(self.subveg_p_min, 
+                                                  self.subveg_p_max))
+        
+        if self.protarea_p:
+            query = query.filter(protarea_p__range=(self.protarea_p_min, 
+                                                    self.protarea_p_max))
+        
+        if self.pr_apc_p:
+            query = query.filter(pr_apc_p__range=(self.pr_apc_p_min, 
+                                                  self.pr_apc_p_max))
+        
+        if self.pr_ape_p:
+            query = query.filter(pr_ape_p__range=(self.pr_ape_p_min, 
+                                                  self.pr_ape_p_max))
+        
+        if self.vi_apc_p:
+            query = query.filter(vi_apc_p__range=(self.vi_apc_p_min, 
+                                                  self.vi_apc_p_max))
+        
+        # TODO: geom = query.aggregate(Union('geometry'))
+        dissolved_geom = query[0].geometry
+        for lb in query:
             try:
                 dissolved_geom = dissolved_geom.union(lb.geometry)
             except:
@@ -155,8 +183,9 @@ class Scenario(Analysis):
             self.geometry_dissolved = MultiPolygon(dissolved_geom, srid=dissolved_geom.srid)
         self.active = True
         
-        self.geometry_final_area = sum([lb.geometry.area for lb in result.all()])
-        leaseblock_ids = [lb.id for lb in result.all()]
+        # TODO: geom.area, why are we counting twice?
+        self.geometry_final_area = sum([lb.geometry.area for lb in query.all()])
+        leaseblock_ids = [lb.id for lb in query.all()]
         self.lease_blocks = ','.join(map(str, leaseblock_ids))
        
         if self.lease_blocks == '':
