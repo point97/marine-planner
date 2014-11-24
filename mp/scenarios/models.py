@@ -230,7 +230,10 @@ class Scenario(Analysis):
                                                   self.vi_apc_p_max))
         
         # TODO: geom = query.aggregate(Union('geometry'))
-        dissolved_geom = query[0].geometry
+        try:
+            dissolved_geom = query[0].geometry
+        except IndexError:
+            raise Exception("No lease blocks available with the current filters.")    
         for lb in query:
             try:
                 dissolved_geom = dissolved_geom.union(lb.geometry)
@@ -262,7 +265,6 @@ class Scenario(Analysis):
             if not rerun:
                 orig = Scenario.objects.get(pk=self.pk)
                 #TODO: keeping this in here til I figure out why self.lease_blocks and self.geometry_final_area are emptied when run() is not called
-                remove_kml_cache(self)
                 rerun = True
                 #if getattr(orig, 'name') != getattr(self, 'name'):
                 #    #print 'name has changed'
@@ -273,7 +275,6 @@ class Scenario(Analysis):
                         # Is original value different from form value?
                         if getattr(orig, f.name) != getattr(self, f.name):
                             #print 'input_field, %s, has changed' %f.name
-                            remove_kml_cache(self)
                             rerun = True
                             break                                                                                                                   
                 if not rerun:
@@ -291,7 +292,6 @@ class Scenario(Analysis):
                     new_substrates = set(getattr(self, 'input_substrate').all()) 
                     new_sediments = set(getattr(self, 'input_sediment').all())   
                     if orig_substrates != new_substrates or orig_sediments != new_sediments or orig_weas != new_weas:
-                        remove_kml_cache(self) 
                         rerun = True    
             super(Scenario, self).save(rerun=rerun, *args, **kwargs)
         else: #editing a scenario and rerun is provided 
