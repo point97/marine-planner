@@ -921,50 +921,40 @@ function scenarioModel(options) {
         
     };
 
-    // self.editScenario = function() {
-    //     var scenario = this;
-    //     return $.ajax({
-    //         url: '/features/scenario/' + scenario.uid + '/form/',
-    //         success: function(data) {
-    //             //$('#scenario-form').append(data);
-    //             app.viewModel.scenarios.scenarioForm(true);
-    //             $('#scenario-form').html(data);
-    //             app.viewModel.scenarios.scenarioFormModel = new scenarioFormModel();
-    //             ko.applyBindings(app.viewModel.scenarios.scenarioFormModel, document.getElementById('scenario-form'));
-    //             app.viewModel.scenarios.scenarioFormModel.updateFiltersAndLeaseBlocks();
-    //
-    //             if ($('#id_input_parameter_wind_speed').is(':checked')) {
-    //                 //app.viewModel.scenarios.scenarioFormModel.windSpeedParameter(true);
-    //                 app.viewModel.scenarios.scenarioFormModel.toggleWindSpeedWidget();
-    //             }
-    //             if ($('#id_input_parameter_depth').is(':checked')) {
-    //                 app.viewModel.scenarios.scenarioFormModel.toggleDepthWidget();
-    //             }
-    //             if ($('#id_input_parameter_distance_to_shore').is(':checked')) {
-    //                 app.viewModel.scenarios.scenarioFormModel.toggleDistanceToShoreWidget();
-    //             }
-    //             if ($('#id_input_parameter_distance_to_substation').is(':checked')) {
-    //                 app.viewModel.scenarios.scenarioFormModel.toggleSubstationWidget();
-    //             }
-    //             if ($('#id_input_parameter_distance_to_awc').is(':checked')) {
-    //                 app.viewModel.scenarios.scenarioFormModel.toggleAWCWidget();
-    //             }
-    //             if ($('#id_input_filter_distance_to_shipping').is(':checked')) {
-    //                 app.viewModel.scenarios.scenarioFormModel.toggleShippingLanesWidget();
-    //             }
-    //             if ($('#id_input_filter_ais_density').is(':checked')) {
-    //                 app.viewModel.scenarios.scenarioFormModel.toggleShipTrafficWidget();
-    //             }
-    //             if ($('#id_input_filter_uxo').is(':checked')) {
-    //                 app.viewModel.scenarios.scenarioFormModel.toggleUXOWidget();
-    //             }
-    //             app.viewModel.scenarios.scenarioFormModel.updateFiltersAndLeaseBlocks();
-    //         },
-    //         error: function (result) {
-    //             //debugger;
-    //         }
-    //     });
-    // };
+    self.editScenario = function() {
+        var scenario = this;
+        return $.ajax({
+            url: '/features/scenario/' + scenario.uid + '/form/',
+            success: function(data) {
+                //$('#scenario-form').append(data);
+                app.viewModel.scenarios.scenarioForm(true);
+                $('#scenario-form').html(data);
+                app.viewModel.scenarios.scenarioFormModel = new scenarioFormModel();
+                var model = app.viewModel.scenarios.scenarioFormModel;
+                
+                ko.applyBindings(model, document.getElementById('scenario-form'));
+
+                var parameters = [
+                    'bathy_avg', 'wind_avg', 'subs_mind', 'coast_avg',
+                    'mangrove_p', 'coral_p', 'subveg_p', 'protarea_p',
+                    'pr_apc_p', 'pr_ape_p', 'vi_apc_p'
+                ];
+
+                for (var i = 0; i < parameters.length; i++) {
+                    var id = '#id_' + parameters[i];
+                    
+                    if ($(id).is(':checked')) {
+                        model.toggleParameter(parameters[i]);
+                    }
+                }
+
+                model.updateFiltersAndLeaseBlocks();
+            },
+            error: function (result) {
+                //debugger;
+            }
+        });
+    };
 
     self.createCopyScenario = function() {
         var scenario = this;
