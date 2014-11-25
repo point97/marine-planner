@@ -191,21 +191,6 @@ class ScenarioForm(FeatureForm):
             fields.append(group)
         return fields
 
-    #TODO:  might adjust the max_value to 21.5 (this is the max min value, don't yet have the avg value...)                                    
-#     input_parameter_wind_speed = forms.BooleanField( widget=CheckboxInput(attrs={'class': 'parameters'}), required=False )
-#     input_avg_wind_speed = forms.FloatField(    min_value=7, max_value=9.5, initial=8,
-#                                                 #widget=SliderWidgetWithTooltip( min=10,max=21.5,step=.1,
-#                                                                                 #id="info_wind_speed_widget"),
-#                                                 widget=SliderWidget( min=7,max=9.5,step=.25),
-#                                                 required=False )
-#                                   
-#     input_parameter_distance_to_substation = forms.BooleanField( widget=CheckboxInput(attrs={'class': 'parameters'}), required=False )
-#     input_distance_to_substation = forms.FloatField(    min_value=10, max_value=50, initial=30,
-#                                                         widget=SliderWidget( min=10,max=50,step=1 ),
-#                                                         required=False)
-    # Shipping 
-                               
-    # NON-ACTIVATED FORM ELEMENTS
       
     def save(self, commit=True):
         inst = super(FeatureForm, self).save(commit=False)

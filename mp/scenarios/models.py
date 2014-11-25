@@ -4,7 +4,6 @@ import os
 import time
 import json
 from picklefield import PickledObjectField
-from django.db import models
 from django.conf import settings
 from django.contrib.gis.db import models
 from django.utils.html import escape
@@ -143,33 +142,8 @@ class Scenario(Analysis):
                                    data='%s - %s %%' % (self.vi_apc_p_min, 
                                                         self.vi_apc_p_max)))
 
-#         if self.input_parameter_wind_speed:
-#             wind_speed = '%s m/s' %format(self.input_avg_wind_speed, 1)
-#             attributes.append({'title': 'Minimum Average Wind Speed', 'data': wind_speed})
-#         if self.input_parameter_distance_to_shore:
-#             distance_to_shore = '%s - %s miles' %(format(self.input_min_distance_to_shore, 0), format(self.input_max_distance_to_shore, 0))
-#             attributes.append({'title': 'Distance to Shore', 'data': distance_to_shore})
-#         if self.input_parameter_depth:
-#             depth_range = '%s - %s meters' %(format(self.input_min_depth, 0), format(self.input_max_depth, 0))
-#             attributes.append({'title': 'Depth Range', 'data': depth_range})
-#         if self.input_parameter_distance_to_awc:
-#             distance_to_awc = '%s miles' %format(self.input_distance_to_awc, 0)
-#             attributes.append({'title': 'Max Distance to Proposed AWC Hub', 'data': distance_to_awc})
-#         if self.input_parameter_distance_to_substation:
-#             distance_to_substation = '%s miles' %format(self.input_distance_to_substation, 0)
-#             attributes.append({'title': 'Max Distance to Coastal Substation', 'data': distance_to_substation})
-#         if self.input_filter_distance_to_shipping:
-#             miles_to_shipping = format(self.input_distance_to_shipping, 0)
-#             if miles_to_shipping == 1:
-#                 distance_to_shipping = '%s mile' %miles_to_shipping
-#             else:
-#                 distance_to_shipping = '%s miles' %miles_to_shipping
-#             attributes.append({'title': 'Minimum Distance to Ship Routing Measures', 'data': distance_to_shipping})
-#         if self.input_filter_ais_density:
-#             attributes.append({'title': 'Excluding Areas with Moderate or High Ship Traffic', 'data': ''})
-#         if self.input_filter_uxo:
-#             attributes.append({'title': 'Excluding Areas with Unexploded Ordnances', 'data': ''})
-        attributes.append({'title': 'Number of Leaseblocks', 'data': self.lease_blocks.count(',')+1})
+        attributes.append({'title': 'Number of Leaseblocks', 
+                           'data': self.lease_blocks.count(',')+1})
         return { 'event': 'click', 'attributes': attributes }
     
     
@@ -577,7 +551,7 @@ class LeaseBlock(models.Model):
     pr_ape_p = models.FloatField()
     vi_apc_p = models.FloatField()
     objects = models.GeoManager()
-# ------
+
     geometry = models.MultiPolygonField(srid=settings.GEOMETRY_DB_SRID, 
                                         null=True, blank=True, 
                                         verbose_name="Lease Block Geometry")
