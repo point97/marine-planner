@@ -1,0 +1,24 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Jet Ski Launching Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_jetski_launching_area_2013_pts" }, "geometry": { "type": "Point", "coordinates": [ -7479634.512788034, 2046256.3368417905 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Jet Ski Launching Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_jetski_launching_area_2013_pts" }, "geometry": { "type": "Point", "coordinates": [ -7480142.0691374177, 2048637.834437937 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Jet Ski Launching Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_jetski_launching_area_2013_pts" }, "geometry": { "type": "Point", "coordinates": [ -7478072.3911825987, 2040286.5566401908 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Jet Ski Launching Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_jetski_launching_area_2013_pts" }, "geometry": { "type": "Point", "coordinates": [ -7482379.7974049728, 2035668.1074941116 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Jet Ski Launching Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_jetski_launching_area_2013_pts" }, "geometry": { "type": "Point", "coordinates": [ -7480582.6081601195, 2043181.5602459817 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Shelter", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_shelter_2013" }, "geometry": { "type": "Point", "coordinates": [ -7480088.0886085015, 2046629.5994207307 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7479479.0151905892, 2046459.1633920844 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7477919.6733259372, 2040621.3181707079 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7462710.3820810197, 2034770.5900895081 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7478635.6865036972, 2041118.7276714032 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7479009.5057248017, 2052862.8147158069 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7482231.1415180471, 2035330.4137390759 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7478556.236203108, 2056308.261772424 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7480115.6567358589, 2048680.912906081 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7478815.8948412733, 2049686.0794016903 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7478556.236203108, 2056308.261772424 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7479615.4488946097, 2049248.9285863137 ] } },
+{ "type": "Feature", "properties": { "Id": 0, "Activity": null, "Facility": "Boat Launch Area", "Location": "Cabo Rojo", "Data_sourc": "pr_sw_soec_boat_launch_2013" }, "geometry": { "type": "Point", "coordinates": [ -7478451.0531459935, 2050041.3847342245 ] } }
+]
+}
