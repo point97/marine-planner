@@ -245,8 +245,14 @@ function scenarioFormModel(options) {
         if (Number(min) != min) {
             min = -Infinity; 
         }
+        else {
+            min = Number(min);
+        }
         if (Number(max) != max) {
             max = Infinity
+        }
+        else {
+            max = Number(max);
         }
 
         var filter = new OpenLayers.Filter.Comparison({
@@ -292,13 +298,18 @@ function scenarioFormModel(options) {
     self.updateLeaseblocksLeft = function() {
         var list = app.viewModel.scenarios.leaseblockList;
         var count = 0;
-            
+        
+        self.masterFilter.filters = [];
+        for (var f in self.filters) {
+            self.masterFilter.filters.push(self.filters[f].clone());
+        }
+        
         for (var i = 0; i < list.length; i++) {
             if (self.masterFilter.evaluate(list[i])) {
                 count++;
             }
         }
-        
+
         self.leaseblocksLeft(count);
     };
     
@@ -306,15 +317,7 @@ function scenarioFormModel(options) {
         self.lastChange = (new Date()).getTime(); 
         setTimeout(function() {
             var newTime = (new Date()).getTime();
-            if ( newTime - self.lastChange > 200 ) {
-                console.log('showRemainingBlocks')
-                
-                var filters = [];
-                for (var f in self.filters) {
-                    filters.push(self.filters[f].clone());
-                }
-                self.masterFilter.filters = filters;
-
+            if ( newTime - self.lastChange > 100 ) {
                 self.showRemainingBlocks();
             }
         }, 200);
