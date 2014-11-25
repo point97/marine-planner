@@ -40,7 +40,7 @@ INSTALLED_APPS += ('django_extensions',
                    'scenarios',
                    )
 
-GEOMETRY_DB_SRID = 99996
+GEOMETRY_DB_SRID = 3857
 GEOMETRY_CLIENT_SRID = 3857  # for latlon
 GEOJSON_SRID = 3857
 
