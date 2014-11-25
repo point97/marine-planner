@@ -18,8 +18,8 @@ class Migration(SchemaMigration):
             ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='drawing_aoi_related', null=True, to=orm['contenttypes.ContentType'])),
             ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')(null=True, blank=True)),
             ('manipulators', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('geometry_orig', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=99996, null=True, blank=True)),
-            ('geometry_final', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=99996, null=True, blank=True)),
+            ('geometry_orig', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=3857, null=True, blank=True)),
+            ('geometry_final', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=3857, null=True, blank=True)),
         ))
         db.send_create_signal('drawing', ['AOI'])
 
@@ -41,8 +41,8 @@ class Migration(SchemaMigration):
             ('content_type', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='drawing_windenergysite_related', null=True, to=orm['contenttypes.ContentType'])),
             ('object_id', self.gf('django.db.models.fields.PositiveIntegerField')(null=True, blank=True)),
             ('manipulators', self.gf('django.db.models.fields.TextField')(null=True, blank=True)),
-            ('geometry_orig', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=99996, null=True, blank=True)),
-            ('geometry_final', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=99996, null=True, blank=True)),
+            ('geometry_orig', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=3857, null=True, blank=True)),
+            ('geometry_final', self.gf('django.contrib.gis.db.models.fields.PolygonField')(srid=3857, null=True, blank=True)),
         ))
         db.send_create_signal('drawing', ['WindEnergySite'])
 
@@ -112,8 +112,8 @@ class Migration(SchemaMigration):
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'drawing_aoi_related'", 'null': 'True', 'to': "orm['contenttypes.ContentType']"}),
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'date_modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'geometry_final': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '99996', 'null': 'True', 'blank': 'True'}),
-            'geometry_orig': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '99996', 'null': 'True', 'blank': 'True'}),
+            'geometry_final': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '3857', 'null': 'True', 'blank': 'True'}),
+            'geometry_orig': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '3857', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'manipulators': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': "'255'"}),
@@ -126,8 +126,8 @@ class Migration(SchemaMigration):
             'content_type': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'drawing_windenergysite_related'", 'null': 'True', 'to': "orm['contenttypes.ContentType']"}),
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'date_modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'geometry_final': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '99996', 'null': 'True', 'blank': 'True'}),
-            'geometry_orig': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '99996', 'null': 'True', 'blank': 'True'}),
+            'geometry_final': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '3857', 'null': 'True', 'blank': 'True'}),
+            'geometry_orig': ('django.contrib.gis.db.models.fields.PolygonField', [], {'srid': '3857', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'manipulators': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': "'255'"}),
