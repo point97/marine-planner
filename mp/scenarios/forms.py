@@ -69,14 +69,11 @@ class ScenarioForm(FeatureForm):
 
     # Wind range 72 - 400 W/m^2
     wind_avg = forms.BooleanField(label="Wind energy potential", required=False,
-                                  help_text="Wind energy generation potential (watts per square meter).", 
+                                  help_text="Minimum wind energy generation potential (watts per square meter).", 
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     wind_avg_min = forms.FloatField(initial=200, required=False,
-        widget=forms.TextInput(attrs={'class':'slidervalue'}))
-    wind_avg_max = forms.FloatField(initial=400, required=False,
-        widget=TextInputWithUnit(unit='W/m²', attrs={'class':'slidervalue'}))
-    wind_avg_input = forms.FloatField(required=False, widget=DualSliderWidget('wind_avg_min', 
-                                     'wind_avg_max', min=72, max=400, step=1))
+        widget=SliderWidget(attrs={'class':'slidervalue'}, min=72, max=400, 
+                            step=1))
 
     subs_mind = forms.BooleanField(label="Substation distance", required=False,
         help_text="Distance to a power substation (meters).",
@@ -158,7 +155,7 @@ class ScenarioForm(FeatureForm):
         where each parameter except the first is optional. 
         """
         names = (('bathy_avg', 'bathy_avg_min', 'bathy_avg_max', 'bathy_avg_input'), 
-                 ('wind_avg', 'wind_avg_min', 'wind_avg_max', 'wind_avg_input',),
+                 ('wind_avg', 'wind_avg_min',), # 'wind_avg_max', 'wind_avg_input',),
                  ('subs_mind', 'subs_mind_min', 'subs_mind_max', 'subs_mind_input',),
                  ('coast_avg', 'coast_avg_min', 'coast_avg_max', 'coast_avg_input', ),)
 
