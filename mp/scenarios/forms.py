@@ -76,13 +76,11 @@ class ScenarioForm(FeatureForm):
                             step=1))
 
     subs_mind = forms.BooleanField(label="Substation distance", required=False,
-        help_text="Distance to a power substation (meters).",
+        help_text="Maximum distance to a power substation (meters).",
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
-    subs_mind_min = forms.FloatField(required=False, initial=425)
     subs_mind_max = forms.FloatField(required=False, initial=15000,
-        widget=TextInputWithUnit(unit='meters', attrs={'class':'slidervalue'}))
-    subs_mind_input = forms.FloatField(widget=DualSliderWidget('subs_mind_min', 
-                                     'subs_mind_max', min=425, max=108430, step=1))
+        widget=SliderWidget(attrs={'class':'slidervalue'}, 
+                            min=425, max=108430, step=1))
 
     coast_avg = forms.BooleanField(label="Coastline Distance", required=False,
         help_text="Average distance to coastline (meters).",
@@ -155,8 +153,8 @@ class ScenarioForm(FeatureForm):
         where each parameter except the first is optional. 
         """
         names = (('bathy_avg', 'bathy_avg_min', 'bathy_avg_max', 'bathy_avg_input'), 
-                 ('wind_avg', 'wind_avg_min',), # 'wind_avg_max', 'wind_avg_input',),
-                 ('subs_mind', 'subs_mind_min', 'subs_mind_max', 'subs_mind_input',),
+                 ('wind_avg', 'wind_avg_min',), 
+                 ('subs_mind', None, 'subs_mind_max',),
                  ('coast_avg', 'coast_avg_min', 'coast_avg_max', 'coast_avg_input', ),)
 
         return self._get_fields(names)
@@ -184,8 +182,13 @@ class ScenarioForm(FeatureForm):
     def _get_fields(self, names):
         fields = []
         for name_list in names: 
-            fields.append([self[name] for name in name_list])
-        
+            group = []
+            for name in name_list: 
+                if name:
+                    group.append(self[name])
+                else:
+                    group.append(None)
+            fields.append(group)
         return fields
 
     #TODO:  might adjust the max_value to 21.5 (this is the max min value, don't yet have the avg value...)                                    
