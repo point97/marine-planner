@@ -72,6 +72,8 @@
 
 .crop .sidebar-nav .nav-tabs a {
 	border: 0;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .crop .sidebar-nav .nav-tabs li.active a, .crop .sidebar-nav .nav-tabs li.active:hover a {
