@@ -13,6 +13,7 @@ from madrona.features import register
 from madrona.analysistools.models import Analysis
 from general.utils import miles_to_meters, feet_to_meters, meters_to_feet, mph_to_mps, mps_to_mph, format
 from django.contrib.gis.geos import MultiPolygon
+from django.contrib.gis.db.models.aggregates import Union
 
 
 class KMLCache(models.Model):
@@ -203,16 +204,11 @@ class Scenario(Analysis):
             query = query.filter(vi_apc_p__range=(self.vi_apc_p_min, 
                                                   self.vi_apc_p_max))
         
-        # TODO: geom = query.aggregate(Union('geometry'))
-        try:
-            dissolved_geom = query[0].geometry
-        except IndexError:
-            raise Exception("No lease blocks available with the current filters.")    
-        for lb in query:
-            try:
-                dissolved_geom = dissolved_geom.union(lb.geometry)
-            except:
-                pass
+        dissolved_geom = query.aggregate(Union('geometry'))
+        if dissolved_geom:
+            dissolved_geom = dissolved_geom['geometry__union']
+        else:
+            raise Exception("No lease blocks available with the current filters.")
         
         if type(dissolved_geom) == MultiPolygon:
             self.geometry_dissolved = dissolved_geom
@@ -220,11 +216,14 @@ class Scenario(Analysis):
             self.geometry_dissolved = MultiPolygon(dissolved_geom, srid=dissolved_geom.srid)
         self.active = True
         
-        # TODO: geom.area, why are we counting twice?
-        self.geometry_final_area = sum([lb.geometry.area for lb in query.all()])
-        leaseblock_ids = [lb.id for lb in query.all()]
-        self.lease_blocks = ','.join(map(str, leaseblock_ids))
-       
+        import datetime;start=datetime.datetime.now()
+        self.geometry_final_area = self.geometry_dissolved.area
+        
+        self.lease_blocks = ','.join(str(i) 
+                                     for i in query.values_list('id', flat=True))
+        
+        print("Elapsed:", datetime.datetime.now() - start)
+               
         if self.lease_blocks == '':
             self.satisfied = False
         else:
