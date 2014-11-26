@@ -1,6 +1,9 @@
 from django.db import models
 from utils import get_domain
 from django.template.defaultfilters import slugify
+from django.conf import settings
+from django.core.mail import send_mail  
+import requests
 #from sorl.thumbnail import ImageField
 
 
@@ -24,7 +27,7 @@ class TOCTheme(models.Model):
         return "\n".join([toc.name for toc in self.toc_set.all()])
 
     def __unicode__(self):
-        return unicode('%s' % (self.name))
+        return unicode('%s' % (self.display_name))
 
     @property
     def toDict(self):
@@ -38,6 +41,32 @@ class TOCTheme(models.Model):
         }
         return themes_dict
 
+    @property 
+    def simpleLayerList(self):
+        layers = list(self.layers.all().exclude(layer_type__in=['placeholder', 'checkbox', 'radio']).order_by('name'))
+        parent_layers = self.layers.filter(layer_type__in=['checkbox', 'radio'])
+        for layer in parent_layers:
+            for sublayer in layer.sublayer_list:
+                layers.append(sublayer)
+        layers.sort(key=lambda x: x.name)
+        return layers
+
+    def save(self, *args, **kwargs):
+        # update the data catalog (cms-crop)
+        catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
+        response = requests.get(catalog_url)
+        # if get request failed, notify admins
+        if response.status_code != 200:
+            # email admins?
+            subject = "CROP - Failed Data Catalog Save Attempt"
+            message = "Attempting to update CMS CROP Data Catalog...Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s" %(response.status_code)
+            from_email = "%s" %(settings.DEFAULT_FROM_EMAIL)
+            recipients = settings.ADMINS                 
+            try:              
+                send_mail(subject, message, from_email, recipients)
+            except:
+                pass                    
+        super(TOCTheme, self).save(*args, **kwargs)
 
 
 class Theme(models.Model):
@@ -93,16 +122,17 @@ class Layer(models.Model):
     url = models.CharField(max_length=255, blank=True, null=True)
     shareable_url = models.BooleanField(default=True)
     proxy_url = models.BooleanField(default=False, help_text="proxy layer url through marine planner")
-    arcgis_layers = models.CharField(max_length=255, blank=True, null=True)
+    arcgis_layers = models.CharField(max_length=255, blank=True, null=True, help_text="IDs separated by commas (no spaces)")
     wms_slug = models.CharField(max_length=255, blank=True, null=True)
     sublayers = models.ManyToManyField('self', blank=True, null=True)
-    themes = models.ManyToManyField("Theme", blank=True, null=True)
     is_sublayer = models.BooleanField(default=False)
-    legend = models.CharField(max_length=255, blank=True, null=True)
-    legend_title = models.CharField(max_length=255, blank=True, null=True)
+    themes = models.ManyToManyField("Theme", blank=True, null=True)
+    toc_themes = models.ManyToManyField(TOCTheme, through=TOCTheme.layers.through, blank=True)
+    utfurl = models.CharField(max_length=255, blank=True, null=True, help_text="For XYZ MBTiles this should be the same URL as entered above, but ending with .grid.json rather than .png")
+    utfjsonp = models.BooleanField(default=False, help_text="For MBTiles, check this box")
+    legend = models.CharField(max_length=255, blank=True, null=True, help_text="Path to Lagend png (/media/crop/legends/legend.png or http://somewhere.else.com/legend.png")
+    legend_title = models.CharField(max_length=255, blank=True, null=True, help_text="If no value is entered, the layer name will be used as the Legend Title")
     legend_subtitle = models.CharField(max_length=255, blank=True, null=True)
-    utfurl = models.CharField(max_length=255, blank=True, null=True)
-    utfjsonp = models.BooleanField(default=False)
     summarize_to_grid = models.BooleanField(default=False)
     # TODO: summarize_to_grid and filterable are basically the same.
     filterable = models.BooleanField(default=False)
@@ -120,11 +150,11 @@ class Layer(models.Model):
     bookmark = models.CharField(max_length=755, blank=True, null=True)
     map_tiles = models.CharField(max_length=255, blank=True, null=True)
     kml = models.CharField(max_length=255, blank=True, null=True)
-    data_download = models.CharField(max_length=255, blank=True, null=True)
+    data_download = models.CharField(max_length=255, blank=True, null=True, help_text="Link to download the data")
     #learn_more = models.CharField(max_length=255, blank=True, null=True)
-    metadata = models.CharField(max_length=255, blank=True, null=True)
+    metadata = models.CharField(max_length=255, blank=True, null=True, help_text="Link to the metadata")
     #fact_sheet = models.CharField(max_length=255, blank=True, null=True)
-    source = models.CharField(max_length=255, blank=True, null=True)
+    source = models.CharField(max_length=255, blank=True, null=True, help_text="Link to the data providers")
     #thumbnail = models.URLField(max_length=255, blank=True, null=True)
     
     #geojson javascript attribution
@@ -132,14 +162,14 @@ class Layer(models.Model):
         ('click', 'click'),
         ('mouseover', 'mouseover')
     )
-    attribute_title = models.CharField(max_length=255, blank=True, null=True)
+    attribute_title = models.CharField(max_length=255, blank=True, null=True, help_text="If no value is entered, the layer name will be used as the header for the Attribute list (triggered on click events)")
     attribute_fields = models.ManyToManyField('AttributeInfo', blank=True, null=True)
     compress_display = models.BooleanField(default=False)
-    attribute_event = models.CharField(max_length=35, choices=EVENT_CHOICES, default='click')
+    attribute_event = models.CharField(max_length=35, choices=EVENT_CHOICES, default='click', help_text="Only 'click' is available at this time")
     lookup_field = models.CharField(max_length=255, blank=True, null=True)
     lookup_table = models.ManyToManyField('LookupInfo', blank=True, null=True)
-    vector_color = models.CharField(max_length=7, blank=True, null=True)
-    vector_fill = models.FloatField(blank=True, null=True)
+    vector_color = models.CharField(max_length=7, blank=True, null=True, help_text="Outline color represented in a hex format (e.g. #00ff00)")
+    vector_fill = models.FloatField(blank=True, null=True, help_text="Fill opacity represented by a floating point value (e.g. '.8')")
     vector_graphic = models.CharField(max_length=255, blank=True, null=True)
     opacity = models.FloatField(default=.5, blank=True, null=True)
     
@@ -342,6 +372,21 @@ class Layer(models.Model):
         return layers_dict
         
     def save(self, *args, **kwargs):
+        # update the data catalog (cms-crop)
+        catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'        
+        response = requests.get(catalog_url)
+        # if get request failed, notify admins
+        if response.status_code != 200:
+            # email admins?
+            subject = "CROP - Failed Data Catalog Save Attempt"
+            message = "Attempting to update CMS CROP Data Catalog...Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s" %(response.status_code)
+            from_email = "%s" %(settings.DEFAULT_FROM_EMAIL)
+            recipients = settings.ADMINS                 
+            try:              
+                send_mail(subject, message, from_email, recipients)
+            except:
+                pass        
+        # other stuff
         self.slug_name = self.slug
         super(Layer, self).save(*args, **kwargs)
 

@@ -11,20 +11,39 @@
     <script type="text/javascript">
         var map, esriOcean, layer;
         function init(){
-            var lat = 38.8,
-                lng = -73,
-                zoom = 6;
+            var lat = 18,
+                lng = -66,
+                zoom = 9,
+                layer_name = '{{layer.name|safe}}',
+                map_settings = JSON.parse('{{map_settings|safe}}');
 
-            var map_settings = JSON.parse('{{map_settings|safe}}');
             if (map_settings) {
                 if (map_settings.lat) {
-                    lat = map_settings.lat;                    
+                    if (layer_name.indexOf('PR') !== -1) {
+                        lat = map_settings.lat;   
+                    } else if (layer_name.indexOf('USVI') !== -1) {
+                        lat = map_settings.lat - .2;   
+                    } else {
+                        lat = map_settings.lat - .2;   
+                    }                                  
                 } 
                 if (map_settings.lng) {
-                    lng = map_settings.lng;
+                    if (layer_name.indexOf('PR') !== -1) {
+                        lng = map_settings.lng + .3;   
+                    } else if (layer_name.indexOf('USVI') !== -1) {
+                        lng = map_settings.lng + 1.7;
+                    } else {
+                        lng = map_settings.lng + .8;   
+                    }  
                 }
                 if (map_settings.zoom) {
-                    zoom = map_settings.zoom - 1;
+                    if (layer_name.indexOf('PR') !== -1) {
+                        zoom = map_settings.zoom - 1;
+                    } else if (layer_name.indexOf('USVI') !== -1) {
+                        zoom = map_settings.zoom - 1;
+                    } else {
+                        zoom = map_settings.zoom - 2;
+                    }  
                 }
             }
 

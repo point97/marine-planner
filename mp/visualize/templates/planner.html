@@ -170,7 +170,7 @@
                                         </span>
                                         {% else %}
                                         <span class="btn-group">
-                                          <a id="#sign-in-button" class="btn btn-large" href="#sign-in-modal" data-toggle="modal">Admin Signin</a> 
+                                          <a id="#sign-in-button" class="btn btn-large" href="#sign-in-modal" data-toggle="modal">Signin / Register</a> 
                                         </span>
                                         {% endif %}
                                       </div>
@@ -359,13 +359,13 @@
                                             <div id="overview-overlay-links">
                                               <span class="span11">
                                                 <div class="text" style="margin-top: 5px">
-                                                    <span>
+                                                    <!-- <span>
                                                         <a class="btn btn-mini" data-bind="css: { disabled: ! activeDataLink() }, attr: { href: activeDataLink() }" target="_blank">
                                                             <span rel="tooltip" title="Download ESRI Formatted Dataset">
                                                                 DATA
                                                             </span>
                                                         </a>
-                                                    </span>
+                                                    </span> -->
                                                     <span>
                                                         <a class="btn btn-mini" data-bind="css: { disabled: ! activeMetadataLink() }, attr: { href: activeMetadataLink() }" target="_blank">
                                                             <span rel="tooltip" title="View the Metadata">
@@ -407,7 +407,7 @@
                 <!-- Data Panel (left panel) -->
                 <div class="row-fluid" data-bind="visible: showLayers()">
                 <div class="span4 tabs">
-                    <div class="sidebar-nav" data-bind="css: {'fullscreen-data': isFullScreen()}" style="min-width: 350px; max-width: 350px; height: 625px; top: 12px; z-index: 750; margin-left: 12px; background-color: white; border-radius: 10px; opacity: .95; border: 1px solid #ccc;">
+                    <div class="sidebar-nav" data-bind="css: {'fullscreen-data': isFullScreen()}" style="min-width: 370px; max-width: 370px; height: 625px; top: 12px; z-index: 750; margin-left: 12px; background-color: white; border-radius: 10px; opacity: .95; border: 1px solid #ccc;">
                         
                         <!-- Header -->
                         <div id="data-panel-header">
@@ -647,12 +647,12 @@
                                       </div>
                                       <div data-bind="foreach: activeLegendLayers">
                                         <div class="accordion-group" style="border: 0px;">
-                                            <div class="accordion-heading" data-bind="click: toggleLegendDetails">
+                                            <!-- <div class="accordion-heading" data-bind="click: toggleLegendDetails">
                                                 <a class="accordion-toggle" style="text-decoration: none; padding-left: 0px;">
                                                     <span class="pagination-centered legend-title" data-bind="html: legendTitle ? legendTitle : name"></span>
                                                     <p style="margin: 0px -5px 3px; text-align: left;font-size: 12px;" data-bind="visible: legendSubTitle, html: legendSubTitle"></p>
                                                 </a>
-                                            </div>
+                                            </div> -->
                                             <div class="accordion-body collapse in" data-bind="attr: { id: $root.convertToSlug(name)+'-legend-content' }" >
                                                 <div class="accordion-inner" style="border: 0px; padding-top: 0px;">
                                                     <span data-bind="if: legend">

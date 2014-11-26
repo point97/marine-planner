@@ -37,6 +37,42 @@ def get_json(request, project=None):
     }
     return HttpResponse(simplejson.dumps(json))
 
+def get_catalog_json(request, project='CROP'):
+    from mp_settings.models import *
+    try:
+        if project:
+            activeSettings = MarinePlannerSettings.objects.get(slug_name=project)
+        else:
+            activeSettings = MarinePlannerSettings.objects.get(active=True)
+        theme_list = []
+        for theme in activeSettings.table_of_contents.themes.all().order_by('display_name'):
+            theme_dict = { 
+                "id": theme.id,
+                "name": theme.display_name,
+                "layers": []
+            }
+            for layer in theme.simpleLayerList:
+                layer_dict = {
+                    "id": layer.id,
+                    "name": layer.name,
+                    "description": layer.description,
+                    "map_link": layer.bookmark_link,
+                    "data_link": layer.data_download_link,
+                    "tiles_link": layer.tiles_link,
+                    "meta_link": layer.metadata_link
+                }
+                if layer.layer_type == 'ArcRest': 
+                    layer_dict["web_services_url"] = layer.url.replace('export', layer.arcgis_layers)
+                theme_dict["layers"].append(layer_dict)
+            theme_list.append(theme_dict)
+        json = {
+            "themes": theme_list
+        }
+    except Exception as e:
+        json = {
+            "Error": e.message
+        }
+    return HttpResponse(simplejson.dumps(json))
 
 def create_layer(request):
     if request.POST:

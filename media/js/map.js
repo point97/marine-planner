@@ -169,6 +169,7 @@ app.init = function() {
                                 hasAllAttributes = true;
                             }
                         });
+                        
                         if (!hasAllAttributes && potential_layer.parent) {
                             parentHasAllAttributes = true;
                             if (!potential_layer.parent.attributes.length) {
@@ -210,7 +211,9 @@ app.init = function() {
                             });
                             var title = potential_layer.name,
                                 text = attribute_objs;
-                            if (title === 'Wind Speed') {
+                            if ( title === 'Planning Grid' ) {
+                                text = app.viewModel.getGridAttributes(info.data);
+                            } else if (title === 'Wind Speed') {
                                 text = app.viewModel.getWindSpeedAttributes(title, info.data);
                             }
                             clickAttributes[title] = text;
@@ -254,17 +257,19 @@ app.init = function() {
                     }
                 }
             }
-
-            // the following delay prevents the #map click-event-attributes-clearing from taking place after this has occurred
-            setTimeout(function() {
-                app.map.clickOutput.attributes[title] = text;
-                app.viewModel.aggregatedAttributes(app.map.clickOutput.attributes);
-                app.viewModel.updateMarker(app.map.getLonLatFromViewPortPx(e.event.xy));
-                //if (app.marker) {
-                //    app.marker.display(true);
-                //app.viewModel.updateMarker(lonlat);
-                //}
-            }, 100);
+            // if there are attributes to display...
+            if (text.length) {                
+                // the following delay prevents the #map click-event-attributes-clearing from taking place after this has occurred
+                setTimeout(function() {
+                    app.map.clickOutput.attributes[title] = text;
+                    app.viewModel.aggregatedAttributes(app.map.clickOutput.attributes);
+                    app.viewModel.updateMarker(app.map.getLonLatFromViewPortPx(e.event.xy));
+                    //if (app.marker) {
+                    //    app.marker.display(true);
+                    //app.viewModel.updateMarker(lonlat);
+                    //}
+                }, 100);
+            }
 
         }
 
@@ -344,7 +349,10 @@ app.init = function() {
     };
 
     app.utils.trim = function(str) {
-        return str.replace(/^\s+|\s+$/g, '');
+        if (str) {
+            return str.replace(/^\s+|\s+$/g, '');
+        }
+        return str;
     };
 
     app.utils.getObjectFromList = function(list, field, value) {
@@ -685,12 +693,13 @@ app.addVectorLayerToMap = function(layer) {
         fillOpacity: layer.fillOpacity,
         //strokeDashStyle: "dash",
         //strokeOpacity: 1,
+        strokeWidth: 1,
         strokeColor: layer.color,
         strokeOpacity: layer.defaultOpacity,
         //strokeLinecap: "square",
         //http://dev.openlayers.org/apidocs/files/OpenLayers/Feature/Vector-js.html
         //title: 'testing'
-        pointRadius: 2,
+        pointRadius: 5,
         externalGraphic: layer.graphic,
         graphicWidth: 15,
         graphicHeight: 15,

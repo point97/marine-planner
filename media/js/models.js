@@ -92,11 +92,12 @@ function layerModel(options, parent) {
     }
 
     // set overview text for Learn More option
-    if (options.overview) {
-        self.overview = options.overview;
-    } else if (parent && parent.overview) {
-        self.overview = parent.overview;
-    } else if (self.description) {
+    // if (options.overview) {
+    //     self.overview = options.overview;
+    // } else if (parent && parent.overview) {
+    //     self.overview = parent.overview;
+    // } else 
+    if (self.description) {
         self.overview = self.description;
     } else if (parent && parent.description) {
         self.overview = parent.description;
@@ -1858,6 +1859,57 @@ function viewModel() {
     };
     self.turnOffUsernameError = function() {
         self.usernameError(false);
+    };
+
+    self.getGridAttributes = function (data) {
+        attrs = [];
+                
+        //Wind Speed
+        if ('Wind_Min' in data && 'Wind_Max' in data) {
+            attrs.push({'display': 'Estimated Wind Speed', 'data': data['Wind_Min'].toFixed(1) + ' to ' + data['Wind_Max'].toFixed(1) + ' W/m&sup2;'});
+        }
+        //Depth Range
+        if ('Bathy_Min' in data && 'Bathy_Max' in data) {
+            attrs.push({'display': 'Depth Range', 'data': -data['Bathy_Max'].toFixed(1) + ' to ' + -data['Bathy_Min'].toFixed(1) + ' meters'});
+        }
+        //Mangrove Percentage
+        if ('Mangrove_P' in data) {
+            attrs.push({'display': 'Presence of Mangroves', 'data': data['Mangrove_P'].toFixed(1) + '%'});
+        }
+        //Coral Percentage
+        if ('Coral_P' in data) {
+            attrs.push({'display': 'Presence of Corals', 'data': data['Coral_P'].toFixed(1) + '%'});
+        }
+        //Submerged Vegetation Percentage
+        if ('Subveg_P' in data) {
+            attrs.push({'display': 'Presence of Submerged Vegetation', 'data': data['Subveg_P'].toFixed(1) + '%'});
+        }
+        //Protected Area Percentage
+        if ('ProtArea_P' in data) {
+            attrs.push({'display': 'Presence of Protected Areas', 'data': data['ProtArea_P'].toFixed(1) + '%'});
+        }
+        //Distance to Coastal Substations
+        if ('SubS_MinD' in data && 'SubS_AvgD' in data) {
+            attrs.push({'display': 'Minimum Distance to Coastal Substation', 'data': (data['SubS_MinD']/1000).toFixed(1) + ' km'});
+            attrs.push({'display': 'Average Distance to Coastal Substation', 'data': (data['SubS_AvgD']/1000).toFixed(1) + ' km'});
+        }
+        //Distance to Shore
+        if ('Coast_Min' in data && 'Coast_Avg' in data) {
+            attrs.push({'display': 'Minimum Distance to Shore', 'data': (data['Coast_Min']/1000).toFixed(1) + ' km'});
+            attrs.push({'display': 'Average Distance to Shore', 'data': (data['Coast_Avg']/1000).toFixed(1) + ' km'});
+        }
+        //Presence/Absence of Conservation Priority Area 
+        if ('PR_APC_P' in data && 'VI_APC_P' in data) {
+            var total_percentage = data['PR_APC_P'] + data['VI_APC_P'];
+            attrs.push({'display': 'Presence of Conservation Priority Areas', 'data': total_percentage.toFixed(1) + '%'});
+        } 
+        // Presence/Absence of Special Planning Area
+        if ('PR_APE_P' in data) {
+            attrs.push({'display': 'Presence of Special Planning Area', 'data': total_percentage.toFixed(1) + '%'});
+        } 
+
+        
+        return attrs;
     };
 
     self.getWindSpeedAttributes = function (title, data) {

@@ -1,0 +1,15 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "DESCRIPTIO": "TORRE DE MUESTREO DE CALIDAD DE AIRE, UPR RIO RIOPIEDRAS Y JCA. COMPARTEN DATOS CON NOAA" }, "geometry": { "type": "Point", "coordinates": [ -7304534.294897461310029, 2082197.698536187410355 ] } },
+{ "type": "Feature", "properties": { "DESCRIPTIO": "SENDERISMO, CAMINATAS POR LA LINEA DE COSTA. DESDE LUQUILLO HASTA LAS CROABAS, BIRDWATCHING, ANIDAJE" }, "geometry": { "type": "Point", "coordinates": [ -7314943.644641231745481, 2081289.413624713663012 ] } },
+{ "type": "Feature", "properties": { "DESCRIPTIO": "TERMINA RUTA QUE COMIENZA EN LUQUILLO" }, "geometry": { "type": "Point", "coordinates": [ -7305173.030242619104683, 2080330.887640996603295 ] } },
+{ "type": "Feature", "properties": { "DESCRIPTIO": "FARO" }, "geometry": { "type": "Point", "coordinates": [ -7304577.673977391794324, 2082252.743964151013643 ] } },
+{ "type": "Feature", "properties": { "DESCRIPTIO": "SEVEN SEAS" }, "geometry": { "type": "Point", "coordinates": [ -7306598.17268449254334, 2080866.012841091025621 ] } },
+{ "type": "Feature", "properties": { "DESCRIPTIO": "ESTRUCTURA ACUERDO P.E.C.E.S." }, "geometry": { "type": "Point", "coordinates": [ -7321701.241282044909894, 2055157.810739422449842 ] } },
+{ "type": "Feature", "properties": { "DESCRIPTIO": "SURFING" }, "geometry": { "type": "Point", "coordinates": [ -7367417.719817755743861, 2029549.729974875692278 ] } },
+{ "type": "Feature", "properties": { "DESCRIPTIO": "VIAJES DE CAMPO" }, "geometry": { "type": "Point", "coordinates": [ -7342280.901313056237996, 2089326.458212792873383 ] } }
+]
+}

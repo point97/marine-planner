@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "DESCRIPTIO": "RACE TRACK" }, "geometry": { "type": "Point", "coordinates": [ -7305374.796649910509586, 2082765.497923315269873 ] } },
+{ "type": "Feature", "properties": { "DESCRIPTIO": "MATA CABALLOS" }, "geometry": { "type": "Point", "coordinates": [ -7304065.14149312954396, 2082032.809285015333444 ] } }
+]
+}

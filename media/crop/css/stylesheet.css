@@ -113,6 +113,10 @@
 	color: #03871D;
 }
 
+.crop #data-accordion .dropdown-menu {
+  max-height: 140px;
+}
+
 .crop .dropdown-menu > li > a {
 	background: inherit;
 	color: #03871D;
@@ -254,6 +258,11 @@
 .crop .legend-title {
 	color: #7F8184;
 	/* color: #00446D; */
+}
+
+.crop #legend-content .accordion-inner{
+	padding-left: 0px;
+	padding-right: 20px;
 }
 /*
 
