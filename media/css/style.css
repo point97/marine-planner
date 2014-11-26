@@ -553,6 +553,14 @@ a.disabled-link:hover {
   margin-top: -10px;
 }
 
+#designs .form-container {
+  margin-top: -5px;
+}
+
+#designs-data {
+  margin-top: 5px;
+}
+
 #design-list {
   margin-left: -10px;
 }
