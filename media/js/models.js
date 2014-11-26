@@ -1760,7 +1760,7 @@ function viewModel() {
         if (username && password) {
             $.ajax({
                 async: false,
-                url: '/marco_profile/verify_password',
+                url: '/mp_profile/verify_password',
                 data: { username: username, password: password },
                 type: 'POST',
                 dataType: 'json',

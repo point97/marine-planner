@@ -1,6 +1,7 @@
 # Django settings for lot project.
 from madrona.common.default_settings import *
 
+POSTGIS_TEMPLATE = 'template_postgis'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TIME_ZONE = 'America/Vancouver'
 ROOT_URLCONF = 'urls'
@@ -14,7 +15,8 @@ DATABASES = {
     }
 }
 
-FEEDBACK_RECIPIENT = ["scott@pointnineseven.com", "seth@pointnineseven.com", "dan@pointnineseven.com"]
+FEEDBACK_RECIPIENT = ["scott@pointnineseven.com", "seth@pointnineseven.com", 
+                      "dan@pointnineseven.com"]
 FEEDBACK_SUBJECT = "Our Florida Reefs/Marine Planner Feedback"
 
 
@@ -35,22 +37,23 @@ INSTALLED_APPS += ('django_extensions',
                    'django.contrib.humanize',
                    'flatblocks',
                    'mp_proxy',
-                   'map_proxy'
+                   'map_proxy',
+                   'scenarios',
                    )
 
-GEOMETRY_DB_SRID = 99996
+GEOMETRY_DB_SRID = 3857
 GEOMETRY_CLIENT_SRID = 3857  # for latlon
 GEOJSON_SRID = 3857
 
 APP_NAME = "Marine Planner Data Portal"
-SERVER_ADMIN = 'scott@pointnineseven.com'
+SERVER_ADMIN = 'developers@pointnineseven.com'
 DEFAULT_FROM_EMAIL = 'CROP <developers@pointnineseven.com>'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 MANAGERS = ADMINS
 EMAIL_SUBJECT_PREFIX = 'Marine Planner'
 ADMINS = (
-    ('Scott Fletcher', 'scott@pointnineseven.com'),
     ('Seth Hill', 'seth@pointnineseven.com'),
+    ('Scott Fletcher', 'scott@pointnineseven.com'),
 )
 
 
@@ -166,4 +169,3 @@ import logging
 logging.getLogger('django.db.backends').setLevel(logging.ERROR)
 
 from settings_local import *
-
