@@ -311,6 +311,9 @@ $(document).ready(function() {
   $('#overview-overlay-dropdown').mouseleave( function() {
     $('#overview-overlay-dropdown').closest('.btn-group').removeClass('open');
   });
+  $('#overview-overlay-dropdown').click( function() {
+    $('#overview-overlay-dropdown').closest('.btn-group').removeClass('open');
+  });
 
   $('#opacity-popover').mouseleave( function() {
     app.viewModel.hideOpacity();

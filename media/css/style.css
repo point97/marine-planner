@@ -387,7 +387,7 @@ a.disabled-link:hover {
 }
 
 #overview-overlay-header .dropdown-menu {
-  margin-top: 15px;
+  margin-top: 0;
   background-color: rgba(60, 110, 160, 0.65);
 }
 
@@ -416,15 +416,22 @@ a.disabled-link:hover {
 }
 
 #overview-overlay-dropdown {
-  background-color: rgba(60, 110, 160, .9) !important;
+  background-color: rgba(136, 167, 201, .9) !important;
   height: 100px;
   width: 100%;
   overflow: auto;
 }
 
-#overview-overlay-dropdown a{
+#overview-overlay-dropdown a { 
   color: white;
   width: 75%;
+  display: block;
+  padding: 3px 15px;
+}
+
+#overview-overlay-dropdown a:hover {
+  text-decoration: none;
+  background-color: #0081c2;
 }
 
 #overview-overlay-dropdown .mCSB_container {
