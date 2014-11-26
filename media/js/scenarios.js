@@ -1307,9 +1307,9 @@ function scenariosModel(options) {
     self.updateDesignsScrollBar = function() {
         var designsScrollpane = $('#designs-accordion').data('jsp');
         if (designsScrollpane === undefined) {
-            $('#designs-accordion').jScrollPane();
+            // $('#designs-accordion').jScrollPane();
         } else {
-            designsScrollpane.reinitialise();
+            // designsScrollpane.reinitialise();
         }
     }; 
     
