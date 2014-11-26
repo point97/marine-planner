@@ -272,7 +272,6 @@ madrona.onShow(function(){
                                 {% endif %}
                                 {{ field.errors }}
                                 <script type="text/javascript">
-                                console.debug("here-{{ field.html_name }}");
                                 {% if field_min and not field_max %}
                                     $('#slider-{{ field_min.html_name }}').bind( "slide slidechange", function(event, ui) {
                                         if (app.viewModel.scenarios.scenarioFormModel) {
