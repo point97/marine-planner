@@ -11,11 +11,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'marco',
-        'USER': 'vagrant',
+        'USER': 'postgres',
     }
 }
 
-FEEDBACK_RECIPIENT = ["edwin@pointnineseven.com", "jenny@pointnineseven.com"]
+FEEDBACK_RECIPIENT = ["scott@pointnineseven.com", "seth@pointnineseven.com", 
+                      "dan@pointnineseven.com"]
 FEEDBACK_SUBJECT = "Our Florida Reefs/Marine Planner Feedback"
 
 
@@ -45,13 +46,13 @@ GEOMETRY_CLIENT_SRID = 3857  # for latlon
 GEOJSON_SRID = 3857
 
 APP_NAME = "Marine Planner Data Portal"
-SERVER_ADMIN = 'edwin@pointnineseven.com'
-DEFAULT_FROM_EMAIL = 'USVI <developers@pointnineseven.com>'
+SERVER_ADMIN = 'developers@pointnineseven.com'
+DEFAULT_FROM_EMAIL = 'CROP <developers@pointnineseven.com>'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 MANAGERS = ADMINS
 EMAIL_SUBJECT_PREFIX = 'Marine Planner'
 ADMINS = (
-    ('Edwin Knuth', 'edwin@pointnineseven.com'),
+    ('Seth Hill', 'seth@pointnineseven.com'),
     ('Scott Fletcher', 'scott@pointnineseven.com'),
 )
 
@@ -168,4 +169,3 @@ import logging
 logging.getLogger('django.db.backends').setLevel(logging.ERROR)
 
 from settings_local import *
-
