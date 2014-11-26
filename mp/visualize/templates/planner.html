@@ -359,13 +359,15 @@
                                             <div id="overview-overlay-links">
                                               <span class="span11">
                                                 <div class="text" style="margin-top: 5px">
-                                                    <!-- <span>
+                                                    {% if user.is_staff %}
+                                                    <span>
                                                         <a class="btn btn-mini" data-bind="css: { disabled: ! activeDataLink() }, attr: { href: activeDataLink() }" target="_blank">
                                                             <span rel="tooltip" title="Download ESRI Formatted Dataset">
                                                                 DATA
                                                             </span>
                                                         </a>
-                                                    </span> -->
+                                                    </span>
+                                                    {% endif %}
                                                     <span>
                                                         <a class="btn btn-mini" data-bind="css: { disabled: ! activeMetadataLink() }, attr: { href: activeMetadataLink() }" target="_blank">
                                                             <span rel="tooltip" title="View the Metadata">
