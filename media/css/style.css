@@ -594,15 +594,15 @@ a.disabled-link:hover {
 }
 
 #designs-accordion .accordion-toggle {
-  width: 290px; 
+  width: 280px; 
   display: inline-block;
 }
 
 .create-new-button {
   cursor: pointer;
   display: inline-block;
-  width: 25px;
-  padding: 9px 6px 5px 14px;
+  width: 17px;
+  padding: 9px 10px 5px 12px;
   margin-bottom: 0px;
 }
 
