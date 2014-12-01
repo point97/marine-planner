@@ -56,7 +56,11 @@ ADMINS = (
     ('Seth Hill', 'seth@pointnineseven.com'),
     ('Scott Fletcher', 'scott@pointnineseven.com'),
 )
-
+ADMIN_EMAILS = [
+    'Wil Black<wil@pointnineseven.com>',
+    'Seth Hill<seth@pointnineseven.com>',
+    'Scott Fletcher<scott@pointnineseven.com>',
+]
 
 
 # FEEDBACK_RECIPIENT = "Marine Planning Team <mp-team@marineplanner.org>"
