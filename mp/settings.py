@@ -52,6 +52,7 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 MANAGERS = ADMINS
 EMAIL_SUBJECT_PREFIX = 'Marine Planner'
 ADMINS = (
+    ('Wil Black', 'wil@pointnineseven.com'),
     ('Seth Hill', 'seth@pointnineseven.com'),
     ('Scott Fletcher', 'scott@pointnineseven.com'),
 )

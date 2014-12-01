@@ -60,7 +60,7 @@ class TOCTheme(models.Model):
         if response.status_code != 200:
             # email admins?
             subject = "CROP - Failed Data Catalog Save Attempt"
-            message = "Attempting to update CMS CROP Data Catalog...Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s" %(response.status_code)
+            message = "Attempting to update CMS CROP Data Catalog...Get Request to http://caribbean-mp.org/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s" %(response.status_code)
             from_email = "%s" %(settings.DEFAULT_FROM_EMAIL)
             recipients = settings.ADMINS                 
             try:              
@@ -381,7 +381,7 @@ class Layer(models.Model):
         if response.status_code != 200:
             # email admins?
             subject = "CROP - Failed Data Catalog Save Attempt"
-            message = "Attempting to update CMS CROP Data Catalog...Get Request to http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s" %(response.status_code)
+            message = "Attempting to update CMS CROP Data Catalog...Get Request to http://caribbean-mp.org/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog resulted in a %s" %(response.status_code)
             from_email = "%s" %(settings.DEFAULT_FROM_EMAIL)
             recipients = settings.ADMINS                 
             try:              
