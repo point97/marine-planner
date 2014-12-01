@@ -52,7 +52,7 @@ class TOCTheme(models.Model):
         return layers
 
     def save(self, *args, **kwargs):
-        update the data catalog (cms-crop)
+        # update the data catalog (cms-crop)
         # catalog_url = 'http://cms-crop.apps.pointnineseven.com/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'     
         catalog_url = 'http://caribbean-mp.org/webhook/?token=a5680aa0-3473-11e4-8c21-0800200c9a66&action=update-catalog'
         response = requests.get(catalog_url)
