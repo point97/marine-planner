@@ -9,6 +9,7 @@ mediaroot/*
 deploy/*
 data/*
 env/*
+tmp
 printing/shots/*
 .vagrant
 portal/*.sql
@@ -42,3 +43,6 @@ mp/data_manager/fixtures/datadump_2013_11_20.json
 
 mp/data_manager/fixtures/initial_data_orig.json
 media/upload
+
+mp/data_manager/fixtures/archive
+mp/mp_settings/fixtures/archive
