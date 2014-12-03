@@ -43,7 +43,7 @@ def duplicate_username(request):
 def send_username(request, use_openid=False, redirect_field_name=REDIRECT_FIELD_NAME):
     if request.method == 'POST':
         subject = 'Marine Planner login'
-        reply_email = "Marine Planner Team <%s>" % settings.DEFAULT_FROM_EMAIL
+        reply_email = settings.DEFAULT_FROM_EMAIL
         #check for user account
         user_email = [request.POST.get('email', '')]
         try:

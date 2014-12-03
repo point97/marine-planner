@@ -17,7 +17,7 @@ DATABASES = {
 
 FEEDBACK_RECIPIENT = ["scott@pointnineseven.com", "seth@pointnineseven.com", 
                       "dan@pointnineseven.com"]
-FEEDBACK_SUBJECT = "Our Florida Reefs/Marine Planner Feedback"
+FEEDBACK_SUBJECT = "CROP Marine Planner Feedback"
 
 
 LOG_FILE = os.path.realpath(os.path.join(os.path.dirname(__file__),
