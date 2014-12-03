@@ -232,11 +232,13 @@ madrona.onShow(function(){
     {% for step in form.get_steps %}
     <div id="step{{ forloop.counter }}" class="step">
         <p class="step-text"><i>Step {{ forloop.counter }} of 3 </i></p>
-        <p class="instructions">Select 1 or more criteria for this sector </p>
+        <!-- <p class="instructions">Select 1 or more criteria for this sector </p> -->
         {% if forloop.counter == 1 %}
-        <label class="step-header">Wind Energy</label>
+        <!-- <label class="step-header">Wind Energy</label> -->
+        <p class="instructions"><b>Select</b> one or more criteria from the list below</p>
         {% elif forloop.counter == 2 %}
-        <label class="step-header">Step Two</label>
+        <!-- <label class="step-header">Step Two</label> -->
+        <p class="instructions"><b>Exclude</b> areas that contain any of the following</p>
         {% endif %}
         <div id="step{{ forloop.counter }}_inputs">
             <ul class="parameters">
@@ -262,14 +264,14 @@ madrona.onShow(function(){
                                 <div>
                                 {{ field.help_text }}
                                 {% if field_min %}
-                                    {{ field_min.as_widget }}<br>
+                                    {{ field_min.as_widget }}
                                 {% endif %}
                                 {% if field_max %}
-                                    {% if field_min %}to<br>{% endif %}
-                                    {{ field_max.as_widget }} {{ field_max.field.widget.unit }}<br>
+                                    {% if field_min %}to{% endif %}
+                                    {{ field_max.as_widget }} {{ field_max.field.widget.unit }}
                                 {% endif %}
                                 {% if field_input %}
-                                    {{ field_input.as_widget }}<br>
+                                    {{ field_input.as_widget }}
                                 {% endif %}
                                 {{ field.errors }}
                                 <script type="text/javascript">

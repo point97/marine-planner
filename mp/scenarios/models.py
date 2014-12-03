@@ -90,21 +90,21 @@ class Scenario(Analysis):
 
         if self.bathy_avg:
             attributes.append(dict(title='Depth Range', 
-                                   data='%s - %s meters' % (self.bathy_avg_min, 
-                                                            self.bathy_avg_max)))
+                                   data='%s - %s meters' % (int(self.bathy_avg_min), 
+                                                            int(self.bathy_avg_max))))
         
         if self.wind_avg:
             attributes.append(dict(title='Minimum Wind Potential', 
-                                   data='%s W/m²' % (self.wind_avg_min)))
+                                   data='%s W/m²' % (int(self.wind_avg_min))))
          
         if self.subs_mind:
             attributes.append(dict(title='Maximum Distance to Substation', 
-                                   data='%s meters' % (self.subs_mind_max)))
+                                   data='%s km' % (int(self.subs_mind_max))))
          
         if self.coast_avg:
             attributes.append(dict(title='Distance to Shore', 
-                                   data='%s - %s meters' % (self.coast_avg_min, 
-                                                            self.coast_avg_max)))
+                                   data='%s - %s km' % (int(self.coast_avg_min), 
+                                                            int(self.coast_avg_max))))
 
         if self.mangrove_p or self.coral_p or self.subveg_p or self.protarea_p or self.pr_apc_p or self.pr_ape_p or self.vi_apc_p:
             exclusions = ''
@@ -123,7 +123,7 @@ class Scenario(Analysis):
             if self.vi_apc_p:
                 exclusions += '<br>&nbsp;&nbsp; USVI Areas of Particular Concern'
 
-            attributes.append(dict(title='Grid cells containing the following were excluded', data=exclusions))
+            attributes.append(dict(title='Areas containing the following were excluded', data=exclusions))
 
         # if self.mangrove_p:
         #     attributes.append(dict(title='Mangroves', 
