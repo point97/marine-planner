@@ -208,7 +208,7 @@ function scenarioFormModel(options) {
             param_bool(true);
             param_element.attr('checked', 'checked');
             param_widget.css('display', 'block');
-                        
+            
             self.updateFilters(param, min, max);
         }
         
@@ -242,25 +242,54 @@ function scenarioFormModel(options) {
     then pass null for min 
     */
     self.updateFilters = function(param_name, min, max) {
+        var filter; 
+        
         if (Number(min) != min) {
-            min = -Infinity; 
+            min = null; 
         }
         else {
             min = Number(min);
         }
         if (Number(max) != max) {
-            max = Infinity
+            max = null;
         }
         else {
             max = Number(max);
         }
 
-        var filter = new OpenLayers.Filter.Comparison({
-            type: OpenLayers.Filter.Comparison.BETWEEN,
-            property: param_name,
-            lowerBoundary: min,
-            upperBoundary: max,
-        });
+        // exclude checkbox, == 0
+        if (min == null && max == null) {
+            filter = new OpenLayers.Filter.Comparison({
+                type: OpenLayers.Filter.Comparison.EQUAL_TO,
+                property: param_name,
+                value: 0
+            });
+        }
+        // less than filter
+        else if (min == null) {
+            filter = new OpenLayers.Filter.Comparison({
+                type: OpenLayers.Filter.Comparison.LESS_THAN,
+                property: param_name,
+                value: max
+            });
+        }
+        // greater than filter
+        else if (max == null) {
+            filter = new OpenLayers.Filter.Comparison({
+                type: OpenLayers.Filter.Comparison.GREATER_THAN,
+                property: param_name,
+                value: min
+            });
+        }
+        // between filter
+        else {
+            filter = new OpenLayers.Filter.Comparison({
+                type: OpenLayers.Filter.Comparison.BETWEEN,
+                property: param_name,
+                lowerBoundary: min,
+                upperBoundary: max,
+            });
+        }
 
         self.filters[param_name] = filter;
     }

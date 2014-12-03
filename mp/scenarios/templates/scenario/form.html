@@ -256,6 +256,7 @@ madrona.onShow(function(){
                                 </i>
                             </label>
                         </div>
+                        {% if field_min or field_max or field_input %}
                         <div id="{{ field.html_name }}_widget" class="inputfield accordion-body collapse" data-bind="css: {'in': {{ field.html_name }}()}">
                             <div class="accordion-inner">
                                 <div>
@@ -298,6 +299,7 @@ madrona.onShow(function(){
                             </div>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </li>
                 {% endfor %}
