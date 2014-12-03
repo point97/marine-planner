@@ -111,15 +111,15 @@ class Scenario(Analysis):
             if self.mangrove_p:
                 exclusions += '<br>&nbsp;&nbsp; Mangroves'
             if self.coral_p:
-                exclusions += '<br>&nbsp;&nbsp; Coral'
+                exclusions += '<br>&nbsp;&nbsp; Corals'
             if self.subveg_p:
                 exclusions += '<br>&nbsp;&nbsp; Submerged Vegetation'
             if self.protarea_p:
                 exclusions += '<br>&nbsp;&nbsp; Protected Areas'
             if self.pr_apc_p:
-                exclusions += '<br>&nbsp;&nbsp; Puerto Rico Conservation Priority Area'
+                exclusions += '<br>&nbsp;&nbsp; Puerto Rico Conservation Priority Areas'
             if self.pr_ape_p:
-                exclusions += '<br>&nbsp;&nbsp; Puerto Rico Special Planning Area'
+                exclusions += '<br>&nbsp;&nbsp; Puerto Rico Special Planning Areas'
             if self.vi_apc_p:
                 exclusions += '<br>&nbsp;&nbsp; USVI Areas of Particular Concern'
 
