@@ -89,59 +89,76 @@ class Scenario(Analysis):
         attributes = []
 
         if self.bathy_avg:
-            attributes.append(dict(title='Depth', 
+            attributes.append(dict(title='Depth Range', 
                                    data='%s - %s meters' % (self.bathy_avg_min, 
                                                             self.bathy_avg_max)))
         
         if self.wind_avg:
-            attributes.append(dict(title='Wind Potential', 
-                                   data='%s - %s W/m²' % (self.wind_avg_min, 
-                                                          self.wind_avg_max)))
+            attributes.append(dict(title='Minimum Wind Potential', 
+                                   data='%s W/m²' % (self.wind_avg_min)))
          
         if self.subs_mind:
-            attributes.append(dict(title='Substation Min Depth', 
-                                   data='%s - %s meters' % (self.subs_mind_min, 
-                                                            self.subs_mind_max)))
+            attributes.append(dict(title='Maximum Distance to Substation', 
+                                   data='%s meters' % (self.subs_mind_max)))
          
         if self.coast_avg:
-            attributes.append(dict(title='Coast Average Distance', 
+            attributes.append(dict(title='Distance to Shore', 
                                    data='%s - %s meters' % (self.coast_avg_min, 
                                                             self.coast_avg_max)))
 
-        if self.mangrove_p:
-            attributes.append(dict(title='Mangroves', 
-                                   data='%s - %s %%' % (self.mangrove_p_min, 
-                                                        self.mangrove_p_max)))
+        if self.mangrove_p or self.coral_p or self.subveg_p or self.protarea_p or self.pr_apc_p or self.pr_ape_p or self.vi_apc_p:
+            exclusions = ''
+            if self.mangrove_p:
+                exclusions += '<br>&nbsp;&nbsp; Mangroves'
+            if self.coral_p:
+                exclusions += '<br>&nbsp;&nbsp; Corals'
+            if self.subveg_p:
+                exclusions += '<br>&nbsp;&nbsp; Submerged Vegetation'
+            if self.protarea_p:
+                exclusions += '<br>&nbsp;&nbsp; Protected Areas'
+            if self.pr_apc_p:
+                exclusions += '<br>&nbsp;&nbsp; Puerto Rico Conservation Priority Areas'
+            if self.pr_ape_p:
+                exclusions += '<br>&nbsp;&nbsp; Puerto Rico Special Planning Areas'
+            if self.vi_apc_p:
+                exclusions += '<br>&nbsp;&nbsp; USVI Areas of Particular Concern'
 
-        if self.coral_p:
-            attributes.append(dict(title='Coral', 
-                                   data='%s - %s %%' % (self.coral_p_min, 
-                                                        self.coral_p_max)))
+            attributes.append(dict(title='Grid cells containing the following were excluded', data=exclusions))
 
-        if self.subveg_p:
-            attributes.append(dict(title='Subveg', 
-                                   data='%s - %s %%' % (self.subveg_p_min, 
-                                                        self.subveg_p_max)))
+        # if self.mangrove_p:
+        #     attributes.append(dict(title='Mangroves', 
+        #                            data='%s - %s %%' % (self.mangrove_p_min, 
+        #                                                 self.mangrove_p_max)))
 
-        if self.protarea_p:
-            attributes.append(dict(title='protarea', 
-                                   data='%s - %s %%' % (self.protarea_p_min, 
-                                                        self.protarea_p_max)))
+        # if self.coral_p:
+        #     attributes.append(dict(title='Coral', 
+        #                            data='%s - %s %%' % (self.coral_p_min, 
+        #                                                 self.coral_p_max)))
 
-        if self.pr_apc_p:
-            attributes.append(dict(title='pr_apc_p', 
-                                   data='%s - %s %%' % (self.pr_apc_p_min, 
-                                                        self.pr_apc_p_max)))
+        # if self.subveg_p:
+        #     attributes.append(dict(title='Subveg', 
+        #                            data='%s - %s %%' % (self.subveg_p_min, 
+        #                                                 self.subveg_p_max)))
 
-        if self.pr_ape_p:
-            attributes.append(dict(title='pr_ape_p', 
-                                   data='%s - %s %%' % (self.pr_ape_p_min, 
-                                                        self.pr_ape_p_max)))
+        # if self.protarea_p:
+        #     attributes.append(dict(title='protarea', 
+        #                            data='%s - %s %%' % (self.protarea_p_min, 
+        #                                                 self.protarea_p_max)))
 
-        if self.vi_apc_p:
-            attributes.append(dict(title='vi_apc_p', 
-                                   data='%s - %s %%' % (self.vi_apc_p_min, 
-                                                        self.vi_apc_p_max)))
+        # if self.pr_apc_p:
+        #     attributes.append(dict(title='pr_apc_p', 
+        #                            data='%s - %s %%' % (self.pr_apc_p_min, 
+        #                                                 self.pr_apc_p_max)))
+
+        # if self.pr_ape_p:
+        #     attributes.append(dict(title='pr_ape_p', 
+        #                            data='%s - %s %%' % (self.pr_ape_p_min, 
+        #                                                 self.pr_ape_p_max)))
+
+        # if self.vi_apc_p:
+        #     attributes.append(dict(title='USVI Areas of Particular Concern', 
+        #                            data='%s - %s %%' % (self.vi_apc_p_min, 
+        #                                                 self.vi_apc_p_max)))
 
         attributes.append({'title': 'Number of Leaseblocks', 
                            'data': self.lease_blocks.count(',')+1})

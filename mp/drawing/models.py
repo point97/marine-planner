@@ -63,6 +63,10 @@ class AOI(PolygonFeature):
     @property
     def area_in_sq_miles(self):
         return sq_meters_to_sq_miles(self.geometry_final.area)
+
+    @property
+    def area_in_sq_km(self):
+        return self.geometry_final.area / 1000000
         
     @property
     def serialize_attributes(self):
@@ -70,7 +74,7 @@ class AOI(PolygonFeature):
         attributes = []
         if self.description: 
             attributes.append({'title': 'Description', 'data': self.description})
-        attributes.append({'title': 'Area', 'data': '%s sq miles' %format(self.area_in_sq_miles, 1)})
+        attributes.append({'title': 'Area', 'data': '%s sq km' %format(self.area_in_sq_km, 1)})
         return { 'event': 'click', 'attributes': attributes }
     
     @classmethod

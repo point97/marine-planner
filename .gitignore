@@ -37,7 +37,7 @@ portal/wordpress/wp-config.php
 printing/shots/*
 /media/data_manager/utfgrid
 scripts/cookbooks/node_*.json
-/media/crop/*
+/media/crop/shapefiles/
 
 mp/data_manager/fixtures/datadump_2013_11_20.json
 
@@ -46,3 +46,9 @@ media/upload
 
 mp/data_manager/fixtures/archive
 mp/mp_settings/fixtures/archive
+
+media/data_manager/geojson/planning_grid.json
+
+planning_grid.sql
+
+media/crop/geojson/planning_grid.json

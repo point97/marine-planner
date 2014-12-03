@@ -172,6 +172,22 @@
 	background: #D9EDFF;  /* for IE */
 }
 
+#forgot-username-form {
+	margin-bottom: 0;
+}
+
+#forgot-password-form {
+	margin-bottom: 0;
+}
+
+#profile-form {
+	margin-bottom: 0;
+}
+
+#reset-password-form {
+	margin-bottom: 0;
+}
+
 .crop #basemaps a {
 	background: #D9EDFF;  /* for IE */
 	background: rgba(217, 237, 255, .95);

@@ -31,6 +31,7 @@ INSTALLED_APPS += ('django_extensions',
                    'general',
                    'data_manager',
                    'mp_settings',
+                   'mp_profile',
                    'drawing',
                    'explore',
                    'visualize',
@@ -45,7 +46,7 @@ GEOMETRY_DB_SRID = 3857
 GEOMETRY_CLIENT_SRID = 3857  # for latlon
 GEOJSON_SRID = 3857
 
-APP_NAME = "Marine Planner Data Portal"
+APP_NAME = "Caribbean Regional Ocean Portal Marine Planner"
 SERVER_ADMIN = 'developers@pointnineseven.com'
 DEFAULT_FROM_EMAIL = 'CROP <developers@pointnineseven.com>'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
@@ -64,7 +65,7 @@ ADMIN_EMAILS = [
 
 
 # FEEDBACK_RECIPIENT = "Marine Planning Team <mp-team@marineplanner.org>"
-# HELP_EMAIL = "mp-team@marineplanner.org"
+HELP_EMAIL = 'CROP <developers@pointnineseven.com>'
 # DEFAULT_FROM_EMAIL = "Marine Planning Team <mp-team@marineplanner.org>"
 
 # url for socket.io printing

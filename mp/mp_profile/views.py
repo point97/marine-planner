@@ -176,13 +176,13 @@ def password_change(request, username,
 
     if request.POST:
         #prepare email fields
-        subject = 'Marine Planner profile change'
-        user_email = user.email
-        reply_email = "Marine Planner Team<%s>" % settings.DEFAULT_FROM_EMAIL
+        subject = 'CROP Marine Planner profile change'
+        user_email = [user.email]
+        reply_email = settings.DEFAULT_FROM_EMAIL
         message = "Your Marine Planner password was just changed."
         message += "\nIf you did not make this change, please contact us immediately."
         message += "\n\nThank you."
-        message += "\n\n-Marine Planner technical staff"
+        message += "\n\n-CROP Marine Planner technical staff"
         
         form = change_form(request.user, request.POST)
         if form.is_valid():
