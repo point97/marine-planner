@@ -158,19 +158,17 @@ class Scenario(Analysis):
         query = LeaseBlock.objects.all()
         
         # TODO: This would be nicer if it generically knew how to filter fields
-        # by name. 
+        # by name, and what kinds of filters they were. For now, hard code. 
         
         if self.bathy_avg:
             query = query.filter(bathy_avg__range=(self.bathy_avg_min, 
                                                    self.bathy_avg_max))
         
         if self.wind_avg:
-            query = query.filter(wind_avg__range=(self.wind_avg_min, 
-                                                  self.wind_avg_max))
+            query = query.filter(wind_avg__gt=self.wind_avg_min)
         
         if self.subs_mind:
-            query = query.filter(subs_mind__range=(self.subs_mind_min, 
-                                                   self.subs_mind_max))
+            query = query.filter(subs_mind__lt=self.subs_mind_max)
         
         if self.coast_avg:
             query = query.filter(coast_avg__range=(self.coast_avg_min, 
