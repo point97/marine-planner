@@ -239,7 +239,7 @@ def get_leaseblocks(request):
             'subs_mind': ocs_block.subs_mind,
             'bathy_avg': ocs_block.bathy_avg,
             'wind_avg': ocs_block.wind_avg,
-            'mangrove_percent': ocs_block.mangrove_p,
+            'mangrove_p': ocs_block.mangrove_p,
             'coral_p': ocs_block.coral_p,
             'subveg_p': ocs_block.subveg_p,
             'protarea_p': ocs_block.protarea_p,
