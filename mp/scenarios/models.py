@@ -109,19 +109,19 @@ class Scenario(Analysis):
         if self.mangrove_p or self.coral_p or self.subveg_p or self.protarea_p or self.pr_apc_p or self.pr_ape_p or self.vi_apc_p:
             exclusions = ''
             if self.mangrove_p:
-                exclusions += '\n\n  Mangroves'
+                exclusions += '<br>&nbsp;&nbsp; Mangroves'
             if self.coral_p:
-                exclusions += '\n\n  Coral'
+                exclusions += '<br>&nbsp;&nbsp; Coral'
             if self.subveg_p:
-                exclusions += '\n\n  Subveg'
+                exclusions += '<br>&nbsp;&nbsp; Submerged Vegetation'
             if self.protarea_p:
-                exclusions += '\n\n  Protected Areas'
+                exclusions += '<br>&nbsp;&nbsp; Protected Areas'
             if self.pr_apc_p:
-                exclusions += '\n\n  Puerto Rico Conservation Priority Area'
+                exclusions += '<br>&nbsp;&nbsp; Puerto Rico Conservation Priority Area'
             if self.pr_ape_p:
-                exclusions += '\n\n  Puerto Rico Special Planning Area'
+                exclusions += '<br>&nbsp;&nbsp; Puerto Rico Special Planning Area'
             if self.vi_apc_p:
-                exclusions += '\n\n  USVI Areas of Particular Concern'
+                exclusions += '<br>&nbsp;&nbsp; USVI Areas of Particular Concern'
 
             attributes.append(dict(title='Grid cells containing the following were excluded', data=exclusions))
 
