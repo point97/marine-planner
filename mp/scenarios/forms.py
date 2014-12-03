@@ -90,25 +90,25 @@ class ScenarioForm(FeatureForm):
     coast_avg_input = forms.FloatField(widget=DualSliderWidget('coast_avg_min', 
                                      'coast_avg_max', min=380, max=17845, step=1))
 
-    mangrove_p = forms.BooleanField(label="mangroves_p", required=False,
+    mangrove_p = forms.BooleanField(label="Mangroves", required=False,
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     
-    coral_p = forms.BooleanField(label="coral_p", required=False,
+    coral_p = forms.BooleanField(label="Corals", required=False,
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    subveg_p = forms.BooleanField(label="subveg_p", required=False,
+    subveg_p = forms.BooleanField(label="Submerged Vegetation", required=False,
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    protarea_p = forms.BooleanField(label="protarea_p", required=False,
+    protarea_p = forms.BooleanField(label="Protected Areas", required=False,
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    pr_apc_p = forms.BooleanField(label="pr_apc_p", required=False,
+    pr_apc_p = forms.BooleanField(label="PR Conservation Priority Areas", required=False,
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    pr_ape_p = forms.BooleanField(label="pr_ape_p", required=False,
+    pr_ape_p = forms.BooleanField(label="PR Special Planning Areas", required=False,
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    vi_apc_p = forms.BooleanField(label="vi_apc_p", required=False,
+    vi_apc_p = forms.BooleanField(label="USVI Areas of Particular Concern", required=False,
         widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     
     def get_step_1_fields(self):
