@@ -123,7 +123,7 @@ class Scenario(Analysis):
             if self.vi_apc_p:
                 exclusions += '\n  USVI Areas of Particular Concern'
 
-            attributes.append(dict(title='Grid cells containing the following were excluded from result:', data=exclusions))
+            attributes.append(dict(title='Grid cells containing the following were excluded:\n', data=exclusions))
 
         # if self.mangrove_p:
         #     attributes.append(dict(title='Mangroves', 
