@@ -94,8 +94,8 @@ class ScenarioForm(FeatureForm):
             (parameter to test, user-min or user-selection, user-max, user-input)
         where each parameter except the first is optional. 
         """
-        names = (('bathy_avg', 'bathy_avg_min', 'bathy_avg_max', 'bathy_avg_input'), 
-                 ('wind_avg', 'wind_avg_min', None,), 
+        names = (('wind_avg', 'wind_avg_min', None,), 
+                 ('bathy_avg', 'bathy_avg_min', 'bathy_avg_max', 'bathy_avg_input'), 
                  ('subs_mind', None, 'subs_mind_max',),
                  ('coast_avg', 'coast_avg_min', 'coast_avg_max', 'coast_avg_input', ),)
 

@@ -140,6 +140,10 @@
 	height: 16px;
 }
 
+#step3 .step3-param {
+	margin-left: 5px;
+}
+
 .crop #overview-overlay {
 	background: #D9EDFF;  /* for IE */
 	/*background: rgba(0, 135, 29, .65);*/
