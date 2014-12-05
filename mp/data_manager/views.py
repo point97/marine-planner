@@ -59,7 +59,8 @@ def get_catalog_json(request, project='CROP'):
                     "map_link": layer.bookmark_link,
                     "data_link": layer.data_download_link,
                     "tiles_link": layer.tiles_link,
-                    "meta_link": layer.metadata_link
+                    "meta_link": layer.metadata_link,
+                    "source_link": layer.source_link
                 }
                 if layer.layer_type == 'ArcRest': 
                     layer_dict["web_services_url"] = layer.url.replace('export', layer.arcgis_layers)
