@@ -1,25 +1,25 @@
 [
-{
-    "pk": 7, 
-    "model": "mp_settings.marineplannersettings", 
-    "fields": {
-        "bitly_username": "", 
-        "default_hash": "", 
-        "project_name": "CROP", 
-        "table_of_contents": 7, 
-        "project_icon": "/media/ico/favicon.ico", 
-        "bitly_api_key": "", 
-        "bitly_registered_domain": "", 
-        "max_zoom": 14, 
-        "zoom": 9, 
-        "longitude": -66.18, 
-        "latitude": 18.26, 
-        "min_zoom": 3, 
-        "slug_name": "crop", 
-        "project_logo": "/media/crop/img/crop-logo-web-header.jpg", 
-        "active": true, 
-        "enable_drawing": true, 
-        "project_home_page": "http://cms-crop.apps.pointnineseven.com/"
+    {
+        "pk": 7,
+        "model": "mp_settings.marineplannersettings",
+        "fields": {
+            "bitly_username": "p97dev",
+            "default_hash": "",
+            "project_name": "CROP",
+            "table_of_contents": 7,
+            "project_icon": "/media/ico/favicon.ico",
+            "bitly_api_key": "R_27f2b2cc886e49fb9f35c37b7b633749",
+            "bitly_registered_domain": "http://planner.caribbean-mp.org/",
+            "max_zoom": 14,
+            "zoom": 9,
+            "longitude": -66.18,
+            "latitude": 18.26,
+            "min_zoom": 3,
+            "slug_name": "crop",
+            "project_logo": "/media/crop/img/crop-logo-web-header.jpg",
+            "active": true,
+            "enable_drawing": true,
+            "project_home_page": "http://caribbean-mp.org/"
+        }
     }
-}
 ]

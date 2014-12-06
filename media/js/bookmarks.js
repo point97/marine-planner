@@ -52,7 +52,7 @@ function bookmarkModel(options) {
     // get the url from a bookmark
     self.getBookmarkUrl = function() {
         var host = window.location.href.split('#')[0];
-        host = 'http://portal.midatlanticocean.org/visualize/';
+        host = 'http://planner.caribbean-mp.org//visualize/';
         return host + "#" + self.getBookmarkHash();
         //return host + "#" + self.state;
     };
@@ -134,6 +134,16 @@ function bookmarksModel(options) {
         }
     };
 
+    self.showShrinkOption = ko.observable();
+    if (app.MPSettings && app.MPSettings.bitly_registered_domain && app.MPSettings.bitly_username && app.MPSettings.bitly_api_key ) {
+        self.bitlyRegisteredDomain = app.MPSettings.bitly_registered_domain;
+        self.bitlyUsername = app.MPSettings.bitly_username;
+        self.bitlyAPIKey = app.MPSettings.bitly_api_key;
+        self.showShrinkOption(true);
+    } else {
+        self.showShrinkOption(false);
+    }
+
     self.shrinkBookmarkURL = ko.observable();
     self.shrinkBookmarkURL.subscribe( function() {
         if (self.shrinkBookmarkURL()) {
@@ -155,8 +165,8 @@ function bookmarksModel(options) {
     };
 
     self.useShortBookmarkURL = function() {
-        var bitly_login = "ecofletch",
-            bitly_api_key = 'R_d02e03290041107b75e3720d7e3c4b95',
+        var bitly_login = self.bitlyUsername,
+            bitly_api_key = self.bitlyAPIKey,
             long_url = self.sharingBookmark().getBookmarkUrl();
 
         $.getJSON(
