@@ -215,9 +215,8 @@
 	background: rgba(233, 253, 255, .95);
 }
 
-.crop #basemaps a span {
-	position: absolute;
-	left: 35px;
+.crop #basemaps .btn i {
+	display: inline-block;
 }
 
 .crop .SimpleLayerSwitcher {
