@@ -160,7 +160,7 @@ class Scenario(Analysis):
         #                            data='%s - %s %%' % (self.vi_apc_p_min, 
         #                                                 self.vi_apc_p_max)))
 
-        attributes.append({'title': 'Number of Leaseblocks', 
+        attributes.append({'title': 'Number of Grid Cells', 
                            'data': self.lease_blocks.count(',')+1})
         return { 'event': 'click', 'attributes': attributes }
     

@@ -341,7 +341,7 @@ madrona.onShow(function(){
     <span data-bind="visible: !isLeaseblockLayerVisible()">
         <a class="button btn" data-bind="click: activateLeaseblockLayer">
             <span class="badge" style="margin-right: 5px; margin-left: -5px;" 
-                  data-bind="text: leaseblocksLeft"></span> Lease Blocks Remaining 
+                  data-bind="text: leaseblocksLeft"></span> Grid Cells Remaining 
             <i class="icon-large icon-check-empty" 
                style="margin-right: -5px; margin-left: 5px;"></i>
         </a>
@@ -349,7 +349,7 @@ madrona.onShow(function(){
     <span data-bind="visible: isLeaseblockLayerVisible()">
         <a class="button btn" data-bind="click: deactivateLeaseblockLayer">
             <span class="badge" style="margin-right: 5px; margin-left: -5px;" 
-                  data-bind="text: leaseblocksLeft"></span> Lease Blocks Remaining 
+                  data-bind="text: leaseblocksLeft"></span> Grid Cells Remaining 
             <i class="icon-large icon-check"
                style="margin-right: -5px; margin-left: 5px;"></i>
         </a>
@@ -357,7 +357,7 @@ madrona.onShow(function(){
 </div>
 
 <div class="show-blocks-btn" style="padding-right: 1px; color: #333333" data-bind="visible: ! app.viewModel.modernBrowser()">
-    <label>Lease Blocks Remaining: <span data-bind="text: leaseblocksLeft"></span></label>
+    <label>Grid Cells Remaining: <span data-bind="text: leaseblocksLeft"></span></label>
 </div>
 
 <div class="wizard_nav" style="width:100%">
