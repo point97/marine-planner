@@ -392,6 +392,7 @@
                                                             </span>
                                                         </a>
                                                     </span>
+                                                    {% if user.is_staff %}
                                                     <span>
                                                         <a class="btn btn-mini" data-bind="css: { disabled: ! activeTilesLink() }, attr: { href: activeTilesLink() }" target="_blank">
                                                             <span rel="tooltip" title="Web Mapping Services">
@@ -399,6 +400,7 @@
                                                             </span>
                                                         </a>
                                                     </span>
+                                                    {% endif %}
                                                 </div>
                                               </span>
                                               <span class="span1"></span>
