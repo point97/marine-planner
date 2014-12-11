@@ -136,7 +136,7 @@
             <div class="control-group" data-bind="css: { error: usernameError }">
               <label class="control-label" for="username">Username</label>
               <div class="controls">
-                <input class="input-xlarge" type="text" data-bind="value: username, event: { blur: checkUsername, focus: turnOffUsernameError }" name="username" placeholder="username" required>
+                <input class="input-xlarge" type="text" data-bind="event: { blur: checkUsername, focus: turnOffUsernameError }" name="username" placeholder="Username" required>
                 <span class="help-inline" data-bind="visible: usernameError">That username is already in use.  Please try another username.</span>
               </div>
             </div>
