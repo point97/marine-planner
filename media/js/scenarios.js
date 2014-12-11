@@ -801,6 +801,7 @@ function scenarioModel(options) {
     self.id = options.uid || null;
     self.uid = options.uid || null;
     self.name = options.name;
+    self.isDesign = true;
     self.featureAttributionName = self.name;
     self.description = options.description;
     self.shared = ko.observable();

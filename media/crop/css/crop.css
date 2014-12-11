@@ -140,6 +140,23 @@
 	height: 16px;
 }
 
+.crop #designs .btn-group-layer .btn-layer {
+	width: 86%;
+	border-left-color: rgba(0, 0, 0, 0.0980392);
+	border-left-style: solid;
+	border-left-width: 1px;	
+}
+
+.crop #design-list .btn-layer > div {
+	padding-left: 6px;
+}
+
+.crop #active .btn-group .is-design-btn {
+	width: 80%;
+	border-bottom-left-radius: 4px;
+	border-top-left-radius: 4px;
+}
+
 #step3 .step3-param {
 	margin-left: 5px;
 }
