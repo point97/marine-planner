@@ -1680,10 +1680,10 @@ function viewModel() {
             }
         }
         if ( ! (foundFirstLayer && foundSecondLayer) ) {
-            if (app.viewModel.themes()[0]) {
-                var firstThemeLayers = app.viewModel.themes()[0].layers();
+            if (app.viewModel.themes()[1]) {
+                var firstThemeLayers = app.viewModel.themes()[1].layers();
                 if (firstThemeLayers.length) {
-                    firstThemeLayers[0].activateLayer();
+                    firstThemeLayers[1].activateLayer();
                     if (firstThemeLayers.length > 1) {
                         firstThemeLayers[firstThemeLayers.length-1].activateLayer();
                     }
