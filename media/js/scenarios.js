@@ -1897,7 +1897,7 @@ $('#designsTab').on('show', function (e) {
     // if ( app.viewModel.scenarios.reports && app.viewModel.scenarios.reports.showingReport() ) {
     //    app.viewModel.scenarios.reports.updateChart();
     //}
-    if ( !app.viewModel.scenarios.scenariosLoaded || !app.viewModel.scenarios.selectionsLoaded) {
+    if ( !app.viewModel.scenarios.scenariosLoaded || !app.viewModel.scenarios.drawingsLoaded) {
     // if ( !app.viewModel.scenarios.drawingsLoaded ) {
         // load the scenarios
         app.viewModel.scenarios.loadScenariosFromServer();

@@ -19,8 +19,8 @@ app.getState = function () {
         basemap: app.map.baseLayer.name,
         themes: {ids: app.viewModel.getOpenThemeIDs()},
         tab: $('#myTab').find('li.active').data('tab'),
-        legends: app.viewModel.showLegend() ? 'true': 'false',
-        layers: app.viewModel.showLayers() ? 'true': 'false'
+        // legends: app.viewModel.showLegend() ? 'true': 'false',
+        // layers: app.viewModel.showLayers() ? 'true': 'false'
         //and active tab
     };
 };
@@ -62,8 +62,8 @@ app.loadCompressedState = function(state) {
         layer.deactivateLayer();
     });
     // turn on the layers that should be active
+    var unloadedDesigns = [];
     if (state.dls) {
-        var unloadedDesigns = [];
         for (x=0; x < state.dls.length; x=x+3) {
             var id = state.dls[x+2],
                 opacity = state.dls[x+1],
@@ -81,10 +81,6 @@ app.loadCompressedState = function(state) {
             } else {
                 unloadedDesigns.push({id: id, opacity: opacity, isVisible: isVisible});
             }
-       }
-       if ( unloadedDesigns.length ) {
-            app.viewModel.unloadedDesigns = unloadedDesigns;
-            $('#designsTab').tab('show'); //to activate the loading of designs
        }
     }
 
@@ -132,20 +128,41 @@ app.loadCompressedState = function(state) {
     // it appears the dataTab show in state.themes above was causing the problem...?
     // timeout worked, but then realized that removing datatab show from above worked as well...
     // now reinstating the timeout which seems to fix the toggling between tours issue (toggling to ActiveTour while already in ActiveTab)
-    if (state.tab && state.tab === "active") {
-        //$('#activeTab').tab('show');
-        setTimeout( function() { $('#activeTab').tab('show'); }, 200 );
-    } else if (state.tab && state.tab === "designs") {
+    // if (state.tab && state.tab === "active") {
+    //     //$('#activeTab').tab('show');
+    //     setTimeout( function() { $('#activeTab').tab('show'); }, 200 );
+    // } else if (state.tab && state.tab === "designs") {
+    //     setTimeout( function() { $('#designsTab').tab('show'); }, 200 );
+    // } else if (state.tab && state.tab === "legend") {
+    //     setTimeout( function() { $('#legendTab').tab('show'); }, 200 );
+    // } else {
+    //     setTimeout( function() { $('#dataTab').tab('show'); }, 200 );
+    // }
+
+    // bouncing between multiple tabs produces unexpected heisenbug type display issues...
+    // solution appears to be choose one tab and stick with it
+    if ( unloadedDesigns.length ) {
+        app.viewModel.unloadedDesigns = unloadedDesigns;
+        // $('#designsTab').tab('show'); //to activate the loading of designs
         setTimeout( function() { $('#designsTab').tab('show'); }, 200 );
     } else {
-        setTimeout( function() { $('#dataTab').tab('show'); }, 200 );
+        if (state.tab && state.tab === "active") {
+            //$('#activeTab').tab('show');
+            setTimeout( function() { $('#activeTab').tab('show'); }, 200 );
+        } else if (state.tab && state.tab === "designs") {
+            setTimeout( function() { $('#designsTab').tab('show'); }, 200 );
+        } else if (state.tab && state.tab === "legend") {
+            setTimeout( function() { $('#legendTab').tab('show'); }, 200 );
+        } else {
+            setTimeout( function() { $('#dataTab').tab('show'); }, 200 );
+        }
     }
 
-    if ( state.legends && state.legends === 'true' ) {
-        app.viewModel.showLegend(true);
-    } else {
-        app.viewModel.showLegend(false);
-    }
+    // if ( state.legends && state.legends === 'true' ) {
+    //     app.viewModel.showLegend(true);
+    // } else {
+    //     app.viewModel.showLegend(false);
+    // }
 
     if (state.layers && state.layers === 'false') {
         app.viewModel.showLayers(true);
