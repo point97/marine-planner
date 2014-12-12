@@ -1277,9 +1277,16 @@ function viewModel() {
         }
         //$(elem).mCustomScrollbar("update");
         //$(elem).mCustomScrollbar("scrollTo", "top");
-        setTimeout( function() {
+        setTimeout( function() {            
             $(elem).mCustomScrollbar("update");
             $(elem).mCustomScrollbar("scrollTo", "top");
+            // the following addresses an issue in which an empty description overlay followed by a non-empty description overlay 
+            // would result in the description being out of view
+            if (elem === '#overview-overlay-text' && $(elem).height() === 0 && $(elem).find('span.text').html() !== "") {
+                $(elem).height(50);
+                $(elem).mCustomScrollbar("scrollTo", "top");
+                $(elem).css('height', '');
+            }
         }, 500);
     };
 
