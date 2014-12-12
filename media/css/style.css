@@ -601,7 +601,7 @@ a.disabled-link:hover {
 .create-new-button {
   cursor: pointer;
   display: inline-block;
-  width: 17px;
+  width: 16px;
   padding: 9px 10px 5px 12px;
   margin-bottom: 0px;
 }
