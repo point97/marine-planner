@@ -1241,7 +1241,7 @@ function viewModel() {
 
             var activeScrollpane = $('#active-content').data('jsp');
             if (activeScrollpane === undefined) {
-                $('#active-content').jScrollPane();
+                $('#active-content').jScrollPane({contentWidth: '0px'});
             } else {
                 activeScrollpane.reinitialise();
             }
