@@ -57,36 +57,37 @@ class ScenarioForm(FeatureForm):
     # form. 
     # - Help_text on the boolean is included in the popup text "info" icon.
     # - Label is used as the icon label 
-    bathy_avg = forms.BooleanField(label="Average Depth", required=False, widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    bathy_avg = forms.BooleanField(label="Average Depth", required=False, help_text="Ocean depth in meters", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     bathy_avg_min = forms.FloatField(required=False, initial=10, widget=forms.TextInput(attrs={'class':'slidervalue'}))
     bathy_avg_max = forms.FloatField(required=False, initial=50, widget=TextInputWithUnit(attrs={'class':'slidervalue'}, unit='meters'))
     bathy_avg_input = forms.FloatField(widget=DualSliderWidget('bathy_avg_min', 'bathy_avg_max', min=1, max=300, step=1))
 
     # Wind range 72 - 400 W/m^2
-    wind_avg = forms.BooleanField(label="Wind energy potential", required=False, help_text="Minimum (watts / square meter)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    wind_avg = forms.BooleanField(label="Wind energy potential", required=False, help_text="Minimum watts / square meter", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     wind_avg_min = forms.FloatField(initial=200, required=False, widget=SliderWidget(attrs={'class':'slidervalue'}, min=72, max=400, step=1))
 
-    subs_mind = forms.BooleanField(label="Distance to Coastal Substation", required=False, help_text="Max distance (km)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    subs_mind = forms.BooleanField(label="Distance to Coastal Substation", required=False, help_text="Maximum distance in kilometers", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     subs_mind_max = forms.FloatField(required=False, initial=15, widget=SliderWidget(attrs={'class':'slidervalue'}, min=1, max=108, step=1))
 
-    coast_avg = forms.BooleanField(label="Distance to Shore", required=False, widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    coast_avg = forms.BooleanField(label="Distance to Shore", required=False, help_text="Distance to Shore in kilometers", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     coast_avg_min = forms.FloatField(required=False, initial=2, widget=forms.TextInput(attrs={'class':'slidervalue'}))
     coast_avg_max = forms.FloatField(required=False, initial=12, widget=TextInputWithUnit(attrs={'class':'slidervalue'}, unit='km'))
     coast_avg_input = forms.FloatField(widget=DualSliderWidget('coast_avg_min', 'coast_avg_max', min=1, max=17, step=1))
 
-    mangrove_p = forms.BooleanField(label="Mangroves", required=False, widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     
-    coral_p = forms.BooleanField(label="Corals", required=False, widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    coral_p = forms.BooleanField(label="Corals", required=False, help_text="Coral cover", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    subveg_p = forms.BooleanField(label="Submerged Vegetation", required=False, widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    mangrove_p = forms.BooleanField(label="Mangroves", required=False, help_text="Mangrove cover", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    protarea_p = forms.BooleanField(label="Protected Areas", required=False, widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    subveg_p = forms.BooleanField(label="Submerged Vegetation", help_text="Seagrass and Macro Algae", required=False, widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    pr_apc_p = forms.BooleanField(label="PR Conservation Priority Areas", required=False, widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    protarea_p = forms.BooleanField(label="Protected Areas", required=False, help_text="Designated Protected Areas", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    pr_ape_p = forms.BooleanField(label="PR Special Planning Areas", required=False, widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    pr_apc_p = forms.BooleanField(label="PR Conservation Priority Areas", required=False, help_text="PR Conservation Priority Areas", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    vi_apc_p = forms.BooleanField(label="USVI Areas of Particular Concern", required=False, widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    pr_ape_p = forms.BooleanField(label="PR Special Planning Areas", required=False, help_text="PR Special Planning Areas", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+
+    vi_apc_p = forms.BooleanField(label="USVI Areas of Particular Concern", required=False, help_text="USVI Areas of Particular Concern", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     
     def get_step_1_fields(self):
         """Defines the fields that we want to show on the form in step 1, and 
@@ -108,8 +109,8 @@ class ScenarioForm(FeatureForm):
             (parameter to test, user-min or user-selection, user-max, user-input)
         where each parameter except the first is optional. 
         """
-        names = (('mangrove_p', None, None, None,),
-                ('coral_p', None, None, None,),
+        names = (('coral_p', None, None, None,),
+                ('mangrove_p', None, None, None,),
                 ('subveg_p', None, None, None,),
                 ('protarea_p', None, None, None,),
                 ('pr_apc_p', None, None, None,),
