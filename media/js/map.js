@@ -201,9 +201,7 @@ app.init = function() {
                         text = attribute_objs;
                     if ( title === 'Planning Grid' ) {
                         text = app.viewModel.getGridAttributes(gridLayerInfo.data);
-                    } else if (title === 'Wind Speed') {
-                        text = app.viewModel.getWindSpeedAttributes(title, gridLayerInfo.data);
-                    }
+                    } 
                     clickAttributes[title] = text;
                 }
             }
