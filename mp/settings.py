@@ -15,8 +15,7 @@ DATABASES = {
     }
 }
 
-FEEDBACK_RECIPIENT = ["scott@pointnineseven.com", "seth@pointnineseven.com", 
-                      "dan@pointnineseven.com"]
+FEEDBACK_RECIPIENT = ["vimarrero@drna.gobierno.pr", "cortiz@drna.gobierno.pr", "pedro.nieves@dpnr.vi.gov", "dan@pointnineseven.com", "scott@pointnineseven.com"]
 FEEDBACK_SUBJECT = "CROP Marine Planner Feedback"
 
 
