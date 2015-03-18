@@ -122,19 +122,51 @@ class ScenarioForm(FeatureForm):
     fish_richness = forms.BooleanField(label="Fish Richness", required=False, help_text="Minimum estimated species count per survey area", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     fish_richness_max = forms.FloatField(required=False, initial=15, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=40, step=5))
 
-    coral_richness = forms.BooleanField(label="Coral Richness", required=False, help_text="Minimum estimated species count per survey area", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
-    coral_richness_max = forms.FloatField(required=False, initial=15, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=40, step=5))
+    coral_richness = forms.BooleanField(label="Coral Richness", required=False, help_text="Number of coral species (FRRP data)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    coral_richness_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=13, step=1))
 
-    coral_density = forms.BooleanField(label="Coral Density", required=False, help_text="Minimum estimated organisms per sq meter", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
-    coral_density_max = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=5, step=1))
+    coral_density = forms.BooleanField(label="Coral Density", required=False, help_text="Number of coral colonies per square meter (FRRP data)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    coral_density_max = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=13, step=1))
 
     coral_size = forms.BooleanField(label="Coral Size", required=False, help_text="Minimum Coral Size", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     coral_size_max = forms.FloatField(required=False, initial=50, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=500, step=10))
 
+    coral_bleach = forms.BooleanField(label="Coral Bleaching", required=False, help_text="Coral site bleaching index", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    coral_bleach_max = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=8, step=1))
+
+    coral_disease = forms.BooleanField(label="Coral Disease", required=False, help_text="Coral site disease index", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    coral_bleach_max = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=4, step=1))
+
+    coral_resilience = forms.BooleanField(label="Coral Resilience Index", required=False, help_text="Coral resilience index", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    coral_resilience_max = forms.FloatField(required=False, initial=0, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=-2, max=1, step=1))
+
+    reef_fish_density = forms.BooleanField(label="Reef Fish Density", required=False, help_text="Number of fish species per PSU (RVC 2012 & 2013)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    reef_fish_density_max = forms.FloatField(required=False, initial=10, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=63, step=1))
+
+    reef_fish_richness = forms.BooleanField(label="Reef Fish Species Richness", required=False, help_text="Mean fish density per PSU (RVC 2012 & 2013)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    reef_fish_richness_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=25, step=1))
+
     # coral_p = forms.BooleanField(label="Corals", required=False, help_text="Coral cover", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     # mangrove_p = forms.BooleanField(label="Mangroves", required=False, help_text="Mangrove cover", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    
+    total_use = forms.BooleanField(label="Total Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    total_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
+
+    boat_use = forms.BooleanField(label="Boater Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    boat_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
+
+    recfish_use = forms.BooleanField(label="Recreational Fishing Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    recfish_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
+
+    scuba_use = forms.BooleanField(label="Scuba Diving Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    scuba_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
+
+    extdive_use = forms.BooleanField(label="Extractive Diving Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    extdive_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
+
+    spear_use = forms.BooleanField(label="Spearfishing Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    spear_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
+
     '''
     Depth and Distances
     '''
@@ -170,11 +202,21 @@ class ScenarioForm(FeatureForm):
     Other Habitats
     '''
     def get_step_3_fields(self):
-        names = (('prcnt_sg', 'prcnt_sg_min', None), 
-                ('prcnt_reef', 'prcnt_reef_min', None), 
-                ('prcnt_sand', 'prcnt_sand_min', None), 
-                ('prcnt_art', 'prcnt_art_min', None))         
-        
+        names = (('prcnt_sg', 'prcnt_sg_min', None),
+                ('prcnt_reef', 'prcnt_reef_min', None),
+                ('prcnt_sand', 'prcnt_sand_min', None),
+                ('prcnt_art', 'prcnt_art_min', None),
+
+                # TODO where do these survey use data go?
+                # Putting in step 3 for now?
+                ('total_use', None, None, 'total_use_input'),
+                ('boat_use', None, None, 'boat_use_input'),
+                ('recfish_use', None, None, 'recfish_use_input'),
+                ('scuba_use', None, None, 'scuba_use_input'),
+                ('extdive_use', None, None, 'extdive_use_input'),
+                ('spear_use', None, None, 'spear_use_input'),
+        )
+
         return self._get_fields(names)
 
     '''
@@ -184,6 +226,11 @@ class ScenarioForm(FeatureForm):
         names = (('fish_richness', None, 'fish_richness_max'),
                 ('coral_richness', None, 'coral_richness_max'),
                 ('coral_density', None, 'coral_density_max'),
+                ('coral_bleach', None, 'coral_bleach_max'),
+                ('coral_disease', None, 'coral_disease_max'),
+                ('coral_resilience', None, 'coral_resilience_max'),
+                ('reef_fish_density', None, 'reef_fish_density_max'),
+                ('reef_fish_richness', None, 'reef_fish_richness_max'),
                 ('coral_size', None, 'coral_size_max'))
         
         return self._get_fields(names)

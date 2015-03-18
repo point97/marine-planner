@@ -256,13 +256,13 @@ def get_summary_reports(grid_cells, attributes):
     attributes.append({'title': title, 'data': data})
 
     # Coral Density
-    title = 'Estimated # of Coral Organisms per sq meter'
+    title = 'Number of coral colonies per square meter (FRRP data)'
     coral_density = get_average(grid_cells, 'coral_density')
     data = str(format_precision(coral_density, 0))
     attributes.append({'title': title, 'data': data})
 
     # Coral Richness
-    title = 'Estimated # of Coral Species per survey area'
+    title = 'Number of coral species (FRRP data)'
     coral_richness = get_average(grid_cells, 'coral_richness')
     data = str(format_precision(coral_richness, 0))
     attributes.append({'title': title, 'data': data})
@@ -271,6 +271,24 @@ def get_summary_reports(grid_cells, attributes):
     title = 'Average Coral Size'
     coral_size = get_average(grid_cells, 'coral_size')
     data = str(format_precision(coral_size, 0)) + ' units'
+    attributes.append({'title': title, 'data': data})
+
+    # Coral Bleaching
+    title = 'Average Coral Bleaching Index'
+    val = get_average(grid_cells, 'coral_bleach')
+    data = str(format_precision(val, 0)) + ' units'
+    attributes.append({'title': title, 'data': data})
+
+    # Coral Disease
+    title = 'Average Coral Disease Index'
+    val = get_average(grid_cells, 'coral_disease')
+    data = str(format_precision(val, 0)) + ' units'
+    attributes.append({'title': title, 'data': data})
+
+    # Coral Disease
+    title = 'Average Coral Resilience Index'
+    val = get_average(grid_cells, 'coral_resilience')
+    data = str(format_precision(val, 0)) + ' units'
     attributes.append({'title': title, 'data': data})
 
     # Anchorage Density
@@ -283,4 +301,47 @@ def get_summary_reports(grid_cells, attributes):
     title = 'Mooring Density'
     val = get_average(grid_cells, 'mooring_density')
     data = str(format_precision(val, 1)) + ' boats'
+    attributes.append({'title': title, 'data': data})
+
+    # Reef Fish Density
+    title = 'Reef Fish Density'
+    val = get_average(grid_cells, 'reef_fish_density')
+    data = str(format_precision(val, 1)) + ' '
+    attributes.append({'title': title, 'data': data})
+
+    # Reef Fish Richness
+    title = 'Reef Fish Species Richness'
+    val = get_average(grid_cells, 'reef_fish_richness')
+    data = str(format_precision(val, 1)) + ''
+    attributes.append({'title': title, 'data': data})
+
+    # Use survey data
+    title = 'Total Use Intensity (OFR 2015)'
+    val = get_average(grid_cells, 'total_use')
+    data = str(format_precision(val, 1)) + ''
+    attributes.append({'title': title, 'data': data})
+
+    title = 'Boater Use Intensity (OFR 2015)'
+    val = get_average(grid_cells, 'boat_use')
+    data = str(format_precision(val, 1)) + ''
+    attributes.append({'title': title, 'data': data})
+
+    title = 'Recreational Fishing Use Intensity (OFR 2015)'
+    val = get_average(grid_cells, 'recfish_use')
+    data = str(format_precision(val, 1)) + ''
+    attributes.append({'title': title, 'data': data})
+
+    title = 'Scuba Diving Use Intensity (OFR 2015)'
+    val = get_average(grid_cells, 'scuba_use')
+    data = str(format_precision(val, 1)) + ''
+    attributes.append({'title': title, 'data': data})
+
+    title = 'Extractive Diving Use Intensity (OFR 2015)'
+    val = get_average(grid_cells, 'extdive_use')
+    data = str(format_precision(val, 1)) + ''
+    attributes.append({'title': title, 'data': data})
+
+    title = 'Spearfishing Use Intensity (OFR 2015)'
+    val = get_average(grid_cells, 'spear_use')
+    data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})

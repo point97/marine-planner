@@ -65,20 +65,28 @@ app.clickAttributes = (function() {
             attrs.push({'display': 'Boat Use', 'data': data['BoatUse']});
         }
         // 
-        if ('CoralBlch' in data) {
-            attrs.push({'display': 'Coral Bleach', 'data': data['CoralBlch']});
-        }
-        // 
         if ('CoralCov' in data) {
             attrs.push({'display': 'Coral Cover', 'data': data['CoralCov']});
         }
-        // Estimated # of organisms per sq meter
-        if ('CoralDen' in data) {
-            attrs.push({'display': 'Coral Density', 'data': data['CoralDen']});
+        // bleaching
+        if ('Max_SBII' in data) {
+            attrs.push({'display': 'Coral Bleaching', 'data': data['Max_SBII']});
         }
-        // Estimated # of species per survey area
-        if ('CoralRich' in data) {
-            attrs.push({'display': 'Coral Richness', 'data': data['CoralRich']});
+        // Coral Disease
+        if ('Max_SDII' in data) {
+            attrs.push({'display': 'Coral Disease', 'data': data['Max_SDII']});
+        }
+        // Coral Density
+        if ('Max_ColDen' in data) {
+            attrs.push({'display': 'Coral Density', 'data': data['Max_ColDen']});
+        }
+        // Coral Richness
+        if ('Max_N_Taxa' in data) {
+            attrs.push({'display': 'Coral Richness', 'data': data['Max_N_Taxa']});
+        }
+        // Coral Resilience
+        if ('Max_RRI_SE' in data) {
+            attrs.push({'display': 'Coral Resilience Index', 'data': data['Max_RRI_SE']});
         }
         // 
         if ('CoralSize' in data) {
@@ -215,6 +223,41 @@ app.clickAttributes = (function() {
         if ('MorDen0913' in data) {
             attrs.push({'display': 'Mooring Density', 'data': data['MorDen0913'].toFixed(1) + ' boats'});
         }
+        // Reef fish
+        if ('RVCden1213' in data) {
+            attrs.push({'display': 'Reef Fish Density',
+                        'data': data['RVCden1213'].toFixed(1) + ' units'});
+        }
+        if ('RVCrch1213' in data) {
+            attrs.push({'display': 'Reef Fish Species Richness',
+                        'data': data['RVCrch1213'].toFixed(1) + ' units'});
+        }
+        // Coastal Use survey results
+        if ('total_use' in data) {
+            attrs.push({'display': 'Total Use Intensity (OFR 2015)',
+                        'data': data['total_use'].toFixed(1) + ''});
+        }
+        if ('boat_use' in data) {
+            attrs.push({'display': 'Boater Use Intensity (OFR 2015)',
+                        'data': data['boat_use'].toFixed(1) + ''});
+        }
+        if ('recfish_use' in data) {
+            attrs.push({'display': 'Recreational Fishing Use Intensity (OFR 2015)',
+                        'data': data['recfish_use'].toFixed(1) + ''});
+        }
+        if ('scuba_use' in data) {
+            attrs.push({'display': 'Scuba Diving Use Intensity (OFR 2015)',
+                        'data': data['scuba_use'].toFixed(1) + ''});
+        }
+        if ('extdive_use' in data) {
+            attrs.push({'display': 'Extractive Diving Use Intensity (OFR 2015)',
+                        'data': data['extdive_use'].toFixed(1) + ''});
+        }
+        if ('spear_use' in data) {
+            attrs.push({'display': 'Spearfishing Use Intensity (OFR 2015)',
+                        'data': data['spear_use'].toFixed(1) + ''});
+        }
+
 
         return attrs;
     };

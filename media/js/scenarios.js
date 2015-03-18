@@ -131,9 +131,22 @@ function scenarioFormModel(options) {
     // Step 2 Parameters
     self.fish_richness = ko.observable(false);
     self.coral_richness = ko.observable(false);
+    self.coral_resilience = ko.observable(false);
     self.coral_density = ko.observable(false);
     self.coral_size = ko.observable(false);
+    self.coral_bleach = ko.observable(false);
+    self.coral_disease = ko.observable(false);
+
+    self.reef_fish_density = ko.observable(false);
+    self.reef_fish_richness = ko.observable(false);
     
+    self.total_use = ko.observable(false);
+    self.boat_use = ko.observable(false);
+    self.recfish_use = ko.observable(false);
+    self.scuba_use = ko.observable(false);
+    self.extdive_use = ko.observable(false);
+    self.spear_use = ko.observable(false);
+
     self.lastChange = (new Date()).getTime();
 
     var defaultStyle = new OpenLayers.Style({
@@ -568,11 +581,37 @@ function scenarioModel(options) {
                 ko.applyBindings(model, document.getElementById('scenario-form'));
 
                 var parameters = [
-                    'shore_distance', 'pier_distance', 'inlet_distance', 'outfall_distance', 'depth',
-                    'injury_site', 'large_live_coral', 'pillar_presence', 
-                    'anchorage', 'mooring_buoy', 'impacted', 'acropora_pa', 
-                    'prcnt_sg', 'prcnt_reef', 'prcnt_sand', 'prcnt_art',
-                    'fish_richness', 'coral_richness', 'coral_density', 'coral_size'
+                    'shore_distance',
+                    'pier_distance',
+                    'inlet_distance',
+                    'outfall_distance',
+                    'depth',
+                    'injury_site',
+                    'large_live_coral',
+                    'pillar_presence', 
+                    'anchorage',
+                    'mooring_buoy',
+                    'impacted',
+                    'acropora_pa', 
+                    'prcnt_sg',
+                    'prcnt_reef',
+                    'prcnt_sand',
+                    'prcnt_art',
+                    'fish_richness',
+                    'coral_richness',
+                    'coral_resilience',
+                    'coral_density',
+                    'coral_bleach',
+                    'coral_disease',
+                    'coral_size',
+                    'reef_fish_density',
+                    'reef_fish_richness',
+                    'total_use',
+                    'boat_use',
+                    'recfish_use',
+                    'scuba_use',
+                    'extdive_use',
+                    'spear_use'
                 ];
 
                 for (var i = 0; i < parameters.length; i++) {
