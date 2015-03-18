@@ -87,22 +87,22 @@ def get_summary_reports(grid_cells, attributes):
 
     # Distance to Shore
     min_distance_to_shore, max_distance_to_shore = get_range(grid_cells, 'shore_distance')
-    distance_to_shore = '%s to %s km' %(format_precision(min_distance_to_shore,1), format_precision(max_distance_to_shore,1))
+    distance_to_shore = '%s to %s mi' %(format_precision(min_distance_to_shore,1), format_precision(max_distance_to_shore,1))
     attributes.append({'title': 'Distance to Shore', 'data': distance_to_shore})
 
     # Distance to Pier
     min_distance_to_pier, max_distance_to_pier = get_range(grid_cells, 'pier_distance')
-    distance_to_pier = '%s to %s km' %(format_precision(min_distance_to_pier,1), format_precision(max_distance_to_pier,1))
+    distance_to_pier = '%s to %s mi' %(format_precision(min_distance_to_pier,1), format_precision(max_distance_to_pier,1))
     attributes.append({'title': 'Distance to Nearest Pier', 'data': distance_to_pier})
 
     # Distance to Inlet
     min_distance_to_inlet, max_distance_to_inlet = get_range(grid_cells, 'inlet_distance')
-    distance_to_inlet = '%s to %s km' %(format_precision(min_distance_to_inlet,1), format_precision(max_distance_to_inlet,1))
+    distance_to_inlet = '%s to %s mi' %(format_precision(min_distance_to_inlet,1), format_precision(max_distance_to_inlet,1))
     attributes.append({'title': 'Distance to Nearest Coastal Inlet', 'data': distance_to_inlet})
 
     # Distance to Outfall
-    min_distance_to_outfall, max_distance_to_outfall = get_range(grid_cells, 'inlet_distance')
-    distance_to_outfall = '%s to %s km' %(format_precision(min_distance_to_outfall,1), format_precision(max_distance_to_outfall,1))
+    min_distance_to_outfall, max_distance_to_outfall = get_range(grid_cells, 'outfall_distance')
+    distance_to_outfall = '%s to %s mi' %(format_precision(min_distance_to_outfall,1), format_precision(max_distance_to_outfall,1))
     attributes.append({'title': 'Distance to Nearest Outfall', 'data': distance_to_outfall})
 
     # Injury Sites
@@ -273,4 +273,14 @@ def get_summary_reports(grid_cells, attributes):
     data = str(format_precision(coral_size, 0)) + ' units'
     attributes.append({'title': title, 'data': data})
 
+    # Anchorage Density
+    title = 'Anchoring Density'
+    val = get_average(grid_cells, 'anchor_density')
+    data = str(format_precision(val, 1)) + ' boats'
+    attributes.append({'title': title, 'data': data})
 
+    # Mooring Density
+    title = 'Mooring Density'
+    val = get_average(grid_cells, 'mooring_density')
+    data = str(format_precision(val, 1)) + ' boats'
+    attributes.append({'title': title, 'data': data})

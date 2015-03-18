@@ -62,22 +62,22 @@ class ScenarioForm(FeatureForm):
     depth_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     depth_input = forms.FloatField(widget=DualSliderWidget('depth_min', 'depth_max', min=1, max=220, step=1))
 
-    shore_distance = forms.BooleanField(label="Distance to Shore", required=False, help_text="Distance to nearest shore in kilometers", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
-    shore_distance_min = forms.FloatField(required=False, initial=3, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Distance (in km)'}))
+    shore_distance = forms.BooleanField(label="Distance to Shore", required=False, help_text="Distance to nearest shore in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    shore_distance_min = forms.FloatField(required=False, initial=3, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Distance (in mi)'}))
     shore_distance_max = forms.FloatField(required=False, initial=10, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     # shore_distance_max = forms.FloatField(required=False, initial=10000, widget=TextInputWithUnit(attrs={'class':'slidervalue'}, unit='meters'))
     shore_distance_input = forms.FloatField(widget=DualSliderWidget('shore_distance_min', 'shore_distance_max', min=0, max=13, step=.5))
 
-    pier_distance = forms.BooleanField(label="Distance to Pier", required=False, help_text="Distance to nearest pier in kilometers", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 326, 'layer_title': 'Show Pier Locations'}))
-    pier_distance_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Distance (in km)'}))
+    pier_distance = forms.BooleanField(label="Distance to Pier", required=False, help_text="Distance to nearest pier in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 326, 'layer_title': 'Show Pier Locations'}))
+    pier_distance_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Distance (in mi)'}))
     pier_distance_max = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     pier_distance_input = forms.FloatField(widget=DualSliderWidget('pier_distance_min', 'pier_distance_max', min=0, max=35, step=.5))
 
-    inlet_distance = forms.BooleanField(label="Distance from Coastal Inlet", required=False, help_text="Distance from nearest inlet in kilometers", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 339, 'layer_title': 'Show Inlets and Passes'}))
-    inlet_distance_min = forms.FloatField(required=False, initial=3, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max', 'pre_text': 'Exclusion Buffer (in km)', 'post_text': 'km'}, min=0, max=16, step=.5))
+    inlet_distance = forms.BooleanField(label="Distance from Coastal Inlet", required=False, help_text="Distance to nearest inlet (miles)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 339, 'layer_title': 'Show Inlets and Passes'}))
+    inlet_distance_min = forms.FloatField(required=False, initial=3, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max', 'pre_text': 'Exclusion Buffer (in mi)', 'post_text': 'mi'}, min=0, max=16, step=.5))
 
-    outfall_distance = forms.BooleanField(label="Distance from Outfall", required=False, help_text="Distance from nearest sewage outfall discharge location in kilometers", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 350, 'layer_title': 'Show Outfall Locations'}))
-    outfall_distance_min = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max', 'pre_text': 'Exclusion Buffer (in km)', 'post_text': 'meters'}, min=0, max=10, step=.5))
+    outfall_distance = forms.BooleanField(label="Distance from Outfall", required=False, help_text="Distance from nearest sewage outfall discharge location in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 350, 'layer_title': 'Show Outfall Locations'}))
+    outfall_distance_min = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max', 'pre_text': 'Exclusion Buffer (in mi)', 'post_text': 'mi'}, min=0, max=10, step=.5))
 
 
     injury_site = forms.BooleanField(label="Injury Sites", required=False, help_text="Whether a cell contains at least one recorded grounding or anchoring event in the DEP database", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': '328', 'layer_title': 'Show Reef Injury Sites'}))
@@ -130,7 +130,7 @@ class ScenarioForm(FeatureForm):
 
     coral_size = forms.BooleanField(label="Coral Size", required=False, help_text="Minimum Coral Size", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     coral_size_max = forms.FloatField(required=False, initial=50, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=500, step=10))
-    
+
     # coral_p = forms.BooleanField(label="Corals", required=False, help_text="Coral cover", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     # mangrove_p = forms.BooleanField(label="Mangroves", required=False, help_text="Mangrove cover", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 

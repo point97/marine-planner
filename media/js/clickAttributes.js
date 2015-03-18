@@ -125,8 +125,8 @@ app.clickAttributes = (function() {
             attrs.push({'display': 'Recorded Grounding or Anchoring Event', 'data': data['InjurySite']});
         }
         // The distance to the nearest inlet in kilometers
-        if ('InletDisKM' in data) {
-            attrs.push({'display': 'Distance to Nearest Inlet', 'data': data['InletDisKM'].toFixed(1) + ' km'});
+        if ('InletDisMi' in data) {
+            attrs.push({'display': 'Distance to Nearest Inlet', 'data': data['InletDisMi'].toFixed(1) + ' mi'});
         }
         // Whether a cell contains at least one known live coral greater than 2 meters in width
         if ('LgLiveCorl' in data) {
@@ -152,13 +152,13 @@ app.clickAttributes = (function() {
         if ('MoorngBuoy' in data) {
             attrs.push({'display': 'Mooring Buoy', 'data': data['MoorngBuoy']});
         }
-        // The distance to the nearest sewage outfall discharge location in  kilometers
-        if ('OutflDisKM' in data) {
-            attrs.push({'display': 'Distance to Nearest Outfall', 'data': data['OutflDisKM'].toFixed(1) + ' km'});
+        // The distance to the nearest sewage outfall discharge location in miles
+        if ('OutflDisMi' in data) {
+            attrs.push({'display': 'Distance to Nearest Outfall', 'data': data['OutflDisMi'].toFixed(1) + ' mi'});
         }
-        // The distance to the nearest pier in  kilometers
-        if ('PierDisKM' in data) {
-            attrs.push({'display': 'Distance to Nearest Pier', 'data': data['PierDisKM'].toFixed(1) + ' km'});
+        // The distance to the nearest pier in miles
+        if ('PierDisMi' in data) {
+            attrs.push({'display': 'Distance to Nearest Pier', 'data': data['PierDisMi'].toFixed(1) + ' mi'});
         }
         // Whether a cell contains at least one recorded Pillar Coral
         if ('PillarPres' in data) {
@@ -201,12 +201,19 @@ app.clickAttributes = (function() {
             attrs.push({'display': 'Sand Area', 'data': data['SandArea_m'].toLocaleString() + ' m&sup2;'});
         }
         // The distance to the nearest shore in  kilometers
-        if ('ShoreDisKM' in data) {
-            attrs.push({'display': 'Distance to Shore', 'data': data['ShoreDisKM'].toFixed(1) + ' km'});
+        if ('ShoreDisMi' in data) {
+            attrs.push({'display': 'Distance to Shore', 'data': data['ShoreDisMi'].toFixed(1) + ' mi'});
         }
         // A number assigned to each cell that is unique to the dataset. (no duplicates)
         if ('UniqueID' in data) {
             attrs.push({'display': 'UniqueID (for testing)', 'data': data['UniqueID']});
+        }
+        // anchor_density
+        if ('AncDen0913' in data) {
+            attrs.push({'display': 'Anchoring Density', 'data': data['AncDen0913'].toFixed(1) + ' boats'});
+        }
+        if ('MorDen0913' in data) {
+            attrs.push({'display': 'Mooring Density', 'data': data['MorDen0913'].toFixed(1) + ' boats'});
         }
 
         return attrs;

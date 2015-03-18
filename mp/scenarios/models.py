@@ -93,6 +93,12 @@ class Scenario(Analysis):
     coral_size_min = models.FloatField(null=True, blank=True)
     coral_size_max = models.FloatField(null=True, blank=True)
 
+    # coral_size = models.BooleanField()
+    # coral_size_min = models.FloatField(null=True, blank=True)
+    # coral_size_max = models.FloatField(null=True, blank=True)
+
+
+
     description = models.TextField(null=True, blank=True)
     satisfied = models.BooleanField(default=True, help_text="Am I satisfied?")
     active = models.BooleanField(default=True)
@@ -479,7 +485,13 @@ class GridCell(models.Model):
     prcnt_reef = models.IntegerField(null=True, blank=True)
     prcnt_sand = models.IntegerField(null=True, blank=True)
     prcnt_art = models.IntegerField(null=True, blank=True)
-    
+   
+    anchor_density = models.FloatField(null=True, blank=True)
+    mooring_density = models.FloatField(null=True, blank=True)
+    # TODO anchor_desc, mooring_desc
+
+
+
     unique_id = models.IntegerField(null=True, blank=True)
 
     centroid = models.PointField(srid=settings.GEOMETRY_DB_SRID, null=True, blank=True)

@@ -236,10 +236,12 @@ def run_filter_query(filters):
     query = GridCell.objects.all() 
 
     if 'shore_distance' in filters.keys() and filters['shore_distance']:
-        query = query.filter(shore_distance__range=(filters['shore_distance_min'], filters['shore_distance_max']))
+        query = query.filter(shore_distance__range=(filters['shore_distance_min'],
+                                                    filters['shore_distance_max']))
 
     if 'pier_distance' in filters.keys() and filters['pier_distance']:
-        query = query.filter(pier_distance__range=(filters['pier_distance_min'], filters['pier_distance_max']))
+        query = query.filter(pier_distance__range=(filters['pier_distance_min'],
+                                                   filters['pier_distance_max']))
 
     if 'inlet_distance' in filters.keys() and filters['inlet_distance']:
         query = query.filter(inlet_distance__gte=filters['inlet_distance_min'])
