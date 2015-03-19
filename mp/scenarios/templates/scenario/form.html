@@ -266,7 +266,6 @@ madrona.onShow(function(){
                                             });  
                                         {% else %}
                                             $('#id_{{ field_input.html_name }}').change( function() {
-                                                $(this).slider('value', ui.value); // this line prevents the slider value from being 1 tick off (value update is normally lagging this event trigger)
                                                 if (app.viewModel.scenarios.scenarioFormModel) {
                                                     app.viewModel.scenarios.scenarioFormModel.updateFiltersAndCount('{{ field.html_name }}');
                                                 }
