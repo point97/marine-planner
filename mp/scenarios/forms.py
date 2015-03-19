@@ -128,9 +128,6 @@ class ScenarioForm(FeatureForm):
     coral_density = forms.BooleanField(label="Coral Density", required=False, help_text="Number of coral colonies per square meter (FRRP data)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     coral_density_max = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=13, step=1))
 
-    coral_size = forms.BooleanField(label="Coral Size", required=False, help_text="Minimum Coral Size", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
-    coral_size_max = forms.FloatField(required=False, initial=50, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=500, step=10))
-
     coral_bleach = forms.BooleanField(label="Coral Bleaching", required=False, help_text="Coral site bleaching index", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     coral_bleach_max = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max'}, min=0, max=8, step=1))
 
@@ -149,22 +146,22 @@ class ScenarioForm(FeatureForm):
     # coral_p = forms.BooleanField(label="Corals", required=False, help_text="Coral cover", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     # mangrove_p = forms.BooleanField(label="Mangroves", required=False, help_text="Mangrove cover", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
 
-    total_use = forms.BooleanField(label="Total Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    total_use = forms.BooleanField(label="Total Use Intensity", required=False, help_text="Planning units that contain at least one entry in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     total_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
 
-    boat_use = forms.BooleanField(label="Boater Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    boat_use = forms.BooleanField(label="Boater Use Intensity", required=False, help_text="Planning units that contain at least one entry for boating in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     boat_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
 
-    recfish_use = forms.BooleanField(label="Recreational Fishing Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    recfish_use = forms.BooleanField(label="Recreational Fishing Use Intensity", required=False, help_text="Planning units that contain at least one entry for recreational fishing in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     recfish_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
 
-    scuba_use = forms.BooleanField(label="Scuba Diving Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    scuba_use = forms.BooleanField(label="Scuba Diving Use Intensity", required=False, help_text="Planning units that contain at least one entry for SCUBA diving in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     scuba_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
 
-    extdive_use = forms.BooleanField(label="Extractive Diving Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    extdive_use = forms.BooleanField(label="Extractive Diving Use Intensity", required=False, help_text="Planning units that contain at least one entry for extractive diving in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     extdive_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
 
-    spear_use = forms.BooleanField(label="Spearfishing Use Intensity (OFR 2015)", required=False, help_text="", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    spear_use = forms.BooleanField(label="Spearfishing Use Intensity", required=False, help_text="Planning units that contain at least one entry for spearfishing in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     spear_use_max = forms.FloatField(required=False, initial=5, widget=SliderWidget(attrs={'class': 'slidervalue', 'range': 'max'}, min=0, max=580, step=10))
 
     '''
@@ -195,7 +192,7 @@ class ScenarioForm(FeatureForm):
                 ('mooring_buoy', None, None, 'mooring_buoy_input'), 
                 ('impacted', None, None, 'impacted_input'), 
                 ('acropora_pa', None, None, 'acropora_pa_input'))
-        
+
         return self._get_fields(names)
 
     '''
@@ -205,17 +202,7 @@ class ScenarioForm(FeatureForm):
         names = (('prcnt_sg', 'prcnt_sg_min', None),
                 ('prcnt_reef', 'prcnt_reef_min', None),
                 ('prcnt_sand', 'prcnt_sand_min', None),
-                ('prcnt_art', 'prcnt_art_min', None),
-
-                # TODO where do these survey use data go?
-                # Putting in step 3 for now?
-                ('total_use', None, None, 'total_use_input'),
-                ('boat_use', None, None, 'boat_use_input'),
-                ('recfish_use', None, None, 'recfish_use_input'),
-                ('scuba_use', None, None, 'scuba_use_input'),
-                ('extdive_use', None, None, 'extdive_use_input'),
-                ('spear_use', None, None, 'spear_use_input'),
-        )
+                ('prcnt_art', 'prcnt_art_min', None))
 
         return self._get_fields(names)
 
@@ -230,14 +217,26 @@ class ScenarioForm(FeatureForm):
                 ('coral_disease', None, 'coral_disease_max'),
                 ('coral_resilience', None, 'coral_resilience_max'),
                 ('reef_fish_density', None, 'reef_fish_density_max'),
-                ('reef_fish_richness', None, 'reef_fish_richness_max'),
-                ('coral_size', None, 'coral_size_max'))
-        
+                ('reef_fish_richness', None, 'reef_fish_richness_max'))
+
         return self._get_fields(names)
 
+    def get_step_5_fields(self):
+        names = (('total_use', None, 'total_use_max'),
+                ('boat_use', None, 'boat_use_max'),
+                ('recfish_use', None, 'recfish_use_max'),
+                ('scuba_use', None, 'scuba_use_max'),
+                ('extdive_use', None, 'extdive_use_max'),
+                ('spear_use', None, 'spear_use_max'))
+
+        return self._get_fields(names)
 
     def get_steps(self):
-        return self.get_step_1_fields(), self.get_step_2_fields(), self.get_step_3_fields(), self.get_step_4_fields()
+        return self.get_step_1_fields(), \
+               self.get_step_2_fields(), \
+               self.get_step_3_fields(), \
+               self.get_step_4_fields(), \
+               self.get_step_5_fields()
 
     def _get_fields(self, names):
         fields = []
@@ -251,7 +250,6 @@ class ScenarioForm(FeatureForm):
             fields.append(group)
         return fields
 
-      
     def save(self, commit=True):
         inst = super(FeatureForm, self).save(commit=False)
         if self.data.get('clear_support_file'):

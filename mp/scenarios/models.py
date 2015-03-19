@@ -89,10 +89,6 @@ class Scenario(Analysis):
     coral_density_min = models.FloatField(null=True, blank=True)
     coral_density_max = models.FloatField(null=True, blank=True)
 
-    coral_size = models.BooleanField()
-    coral_size_min = models.FloatField(null=True, blank=True)
-    coral_size_max = models.FloatField(null=True, blank=True)
-
     coral_bleach = models.BooleanField()
     coral_bleach_min = models.FloatField(null=True, blank=True)
     coral_bleach_max = models.FloatField(null=True, blank=True)
@@ -157,8 +153,8 @@ class Scenario(Analysis):
             attributes.append({ 'title': 'Depth Range',
                                 'data':  str(int(self.depth_min)) + ' to ' + str(int(self.depth_max)) + ' meters'})
         if self.shore_distance:
-        	attributes.append({ 'title': 'Distance to Shore',
-        						'data':  str(self.shore_distance_min) + ' to ' + str(self.shore_distance_max) + ' km'})
+            attributes.append({ 'title': 'Distance to Shore',
+                                'data':  str(self.shore_distance_min) + ' to ' + str(self.shore_distance_max) + ' km'})
         if self.pier_distance:
             attributes.append({ 'title': 'Distance to Pier',
                                 'data':  str(self.pier_distance_min) + ' to ' + str(self.pier_distance_max) + ' km'})
@@ -236,44 +232,26 @@ class Scenario(Analysis):
 
         # Step 4
         if self.fish_richness: 
-        	attributes.append({ 'title': 'Minimum estimated fish species per survey area',
-        						'data':  str(int(self.fish_richness_max))})
+            attributes.append({ 'title': 'Minimum estimated fish species per survey area',
+                                'data':  str(int(self.fish_richness_max))})
 
         if self.coral_density: 
-        	attributes.append({ 'title': 'Minimum estimated coral organisms per sq meter',
-        						'data':  str(int(self.coral_density_max))})
+            attributes.append({ 'title': 'Minimum estimated coral organisms per sq meter',
+                                'data':  str(int(self.coral_density_max))})
 
         if self.coral_richness: 
-        	attributes.append({ 'title': 'Minimum estimated coral species per survey area',
-        						'data':  str(int(self.coral_richness_max))})
-
-        if self.coral_size: 
-        	attributes.append({ 'title': 'Minimum Coral Size',
-        						'data':  str(int(self.coral_size_max)) + ' units'})
-
-
-        # if self.coral_p or self.subveg_p or self.protarea_p:
-        #     exclusions = ''
-        #     if self.coral_p:
-        #         exclusions += '<br>&nbsp;&nbsp; Corals'
-        #     if self.subveg_p:
-        #         exclusions += '<br>&nbsp;&nbsp; Submerged Vegetation'
-        #     if self.protarea_p:
-        #         exclusions += '<br>&nbsp;&nbsp; Protected Areas'
-
-        #     attributes.append(dict(title='Areas containing the following were excluded', data=exclusions))        
+            attributes.append({ 'title': 'Minimum estimated coral species per survey area',
+                                'data':  str(int(self.coral_richness_max))})
 
         attributes.append({'title': 'Number of Grid Cells', 
                            'data': '{:,}'.format(self.grid_cells.count(',')+1)})
         return { 'event': 'click', 'attributes': attributes }
-    
-    
+
     def geojson(self, srid):
         props = get_properties_json(self)
         props['absolute_url'] = self.get_absolute_url()
         json_geom = self.geometry_dissolved.transform(srid, clone=True).json
         return get_feature_json(json_geom, json.dumps(props))
-    
 
     def run(self):        
         # placing this import here to avoid circular dependency with views.py
@@ -473,7 +451,7 @@ class Scenario(Analysis):
 #         return u'%s' % self.name
 
 class GridCell(models.Model):
-    
+
     region = models.TextField(null=True, blank=True)
     county = models.TextField(null=True, blank=True)
 
@@ -487,15 +465,14 @@ class GridCell(models.Model):
     coral_density = models.IntegerField(null=True, blank=True)
     coral_richness = models.IntegerField(null=True, blank=True)
     coral_resilience = models.IntegerField(null=True, blank=True)
-    coral_size = models.IntegerField(null=True, blank=True)
-    
+
     inlet_distance = models.FloatField(null=True, blank=True)
     outfall_distance = models.FloatField(null=True, blank=True)
     pier_distance = models.FloatField(null=True, blank=True)
     shore_distance = models.FloatField(null=True, blank=True)
 
     total_use = models.IntegerField(null=True, blank=True)
-    spear_use = models.IntegerField(null=True, blank=True)
+    boat_use = models.IntegerField(null=True, blank=True)
     recfish_use = models.IntegerField(null=True, blank=True)
     scuba_use = models.IntegerField(null=True, blank=True)
     extdive_use = models.IntegerField(null=True, blank=True)

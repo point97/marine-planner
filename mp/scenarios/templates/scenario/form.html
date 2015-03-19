@@ -8,7 +8,7 @@ madrona.onShow(function(){
     madrona.setupForm($('#wind-design-form'));
     
     var step = 1;
-    var max_step = 5;
+    var max_step = 6;
 
     function validate(step) {
         return true;
@@ -160,7 +160,7 @@ madrona.onShow(function(){
         
     {% for step in form.get_steps %}
     <div id="step{{ forloop.counter }}" class="step">
-        <p class="step-text"><i>Step {{ forloop.counter }} of 5 </i></p>        
+        <p class="step-text"><i>Step {{ forloop.counter }} of 6 </i></p>        
         <!-- <p class="instructions">Select 1 or more criteria for this sector </p> -->
         <!-- <label class="step-header">Wind Energy</label> -->
         <p class="instructions">Select criteria to filter your results</p>        
@@ -286,8 +286,8 @@ madrona.onShow(function(){
     {% endfor %}
     
     
-    <div id="step5" class="step">
-        <p class="step-text"><i>Step 5 of 5 </i>
+    <div id="step6" class="step">
+        <p class="step-text"><i>Step 6 of 6 </i>
         <div data-bind="css: { 'disabled': gridCellsRemaining()==0 }">
             <p class="instructions">Provide a <b>Name</b> to identify your Grid Filtering design </p>
             <div class="step5-inputs">

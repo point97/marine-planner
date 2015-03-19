@@ -133,7 +133,6 @@ function scenarioFormModel(options) {
     self.coral_richness = ko.observable(false);
     self.coral_resilience = ko.observable(false);
     self.coral_density = ko.observable(false);
-    self.coral_size = ko.observable(false);
     self.coral_bleach = ko.observable(false);
     self.coral_disease = ko.observable(false);
 
@@ -603,7 +602,6 @@ function scenarioModel(options) {
                     'coral_density',
                     'coral_bleach',
                     'coral_disease',
-                    'coral_size',
                     'reef_fish_density',
                     'reef_fish_richness',
                     'total_use',

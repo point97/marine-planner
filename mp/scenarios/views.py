@@ -298,41 +298,38 @@ def run_filter_query(filters):
     if 'coral_density' in filters.keys() and filters['coral_density']:
         query = query.filter(coral_density__gte=filters['coral_density_max'])
     
-    if 'coral_size' in filters.keys() and filters['coral_size']:
-        query = query.filter(coral_size__gte=filters['coral_size_max'])
-
     if 'coral_bleach' in filters.keys() and filters['coral_bleach']:
-        query = query.filter(coral_size__gte=filters['coral_bleach_max'])
+        query = query.filter(coral_bleach__gte=filters['coral_bleach_max'])
 
     if 'coral_disease' in filters.keys() and filters['coral_disease']:
-        query = query.filter(coral_size__gte=filters['coral_disease_max'])
+        query = query.filter(coral_disease__gte=filters['coral_disease_max'])
 
     if 'coral_resilience' in filters.keys() and filters['coral_resilience']:
-        query = query.filter(coral_size__gte=filters['coral_resilience_max'])
+        query = query.filter(coral_resilience__gte=filters['coral_resilience_max'])
 
     if 'reef_fish_density' in filters.keys() and filters['reef_fish_density']:
-        query = query.filter(coral_size__gte=filters['reef_fish_density_max'])
+        query = query.filter(reef_fish_density__gte=filters['reef_fish_density_max'])
 
     if 'reef_fish_richness' in filters.keys() and filters['reef_fish_richness']:
-        query = query.filter(coral_size__gte=filters['reef_fish_richness_max'])
+        query = query.filter(reef_fish_richness__gte=filters['reef_fish_richness_max'])
 
     if 'total_use' in filters.keys() and filters['total_use']:
-        query = query.filter(coral_size__gte=filters['total_use_max'])
+        query = query.filter(total_use__gte=filters['total_use_max'])
 
     if 'boat_use' in filters.keys() and filters['boat_use']:
-        query = query.filter(coral_size__gte=filters['boat_use_max'])
+        query = query.filter(boat_use__gte=filters['boat_use_max'])
 
     if 'recfish_use' in filters.keys() and filters['recfish_use']:
-        query = query.filter(coral_size__gte=filters['recfish_use_max'])
+        query = query.filter(recfish_use__gte=filters['recfish_use_max'])
 
     if 'scuba_use' in filters.keys() and filters['scuba_use']:
-        query = query.filter(coral_size__gte=filters['scuba_use_max'])
+        query = query.filter(scuba_use__gte=filters['scuba_use_max'])
 
     if 'extdive_use' in filters.keys() and filters['extdive_use']:
-        query = query.filter(coral_size__gte=filters['extdive_use_max'])
+        query = query.filter(extdive_use__gte=filters['extdive_use_max'])
 
     if 'spear_use' in filters.keys() and filters['spear_use']:
-        query = query.filter(coral_size__gte=filters['spear_use_max'])
+        query = query.filter(spear_use__gte=filters['spear_use_max'])
 
     return query
 
@@ -392,7 +389,7 @@ def get_leaseblocks(request):
             'fish_richness': grid_cell.fish_richness,
             'coral_richness': grid_cell.coral_richness,
             'coral_density': grid_cell.coral_density,
-            'coral_size': grid_cell.coral_size
+            # 'coral_size': grid_cell.coral_size
         })
     return HttpResponse(dumps(json))
 

@@ -267,12 +267,6 @@ def get_summary_reports(grid_cells, attributes):
     data = str(format_precision(coral_richness, 0))
     attributes.append({'title': title, 'data': data})
 
-    # Coral Size
-    title = 'Average Coral Size'
-    coral_size = get_average(grid_cells, 'coral_size')
-    data = str(format_precision(coral_size, 0)) + ' units'
-    attributes.append({'title': title, 'data': data})
-
     # Coral Bleaching
     title = 'Average Coral Bleaching Index'
     val = get_average(grid_cells, 'coral_bleach')
