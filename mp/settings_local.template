@@ -38,7 +38,7 @@ DATABASES = {
 # This should be set to 1 (for localhost), 2 (for dev server), or 3 (for production)
 # SITE_ID = 1
 
-MEDIA_ROOT = '/home/vagrant/marine-planner/media'
+MEDIA_ROOT = '/home/vagrant/marine-planner/media/'
 MEDIA_URL = '/media/'
 SOCKET_URL = ''
 SOCIAL_AUTH_GOOGLE_PLUS_KEY = ''
