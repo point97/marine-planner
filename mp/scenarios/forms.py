@@ -197,70 +197,103 @@ class ScenarioForm(FeatureForm):
     spear_use_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     spear_use_input = forms.FloatField(widget=DualSliderWidget('spear_use_min', 'spear_use_max', min=0, max=100, step=10))
 
-    '''
-    Depth and Distances
-    '''
+    anchor_desc = forms.BooleanField(label="Anchoring (Berhinger data)",
+                                     required=False,
+                                     help_text="Planning units that contain numbers of anchored boats based on a point density analysis at 500 m radius around each anchored boat observed.",
+                                     widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    anchor_desc_input = forms.ChoiceField(required=False,
+                                          widget=forms.Select(attrs={'class': 'parameters'}),
+                                          choices=(('Low', 'Low'),
+                                                   ('Medium', 'Medium'),
+                                                   ('High', 'High'),
+                                                   ('Very High', 'Very High')),
+                                          initial='Low')
+
+    mooring_desc = forms.BooleanField(label="Mooring (Berhinger data)",
+                                     required=False,
+                                     help_text="Planning units that contain numbers of moored boats based on a point density analysis at 500 m radius around each moored boat observed.",
+                                     widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))   
+    mooring_desc_input = forms.ChoiceField(required=False,
+                                          widget=forms.Select(attrs={'class': 'parameters'}),
+                                          choices=(('Low', 'Low'),
+                                                   ('Medium', 'Medium'),
+                                                   ('High', 'High'),
+                                                   ('Very High', 'Very High')),
+                                          initial='Low')
+
+    # Habitat
     def get_step_1_fields(self):
-        """Defines the fields that we want to show on the form in step 1, and 
-        the order in which they appear, and in groups of 
+        """Defines the fields that we want to show on the form in step 1, and
+        the order in which they appear, and in groups of
             (parameter to test, user-min or user-selection, user-max, user-input)
-        where each parameter except the first is optional. 
+        where each parameter except the first is optional.
         """
-        names = (('depth', 'depth_min', 'depth_max', 'depth_input'),
+        names = (
+                ('depth', 'depth_min', 'depth_max', 'depth_input'),
                 ('shore_distance', 'shore_distance_min', 'shore_distance_max', 'shore_distance_input'),
-                ('pier_distance', 'pier_distance_min', 'pier_distance_max', 'pier_distance_input'),
-                ('inlet_distance', 'inlet_distance_min', None), 
-                ('outfall_distance', 'outfall_distance_min', None)) 
-
-        return self._get_fields(names)
-
-    '''
-    Some Presence/Absence Stuff
-    '''
-    def get_step_2_fields(self):
-        names = (('injury_site', None, None, 'injury_site_input'),
-                ('large_live_coral', None, None, 'large_live_coral_input'), 
-                ('pillar_presence', None, None, 'pillar_presence_input'), 
-                ('anchorage', None, None, 'anchorage_input'), 
-                ('mooring_buoy', None, None, 'mooring_buoy_input'), 
-                ('impacted', None, None, 'impacted_input'), 
-                ('acropora_pa', None, None, 'acropora_pa_input'))
-
-        return self._get_fields(names)
-
-    '''
-    Other Habitats
-    '''
-    def get_step_3_fields(self):
-        names = (('prcnt_sg', 'prcnt_sg_min', 'prcnt_sg_max', 'prcnt_sg_input'),
                 ('prcnt_reef', 'prcnt_reef_min', 'prcnt_reef_max', 'prcnt_reef_input'),
                 ('prcnt_sand', 'prcnt_sand_min', 'prcnt_sand_max', 'prcnt_sand_input'),
-                ('prcnt_art', 'prcnt_art_min', 'prcnt_art_max', 'prcnt_art_input'))
+                ('prcnt_sg', 'prcnt_sg_min', 'prcnt_sg_max', 'prcnt_sg_input'),
+                ('prcnt_art', 'prcnt_art_min', 'prcnt_art_max', 'prcnt_art_input'),
+                # TODO Sponge Percent Cover
+                )
 
         return self._get_fields(names)
 
-    '''
-    More Fish and Coral
-    '''
-    def get_step_4_fields(self):
-        names = (('fish_richness', None, 'fish_richness_max'),
-                ('coral_richness', 'coral_richness_min', 'coral_richness_max', 'coral_richness_input'),
+    # Coral
+    def get_step_2_fields(self):
+        names = (
                 ('coral_density', 'coral_density_min', 'coral_density_max', 'coral_density_input'),
+                # TODO Coral Percent Cover
+                ('coral_richness', 'coral_richness_min', 'coral_richness_max', 'coral_richness_input'),
+                ('large_live_coral', None, None, 'large_live_coral_input'),
+                ('acropora_pa', None, None, 'acropora_pa_input'),
+                ('pillar_presence', None, None, 'pillar_presence_input'),
                 ('coral_bleach', 'coral_bleach_min', 'coral_bleach_max', 'coral_bleach_input'),
                 ('coral_disease', 'coral_disease_min', 'coral_disease_max', 'coral_disease_input'),
                 ('coral_resilience', 'coral_resilience_min', 'coral_resilience_max', 'coral_resilience_input'),
-                ('reef_fish_density', 'reef_fish_density_min', 'reef_fish_density_max', 'reef_fish_density_input'),
-                ('reef_fish_richness', 'reef_fish_richness_min', 'reef_fish_richness_max', 'reef_fish_richness_input'))
+                # TODO Soft Coral Percent Cover
+                )
 
         return self._get_fields(names)
 
-    def get_step_5_fields(self):
-        names = (('total_use', 'total_use_min', 'total_use_max', 'total_use_input'),
+    # Fish
+    def get_step_3_fields(self):
+        names = (
+                ('reef_fish_density', 'reef_fish_density_min', 'reef_fish_density_max', 'reef_fish_density_input'),
+                ('reef_fish_richness', 'reef_fish_richness_min', 'reef_fish_richness_max', 'reef_fish_richness_input'),
+                # TODO recreation/commercial important fish density
+                )
+
+        return self._get_fields(names)
+
+    # People
+    def get_step_4_fields(self):
+        names = (
+                ('total_use', 'total_use_min', 'total_use_max', 'total_use_input'),
                 ('boat_use', 'boat_use_min', 'boat_use_max', 'boat_use_input'),
                 ('recfish_use', 'recfish_use_min', 'recfish_use_max', 'recfish_use_input'),
                 ('scuba_use', 'scuba_use_min', 'scuba_use_max', 'scuba_use_input'),
                 ('extdive_use', 'extdive_use_min', 'extdive_use_max', 'extdive_use_input'),
-                ('spear_use', 'spear_use_min', 'spear_use_max', 'spear_use_input'))
+                ('spear_use', 'spear_use_min', 'spear_use_max', 'spear_use_input'),
+                # TODO Diving and fishing overlap
+                # TODO ('anchor_desc', None, None, 'anchor_desc_input'),  # TODO, ordinal numeric
+                # TODO ('mooring_desc', None, None, 'mooring_desc_input'),
+                )
+
+        return self._get_fields(names)
+
+    # Management
+    def get_step_5_fields(self):
+        names = (
+                ('pier_distance', 'pier_distance_min', 'pier_distance_max', 'pier_distance_input'),
+                ('inlet_distance', 'inlet_distance_min', None),
+                ('outfall_distance', 'outfall_distance_min', None),
+                ('mooring_buoy', None, None, 'mooring_buoy_input'),
+                ('anchorage', None, None, 'anchorage_input'),
+                ('injury_site', None, None, 'injury_site_input'),
+                ('impacted', None, None, 'impacted_input'),
+                )
 
         return self._get_fields(names)
 
