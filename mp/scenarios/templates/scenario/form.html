@@ -162,7 +162,7 @@ madrona.onShow(function(){
     <div id="step{{ forloop.counter }}" class="step">
         <!-- <p class="step-text"><i> </i></p>         -->
         <p class="step-text">
-          <i>
+          <strong>
             {% if forloop.counter == 1 %}
               Habitat 
             {% elif forloop.counter == 2 %}
@@ -174,11 +174,9 @@ madrona.onShow(function(){
             {% elif forloop.counter == 5 %}
               Management 
             {% endif %}
-          (Step {{ forloop.counter }} of 6)
-          </i>
+         </strong>
+          (<i> Step {{ forloop.counter }} of 6 </i>)
         </p>        
-        <!-- <p class="instructions">Select 1 or more criteria for this sector </p> -->
-        <!-- <label class="step-header">Wind Energy</label> -->
         <p class="instructions">Select criteria to filter your results</p>        
         <div id="step{{ forloop.counter }}_inputs">
             <ul class="parameters">
