@@ -360,9 +360,7 @@ def get_filter_count(request):
     return HttpResponse(query.count(), status=200)
 
 
-'''
-'''
-@cache_page(60 * 60) # 1 hour of caching
+@cache_page(60 * 60)  # 1 hour of caching
 def get_filter_results(request):
     filter_dict = dict(request.GET.iteritems())
     query = run_filter_query(filter_dict)
@@ -375,20 +373,16 @@ def get_filter_results(request):
             'wkt': None
         }]
     else:
-        dissolved_geom = query.aggregate(Union('geometry'))        
-        if dissolved_geom['geometry__union']:
-            dissolved_geom = dissolved_geom['geometry__union']
-        else:
+
+        union_agg = query.aggregate(Union('geometry'))
+        dissolved_geom = union_agg['geometry__union']
+        if not dissolved_geom:
             raise Exception("No lease blocks available with the current filters.")
         json = [{
             'count': count,
             'wkt': dissolved_geom.wkt
         }]
-        # if type(dissolved_geom) == MultiPolygon:
-        #     self.geometry_dissolved = dissolved_geom
-        # else:
-        #     self.geometry_dissolved = MultiPolygon(dissolved_geom, srid=dissolved_geom.srid)
-    
+
     # return # of grid cells and dissolved geometry in geojson
     return HttpResponse(dumps(json))
 
