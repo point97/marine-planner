@@ -5,6 +5,8 @@ def kmlcolor_to_htmlcolor(kmlcolor):
     return str('#' + kmlcolor[6] + kmlcolor[7] + kmlcolor[4] + kmlcolor[5] + kmlcolor[2] + kmlcolor[3] )
     
 def format_precision(value, precision=1):
+    if value is None:
+        return None
     original_value = float(value)
     if precision == 0:
         return int(round(original_value))

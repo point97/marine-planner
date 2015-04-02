@@ -1,48 +1,36 @@
 from general.utils import format_precision
+from django.db.models import Q
+from django.conf import settings
+from django.db.models import Sum, Avg, Min, Max
+
 
 def get_min(grid_cells, field):
-    min = getattr(grid_cells[0], field)
-    for gc in grid_cells:
-        if getattr(gc, field) < min:
-            min = getattr(gc, field)
-    return min
+    grid_cells = remove_nulls(grid_cells, field)
+    return grid_cells.aggregate(Min(field)).values()[0]
 
 def get_max(grid_cells, field):
-    max = getattr(grid_cells[0], field)
-    for gc in grid_cells:
-        if getattr(gc, field) > max:
-            max = gc.depth_max
-    return max
+    grid_cells = remove_nulls(grid_cells, field)
+    return grid_cells.aggregate(Max(field)).values()[0]
 
 def get_range(grid_cells, field):
-    min = getattr(grid_cells[0], field)
-    max = getattr(grid_cells[0], field)
-    for gc in grid_cells:
-        if getattr(gc, field) < min:
-            min = getattr(gc, field)
-        if getattr(gc, field) > max:
-            max = getattr(gc, field)
-    return min, max
+    return get_min(grid_cells, field), get_max(grid_cells, field)
 
 def get_value_count(grid_cells, field, value):
-	count = 0
-	for gc in grid_cells:
-		if getattr(gc, field) == value:
-			count += 1
-	return count
+    grid_cells = grid_cells.filter(Q((field, value)))
+    count = grid_cells.count()
+    return count
 
 def get_sum(grid_cells, field):
-    sum = 0
-    for gc in grid_cells:
-        sum += getattr(gc, field)
-    return sum 
+    grid_cells = remove_nulls(grid_cells, field)
+    return grid_cells.aggregate(Sum(field)).values()[0]
+
+def remove_nulls(grid_cells, field):
+    # Only compute averages on non-null cells
+    return grid_cells.filter(~Q((field, settings.NULLVALUE)))
 
 def get_average(grid_cells, field):
-    cell_count = grid_cells.count()
-    if cell_count == 0:
-        return 0
-    sum = get_sum(grid_cells, field)
-    return sum / cell_count
+    grid_cells = remove_nulls(grid_cells, field)
+    return grid_cells.aggregate(Avg(field)).values()[0]
 
 def get_unique_values(grid_cells, field):
     values = []
