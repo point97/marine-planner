@@ -144,6 +144,7 @@ function scenarioFormModel(options) {
     self.spear_use = ko.observable(false);
     self.sponge = ko.observable(false);
     self.total_use = ko.observable(false);
+    self.watersport_use = ko.observable(false);
 
     self.lastChange = (new Date()).getTime();
 
@@ -614,7 +615,8 @@ function scenarioModel(options) {
                     'shore_distance',
                     'spear_use',
                     'sponge',
-                    'total_use'
+                    'total_use',
+                    'watersport_use'
                 ];
 
                 for (var i = 0; i < parameters.length; i++) {
