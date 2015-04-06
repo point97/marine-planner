@@ -238,7 +238,9 @@ def run_filter_query(filters):
     if 'acropora_pa' in filters.keys() and filters['acropora_pa']:
         query = query.filter(acropora_pa=filters['acropora_pa_input'])
 
-    #TODO anchor desc
+    # TODO anchor_desc is not exclusive category, need ordinal range
+    if 'anchor_desc' in filters.keys() and filters['anchor_desc']:
+        query = query.filter(acropora_pa=filters['anchor_desc_input'])
 
     if 'anchorage' in filters.keys() and filters['anchorage']:
         query = query.filter(anchorage=filters['anchorage_input'])
@@ -302,14 +304,16 @@ def run_filter_query(filters):
     if 'mooring_buoy' in filters.keys() and filters['mooring_buoy']:
         query = query.filter(mooring_buoy=filters['mooring_buoy_input'])
 
-    #TODO mooring_desc
+    # TODO mooring_desc is not exclusive category, need ordinal range
+    if 'mooring_desc' in filters.keys() and filters['mooring_desc']:
+        query = query.filter(acropora_pa=filters['mooring_desc_input'])
 
     if 'outfall_distance' in filters.keys() and filters['outfall_distance']:
         query = query.filter(outfall_distance__gte=filters['outfall_distance_min'])
 
     if 'pier_distance' in filters.keys() and filters['pier_distance']:
-        query = query.filter(pier_distance__range=(filters['pier_distance_min'],
-                                                   filters['pier_distance_max']))
+        query = query.filter(extdive_use__gte=filters['pier_distance_min'])
+        query = query.filter(extdive_use__lte=filters['pier_distance_max'])
 
     if 'pillar_presence'in filters.keys() and filters['pillar_presence']:
         query = query.filter(pillar_presence=filters['pillar_presence_input'])
@@ -325,6 +329,7 @@ def run_filter_query(filters):
     if 'prcnt_sand' in filters.keys() and filters['prcnt_sand']:
         query = query.filter(prcnt_sand__gte=filters['prcnt_sand_min'])
         query = query.filter(prcnt_sand__lte=filters['prcnt_sand_max'])
+
     if 'prcnt_sg' in filters.keys() and filters['prcnt_sg']:
         query = query.filter(prcnt_sg__gte=filters['prcnt_sg_min'])
         query = query.filter(prcnt_sg__lte=filters['prcnt_sg_max'])
@@ -350,8 +355,8 @@ def run_filter_query(filters):
         query = query.filter(scuba_use__lte=filters['scuba_use_max'])
 
     if 'shore_distance' in filters.keys() and filters['shore_distance']:
-        query = query.filter(shore_distance__range=(filters['shore_distance_min'],
-                                                    filters['shore_distance_max']))
+        query = query.filter(scuba_use__gte=filters['shore_distance_min'])
+        query = query.filter(scuba_use__lte=filters['shore_distance_max'])
 
     if 'spear_use' in filters.keys() and filters['spear_use']:
         query = query.filter(spear_use__gte=filters['spear_use_min'])
@@ -364,6 +369,10 @@ def run_filter_query(filters):
     if 'total_use' in filters.keys() and filters['total_use']:
         query = query.filter(total_use__gte=filters['total_use_min'])
         query = query.filter(total_use__lte=filters['total_use_max'])
+
+    if 'watersport_use' in filters.keys() and filters['watersport_use']:
+        query = query.filter(total_use__gte=filters['watersport_use_min'])
+        query = query.filter(total_use__lte=filters['watersport_use_max'])
 
     return query
 
