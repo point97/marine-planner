@@ -20,78 +20,31 @@ from django.forms.models import model_to_dict
 @register
 class Scenario(Analysis):
 
-    depth = models.BooleanField()
-    depth_min = models.FloatField(null=True, blank=True)
-    depth_max = models.FloatField(null=True, blank=True)
+    acropora_pa = models.BooleanField()
+    acropora_pa_input = models.TextField(null=True, blank=True)
 
-    shore_distance = models.BooleanField()
-    shore_distance_min = models.FloatField(null=True, blank=True)
-    shore_distance_max = models.FloatField(null=True, blank=True)
-
-    pier_distance = models.BooleanField()
-    pier_distance_min = models.FloatField(null=True, blank=True)
-    pier_distance_max = models.FloatField(null=True, blank=True)
-
-    inlet_distance = models.BooleanField()
-    inlet_distance_min = models.FloatField(null=True, blank=True)
-    inlet_distance_max = models.FloatField(null=True, blank=True)
-
-    outfall_distance = models.BooleanField()
-    outfall_distance_min = models.FloatField(null=True, blank=True)
-    outfall_distance_max = models.FloatField(null=True, blank=True)
-
-    injury_site = models.BooleanField()
-    injury_site_input = models.TextField(null=True, blank=True)
-
-    large_live_coral = models.BooleanField()
-    large_live_coral_input = models.TextField(null=True, blank=True)
-
-    pillar_presence = models.BooleanField()
-    pillar_presence_input = models.TextField(null=True, blank=True)
+    #TODO anchor_desc may change to integer/slider
+    anchor_desc = models.BooleanField()
+    anchor_desc_input = models.TextField(null=True, blank=True)
 
     anchorage = models.BooleanField()
     anchorage_input = models.TextField(null=True, blank=True)
 
-    mooring_buoy = models.BooleanField()
-    mooring_buoy_input = models.TextField(null=True, blank=True)
-    
-    impacted = models.BooleanField()
-    impacted_input = models.TextField(null=True, blank=True)
-
-    acropora_pa = models.BooleanField()
-    acropora_pa_input = models.TextField(null=True, blank=True)
-
-    prcnt_sg = models.BooleanField()
-    prcnt_sg_min = models.FloatField(null=True, blank=True)
-    prcnt_sg_max = models.FloatField(null=True, blank=True)
-    
-    prcnt_reef = models.BooleanField()
-    prcnt_reef_min = models.FloatField(null=True, blank=True)
-    prcnt_reef_max = models.FloatField(null=True, blank=True)
-    
-    prcnt_sand = models.BooleanField()
-    prcnt_sand_min = models.FloatField(null=True, blank=True)
-    prcnt_sand_max = models.FloatField(null=True, blank=True)
-    
-    prcnt_art = models.BooleanField()
-    prcnt_art_min = models.FloatField(null=True, blank=True)
-    prcnt_art_max = models.FloatField(null=True, blank=True)
-
-    fish_richness = models.BooleanField()
-    fish_richness_min = models.FloatField(null=True, blank=True)
-    fish_richness_max = models.FloatField(null=True, blank=True)
-
-    coral_richness = models.BooleanField()
-    coral_richness_min = models.FloatField(null=True, blank=True)
-    coral_richness_max = models.FloatField(null=True, blank=True)
-
-    coral_density = models.BooleanField()
-    coral_density_min = models.FloatField(null=True, blank=True)
-    coral_density_max = models.FloatField(null=True, blank=True)
+    boat_use = models.BooleanField()
+    boat_use_min = models.FloatField(null=True, blank=True)
+    boat_use_max = models.FloatField(null=True, blank=True)
 
     coral_bleach = models.BooleanField()
     coral_bleach_min = models.FloatField(null=True, blank=True)
     coral_bleach_max = models.FloatField(null=True, blank=True)
+
+    coral_cover = models.BooleanField()
+    coral_cover_min = models.FloatField(null=True, blank=True)
+    coral_cover_max = models.FloatField(null=True, blank=True)
+
+    coral_density = models.BooleanField()
+    coral_density_min = models.FloatField(null=True, blank=True)
+    coral_density_max = models.FloatField(null=True, blank=True)
 
     coral_disease = models.BooleanField()
     coral_disease_min = models.FloatField(null=True, blank=True)
@@ -101,6 +54,81 @@ class Scenario(Analysis):
     coral_resilience_min = models.FloatField(null=True, blank=True)
     coral_resilience_max = models.FloatField(null=True, blank=True)
 
+    coral_richness = models.BooleanField()
+    coral_richness_min = models.FloatField(null=True, blank=True)
+    coral_richness_max = models.FloatField(null=True, blank=True)
+
+    coral_soft = models.BooleanField()
+    coral_soft_min = models.FloatField(null=True, blank=True)
+    coral_soft_max = models.FloatField(null=True, blank=True)
+
+    depth_mean = models.BooleanField()
+    depth_mean_min = models.FloatField(null=True, blank=True)
+    depth_mean_max = models.FloatField(null=True, blank=True)
+
+    divefish_overlap = models.BooleanField()
+    divefish_overlap_min = models.FloatField(null=True, blank=True)
+    divefish_overlap_max = models.FloatField(null=True, blank=True)
+
+    extdive_use = models.BooleanField()
+    extdive_use_min = models.FloatField(null=True, blank=True)
+    extdive_use_max = models.FloatField(null=True, blank=True)
+
+    impacted = models.BooleanField()
+    impacted_input = models.TextField(null=True, blank=True)
+
+    injury_site = models.BooleanField()
+    injury_site_input = models.TextField(null=True, blank=True)
+
+    inlet_distance = models.BooleanField()
+    inlet_distance_min = models.FloatField(null=True, blank=True)
+    inlet_distance_max = models.FloatField(null=True, blank=True)
+
+    large_live_coral = models.BooleanField()
+    large_live_coral_input = models.TextField(null=True, blank=True)
+
+    mooring_buoy = models.BooleanField()
+    mooring_buoy_input = models.TextField(null=True, blank=True)
+
+    #TODO mooring_desc may change to integer/slider
+    mooring_desc = models.BooleanField()
+    mooring_desc_input = models.TextField(null=True, blank=True)
+
+    outfall_distance = models.BooleanField()
+    outfall_distance_min = models.FloatField(null=True, blank=True)
+    outfall_distance_max = models.FloatField(null=True, blank=True)
+
+    pier_distance = models.BooleanField()
+    pier_distance_min = models.FloatField(null=True, blank=True)
+    pier_distance_max = models.FloatField(null=True, blank=True)
+
+    pillar_presence = models.BooleanField()
+    pillar_presence_input = models.TextField(null=True, blank=True)
+
+    prcnt_art = models.BooleanField()
+    prcnt_art_min = models.FloatField(null=True, blank=True)
+    prcnt_art_max = models.FloatField(null=True, blank=True)
+
+    prcnt_reef = models.BooleanField()
+    prcnt_reef_min = models.FloatField(null=True, blank=True)
+    prcnt_reef_max = models.FloatField(null=True, blank=True)
+
+    prcnt_sand = models.BooleanField()
+    prcnt_sand_min = models.FloatField(null=True, blank=True)
+    prcnt_sand_max = models.FloatField(null=True, blank=True)
+
+    prcnt_sg = models.BooleanField()
+    prcnt_sg_min = models.FloatField(null=True, blank=True)
+    prcnt_sg_max = models.FloatField(null=True, blank=True)
+
+    reccom_fish = models.BooleanField()
+    reccom_fish_min = models.FloatField(null=True, blank=True)
+    reccom_fish_max = models.FloatField(null=True, blank=True)
+
+    recfish_use = models.BooleanField()
+    recfish_use_min = models.FloatField(null=True, blank=True)
+    recfish_use_max = models.FloatField(null=True, blank=True)
+
     reef_fish_density = models.BooleanField()
     reef_fish_density_min = models.FloatField(null=True, blank=True)
     reef_fish_density_max = models.FloatField(null=True, blank=True)
@@ -109,29 +137,25 @@ class Scenario(Analysis):
     reef_fish_richness_min = models.FloatField(null=True, blank=True)
     reef_fish_richness_max = models.FloatField(null=True, blank=True)
 
-    total_use = models.BooleanField()
-    total_use_min = models.FloatField(null=True, blank=True)
-    total_use_max = models.FloatField(null=True, blank=True)
-
-    spear_use = models.BooleanField()
-    spear_use_min = models.FloatField(null=True, blank=True)
-    spear_use_max = models.FloatField(null=True, blank=True)
-
-    recfish_use = models.BooleanField()
-    recfish_use_min = models.FloatField(null=True, blank=True)
-    recfish_use_max = models.FloatField(null=True, blank=True)
-
     scuba_use = models.BooleanField()
     scuba_use_min = models.FloatField(null=True, blank=True)
     scuba_use_max = models.FloatField(null=True, blank=True)
 
-    extdive_use = models.BooleanField()
-    extdive_use_min = models.FloatField(null=True, blank=True)
-    extdive_use_max = models.FloatField(null=True, blank=True)
+    shore_distance = models.BooleanField()
+    shore_distance_min = models.FloatField(null=True, blank=True)
+    shore_distance_max = models.FloatField(null=True, blank=True)
 
     spear_use = models.BooleanField()
     spear_use_min = models.FloatField(null=True, blank=True)
     spear_use_max = models.FloatField(null=True, blank=True)
+
+    sponge = models.BooleanField()
+    sponge_min = models.FloatField(null=True, blank=True)
+    sponge_max = models.FloatField(null=True, blank=True)
+
+    total_use = models.BooleanField()
+    total_use_min = models.FloatField(null=True, blank=True)
+    total_use_max = models.FloatField(null=True, blank=True)
 
     description = models.TextField(null=True, blank=True)
     satisfied = models.BooleanField(default=True, help_text="Am I satisfied?")
@@ -452,71 +476,56 @@ class Scenario(Analysis):
 
 class GridCell(models.Model):
 
-    region = models.TextField(null=True, blank=True)
-    county = models.TextField(null=True, blank=True)
-
-    fish_density = models.IntegerField(null=True, blank=True)    
-    fish_div = models.IntegerField(null=True, blank=True)
-    fish_richness = models.IntegerField(null=True, blank=True)
-
+    acerv_area = models.IntegerField(null=True, blank=True)
+    acropora_pa = models.TextField(null=True, blank=True)
+    anchor_density = models.FloatField(null=True, blank=True)
+    anchor_desc = models.TextField(null=True, blank=True)
+    anchorage = models.TextField(null=True, blank=True)
+    art_area = models.IntegerField(null=True, blank=True)
+    boat_use = models.IntegerField(null=True, blank=True)
     coral_bleach = models.IntegerField(null=True, blank=True)
-    coral_disease = models.IntegerField(null=True, blank=True)
     coral_cover = models.IntegerField(null=True, blank=True)
     coral_density = models.IntegerField(null=True, blank=True)
-    coral_richness = models.IntegerField(null=True, blank=True)
+    coral_disease = models.IntegerField(null=True, blank=True)
     coral_resilience = models.IntegerField(null=True, blank=True)
-
-    inlet_distance = models.FloatField(null=True, blank=True)
-    outfall_distance = models.FloatField(null=True, blank=True)
-    pier_distance = models.FloatField(null=True, blank=True)
-    shore_distance = models.FloatField(null=True, blank=True)
-
-    total_use = models.IntegerField(null=True, blank=True)
-    boat_use = models.IntegerField(null=True, blank=True)
-    recfish_use = models.IntegerField(null=True, blank=True)
-    scuba_use = models.IntegerField(null=True, blank=True)
-    extdive_use = models.IntegerField(null=True, blank=True)
-    spear_use = models.IntegerField(null=True, blank=True)
-
-    acropora_pa = models.TextField(null=True, blank=True)
-    esa_spp = models.TextField(null=True, blank=True)
-    injury_site = models.TextField(null=True, blank=True) 
-    large_live_coral = models.TextField(null=True, blank=True)
-    lionfish = models.IntegerField(null=True, blank=True) 
-
-    depth_min = models.FloatField(null=True, blank=True)
+    coral_richness = models.IntegerField(null=True, blank=True)
+    coral_soft = models.IntegerField(null=True, blank=True)
+    county = models.TextField(null=True, blank=True)
     depth_max = models.FloatField(null=True, blank=True)
     depth_mean = models.FloatField(null=True, blank=True)
-
-    acerv_area = models.IntegerField(null=True, blank=True)
-    art_area = models.IntegerField(null=True, blank=True)
-    reef_area = models.IntegerField(null=True, blank=True)
-    sand_area = models.IntegerField(null=True, blank=True)
-    sg_area = models.IntegerField(null=True, blank=True)
-
-    major_habitat = models.TextField(null=True, blank=True)
-    pillar_presence = models.TextField(null=True, blank=True)
-    anchorage = models.TextField(null=True, blank=True)
-    mooring_buoy = models.TextField(null=True, blank=True)
+    depth_min = models.FloatField(null=True, blank=True)
+    divefish_overlap = models.FloatField(null=True, blank=True)
+    extdive_use = models.IntegerField(null=True, blank=True)
     impacted = models.TextField(null=True, blank=True)
-
-    prcnt_sg = models.IntegerField(null=True, blank=True)
+    injury_site = models.TextField(null=True, blank=True) 
+    inlet_distance = models.FloatField(null=True, blank=True)
+    large_live_coral = models.TextField(null=True, blank=True)
+    mooring_buoy = models.TextField(null=True, blank=True)
+    mooring_density = models.FloatField(null=True, blank=True)
+    mooring_desc = models.TextField(null=True, blank=True)
+    outfall_distance = models.FloatField(null=True, blank=True)
+    pier_distance = models.FloatField(null=True, blank=True)
+    pillar_presence = models.TextField(null=True, blank=True)
+    prcnt_art = models.IntegerField(null=True, blank=True)
     prcnt_reef = models.IntegerField(null=True, blank=True)
     prcnt_sand = models.IntegerField(null=True, blank=True)
-    prcnt_art = models.IntegerField(null=True, blank=True)
-
-    anchor_density = models.FloatField(null=True, blank=True)
-    mooring_density = models.FloatField(null=True, blank=True)
-    anchor_desc = models.TextField(null=True, blank=True)
-    mooring_desc = models.TextField(null=True, blank=True)
-
+    prcnt_sg = models.IntegerField(null=True, blank=True)
+    reccom_fish = models.FloatField(null=True, blank=True)
+    recfish_use = models.IntegerField(null=True, blank=True)
+    reef_area = models.IntegerField(null=True, blank=True)
     reef_fish_density = models.FloatField(null=True, blank=True)
     reef_fish_richness = models.FloatField(null=True, blank=True)
-
+    region = models.TextField(null=True, blank=True)
+    sand_area = models.IntegerField(null=True, blank=True)
+    scuba_use = models.IntegerField(null=True, blank=True)
+    sg_area = models.IntegerField(null=True, blank=True)
+    shore_distance = models.FloatField(null=True, blank=True)
+    spear_use = models.IntegerField(null=True, blank=True)
+    sponge = models.FloatField(null=True, blank=True)
+    total_use = models.IntegerField(null=True, blank=True)
     unique_id = models.IntegerField(null=True, blank=True)
 
     centroid = models.PointField(srid=settings.GEOMETRY_DB_SRID, null=True, blank=True)
-
     geometry = models.MultiPolygonField(srid=settings.GEOMETRY_DB_SRID, 
                                     null=True, blank=True, 
                                     verbose_name="Grid Cell Geometry")
