@@ -23,7 +23,6 @@ class Scenario(Analysis):
     acropora_pa = models.BooleanField()
     acropora_pa_input = models.TextField(null=True, blank=True)
 
-    #TODO anchor_desc may change to integer/slider
     anchor_desc = models.BooleanField()
     anchor_desc_input = models.TextField(null=True, blank=True)
 
@@ -90,7 +89,6 @@ class Scenario(Analysis):
     mooring_buoy = models.BooleanField()
     mooring_buoy_input = models.TextField(null=True, blank=True)
 
-    #TODO mooring_desc may change to integer/slider
     mooring_desc = models.BooleanField()
     mooring_desc_input = models.TextField(null=True, blank=True)
 
@@ -157,18 +155,22 @@ class Scenario(Analysis):
     total_use_min = models.FloatField(null=True, blank=True)
     total_use_max = models.FloatField(null=True, blank=True)
 
+    watersport_use = models.BooleanField()
+    watersport_use_min = models.FloatField(null=True, blank=True)
+    watersport_use_max = models.FloatField(null=True, blank=True)
+
     description = models.TextField(null=True, blank=True)
     satisfied = models.BooleanField(default=True, help_text="Am I satisfied?")
     active = models.BooleanField(default=True)
-            
+
     grid_cells = models.TextField(verbose_name='Grid Cell IDs', null=True, blank=True)
     geometry_final_area = models.FloatField(verbose_name='Total Area', null=True, blank=True)
     geometry_dissolved = models.MultiPolygonField(srid=settings.GEOMETRY_DB_SRID, null=True, blank=True, verbose_name="Filter result dissolved")
-                
+
     @property
     def serialize_attributes(self):
         """
-        Return attributes in text format. Used to display information on click in the planner. 
+        Return attributes in text format. Used to display information on click in the planner.
         """
         attributes = []
 
@@ -243,31 +245,31 @@ class Scenario(Analysis):
         # Step 3
         if self.prcnt_sg:
             attributes.append({ 'title': 'Minimum amount of Seagrass',
-                                'data':  str(int(self.prcnt_sg_min)) + '%'})        
+                                'data':  str(int(self.prcnt_sg_min)) + '%'})
         if self.prcnt_reef:
             attributes.append({ 'title': 'Minimum amount of Reef',
-                                'data':  str(int(self.prcnt_reef_min)) + '%'})       
+                                'data':  str(int(self.prcnt_reef_min)) + '%'})
         if self.prcnt_sand:
             attributes.append({ 'title': 'Minimum amount of Sand',
-                                'data':  str(int(self.prcnt_sand_min)) + '%'})       
+                                'data':  str(int(self.prcnt_sand_min)) + '%'})
         if self.prcnt_art:
             attributes.append({ 'title': 'Minimum amount of Artificial Substrate',
                                 'data':  str(int(self.prcnt_art_min)) + '%'})
 
         # Step 4
-        if self.fish_richness: 
+        if self.fish_richness:
             attributes.append({ 'title': 'Minimum estimated fish species per survey area',
                                 'data':  str(int(self.fish_richness_max))})
 
-        if self.coral_density: 
+        if self.coral_density:
             attributes.append({ 'title': 'Minimum estimated coral organisms per sq meter',
                                 'data':  str(int(self.coral_density_max))})
 
-        if self.coral_richness: 
+        if self.coral_richness:
             attributes.append({ 'title': 'Minimum estimated coral species per survey area',
                                 'data':  str(int(self.coral_richness_max))})
 
-        attributes.append({'title': 'Number of Grid Cells', 
+        attributes.append({'title': 'Number of Grid Cells',
                            'data': '{:,}'.format(self.grid_cells.count(',')+1)})
         return { 'event': 'click', 'attributes': attributes }
 
@@ -277,44 +279,44 @@ class Scenario(Analysis):
         json_geom = self.geometry_dissolved.transform(srid, clone=True).json
         return get_feature_json(json_geom, json.dumps(props))
 
-    def run(self):        
+    def run(self):
         # placing this import here to avoid circular dependency with views.py
         from views import run_filter_query
         query = run_filter_query(model_to_dict(self))
 
         if len(query) == 0:
             self.satisfied = False;
-            # raise Exception("No lease blocks available with the current filters.")       
+            # raise Exception("No lease blocks available with the current filters.")
 
-        dissolved_geom = query.aggregate(Union('geometry'))        
+        dissolved_geom = query.aggregate(Union('geometry'))
         if dissolved_geom['geometry__union']:
             dissolved_geom = dissolved_geom['geometry__union']
         else:
             raise Exception("No lease blocks available with the current filters.")
-        
+
         if type(dissolved_geom) == MultiPolygon:
             self.geometry_dissolved = dissolved_geom
         else:
             self.geometry_dissolved = MultiPolygon(dissolved_geom, srid=dissolved_geom.srid)
 
         self.active = True # ??
-        
+
         # import datetime
         # start=datetime.datetime.now()
-        
+
         self.geometry_final_area = self.geometry_dissolved.area
-        
-        self.grid_cells = ','.join(str(i) 
+
+        self.grid_cells = ','.join(str(i)
                                      for i in query.values_list('id', flat=True))
-        
+
         # print("Elapsed:", datetime.datetime.now() - start)
-               
+
         if self.grid_cells == '':
             self.satisfied = False
         else:
             self.satisfied = True
-        return True        
-    
+        return True
+
     def save(self, rerun=None, *args, **kwargs):
         if rerun is None and self.pk is None:
             rerun = True
@@ -330,33 +332,33 @@ class Scenario(Analysis):
                         if getattr(orig, f.name) != getattr(self, f.name):
                             #print 'input_field, %s, has changed' %f.name
                             rerun = True
-                            break                                                                                                                   
+                            break
                 if not rerun:
                     '''
-                        the substrates need to be grabbed, then saved, then grabbed again because 
-                        both getattr calls (orig and self) return the same original list until the model has been saved 
-                        (perhaps because form.save_m2m has to be called), after which calls to getattr will 
+                        the substrates need to be grabbed, then saved, then grabbed again because
+                        both getattr calls (orig and self) return the same original list until the model has been saved
+                        (perhaps because form.save_m2m has to be called), after which calls to getattr will
                         return the same list (regardless of whether we use orig or self)
-                    ''' 
-                    orig_weas = set(getattr(self, 'input_wea').all())   
-                    orig_substrates = set(getattr(self, 'input_substrate').all())  
-                    orig_sediments = set(getattr(self, 'input_sediment').all())                    
-                    super(Scenario, self).save(rerun=False, *args, **kwargs)  
-                    new_weas = set(getattr(self, 'input_wea').all())                   
-                    new_substrates = set(getattr(self, 'input_substrate').all()) 
-                    new_sediments = set(getattr(self, 'input_sediment').all())   
+                    '''
+                    orig_weas = set(getattr(self, 'input_wea').all())
+                    orig_substrates = set(getattr(self, 'input_substrate').all())
+                    orig_sediments = set(getattr(self, 'input_sediment').all())
+                    super(Scenario, self).save(rerun=False, *args, **kwargs)
+                    new_weas = set(getattr(self, 'input_wea').all())
+                    new_substrates = set(getattr(self, 'input_substrate').all())
+                    new_sediments = set(getattr(self, 'input_sediment').all())
                     if orig_substrates != new_substrates or orig_sediments != new_sediments or orig_weas != new_weas:
-                        rerun = True    
+                        rerun = True
             super(Scenario, self).save(rerun=rerun, *args, **kwargs)
-        else: #editing a scenario and rerun is provided 
-            super(Scenario, self).save(rerun=rerun, *args, **kwargs)    
-    
+        else: #editing a scenario and rerun is provided
+            super(Scenario, self).save(rerun=rerun, *args, **kwargs)
+
     def __unicode__(self):
         return u'%s' % self.name
-        
+
     def support_filename(self):
         return os.path.basename(self.support_file.name)
-        
+
     @classmethod
     def mapnik_geomfield(self):
         return "output_geom"
@@ -365,19 +367,19 @@ class Scenario(Analysis):
     def mapnik_style(self):
         import mapnik
         polygon_style = mapnik.Style()
-        
+
         ps = mapnik.PolygonSymbolizer(mapnik.Color('#ffffff'))
         ps.fill_opacity = 0.5
-        
+
         ls = mapnik.LineSymbolizer(mapnik.Color('#555555'),0.75)
         ls.stroke_opacity = 0.5
-        
+
         r = mapnik.Rule()
         r.symbols.append(ps)
         r.symbols.append(ls)
         polygon_style.rules.append(r)
-        return polygon_style     
-    
+        return polygon_style
+
     @classmethod
     def input_parameter_fields(klass):
         return [f for f in klass._meta.fields if f.attname.startswith('input_parameter_')]
@@ -394,29 +396,29 @@ class Scenario(Analysis):
             gridcell_ids = [int(id) for id in self.grid_cells.split(',')]
         gridcells = GridCell.objects.filter(pk__in=gridcell_ids)
         return gridcells
-    
+
     @property
     def num_lease_blocks(self):
         if self.grid_cells == '':
             return 0
         return len(self.grid_cells.split(','))
-    
+
     @property
     def geometry_is_empty(self):
         return len(self.grid_cells) == 0
-    
+
     @property
     def input_wea_names(self):
         return [wea.wea_name for wea in self.input_wea.all()]
-        
+
     @property
     def input_substrate_names(self):
         return [substrate.substrate_name for substrate in self.input_substrate.all()]
-        
+
     @property
     def input_sediment_names(self):
         return [sediment.sediment_name for sediment in self.input_sediment.all()]
-    
+
     #TODO: is this being used...?  Yes, see show.html
     @property
     def has_wind_energy_criteria(self):
@@ -425,30 +427,30 @@ class Scenario(Analysis):
             if getattr(self, wp.name):
                 return True
         return False
-        
+
     @property
     def has_shipping_filters(self):
         shipping_filters = Scenario.input_filter_fields()
         for sf in shipping_filters:
             if getattr(self, sf.name):
                 return True
-        return False 
-        
+        return False
+
     @property
     def has_military_filters(self):
         return False
-    
+
     @property
     def color(self):
         try:
             return Objective.objects.get(pk=self.input_objectives.values_list()[0][0]).color
         except:
-            return '778B1A55'                    
-        
+            return '778B1A55'
+
     @property
     def get_id(self):
         return self.id
-    
+
     class Options:
         verbose_name = 'Spatial Design for Wind Energy'
         icon_url = 'marco/img/multi.png'
@@ -460,9 +462,9 @@ class Scenario(Analysis):
 # class Objective(models.Model):
 #     name = models.CharField(max_length=35)
 #     color = models.CharField(max_length=8, default='778B1A55')
-    
+
 #     def __unicode__(self):
-#         return u'%s' % self.name        
+#         return u'%s' % self.name
 
 #no longer needed?
 # class Parameter(models.Model):
@@ -470,7 +472,7 @@ class Scenario(Analysis):
 #     name = models.CharField(max_length=35, null=True, blank=True)
 #     shortname = models.CharField(max_length=35, null=True, blank=True)
 #     objectives = models.ManyToManyField("Objective", null=True, blank=True)
-    
+
 #     def __unicode__(self):
 #         return u'%s' % self.name
 
@@ -483,21 +485,24 @@ class GridCell(models.Model):
     anchorage = models.TextField(null=True, blank=True)
     art_area = models.IntegerField(null=True, blank=True)
     boat_use = models.IntegerField(null=True, blank=True)
-    coral_bleach = models.IntegerField(null=True, blank=True)
-    coral_cover = models.IntegerField(null=True, blank=True)
-    coral_density = models.IntegerField(null=True, blank=True)
-    coral_disease = models.IntegerField(null=True, blank=True)
+    comfish_use = models.IntegerField(null=True, blank=True)
+    coral_bleach = models.FloatField(null=True, blank=True)
+    coral_cover = models.FloatField(null=True, blank=True)
+    coral_density = models.FloatField(null=True, blank=True)
+    coral_disease = models.FloatField(null=True, blank=True)
     coral_resilience = models.IntegerField(null=True, blank=True)
-    coral_richness = models.IntegerField(null=True, blank=True)
-    coral_soft = models.IntegerField(null=True, blank=True)
+    coral_richness = models.FloatField(null=True, blank=True)
+    coral_soft = models.FloatField(null=True, blank=True)
     county = models.TextField(null=True, blank=True)
     depth_max = models.FloatField(null=True, blank=True)
     depth_mean = models.FloatField(null=True, blank=True)
     depth_min = models.FloatField(null=True, blank=True)
-    divefish_overlap = models.FloatField(null=True, blank=True)
+    dive_conflict = models.IntegerField(null=True, blank=True)
+    divefish_overlap = models.IntegerField(null=True, blank=True)
     extdive_use = models.IntegerField(null=True, blank=True)
+    fish_conflict = models.IntegerField(null=True, blank=True)
     impacted = models.TextField(null=True, blank=True)
-    injury_site = models.TextField(null=True, blank=True) 
+    injury_site = models.TextField(null=True, blank=True)
     inlet_distance = models.FloatField(null=True, blank=True)
     large_live_coral = models.TextField(null=True, blank=True)
     mooring_buoy = models.TextField(null=True, blank=True)
@@ -516,6 +521,7 @@ class GridCell(models.Model):
     reef_fish_density = models.FloatField(null=True, blank=True)
     reef_fish_richness = models.FloatField(null=True, blank=True)
     region = models.TextField(null=True, blank=True)
+    research_use = models.IntegerField(null=True, blank=True)
     sand_area = models.IntegerField(null=True, blank=True)
     scuba_use = models.IntegerField(null=True, blank=True)
     sg_area = models.IntegerField(null=True, blank=True)
@@ -524,10 +530,11 @@ class GridCell(models.Model):
     sponge = models.FloatField(null=True, blank=True)
     total_use = models.IntegerField(null=True, blank=True)
     unique_id = models.IntegerField(null=True, blank=True)
+    watersport_use = models.IntegerField(null=True, blank=True)
 
     centroid = models.PointField(srid=settings.GEOMETRY_DB_SRID, null=True, blank=True)
-    geometry = models.MultiPolygonField(srid=settings.GEOMETRY_DB_SRID, 
-                                    null=True, blank=True, 
+    geometry = models.MultiPolygonField(srid=settings.GEOMETRY_DB_SRID,
+                                    null=True, blank=True,
                                     verbose_name="Grid Cell Geometry")
     objects = models.GeoManager()
 
