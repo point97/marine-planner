@@ -42,7 +42,7 @@ INSTALLED_APPS += ('django_extensions',
 GEOMETRY_DB_SRID = 3857
 GEOMETRY_CLIENT_SRID = 3857  # for latlon
 GEOJSON_SRID = 3857
-NULLVALUE = -9  # Nulls will be filtered out in the info reports
+NULLVALUE = -999  # Nulls will be filtered out in the info reports
 
 APP_NAME = "OFR Marine Planner"
 SERVER_ADMIN = 'seth@pointnineseven.com'
