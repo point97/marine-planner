@@ -227,7 +227,7 @@ class ScenarioForm(FeatureForm):
         where each parameter except the first is optional.
         """
         names = (
-                ('depth_mean', 'depth_min', 'depth_max', 'depth_input'),
+                ('depth_mean', 'depth_mean_min', 'depth_mean_max', 'depth_mean_input'),
                 ('shore_distance', 'shore_distance_min', 'shore_distance_max', 'shore_distance_input'),
                 ('prcnt_reef', 'prcnt_reef_min', 'prcnt_reef_max', 'prcnt_reef_input'),
                 ('prcnt_sand', 'prcnt_sand_min', 'prcnt_sand_max', 'prcnt_sand_input'),

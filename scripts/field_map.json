@@ -9,7 +9,7 @@
   "ofrcomfish" : "comfish_use",
   "max_sbii"   : "coral_bleach",
   "coralptcov" : "coral_cover",
-  "coralden_m2": "coral_density",
+  "corlden_m2" : "coral_density",
   "max_sdii"   : "coral_disease",
   "max_rri_se" : "coral_resilience",
   "coralrich"  : "coral_richness",
@@ -51,5 +51,5 @@
   "spngptcov"  : "sponge",
   "ofr_total"      : "total_use",
   "uniqueid"   : "unique_id",
-  "ofrh20sprt" : "watersport_use"
+  "ofrh2osprt" : "watersport_use"
 }

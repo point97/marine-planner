@@ -174,100 +174,122 @@ class Scenario(Analysis):
         """
         attributes = []
 
-        # Step 1
-        if self.depth:
-            attributes.append({ 'title': 'Depth Range',
-                                'data':  str(int(self.depth_min)) + ' to ' + str(int(self.depth_max)) + ' meters'})
-        if self.shore_distance:
-            attributes.append({ 'title': 'Distance to Shore',
-                                'data':  str(self.shore_distance_min) + ' to ' + str(self.shore_distance_max) + ' km'})
-        if self.pier_distance:
-            attributes.append({ 'title': 'Distance to Pier',
-                                'data':  str(self.pier_distance_min) + ' to ' + str(self.pier_distance_max) + ' km'})
-        if self.inlet_distance:
-            attributes.append({ 'title': 'Minimum Distance to Coastal Inlet',
-                                'data':  str(self.inlet_distance_min) + ' km'})
-        if self.outfall_distance:
-            attributes.append({ 'title': 'Minimum Distance to Outfall',
-                                'data':  str(self.outfall_distance_min) + ' km'})
-
-        # Step 2
-        if self.injury_site:
-            if self.injury_site_input == 'Y':
-                title = 'Contains at least one recorded grounding or anchoring event in the DEP database'
-            else:
-                title = 'Does not contain any recorded grounding or anchoring events'
-            attributes.append({ 'title': title,
-                                'data':  ''})
-        if self.large_live_coral:
-            if self.large_live_coral_input == 'Y':
-                title = 'Contains at least one known live coral greater than 2 meters in width'
-            else:
-                title = 'Does not contain any known live coral greater than 2 meters in width'
-            attributes.append({ 'title': title,
-                                'data':  ''})
-        if self.pillar_presence:
-            if self.acropora_pa_input == 'P':
-                title = 'Contains at least one recorded Pillar Coral'
-            else:
-                title = 'Does not contain any recorded Pillar Corals'
-            attributes.append({ 'title': title,
-                                'data':  ''})
-        if self.anchorage:
-            if self.acropora_pa_input == 'Y':
-                title = 'Intersects with a designated anchorage'
-            else:
-                title = 'Does not intersect with any designated anchorages'
-            attributes.append({ 'title': title,
-                                'data':  ''})
-        if self.mooring_buoy:
-            if self.acropora_pa_input == 'Y':
-                title = 'Contains at least one Mooring buoy'
-            else:
-                title = 'Does not contain any Mooring buoys'
-            attributes.append({ 'title': title,
-                                'data':  ''})
-        if self.impacted:
-            if self.acropora_pa_input == 'Y':
-                title = 'Intersects with a mapped impact source (artificial reefs, dredged areas, cables, reef injuries, anchorages, burials, etc.)'
-            else:
-                title = 'Does not intersect with any mapped impact sources (artificial reefs, dredged areas, cables, reef injuries, anchorages, burials, etc.)'
-            attributes.append({ 'title': title,
-                                'data':  ''})
         if self.acropora_pa:
             if self.acropora_pa_input == 'Y':
                 title = 'Intersects with at least one known dense Acropora patch'
             else:
                 title = 'Does not intersect with any known dense Acropora patches'
-            attributes.append({ 'title': title,
-                                    'data':  ''})
+            attributes.append({'title': title, 'data':  ''})
 
-        # Step 3
-        if self.prcnt_sg:
-            attributes.append({ 'title': 'Minimum amount of Seagrass',
-                                'data':  str(int(self.prcnt_sg_min)) + '%'})
-        if self.prcnt_reef:
-            attributes.append({ 'title': 'Minimum amount of Reef',
-                                'data':  str(int(self.prcnt_reef_min)) + '%'})
-        if self.prcnt_sand:
-            attributes.append({ 'title': 'Minimum amount of Sand',
-                                'data':  str(int(self.prcnt_sand_min)) + '%'})
-        if self.prcnt_art:
-            attributes.append({ 'title': 'Minimum amount of Artificial Substrate',
-                                'data':  str(int(self.prcnt_art_min)) + '%'})
+        # if self.anchor_desc
 
-        # Step 4
-        if self.fish_richness:
-            attributes.append({ 'title': 'Minimum estimated fish species per survey area',
-                                'data':  str(int(self.fish_richness_max))})
+        if self.anchorage:
+            if self.acropora_pa_input == 'Y':
+                title = 'Intersects with a designated anchorage'
+            else:
+                title = 'Does not intersect with any designated anchorages'
+            attributes.append({'title': title, 'data':  ''})
+
+        # if self.boat_use
+        # if self.coral_bleach
+        # if self.coral_cover
 
         if self.coral_density:
-            attributes.append({ 'title': 'Minimum estimated coral organisms per sq meter',
-                                'data':  str(int(self.coral_density_max))})
+            attributes.append({'title': 'Minimum estimated coral organisms per sq meter',
+                               'data':  str(int(self.coral_density_max))})
+
+        # if self.coral_disease
+        # if self.coral_resilience
 
         if self.coral_richness:
-            attributes.append({ 'title': 'Minimum estimated coral species per survey area',
-                                'data':  str(int(self.coral_richness_max))})
+            attributes.append({'title': 'Minimum estimated coral species per survey area',
+                               'data':  str(int(self.coral_richness_max))})
+
+        # if self.coral_soft
+
+        if self.depth_mean:
+            attributes.append({'title': 'Depth Range',
+                               'data':  str(int(self.depth_mean_min)) + ' to ' + str(int(self.depth_mean_max)) + ' meters'})
+
+        # if self.divefish_overlap
+        # if self.extdive_use
+
+        if self.impacted:
+            if self.acropora_pa_input == 'Y':
+                title = 'Intersects with a mapped impact source (artificial reefs, dredged areas, cables, reef injuries, anchorages, burials, etc.)'
+            else:
+                title = 'Does not intersect with any mapped impact sources (artificial reefs, dredged areas, cables, reef injuries, anchorages, burials, etc.)'
+            attributes.append({'title': title, 'data':  ''})
+
+        if self.injury_site:
+            if self.injury_site_input == 'Y':
+                title = 'Contains at least one recorded grounding or anchoring event in the DEP database'
+            else:
+                title = 'Does not contain any recorded grounding or anchoring events'
+            attributes.append({'title': title, 'data':  ''})
+
+        if self.inlet_distance:
+            attributes.append({'title': 'Minimum Distance to Coastal Inlet',
+                               'data':  str(self.inlet_distance_min) + ' km'})
+
+        if self.large_live_coral:
+            if self.large_live_coral_input == 'Y':
+                title = 'Contains at least one known live coral greater than 2 meters in width'
+            else:
+                title = 'Does not contain any known live coral greater than 2 meters in width'
+            attributes.append({'title': title, 'data':  ''})
+
+        if self.mooring_buoy:
+            if self.acropora_pa_input == 'Y':
+                title = 'Contains at least one Mooring buoy'
+            else:
+                title = 'Does not contain any Mooring buoys'
+            attributes.append({'title': title, 'data':  ''})
+
+        # if self.mooring_desc
+
+        if self.outfall_distance:
+            attributes.append({'title': 'Minimum Distance to Outfall',
+                               'data':  str(self.outfall_distance_min) + ' km'})
+
+        if self.pier_distance:
+            attributes.append({'title': 'Distance to Pier',
+                               'data':  str(self.pier_distance_min) + ' to ' + str(self.pier_distance_max) + ' km'})
+
+        if self.pillar_presence:
+            if self.acropora_pa_input == 'P':
+                title = 'Contains at least one recorded Pillar Coral'
+            else:
+                title = 'Does not contain any recorded Pillar Corals'
+            attributes.append({'title': title, 'data':  ''})
+
+        if self.prcnt_art:
+            attributes.append({'title': 'Minimum amount of Artificial Substrate',
+                               'data':  str(int(self.prcnt_art_min)) + '%'})
+        if self.prcnt_reef:
+            attributes.append({'title': 'Minimum amount of Reef',
+                               'data':  str(int(self.prcnt_reef_min)) + '%'})
+        if self.prcnt_sand:
+            attributes.append({'title': 'Minimum amount of Sand',
+                               'data':  str(int(self.prcnt_sand_min)) + '%'})
+        if self.prcnt_sg:
+            attributes.append({'title': 'Minimum amount of Seagrass',
+                               'data':  str(int(self.prcnt_sg_min)) + '%'})
+
+        # if self.reccom_fish
+        # if self.recfish_use
+        # if self.reef_fish_density
+        # if self.reef_fish_richness
+        # if self.scuba_use
+
+        if self.shore_distance:
+            attributes.append({'title': 'Distance to Shore',
+                               'data':  str(self.shore_distance_min) + ' to ' + str(self.shore_distance_max) + ' km'})
+
+        # if self.spear_use
+        # if self.sponge
+        # if self.total_use
+        # if self.watersport_use
 
         attributes.append({'title': 'Number of Grid Cells',
                            'data': '{:,}'.format(self.grid_cells.count(',')+1)})
@@ -497,10 +519,8 @@ class GridCell(models.Model):
     depth_max = models.FloatField(null=True, blank=True)
     depth_mean = models.FloatField(null=True, blank=True)
     depth_min = models.FloatField(null=True, blank=True)
-    dive_conflict = models.IntegerField(null=True, blank=True)
     divefish_overlap = models.IntegerField(null=True, blank=True)
     extdive_use = models.IntegerField(null=True, blank=True)
-    fish_conflict = models.IntegerField(null=True, blank=True)
     impacted = models.TextField(null=True, blank=True)
     injury_site = models.TextField(null=True, blank=True)
     inlet_distance = models.FloatField(null=True, blank=True)

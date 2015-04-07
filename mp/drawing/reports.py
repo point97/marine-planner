@@ -41,10 +41,11 @@ def get_unique_values(grid_cells, field):
     return values
 
 
-def get_summary_reports(grid_cells, attributes):
+def get_summary_reports(grid_cells):
     """
     List of attributes for drawing summary reports
     """
+    attributes = []
 
     if grid_cells.count() == 0:
         return
@@ -289,3 +290,5 @@ def get_summary_reports(grid_cells, attributes):
     val = get_sum(grid_cells, 'watersport_use')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
+
+    return attributes

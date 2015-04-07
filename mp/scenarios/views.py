@@ -278,8 +278,8 @@ def run_filter_query(filters):
         query = query.filter(coral_soft__lte=filters['coral_soft_max'])
 
     if 'depth_mean' in filters.keys() and filters['depth_mean']:
-        query = query.filter(depth_mean_min__gte=filters['depth_mean_min'])
-        query = query.filter(depth_mean_max__lte=filters['depth_mean_max'])
+        query = query.filter(depth_mean__gte=filters['depth_mean_min'])
+        query = query.filter(depth_mean__lte=filters['depth_mean_max'])
 
     if 'divefish_overlap' in filters.keys() and filters['divefish_overlap']:
         query = query.filter(divefish_overlap_min__gte=filters['divefish_overlap_min'])

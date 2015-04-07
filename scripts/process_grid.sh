@@ -1,15 +1,13 @@
 #!/bin/bash
 # process_grid.sh
 # Input: shapefile (epsg 3857) with planning grids
-# Output: postgres sql file 
+# Output: postgres sql file
 
 thisdir=`dirname $BASH_SOURCE`
 
 # Variables that change frequently/on every import
-#SHP="_ofr_data/shp/OFR_OffshorePlanningGrid_200m_DSTbuild4_EPSG3857_9Feb2015.shp"
-#FINAL="_ofr_data/ofr_planning_grid_9Feb2015.sql"
-SHP="$thisdir/../_ofr_data/shp/OFR_OffshorePlanningGrid_200m_DSTbuild8_EPSG3857_13Mar2015.shp"
-FINAL="$thisdir/../_ofr_data/ofr_planning_grid_13Mar2015.sql"
+SHP="$thisdir/../_ofr_data/ofr_final_grid_20150406/OFR_OffshorePlanningGrid_200m_DSTbuild14_EPSG3857.shp"
+FINAL="$thisdir/../_ofr_data/ofr_planning_grid_20150406.sql"
 
 ################################################################################
 # Probably no need to touch anything below here
@@ -28,7 +26,7 @@ $VALIDATE $SHP $FIELDMAP
 if [ $? -ne 0 ]; then
     echo "NOT VALID"
     exit 1
-fi 
+fi
 
 # export shp to dump format sql
 # -d option handles dropping table before creation
@@ -42,8 +40,8 @@ sed -E -i 's/PRIMARY KEY \(gid\)/PRIMARY KEY \(id\)/' $TMP
 
 # Change field names to match django model
 $TRANSLATE $TMP $FIELDMAP > $FINAL
- 
-# Add a centroid geometry column in new transaction 
+
+# Add a centroid geometry column in new transaction
 cat << EOT >> $FINAL
 
 BEGIN;
