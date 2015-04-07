@@ -58,14 +58,12 @@ app.clickAttributes = (function() {
         if ('AncDen0913' in data) {
             attrs.push({'display': 'Anchoring Density', 'data': data['AncDen0913'].toFixed(1) + ' boats'});
         }
+        // No Anchor0913
         if ('Anchorage' in data) {
             attrs.push({'display': 'Intersects with a designated anchorage', 'data': data['Anchorage']});
         }
         if ('ArtAreaM' in data) {
             attrs.push({'display': 'Artificial Habitats', 'data': data['ArtAreaM'].toLocaleString() + ' m&sup2;'});
-        }
-        if ('Boat' in data) {
-            attrs.push({'display': 'Boat Use', 'data': data['Boat']});
         }
         if ('CoralPtCov' in data) {
             attrs.push({'display': 'Coral Cover', 'data': data['CoralPtCov']});
@@ -79,15 +77,13 @@ app.clickAttributes = (function() {
         if ('County' in data) {
             attrs.push({'display': 'County', 'data': data['County']});
         }
-        if ('DivFishOvrlp' in data) {
-            attrs.push({'display': 'Diving and Fishing use overlap', 'data': data['DivFishOvrlp']});
-        }
+        // No "Divecnflct"
         if ('DnsAcrpPA' in data) {
             attrs.push({'display': 'Dense Acropora Presence', 'data': data['DnsAcrpPA']});
         }
-        if ('Extrac_Div' in data) {
-            attrs.push({'display': 'Extractive Diving Use Intensity (OFR 2015)',
-                        'data': data['Extrac_Div'].toFixed(1) + ''});
+        // No "Fishcnflct"
+        if ('fishdivovr' in data) {
+            attrs.push({'display': 'Diving and Fishing use overlap', 'data': data['fishdivovr']});
         }
         if ('GorgPtCov' in data) {
             attrs.push({'display': 'Soft Coral Percent Cover', 'data': data['GorgPtCov']});
@@ -125,6 +121,29 @@ app.clickAttributes = (function() {
         if ('MorDen0913' in data) {
             attrs.push({'display': 'Mooring Density', 'data': data['MorDen0913'].toFixed(1) + ' boats'});
         }
+        if ('OFR_Total' in data) {
+            attrs.push({'display': 'Total Use Intensity (OFR 2015)', 'data': data['OFR_Total']});
+        }
+        if ('OFRboating' in data) {
+            attrs.push({'display': 'Boater Use Intensity (OFR 2015)', 'data': data['OFRboating']});
+        }
+        // No "OFRcomfish"
+        if ('OFRextract' in data) {
+            attrs.push({'display': 'Extractive Diving Use Intensity (OFR 2015)', 'data': data['OFRextract']});
+        }
+        if ('OFRh2osprt' in data) {
+            attrs.push({'display': 'Water Sports (OFR 2015)', 'data': data['OFRh2osprt']});
+        }
+        if ('OFRrecfish' in data) {
+            attrs.push({'display': 'Recreational Fishing Use Intensity (OFR 2015)', 'data': data['OFRrecfish']});
+        }
+        // No "OFRresearc"
+        if ('OFRscuba' in data) {
+            attrs.push({'display': 'Scuba Diving Use Intensity (OFR 2015)', 'data': data['']});
+        }
+        if ('OFRspear' in data) {
+            attrs.push({'display': 'Spearfishing Use Intensity (OFR 2015)', 'data': data['OFRspear']});
+        }
         if ('OutflDisMi' in data) {
             attrs.push({'display': 'Distance to Nearest Outfall', 'data': data['OutflDisMi'].toFixed(1) + ' mi'});
         }
@@ -146,10 +165,6 @@ app.clickAttributes = (function() {
         if ('PrcntSG' in data) {
             attrs.push({'display': 'Percent Seagrass', 'data': data['PrcntSG']});
         }
-        if ('Rec_fish' in data) {
-            attrs.push({'display': 'Recreational Fishing Use Intensity (OFR 2015)',
-                        'data': data['Rec_fish'].toFixed(1) + ''});
-        }
         if ('RecComDens' in data) {
             attrs.push({'display': 'Recreationally and commercially important fishes', 'data': data['RecComDens']});
         }
@@ -170,26 +185,14 @@ app.clickAttributes = (function() {
         if ('SandArea_m' in data) {
             attrs.push({'display': 'Sand Area', 'data': data['SandArea_m'].toLocaleString() + ' m&sup2;'});
         }
-        if ('Scuba' in data) {
-            attrs.push({'display': 'Scuba Diving Use Intensity (OFR 2015)',
-                        'data': data['Scuba'].toFixed(1) + ''});
-        }
         if ('SGarea_m' in data) {
             attrs.push({'display': 'Seagrass Area', 'data': data['SGarea_m'].toLocaleString() + ' m&sup2;'});
         }
         if ('ShoreDisMi' in data) {
             attrs.push({'display': 'Distance to Shore', 'data': data['ShoreDisMi'].toFixed(1) + ' mi'});
         }
-        if ('Spear' in data) {
-            attrs.push({'display': 'Spearfishing Use Intensity (OFR 2015)',
-                        'data': data['Spear'].toFixed(1) + ''});
-        }
         if ('SpngPtCov' in data) {
             attrs.push({'display': 'Sponge Percent Cover', 'data': data['SpngPtCov']});
-        }
-        if ('Total' in data) {
-            attrs.push({'display': 'Total Use Intensity (OFR 2015)',
-                        'data': data['Total'].toFixed(1) + ''});
         }
 
         return attrs;

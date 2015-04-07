@@ -49,7 +49,7 @@
   "shoredismi" : "shore_distance",
   "ofrspear"   : "spear_use",
   "spngptcov"  : "sponge",
-  "total"      : "total_use",
+  "ofr_total"      : "total_use",
   "uniqueid"   : "unique_id",
   "ofrh20sprt" : "watersport_use"
 }
