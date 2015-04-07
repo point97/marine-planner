@@ -73,10 +73,13 @@ def get_summary_reports(grid_cells, attributes):
         data = str(num_acropora) + ' cells are known to contain Dense Acropora Patches'
     attributes.append({'title': title, 'data': data})
 
-    title = 'Anchoring Density'
-    val = get_average(grid_cells, 'anchor_density')
-    data = str(format_precision(val, 1)) + ' boats'
-    attributes.append({'title': title, 'data': data})
+    title = "Anchoring (Berhinger data)"
+    levels = ['Low', 'Medium', 'High', 'Very High']
+    data = []
+    for level in levels:
+        data.append((level, get_value_count(grid_cells, 'anchor_desc', level)))
+    attributes.append({'title': title,
+                       'data': ', '.join(["%s (%s cells)" % d for d in data])})
 
     title = 'Anchorages'
     data = 'No Designated Anchorages'
@@ -91,7 +94,7 @@ def get_summary_reports(grid_cells, attributes):
     attributes.append({'title': title, 'data': data})
 
     title = 'Boater Use Intensity (OFR 2015)'
-    val = get_average(grid_cells, 'boat_use')
+    val = get_sum(grid_cells, 'boat_use')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
 
@@ -143,12 +146,12 @@ def get_summary_reports(grid_cells, attributes):
     attributes.append({'title': 'Depth Range', 'data': depth_range})
 
     title = 'Diving and Fishing use overlap (OFR 2015)'
-    val = get_average(grid_cells, 'divefish_overlap')
+    val = get_sum(grid_cells, 'divefish_overlap')
     data = str(format_precision(val, 0))
     attributes.append({'title': title, 'data': data})
 
     title = 'Extractive Diving Use Intensity (OFR 2015)'
-    val = get_average(grid_cells, 'extdive_use')
+    val = get_sum(grid_cells, 'extdive_use')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
 
@@ -192,10 +195,13 @@ def get_summary_reports(grid_cells, attributes):
         data = str(num_mooring_buoys) + ' cells contain Mooring Buoys'
     attributes.append({'title': title, 'data': data})
 
-    title = 'Mooring Density'
-    val = get_average(grid_cells, 'mooring_density')
-    data = str(format_precision(val, 1)) + ' boats'
-    attributes.append({'title': title, 'data': data})
+    title = "Mooring (Berhinger data)"
+    levels = ['Low', 'Medium', 'High', 'Very High']
+    data = []
+    for level in levels:
+        data.append((level, get_value_count(grid_cells, 'mooring_desc', level)))
+    attributes.append({'title': title,
+                       'data': ', '.join(["%s (%s cells)" % d for d in data])})
 
     min_distance_to_outfall, max_distance_to_outfall = get_range(grid_cells, 'outfall_distance')
     distance_to_outfall = '%s to %s mi' %(format_precision(min_distance_to_outfall,1), format_precision(max_distance_to_outfall,1))
@@ -214,33 +220,13 @@ def get_summary_reports(grid_cells, attributes):
         data = str(num_pillar_presence) + ' cells are known to contain Pillar Corals'
     attributes.append({'title': title, 'data': data})
 
-    title = 'Artificial Substrate Coverage'
-    percent_art = get_average(grid_cells, 'prcnt_art')
-    data = str(format_precision(percent_art, 0)) + '%'
-    attributes.append({'title': title, 'data': data})
-
-    title = 'Reef Coverage'
-    percent_reef = get_average(grid_cells, 'prcnt_reef')
-    data = str(format_precision(percent_reef, 0)) + '%'
-    attributes.append({'title': title, 'data': data})
-
-    title = 'Sand Coverage'
-    percent_sand = get_average(grid_cells, 'prcnt_sand')
-    data = str(format_precision(percent_sand, 0)) + '%'
-    attributes.append({'title': title, 'data': data})
-
-    title = 'Seagrass Coverage'
-    percent_seagrass = get_average(grid_cells, 'prcnt_sg')
-    data = str(format_precision(percent_seagrass, 0)) + '%'
-    attributes.append({'title': title, 'data': data})
-
     title = 'Recreationally and commercially important fishes'
     val = get_average(grid_cells, 'reccom_fish')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
 
     title = 'Recreational Fishing Use Intensity (OFR 2015)'
-    val = get_average(grid_cells, 'recfish_use')
+    val = get_sum(grid_cells, 'recfish_use')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
 
@@ -271,7 +257,7 @@ def get_summary_reports(grid_cells, attributes):
     attributes.append({'title': title, 'data': data})
 
     title = 'Scuba Diving Use Intensity (OFR 2015)'
-    val = get_average(grid_cells, 'scuba_use')
+    val = get_sum(grid_cells, 'scuba_use')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
 
@@ -285,7 +271,7 @@ def get_summary_reports(grid_cells, attributes):
     attributes.append({'title': 'Distance to Shore', 'data': distance_to_shore})
 
     title = 'Spearfishing Use Intensity (OFR 2015)'
-    val = get_average(grid_cells, 'spear_use')
+    val = get_sum(grid_cells, 'spear_use')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
 
@@ -295,6 +281,11 @@ def get_summary_reports(grid_cells, attributes):
     attributes.append({'title': title, 'data': data})
 
     title = 'Total Use Intensity (OFR 2015)'
-    val = get_average(grid_cells, 'total_use')
+    val = get_sum(grid_cells, 'total_use')
+    data = str(format_precision(val, 1)) + ''
+    attributes.append({'title': title, 'data': data})
+
+    title = 'Water Sports (OFR 2015)'
+    val = get_sum(grid_cells, 'watersport_use')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
