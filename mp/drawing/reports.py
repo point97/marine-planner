@@ -55,14 +55,16 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': 'Number of Grid Cells', 'data': format(cell_count, ',d')})
 
     # Total Area
-    total_area = sum([gc.geometry.area for gc in grid_cells])
-    attributes.append({'title': 'Total Area', 'data': str(format_precision(total_area / 1000000, 2)) + ' sq km'})
+    total_area = sum([gc.geometry.area for gc in grid_cells]) / 1000000  # sq m to sq km
+    attributes.append({'title': 'Total Area', 'data': str(format_precision(total_area, 2)) + ' sq km'})
 
     # ------- attributes -------
 
     title = 'Dense Acropora patches'
-    acerv_area = get_sum(grid_cells, 'acerv_area')
-    data = str(format_precision(acerv_area / 1000000.0, 2)) + ' sq km'
+    acerv_area = get_sum(grid_cells, 'acerv_area') / 1000000.0  # sq m to sq km
+    percent_aoi = (acerv_area / total_area) * 100.0
+    data = str(format_precision(acerv_area, 2)) + ' sq km (' + \
+        str(format_precision(percent_aoi, 2)) + '%)'
     attributes.append({'title': title, 'data': data})
 
     title = 'Acropora'
@@ -90,8 +92,10 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = 'Artifical Reefs'
-    art_area = get_sum(grid_cells, 'art_area')
-    data = str(format_precision(art_area / 1000000.0, 2)) + ' sq km'
+    art_area = get_sum(grid_cells, 'art_area')  / 1000000.0  # sq m to sq km
+    percent_aoi = (art_area / total_area) * 100.0
+    data = str(format_precision(art_area, 2)) + ' sq km (' + \
+        str(format_precision(percent_aoi, 2)) + '%)'
     attributes.append({'title': title, 'data': data})
 
     title = 'Boater Use Intensity (OFR 2015)'
@@ -232,8 +236,10 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = 'Reefs'
-    reef_area = get_sum(grid_cells, 'reef_area')
-    data = str(format_precision(reef_area / 1000000.0, 2)) + ' sq km'
+    area = get_sum(grid_cells, 'reef_area') / 1000000.0  # sq m to sq km
+    percent_aoi = (area / total_area) * 100.0
+    data = str(format_precision(area, 2)) + ' sq km (' + \
+        str(format_precision(percent_aoi, 2)) + '%)'
     attributes.append({'title': title, 'data': data})
 
     title = 'Reef Fish Density'
@@ -253,8 +259,10 @@ def get_summary_reports(grid_cells):
         attributes.append({'title': 'Regions', 'data': ", ".join(regions)})
 
     title = 'Sand'
-    sand_area = get_sum(grid_cells, 'sand_area')
-    data = str(format_precision(sand_area / 1000000.0, 2)) + ' sq km'
+    area = get_sum(grid_cells, 'sand_area') / 1000000.0  # sq m to sq km
+    percent_aoi = (area / total_area) * 100.0
+    data = str(format_precision(area, 2)) + ' sq km (' + \
+        str(format_precision(percent_aoi, 2)) + '%)'
     attributes.append({'title': title, 'data': data})
 
     title = 'Scuba Diving Use Intensity (OFR 2015)'
@@ -263,8 +271,10 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = 'Seagrass'
-    sg_area = get_sum(grid_cells, 'sg_area')
-    data = str(format_precision(sg_area / 1000000.0, 2)) + ' sq km'
+    area = get_sum(grid_cells, 'sg_area') / 1000000.0  # sq m to sq km
+    percent_aoi = (area / total_area) * 100.0
+    data = str(format_precision(area, 2)) + ' sq km (' + \
+        str(format_precision(percent_aoi, 2)) + '%)'
     attributes.append({'title': title, 'data': data})
 
     min_distance_to_shore, max_distance_to_shore = get_range(grid_cells, 'shore_distance')
