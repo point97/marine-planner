@@ -20,6 +20,10 @@ def get_value_count(grid_cells, field, value):
     count = grid_cells.count()
     return count
 
+def get_count_notnull(grid_cells, field):
+    grid_cells = remove_nulls(grid_cells, field)
+    return grid_cells.count()
+
 def get_sum(grid_cells, field):
     grid_cells = remove_nulls(grid_cells, field)
     return grid_cells.aggregate(Sum(field)).values()[0]
@@ -92,7 +96,7 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = 'Artifical Reefs'
-    art_area = get_sum(grid_cells, 'art_area')  / 1000000.0  # sq m to sq km
+    art_area = get_sum(grid_cells, 'art_area') / 1000000.0  # sq m to sq km
     percent_aoi = (art_area / total_area) * 100.0
     data = str(format_precision(art_area, 2)) + ' sq km (' + \
         str(format_precision(percent_aoi, 2)) + '%)'
@@ -107,21 +111,53 @@ def get_summary_reports(grid_cells):
     val = get_average(grid_cells, 'coral_bleach')
     data = str(format_precision(val, 0)) + ' units'
     attributes.append({'title': title, 'data': data})
+    # range
+    title = 'Range of Coral Bleaching Index'
+    data = "%s to %s" % get_range(grid_cells, 'coral_bleach')
+    attributes.append({'title': title, 'data': data})
+    # number of PUs with data
+    title = 'Planning Units with Coral Bleaching Index data'
+    val = get_count_notnull(grid_cells, 'coral_bleach')
+    attributes.append({'title': title, 'data': str(int(val))})
 
     title = 'Average Coral Cover'
     coral_cover = get_average(grid_cells, 'coral_cover')
-    data = str(format_precision(coral_cover, 0)) + ' units'
+    data = str(format_precision(coral_cover, 0)) + ' percent'
     attributes.append({'title': title, 'data': data})
+    # range
+    title = 'Range of Coral Cover'
+    data = "%s to %s percent" % get_range(grid_cells, 'coral_cover')
+    attributes.append({'title': title, 'data': data})
+    # number of PUs with data
+    title = 'Planning Units with Coral Cover data'
+    val = get_count_notnull(grid_cells, 'coral_cover')
+    attributes.append({'title': title, 'data': str(int(val))})
 
     title = 'Number of coral colonies per square meter (FRRP data)'
     coral_density = get_average(grid_cells, 'coral_density')
     data = str(format_precision(coral_density, 0))
     attributes.append({'title': title, 'data': data})
+    # range
+    title = 'Range of Coral Density'
+    data = "%s to %s m2" % get_range(grid_cells, 'coral_density')
+    attributes.append({'title': title, 'data': data})
+    # number of PUs with data
+    title = 'Planning Units with Coral Density data'
+    val = get_count_notnull(grid_cells, 'coral_density')
+    attributes.append({'title': title, 'data': str(int(val))})
 
     title = 'Average Coral Disease Index'
     val = get_average(grid_cells, 'coral_disease')
     data = str(format_precision(val, 0)) + ' units'
     attributes.append({'title': title, 'data': data})
+    # range
+    title = 'Range of Coral Disease Index'
+    data = "%s to %s" % get_range(grid_cells, 'coral_disease')
+    attributes.append({'title': title, 'data': data})
+    # number of PUs with data
+    title = 'Planning Units with Coral Disease Index data'
+    val = get_count_notnull(grid_cells, 'coral_disease')
+    attributes.append({'title': title, 'data': str(int(val))})
 
     title = 'Average Coral Resilience Index'
     data = 'No Planning Units with Coral Resilience Index of 1'
@@ -134,11 +170,27 @@ def get_summary_reports(grid_cells):
     coral_richness = get_average(grid_cells, 'coral_richness')
     data = str(format_precision(coral_richness, 0))
     attributes.append({'title': title, 'data': data})
+    # range
+    title = 'Range of Coral Richness'
+    data = "%s to %s species" % get_range(grid_cells, 'coral_richness')
+    attributes.append({'title': title, 'data': data})
+    # number of PUs with data
+    title = 'Planning Units with Coral Richness data'
+    val = get_count_notnull(grid_cells, 'coral_richness')
+    attributes.append({'title': title, 'data': str(int(val))})
 
-    title = 'Soft Coral Percent Cover'
+    title = 'Average Soft Coral Percent Cover'
     val = get_average(grid_cells, 'coral_soft')
     data = str(format_precision(val, 0))
     attributes.append({'title': title, 'data': data})
+    # range
+    title = 'Range of Soft Coral Percent Cover'
+    data = "%s to %s percent" % get_range(grid_cells, 'coral_soft')
+    attributes.append({'title': title, 'data': data})
+    # number of PUs with data
+    title = 'Planning Units with Soft Coral cover data'
+    val = get_count_notnull(grid_cells, 'coral_soft')
+    attributes.append({'title': title, 'data': str(int(val))})
 
     counties = get_unique_values(grid_cells, 'county')
     if len(counties) == 1:
@@ -227,10 +279,18 @@ def get_summary_reports(grid_cells):
         data = str(num_pillar_presence) + ' cells are known to contain Pillar Corals'
     attributes.append({'title': title, 'data': data})
 
-    title = 'Recreationally and commercially important fishes'
+    title = 'Average Recreationally and commercially important fishes'
     val = get_average(grid_cells, 'reccom_fish')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
+    # range
+    title = 'Range of Recreationally and commercially important fishes density'
+    data = "%s to %s" % get_range(grid_cells, 'reccom_fish')
+    attributes.append({'title': title, 'data': data})
+    # number of PUs with data
+    title = 'Planning Units with important fish density data'
+    val = get_count_notnull(grid_cells, 'reccom_fish')
+    attributes.append({'title': title, 'data': str(int(val))})
 
     title = 'Recreational Fishing Use Intensity (OFR 2015)'
     val = get_sum(grid_cells, 'recfish_use')
@@ -244,15 +304,31 @@ def get_summary_reports(grid_cells):
         str(format_precision(percent_aoi, 2)) + '%)'
     attributes.append({'title': title, 'data': data})
 
-    title = 'Reef Fish Density'
+    title = 'Average Reef Fish Density'
     val = get_average(grid_cells, 'reef_fish_density')
     data = str(format_precision(val, 1)) + ' '
     attributes.append({'title': title, 'data': data})
+    # range
+    title = 'Range of Relative Reef Fish Density'
+    data = "%s to %s" % get_range(grid_cells, 'reef_fish_density')
+    attributes.append({'title': title, 'data': data})
+    # number of PUs with data
+    title = 'Planning Units with Reef Fish Density data'
+    val = get_count_notnull(grid_cells, 'reef_fish_density')
+    attributes.append({'title': title, 'data': str(int(val))})
 
-    title = 'Reef Fish Species Richness'
+    title = 'Average Reef Fish Species Richness'
     val = get_average(grid_cells, 'reef_fish_richness')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
+    # range
+    title = 'Range of Reef Fish Species Richness'
+    data = "%s to %s species" % get_range(grid_cells, 'reef_fish_richness')
+    attributes.append({'title': title, 'data': data})
+    # number of PUs with data
+    title = 'Planning Units with Reef Fish Richness data'
+    val = get_count_notnull(grid_cells, 'reef_fish_richness')
+    attributes.append({'title': title, 'data': str(int(val))})
 
     regions = get_unique_values(grid_cells, 'region')
     if len(regions) == 1:
@@ -292,6 +368,14 @@ def get_summary_reports(grid_cells):
     val = get_average(grid_cells, 'sponge')
     data = str(format_precision(val, 1)) + ''
     attributes.append({'title': title, 'data': data})
+    # range
+    title = 'Range of Sponge percent cover'
+    data = "%s to %s" % get_range(grid_cells, 'sponge')
+    attributes.append({'title': title, 'data': data})
+    # number of PUs with data
+    title = 'Planning Units with Sponge percent cover data'
+    val = get_count_notnull(grid_cells, 'sponge')
+    attributes.append({'title': title, 'data': str(int(val))})
 
     title = 'Total Use Intensity (OFR 2015)'
     val = get_sum(grid_cells, 'total_use')
