@@ -104,9 +104,9 @@ Verify Planning Grid on the tool and via the following URLs
 
 First, note that code migrations must happen at precisely the same time as the new gridcell data is loaded. It's probably safest to shut down the app server or put it in maintenance mode while performing the deployment.
 
-Load the gridcell data into the production database, password is on the ofr server in local settings
+First transfer the planning grid sql file to the production server
 
-    psql -h database.point97.io -U ofr -d ofr -f /tmp/ofr_planning_grid_13Mar2015.sql
+    scp ofr_planning_grid_20150406.sql ofr:/tmp/ofr_planning_grid.sql
 
 Then ssh into the ofr production server, pull code and run migrations
 
@@ -117,6 +117,28 @@ Then ssh into the ofr production server, pull code and run migrations
     git fetch
     git reset -q --hard origin/ofr
 
+    cd mp
     python manage.py migrate
 
-Restart the app server and test away. It would not hurt to again refer to the google docs spreadsheet and check that all issues have been addressed.
+
+Load the gridcell data into the production database. The database name, user and password is on the ofr server in local settings.
+
+    psql -U our_florida_reefs -d our_florida_reefs -f /tmp/ofr_planning_grid.sql
+
+Restart the app server
+
+    ~/webapps/marine_planner/apache2/bin/restart
+
+and test away. It would not hurt to again refer to the google docs spreadsheet and check that all issues have been addressed.
+
+
+## Provisioning notes
+
+If you're running postgis 1.5, you won't have the `st_makevalid` function so you'll need to patch `/home/ofr/env/ofr/src/madrona/madrona/common/utils.py` with this, replacing the existing function
+
+    def clean_geometry(geom):
+        return geom
+
+Enable sharing for all groups:
+
+    python manage.py enable_sharing --all
