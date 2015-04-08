@@ -146,3 +146,23 @@ Enable sharing for all groups:
 Make sure admin media is available at media path:
 
      ln -s /home/ofr/env/ofr/lib/python2.7/site-packages/django/contrib/admin/static/admin /home/ofr/webapps/marine_planner_media/admin
+
+
+## Updating with new survey results
+
+Note this is done before we get the grid shapefile back. So it's basically the first step but this doc assumes you're starting from a new shapefile delivery
+
+Updating / Exporting Survey Results
+
+    python cronjobs/update_survey_json.py
+
+A new file survey_results_unsummarized.json will be created/updated in the cronjobs directory
+New files survey_results_4326.json and survey_results_3857.json will be added/updated in media/data_manager/geojson
+
+The admin currently directs Survey Results layers to media/data_manager/geojson/survey_results_3857.json so running the update_survey_json script should be all you need to do (in terms of updating the visualizations).
+
+Converting the un-summarized data (survey_results_unsummarized.json) to shapefile format for the OFR folks:
+
+    ogr2ogr -F "ESRI Shapefile" survey_results_20150227.shp survey_results_unsummarized.json OGRGeoJSON
+
+Note: OFR will also need the list of Normalized/laundered field names (the output produced by running the above command)
