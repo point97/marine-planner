@@ -104,7 +104,7 @@ def get_summary_reports(grid_cells):
 
     title = 'Boater Use Intensity (OFR 2015)'
     val = get_sum(grid_cells, 'boat_use')
-    data = str(format_precision(val, 1)) + ''
+    data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Average Coral Bleaching Index'
@@ -206,12 +206,12 @@ def get_summary_reports(grid_cells):
 
     title = 'Diving and Fishing use overlap (OFR 2015)'
     val = get_sum(grid_cells, 'divefish_overlap')
-    data = str(format_precision(val, 0))
+    data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Extractive Diving Use Intensity (OFR 2015)'
     val = get_sum(grid_cells, 'extdive_use')
-    data = str(format_precision(val, 1)) + ''
+    data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Impact Sources'
@@ -294,7 +294,7 @@ def get_summary_reports(grid_cells):
 
     title = 'Recreational Fishing Use Intensity (OFR 2015)'
     val = get_sum(grid_cells, 'recfish_use')
-    data = str(format_precision(val, 1)) + ''
+    data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Reefs'
@@ -345,7 +345,7 @@ def get_summary_reports(grid_cells):
 
     title = 'Scuba Diving Use Intensity (OFR 2015)'
     val = get_sum(grid_cells, 'scuba_use')
-    data = str(format_precision(val, 1)) + ''
+    data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Seagrass'
@@ -361,30 +361,30 @@ def get_summary_reports(grid_cells):
 
     title = 'Spearfishing Use Intensity (OFR 2015)'
     val = get_sum(grid_cells, 'spear_use')
-    data = str(format_precision(val, 1)) + ''
+    data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
-    title = 'Sponge percent cover'
+    title = 'Sponge cover'
     val = get_average(grid_cells, 'sponge')
-    data = str(format_precision(val, 1)) + ''
+    data = str(format_precision(val, 0)) + ' percent'
     attributes.append({'title': title, 'data': data})
     # range
-    title = 'Range of Sponge percent cover'
-    data = "%s to %s" % get_range(grid_cells, 'sponge')
+    title = 'Range of Sponge cover'
+    data = "%s to %s percent" % get_range(grid_cells, 'sponge')
     attributes.append({'title': title, 'data': data})
     # number of PUs with data
-    title = 'Planning Units with Sponge percent cover data'
+    title = 'Planning Units with Sponge cover data'
     val = get_count_notnull(grid_cells, 'sponge')
     attributes.append({'title': title, 'data': str(int(val))})
 
     title = 'Total Use Intensity (OFR 2015)'
     val = get_sum(grid_cells, 'total_use')
-    data = str(format_precision(val, 1)) + ''
+    data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Water Sports (OFR 2015)'
     val = get_sum(grid_cells, 'watersport_use')
-    data = str(format_precision(val, 1)) + ''
+    data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     return attributes
