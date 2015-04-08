@@ -87,7 +87,7 @@ def get_summary_reports(grid_cells):
     title = 'Anchorages'
     data = 'No Designated Anchorages'
     num_anchorages = get_value_count(grid_cells, 'anchorage', 'Y')
-    if num_anchorages == 1:
+    if num_anchorages >= 1:
         data = str(num_anchorages) + ' cells contain Designated Anchorages'
     attributes.append({'title': title, 'data': data})
 
@@ -124,8 +124,10 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = 'Average Coral Resilience Index'
-    val = get_average(grid_cells, 'coral_resilience')
-    data = str(format_precision(val, 0)) + ' units'
+    data = 'No Planning Units with Coral Resilience Index of 1'
+    count = get_value_count(grid_cells, 'coral_resilience', 1)
+    if count >= 1:
+        data = str(count) + ' cells with Coral Resilience Index of 1'
     attributes.append({'title': title, 'data': data})
 
     title = 'Number of coral species (FRRP data)'
