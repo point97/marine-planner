@@ -284,8 +284,8 @@ def run_filter_query(filters):
         query = query.filter(depth_mean__lte=filters['depth_mean_max'])
 
     if 'divefish_overlap' in filters.keys() and filters['divefish_overlap']:
-        query = query.filter(divefish_overlap_min__gte=filters['divefish_overlap_min'])
-        query = query.filter(divefish_overlap_max__lte=filters['divefish_overlap_max'])
+        query = query.filter(divefish_overlap__gte=filters['divefish_overlap_min'])
+        query = query.filter(divefish_overlap__lte=filters['divefish_overlap_max'])
 
     if 'extdive_use' in filters.keys() and filters['extdive_use']:
         query = query.filter(extdive_use__gte=filters['extdive_use_min'])
