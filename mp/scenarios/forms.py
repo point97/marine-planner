@@ -60,7 +60,14 @@ class ScenarioForm(FeatureForm):
     acropora_pa_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Y', 'Include'), ('N', 'Exclude')), initial='Y')
 
     anchor_desc = forms.BooleanField(label="Anchoring (Berhinger data)", required=False, help_text="Planning units that contain numbers of anchored boats based on a point density analysis at 500 m radius around each anchored boat observed.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
-    anchor_desc_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Low', 'Low'), ('Medium', 'Medium'), ('High', 'High'), ('Very High', 'Very High')), initial='Low')
+    anchor_desc_input = forms.ChoiceField(
+        required=False,
+        widget=forms.Select(attrs={'class': 'parameters', 'pre_text': 'at least'}),
+        choices=(('Low', 'Low'),
+                 ('Medium', 'Medium'),
+                 ('High', 'High'),
+                 ('Very High', 'Very High')),
+        initial='Low')
 
     anchorage = forms.BooleanField(label="Anchorage Areas", required=False, help_text="Planning units that overlap presently designated anchorages.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 334, 'layer_title': 'Show Commercial Anchorage Areas'}))
     anchorage_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Y', 'Include'), ('N', 'Exclude')), initial='Y')
@@ -136,7 +143,14 @@ class ScenarioForm(FeatureForm):
     mooring_buoy_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Y', 'Include'), ('N', 'Exclude')), initial='Y')
 
     mooring_desc = forms.BooleanField(label="Mooring (Berhinger data)", required=False, help_text="Planning units that contain numbers of moored boats based on a point density analysis at 500 m radius around each moored boat observed.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
-    mooring_desc_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Low', 'Low'), ('Medium', 'Medium'), ('High', 'High'), ('Very High', 'Very High')), initial='Low')
+    mooring_desc_input = forms.ChoiceField(
+        required=False,
+        widget=forms.Select(attrs={'class': 'parameters', 'pre_text': 'at least'}),
+        choices=(('Low', 'Low'),
+                 ('Medium', 'Medium'),
+                 ('High', 'High'),
+                 ('Very High', 'Very High')),
+        initial='Low')
 
     outfall_distance = forms.BooleanField(label="Distance from Outfall", required=False, help_text="Distance from nearest outfall in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 350, 'layer_title': 'Show Outfall Locations'}))
     outfall_distance_min = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max', 'pre_text': '', 'post_text': 'miles'}, min=0, max=60, step=.5))

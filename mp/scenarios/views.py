@@ -238,9 +238,11 @@ def run_filter_query(filters):
     if 'acropora_pa' in filters.keys() and filters['acropora_pa']:
         query = query.filter(acropora_pa=filters['acropora_pa_input'])
 
-    # TODO anchor_desc is not exclusive category, need ordinal range
+    # Special case, anchor_desc is not exclusive category but an ordinal category
     if 'anchor_desc' in filters.keys() and filters['anchor_desc']:
-        query = query.filter(anchor_desc=filters['anchor_desc_input'])
+        levels = ['Low', 'Medium', 'High', 'Very High']
+        levelsin = levels[levels.index(filters['anchor_desc_input']):]
+        query = query.filter(anchor_desc__in=levelsin)
 
     if 'anchorage' in filters.keys() and filters['anchorage']:
         query = query.filter(anchorage=filters['anchorage_input'])
@@ -304,9 +306,11 @@ def run_filter_query(filters):
     if 'mooring_buoy' in filters.keys() and filters['mooring_buoy']:
         query = query.filter(mooring_buoy=filters['mooring_buoy_input'])
 
-    # TODO mooring_desc is not exclusive category, need ordinal range
+    # Special case, mooring_desc is not exclusive category but an ordinal range
     if 'mooring_desc' in filters.keys() and filters['mooring_desc']:
-        query = query.filter(mooring_desc=filters['mooring_desc_input'])
+        levels = ['Low', 'Medium', 'High', 'Very High']
+        levelsin = levels[levels.index(filters['mooring_desc_input']):]
+        query = query.filter(mooring_desc__in=levelsin)
 
     if 'outfall_distance' in filters.keys() and filters['outfall_distance']:
         query = query.filter(outfall_distance__gte=filters['outfall_distance_min'])
