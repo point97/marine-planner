@@ -14,13 +14,14 @@ app.init = function() {
     } else {
         max_zoom = 15;
     }
-    // esriOcean = new OpenLayers.Layer.XYZ("ESRI Ocean","http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/${z}/${y}/${x}", {
-    //     sphericalMercator: true,
-    //     isBaseLayer: true,
-    //     numZoomLevels: max_zoom,
-    //     attribution: "Sources: Esri, GEBCO, NOAA, National Geographic, DeLorme, NAVTEQ, Geonames.org, and others",
-    //     buffer: 3
-    // });
+
+    esriOcean = new OpenLayers.Layer.XYZ("ESRI Ocean","http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/${z}/${y}/${x}", {
+        sphericalMercator: true,
+        isBaseLayer: true,
+        numZoomLevels: max_zoom,
+        attribution: "Sources: Esri, GEBCO, NOAA, National Geographic, DeLorme, NAVTEQ, Geonames.org, and others",
+        buffer: 3
+    });
     // esriOcean = new OpenLayers.Layer.WMTS({
     //     name: "ESRI Ocean",
     //     url: "http://services.arcgisonline.com/arcgis/rest/services/Ocean_Basemap/MapServer/0",
@@ -34,7 +35,7 @@ app.init = function() {
         buffer: 3
     });
     // openStreetMap = new OpenLayers.Layer.OSM();
-    
+
     // googleStreet = new OpenLayers.Layer.Google("Google Streets", {
     //     sphericalMercator: true,
     //     isBaseLayer: true,
@@ -102,7 +103,7 @@ app.init = function() {
         buffer: 3
     });
 
-    map.addLayers([esriImagery, esriTopo, esriStreets, openStreetMap, nauticalCharts]);
+    map.addLayers([esriImagery, esriOcean, esriTopo, esriStreets, openStreetMap, nauticalCharts]);
 
     // map.addLayers([esriOcean]);
     // esriOcean.setZIndex(100);
@@ -114,7 +115,7 @@ app.init = function() {
     // adding the following for IE10 touch events
     // obtained from the following blog post
     // http://dotnetbyexample.blogspot.com/2013/03/enabling-basic-openlayers-pinch-zooming.html
-    // map.addControl(new OpenLayersWindowsPinchZoom()); 
+    // map.addControl(new OpenLayersWindowsPinchZoom());
 
     //Scale Bar
     var scalebar = new OpenLayers.Control.ScaleBar({
@@ -182,7 +183,7 @@ app.init = function() {
                 var degreesLon = Math.floor(lonLat.lon);
             } else {
                 var degreesLon = Math.ceil(lonLat.lon);
-            }            
+            }
             var minutesLon = (lonLat.lon - degreesLon) * 60;
 
             return degreesLat + "&deg; " + minutesLat.toFixed(3) + "\' N &nbsp;&nbsp;" + degreesLon + "&deg; " + minutesLon.toFixed(3) + "\' W";
@@ -257,7 +258,7 @@ app.init = function() {
                         text = attribute_objs;
                     if ( title === 'Planning Grid' ) {
                         text = app.clickAttributes.getGridAttributes(gridLayerInfo.data);
-                    } 
+                    }
                     clickAttributes[title] = text;
                 }
             }
@@ -284,7 +285,7 @@ app.init = function() {
                         'data': attrs[i].data
                     });
                 }
-            // } else if (layer.id === 374 || layer.id === 375 || layer.id === 377 || layer.id === 378) { // special case for Survey Results 
+            // } else if (layer.id === 374 || layer.id === 375 || layer.id === 377 || layer.id === 378) { // special case for Survey Results
             } else if (app.surveyResults.surveyLayerNames.indexOf(layer.name) !== -1) { // is Survey Results layer
                 text = app.clickAttributes.getSurveyAttributes(e.feature.data, layer.name);
             } else if (layer.attributes.length) {
