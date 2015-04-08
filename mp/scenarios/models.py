@@ -181,7 +181,9 @@ class Scenario(Analysis):
                 title = 'Does not intersect with any known dense Acropora patches'
             attributes.append({'title': title, 'data':  ''})
 
-        # if self.anchor_desc
+        if self.anchor_desc:
+            attributes.append({'title': 'Anchorage',
+                               'data': self.anchor_desc_input})
 
         if self.anchorage:
             if self.acropora_pa_input == 'Y':
@@ -190,29 +192,49 @@ class Scenario(Analysis):
                 title = 'Does not intersect with any designated anchorages'
             attributes.append({'title': title, 'data':  ''})
 
-        # if self.boat_use
-        # if self.coral_bleach
-        # if self.coral_cover
+        if self.boat_use:
+            d = "%s to %s" % (self.boat_use_min, self.boat_use_max)
+            attributes.append({'title': 'Boater Use Intensity (OFR 2015)', 'data': d})
+
+        if self.coral_bleach:
+            d = "%s to %s" % (self.coral_bleach_min, self.coral_bleach_max)
+            attributes.append({'title': 'Coral Bleaching', 'data': d})
+
+        if self.coral_cover:
+            d = "%s to %s" % (self.coral_cover_min, self.coral_cover_max)
+            attributes.append({'title': 'Coral Percent Cover', 'data': d})
 
         if self.coral_density:
             attributes.append({'title': 'Minimum estimated coral organisms per sq meter',
                                'data':  str(int(self.coral_density_max))})
 
-        # if self.coral_disease
-        # if self.coral_resilience
+        if self.coral_disease:
+            d = "%s to %s" % (self.coral_disease_min, self.coral_disease_max)
+            attributes.append({'title': 'Coral Disease', 'data': d})
+
+        if self.coral_resilience:
+            d = "%s to %s" % (self.coral_resilience_min, self.coral_resilience_max)
+            attributes.append({'title': 'Coral resilience', 'data': d})
 
         if self.coral_richness:
             attributes.append({'title': 'Minimum estimated coral species per survey area',
                                'data':  str(int(self.coral_richness_max))})
 
-        # if self.coral_soft
+        if self.coral_soft:
+            d = "%s to %s" % (self.coral_soft_min, self.coral_soft_max)
+            attributes.append({'title': 'Soft Coral Percent Cover', 'data': d})
 
         if self.depth_mean:
             attributes.append({'title': 'Depth Range',
                                'data':  str(int(self.depth_mean_min)) + ' to ' + str(int(self.depth_mean_max)) + ' meters'})
 
-        # if self.divefish_overlap
-        # if self.extdive_use
+        if self.divefish_overlap:
+            d = "%s to %s" % (self.divefish_overlap_min, self.divefish_overlap_max)
+            attributes.append({'title': 'Diving and Fishing use overlap (OFR 2015)', 'data': d})
+
+        if self.extdive_use:
+            d = "%s to %s" % (self.extdive_use_min, self.extdive_use_max)
+            attributes.append({'title': 'Extractive Diving Use Intensity (OFR 2015)', 'data': d})
 
         if self.impacted:
             if self.acropora_pa_input == 'Y':
@@ -246,7 +268,9 @@ class Scenario(Analysis):
                 title = 'Does not contain any Mooring buoys'
             attributes.append({'title': title, 'data':  ''})
 
-        # if self.mooring_desc
+        if self.mooring_desc:
+            attributes.append({'title': 'Mooring',
+                               'data': self.mooring_desc_input})
 
         if self.outfall_distance:
             attributes.append({'title': 'Minimum Distance to Outfall',
@@ -276,20 +300,45 @@ class Scenario(Analysis):
             attributes.append({'title': 'Minimum amount of Seagrass',
                                'data':  str(int(self.prcnt_sg_min)) + '%'})
 
-        # if self.reccom_fish
-        # if self.recfish_use
-        # if self.reef_fish_density
-        # if self.reef_fish_richness
-        # if self.scuba_use
+        if self.reccom_fish:
+            d = "%s to %s" % (self.reccom_fish_min, self.reccom_fish_max)
+            attributes.append({'title': 'Recreationally and commercially important fishes', 'data': d})
+
+        if self.recfish_use:
+            d = "%s to %s" % (self.recfish_use_min, self.recfish_use_max)
+            attributes.append({'title': 'Recreational Fishing Use Intensity (OFR 2015)', 'data': d})
+
+        if self.reef_fish_density:
+            d = "%s to %s" % (self.reef_fish_density_min, self.reef_fish_density_max)
+            attributes.append({'title': 'Relative Reef Fish Density', 'data': d})
+
+        if self.reef_fish_richness:
+            d = "%s to %s" % (self.reef_fish_richness_min, self.reef_fish_richness_max)
+            attributes.append({'title': 'Number of Reef Fish Species', 'data': d})
+
+        if self.scuba_use:
+            d = "%s to %s" % (self.scuba_use_min, self.scuba_use_max)
+            attributes.append({'title': 'Scuba Diving Use Intensity (OFR 2015)', 'data': d})
 
         if self.shore_distance:
             attributes.append({'title': 'Distance to Shore',
                                'data':  str(self.shore_distance_min) + ' to ' + str(self.shore_distance_max) + ' km'})
 
-        # if self.spear_use
-        # if self.sponge
-        # if self.total_use
-        # if self.watersport_use
+        if self.spear_use:
+            d = "%s to %s" % (self.spear_use_min, self.spear_use_max)
+            attributes.append({'title': 'Spearfishing Use Intensity (OFR 2015)', 'data': d})
+
+        if self.sponge:
+            d = "%s to %s" % (self.sponge_min, self.sponge_max)
+            attributes.append({'title': 'Sponge Percent Cover', 'data': d})
+
+        if self.total_use:
+            d = "%s to %s" % (self.total_use_min, self.total_use_max)
+            attributes.append({'title': 'Total Use Intensity (OFR 2015)', 'data': d})
+
+        if self.watersport_use:
+            d = "%s to %s" % (self.watersport_use_min, self.watersport_use_max)
+            attributes.append({'title': 'Water Sports (OFR 2015)', 'data': d})
 
         attributes.append({'title': 'Number of Grid Cells',
                            'data': '{:,}'.format(self.grid_cells.count(',')+1)})
@@ -323,15 +372,10 @@ class Scenario(Analysis):
 
         self.active = True # ??
 
-        # import datetime
-        # start=datetime.datetime.now()
-
         self.geometry_final_area = self.geometry_dissolved.area
 
         self.grid_cells = ','.join(str(i)
                                      for i in query.values_list('id', flat=True))
-
-        # print("Elapsed:", datetime.datetime.now() - start)
 
         if self.grid_cells == '':
             self.satisfied = False
