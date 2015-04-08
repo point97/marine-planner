@@ -142,3 +142,7 @@ If you're running postgis 1.5, you won't have the `st_makevalid` function so you
 Enable sharing for all groups:
 
     python manage.py enable_sharing --all
+
+Make sure admin media is available at media path:
+
+     ln -s /home/ofr/env/ofr/lib/python2.7/site-packages/django/contrib/admin/static/admin /home/ofr/webapps/marine_planner_media/admin
