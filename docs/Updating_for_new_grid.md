@@ -147,10 +147,22 @@ Make sure admin media is available at media path:
 
      ln -s /home/ofr/env/ofr/lib/python2.7/site-packages/django/contrib/admin/static/admin /home/ofr/webapps/marine_planner_media/admin
 
+Migrating user data from old instances:
+
+    # Old server
+    python manage.py dumpdata \
+      --exclude scenarios.gridcell \
+      --exclude contenttypes \
+      --exclude auth.permission \
+      --indent=4 > /tmp/all_minus_gridcell.json
+
+   # New server
+   python manage.py loaddata --ignorenonexistent /tmp/all_minus_gridcell.json
+   python manage.py enable_sharing --all
 
 ## Updating with new survey results
 
-Note this is done before we get the grid shapefile back. So it's basically the first step but this doc assumes you're starting from a new shapefile delivery
+So this is basically the *first* step that kicks off the whole process - the processing and delivery of the viewpoint survey data to OFR who will subsequently deliver a processed shapefile. This doc assumes you're starting from a new shapefile delivery but this initial step is included for reference.
 
 Updating / Exporting Survey Results
 
