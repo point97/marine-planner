@@ -27,9 +27,9 @@ class AOI(PolygonFeature):
     @property
     def serialize_attributes(self):
         attributes = []
+        attributes.extend(self.summary_reports())
         if self.description:
             attributes.append({'title': 'Description', 'data': self.description})
-        attributes.extend(self.summary_reports())
         return {'event': 'click', 'attributes': attributes}
 
     @classmethod
