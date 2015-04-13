@@ -173,8 +173,8 @@ madrona.onShow(function(){
             {% elif forloop.counter == 5 %}
               Management
             {% endif %}
-          <i style="font-size:75%">( page {{ forloop.counter }} of 6 )</i>
         </p>
+          <i>( page {{ forloop.counter }} of 6 )</i>
         <p class="instructions">Select criteria to filter your results</p>
         <div id="step{{ forloop.counter }}_inputs">
             <ul class="parameters">
@@ -203,12 +203,15 @@ madrona.onShow(function(){
                                     {% if field_min %}
                                         {{ field_min.field.widget.attrs.pre_text }}
                                         {{ field_min.as_widget }}
+                                        {{ field_min.field.widget.attrs.post_text }}
                                     {% endif %}{% if field_max %}
                                         {{ field_max.field.widget.attrs.pre_text }}
                                         {{ field_max.as_widget }}
+                                        {{ field_max.field.widget.attrs.post_text }}
                                     {% endif %}{% if field_input %}
                                         {{ field_input.field.widget.attrs.pre_text }}
                                         {{ field_input.as_widget }}
+                                        {{ field_min.field.widget.attrs.post_text }}
                                     {% endif %}
 
                                     {% if field.field.widget.attrs.layer_id and field.field.widget.attrs.layer_title %}

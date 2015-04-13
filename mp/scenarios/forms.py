@@ -87,7 +87,7 @@ class ScenarioForm(FeatureForm):
     coral_cover_max = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to', 'post_text': 'percent'}))
     coral_cover_input = forms.FloatField(widget=DualSliderWidget('coral_cover_min', 'coral_cover_max', min=0, max=34, step=1))
 
-    coral_density = forms.BooleanField(label="Coral Density (corals per sq m)", required=False, help_text="The maximum value of coral density (coral per square meter) in all compiled benthic survey sites within the Planning Unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    coral_density = forms.BooleanField(label="Coral Density", required=False, help_text="The maximum value of coral density (coral per square meter) in all compiled benthic survey sites within the Planning Unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     coral_density_min = forms.FloatField(required=False, initial=2, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     coral_density_max = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to', 'post_text': 'per m²'}))
     coral_density_input = forms.FloatField(widget=DualSliderWidget('coral_density_min', 'coral_density_max', min=0, max=13, step=0.5))
@@ -107,7 +107,7 @@ class ScenarioForm(FeatureForm):
     coral_richness_max = forms.FloatField(required=False, initial=10, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     coral_richness_input = forms.FloatField(widget=DualSliderWidget('coral_richness_min', 'coral_richness_max', min=0, max=15, step=1))
 
-    coral_soft = forms.BooleanField(label="Soft Coral Percent Cover", required=False, help_text="The maximum value of percent gorgonian cover in all compiled benthic survey sites within the Planning Unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    coral_soft = forms.BooleanField(label="Soft Coral Percent Cover", required=False, help_text="The maximum value of percent Soft Coral cover in all compiled benthic survey sites within the Planning Unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     coral_soft_min = forms.FloatField(required=False, initial=2, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     coral_soft_max = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to', 'post_text': 'percent'}))
     coral_soft_input = forms.FloatField(widget=DualSliderWidget('coral_soft_min', 'coral_soft_max', min=0, max=38, step=1))
@@ -139,7 +139,7 @@ class ScenarioForm(FeatureForm):
     large_live_coral = forms.BooleanField(label="Large Live Corals", required=False, help_text="Planning units that contain at least one known live coral greater than 2m.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     large_live_coral_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Y', 'Include'), ('N', 'Exclude')), initial='Y')
 
-    mooring_buoy = forms.BooleanField(label="Mooring Buoys", required=False, help_text="Planning units that contain at least one mooring buoy.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 360, 'layer_title': 'Show Mooring Buoys'}))
+    mooring_buoy = forms.BooleanField(label="Mooring Buoys", required=False, help_text="Planning units that contain at least one mooring buoy.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 441, 'layer_title': 'Show Mooring Buoys'}))
     mooring_buoy_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Y', 'Include'), ('N', 'Exclude')), initial='Y')
 
     mooring_desc = forms.BooleanField(label="Mooring (Berhinger data)", required=False, help_text="Planning units that contain numbers of moored boats based on a point density analysis at 500 m radius around each moored boat observed.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
@@ -155,35 +155,35 @@ class ScenarioForm(FeatureForm):
     outfall_distance = forms.BooleanField(label="Distance from Outfall", required=False, help_text="Distance from nearest outfall in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 350, 'layer_title': 'Show Outfall Locations'}))
     outfall_distance_min = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max', 'pre_text': '', 'post_text': 'miles'}, min=0, max=60, step=.5))
 
-    pier_distance = forms.BooleanField(label="Distance to Pier", required=False, help_text="Distance from nearest pier in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 326, 'layer_title': 'Show Pier Locations'}))
+    pier_distance = forms.BooleanField(label="Distance from Pier", required=False, help_text="Distance from nearest pier in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 326, 'layer_title': 'Show Pier Locations'}))
     pier_distance_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     pier_distance_max = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to', 'post_text': 'miles'}))
     pier_distance_input = forms.FloatField(widget=DualSliderWidget('pier_distance_min', 'pier_distance_max', min=0, max=22, step=0.5))
 
-    pillar_presence = forms.BooleanField(label="Pillar Corals", required=False, help_text="Planning units that contain at least one known pillar coral. (FWC database)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 309, 'layer_title': 'Show Pillar Coral Sites'}))
+    pillar_presence = forms.BooleanField(label="Pillar Corals", required=False, help_text="Planning units that contain at least one known pillar coral. (FWC database)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 398, 'layer_title': 'Show Pillar Coral Sites'}))
     pillar_presence_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('P', 'Include'), ('A', 'Exclude')), initial='Y')
 
-    prcnt_art = forms.BooleanField(label="Percent Artificial Substrate", required=False, help_text="Minimum percent of mapped artificial substrate area (including dump sites, outfall pipes and designated artificial reefs) within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    prcnt_art = forms.BooleanField(label="Percent Artificial Substrate", required=False, help_text="Minimum percent of mapped artificial substrate area (including dump sites, outfall pipes and designated artificial reefs) within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 436, 'layer_title': 'Show Artificial Habitat'}))
     prcnt_art_min = forms.FloatField(required=False, initial=30, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Minimum Percentage'}))
     prcnt_art_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     prcnt_art_input = forms.FloatField(widget=DualSliderWidget('prcnt_art_min', 'prcnt_art_max', min=0, max=100, step=10))
 
-    prcnt_reef = forms.BooleanField(label="Percent Reef", required=False, help_text="Minimum percent of mapped reef area within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    prcnt_reef = forms.BooleanField(label="Percent Reef", required=False, help_text="Minimum percent of mapped reef area within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 437, 'layer_title': 'Show Coral Reef and Hardbottom Habitat'}))
     prcnt_reef_min = forms.FloatField(required=False, initial=30, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Minimum Percentage'}))
     prcnt_reef_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     prcnt_reef_input = forms.FloatField(widget=DualSliderWidget('prcnt_reef_min', 'prcnt_reef_max', min=0, max=100, step=10))
 
-    prcnt_sand = forms.BooleanField(label="Percent Sand", required=False, help_text="Minimum percent of mapped sand area within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    prcnt_sand = forms.BooleanField(label="Percent Sand", required=False, help_text="Minimum percent of mapped sand area within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 438, 'layer_title': 'Show Sand Habitat'}))
     prcnt_sand_min = forms.FloatField(required=False, initial=30, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Minimum Percentage'}))
     prcnt_sand_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     prcnt_sand_input = forms.FloatField(widget=DualSliderWidget('prcnt_sand_min', 'prcnt_sand_max', min=0, max=100, step=10))
 
-    prcnt_sg = forms.BooleanField(label="Percent Seagrass", required=False, help_text="Minimum percent of mapped seagrass area within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 318, 'layer_title': 'Show Seagrass Habitats'}))
+    prcnt_sg = forms.BooleanField(label="Percent Seagrass", required=False, help_text="Minimum percent of mapped seagrass area within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 439, 'layer_title': 'Show Seagrass Habitat'}))
     prcnt_sg_min = forms.FloatField(required=False, initial=30, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Minimum Percentage'}))
     prcnt_sg_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     prcnt_sg_input = forms.FloatField(widget=DualSliderWidget('prcnt_sg_min', 'prcnt_sg_max', min=0, max=100, step=10))
 
-    reccom_fish = forms.BooleanField(label="Recreationally and commercially important fishes", required=False, help_text="Mean density of recreationally and commercially important fish per PSU (RVC 2012 & 2013)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    reccom_fish = forms.BooleanField(label="Recreationally and commercially important fishes", required=False, help_text="Mean density of recreationally and commercially important fish per Secondary Sampling Unit (RVC 2012 & 2013)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', }))
     reccom_fish_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     reccom_fish_max = forms.FloatField(required=False, initial=500, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     reccom_fish_input = forms.FloatField(widget=DualSliderWidget('reccom_fish_min', 'reccom_fish_max', min=0, max=2275, step=1))
@@ -193,12 +193,12 @@ class ScenarioForm(FeatureForm):
     recfish_use_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     recfish_use_input = forms.FloatField(widget=DualSliderWidget('recfish_use_min', 'recfish_use_max', min=0, max=100, step=10))
 
-    reef_fish_density = forms.BooleanField(label="Relative Reef Fish Density", required=False, help_text="Mean fish density per PSU (RVC 2012 & 2013)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    reef_fish_density = forms.BooleanField(label="Relative Reef Fish Density", required=False, help_text="Mean fish density per Secondary Sampling Unit (RVC 2012 & 2013)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     reef_fish_density_min = forms.FloatField(required=False, initial=10, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     reef_fish_density_max = forms.FloatField(required=False, initial=500, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     reef_fish_density_input = forms.FloatField(widget=DualSliderWidget('reef_fish_density_min', 'reef_fish_density_max', min=0, max=5571, step=1))
 
-    reef_fish_richness = forms.BooleanField(label="Number of Reef Fish Species", required=False, help_text="Number of fish species per PSU (RVC 2012 & 2013)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+    reef_fish_richness = forms.BooleanField(label="Number of Reef Fish Species", required=False, help_text="Number of fish species per Secondary Sampling Unit (RVC 2012 & 2013)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     reef_fish_richness_min = forms.FloatField(required=False, initial=2, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     reef_fish_richness_max = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     reef_fish_richness_input = forms.FloatField(widget=DualSliderWidget('reef_fish_richness_min', 'reef_fish_richness_max', min=0, max=56, step=1))

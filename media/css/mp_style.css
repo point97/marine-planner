@@ -1163,6 +1163,10 @@ body.borderless #map-wrapper {
 }
 
 .step-text {
-    font-size: 18px;
-    font-weight: 900;
+    font-size: 19px;
+    display: inline-block;
+    color: #EF3824;
+    font-family: bebas_neueregular;
+    height: 20px;
+    line-height: 20px;
 }
