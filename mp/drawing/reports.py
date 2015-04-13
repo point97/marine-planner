@@ -1,3 +1,4 @@
+# coding: utf-8
 from general.utils import format_precision
 from django.db.models import Q
 from django.conf import settings
@@ -64,14 +65,12 @@ def get_summary_reports(grid_cells):
 
     # ------- attributes -------
 
-    title = 'Dense Acropora patches'
-    acerv_area = get_sum(grid_cells, 'acerv_area') / 1000000.0  # sq m to sq km
-    percent_aoi = (acerv_area / total_area) * 100.0
-    data = str(format_precision(acerv_area, 2)) + ' sq km (' + \
-        str(format_precision(percent_aoi, 2)) + '%)'
+    title = 'Area of mapped Dense Acropora cervicornis'
+    acerv_area = get_sum(grid_cells, 'acerv_area')
+    data = str(format_precision(acerv_area, 0)) + ' m²'
     attributes.append({'title': title, 'data': data})
 
-    title = 'Acropora'
+    title = 'Dense Acropora presence'
     data = 'No Known Dense Acropora Patches'
     num_acropora = get_value_count(grid_cells, 'acropora_pa', 'Y')
     if num_acropora == 1:
@@ -80,7 +79,7 @@ def get_summary_reports(grid_cells):
         data = str(num_acropora) + ' cells are known to contain Dense Acropora Patches'
     attributes.append({'title': title, 'data': data})
 
-    title = "Anchoring (Berhinger data)"
+    title = "Anchoring density"
     levels = ['Low', 'Medium', 'High', 'Very High']
     data = []
     for level in levels:
@@ -88,18 +87,16 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title,
                        'data': ', '.join(["%s (%s cells)" % d for d in data])})
 
-    title = 'Anchorages'
-    data = 'No Designated Anchorages'
+    title = 'Intersects with designated anchorage'
+    data = 'No'
     num_anchorages = get_value_count(grid_cells, 'anchorage', 'Y')
     if num_anchorages >= 1:
-        data = str(num_anchorages) + ' cells contain Designated Anchorages'
+        data = 'Yes'
     attributes.append({'title': title, 'data': data})
 
-    title = 'Artifical Reefs'
-    art_area = get_sum(grid_cells, 'art_area') / 1000000.0  # sq m to sq km
-    percent_aoi = (art_area / total_area) * 100.0
-    data = str(format_precision(art_area, 2)) + ' sq km (' + \
-        str(format_precision(percent_aoi, 2)) + '%)'
+    title = 'Artificial Habitats'
+    art_area = get_sum(grid_cells, 'art_area')
+    data = str(format_precision(art_area, 0)) + ' m²'
     attributes.append({'title': title, 'data': data})
 
     title = 'Boater Use Intensity (OFR 2015)'
@@ -210,7 +207,11 @@ def get_summary_reports(grid_cells):
     depth_range = '%s to %s feet' %(format_precision(min_depth,0), format_precision(max_depth,0))
     attributes.append({'title': 'Depth Range', 'data': depth_range})
 
-    title = 'Diving and Fishing use overlap (OFR 2015)'
+    mean_depth = get_average(grid_cells, 'depth_mean')  # mean of mean depth?
+    data = '%s feet' % (format_precision(mean_depth, 0))
+    attributes.append({'title': 'Average Depth', 'data': data})
+
+    title = 'Diving and Fishing use overlap'
     val = get_sum(grid_cells, 'divefish_overlap')
     data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
@@ -220,7 +221,7 @@ def get_summary_reports(grid_cells):
     data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
-    title = 'Impact Sources'
+    title = 'Mapped Impact Source'
     data = 'No Mapped Impact Sources'
     num_impacted = get_value_count(grid_cells, 'impacted', 'Y')
     if num_impacted == 1:
@@ -240,9 +241,9 @@ def get_summary_reports(grid_cells):
 
     min_distance_to_inlet, max_distance_to_inlet = get_range(grid_cells, 'inlet_distance')
     distance_to_inlet = '%s to %s mi' %(format_precision(min_distance_to_inlet,1), format_precision(max_distance_to_inlet,1))
-    attributes.append({'title': 'Distance to Nearest Coastal Inlet', 'data': distance_to_inlet})
+    attributes.append({'title': 'Distance to Nearest Inlet', 'data': distance_to_inlet})
 
-    title = 'Large Live Corals'
+    title = 'Large Live Coral'
     data = 'No Known Large Live Corals'
     num_large_live_corals = get_value_count(grid_cells, 'large_live_coral', 'Y')
     if num_large_live_corals == 1:
@@ -260,7 +261,7 @@ def get_summary_reports(grid_cells):
         data = str(num_mooring_buoys) + ' cells contain Mooring Buoys'
     attributes.append({'title': title, 'data': data})
 
-    title = "Mooring (Berhinger data)"
+    title = "Mooring density"
     levels = ['Low', 'Medium', 'High', 'Very High']
     data = []
     for level in levels:
@@ -276,7 +277,7 @@ def get_summary_reports(grid_cells):
     distance_to_pier = '%s to %s mi' %(format_precision(min_distance_to_pier,1), format_precision(max_distance_to_pier,1))
     attributes.append({'title': 'Distance to Nearest Pier', 'data': distance_to_pier})
 
-    title = 'Pillar Corals'
+    title = 'Pillar Coral Presence'
     data = 'No Known Pillar Corals'
     num_pillar_presence = get_value_count(grid_cells, 'pillar_presence', 'P')
     if num_pillar_presence == 1:
@@ -305,10 +306,8 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = 'Reefs'
-    area = get_sum(grid_cells, 'reef_area') / 1000000.0  # sq m to sq km
-    percent_aoi = (area / total_area) * 100.0
-    data = str(format_precision(area, 2)) + ' sq km (' + \
-        str(format_precision(percent_aoi, 2)) + '%)'
+    area = get_sum(grid_cells, 'reef_area')
+    data = str(format_precision(area, 0)) + ' m²'
     attributes.append({'title': title, 'data': data})
 
     title = 'Planning Units with Reef Fish Density data'
@@ -346,10 +345,8 @@ def get_summary_reports(grid_cells):
         attributes.append({'title': 'Regions', 'data': ", ".join(regions)})
 
     title = 'Sand'
-    area = get_sum(grid_cells, 'sand_area') / 1000000.0  # sq m to sq km
-    percent_aoi = (area / total_area) * 100.0
-    data = str(format_precision(area, 2)) + ' sq km (' + \
-        str(format_precision(percent_aoi, 2)) + '%)'
+    area = get_sum(grid_cells, 'sand_area')
+    data = str(format_precision(area, 0)) + ' m²'
     attributes.append({'title': title, 'data': data})
 
     title = 'Scuba Diving Use Intensity (OFR 2015)'
@@ -358,10 +355,8 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = 'Seagrass'
-    area = get_sum(grid_cells, 'sg_area') / 1000000.0  # sq m to sq km
-    percent_aoi = (area / total_area) * 100.0
-    data = str(format_precision(area, 2)) + ' sq km (' + \
-        str(format_precision(percent_aoi, 2)) + '%)'
+    area = get_sum(grid_cells, 'sg_area')
+    data = str(format_precision(area, 0)) + ' m²'
     attributes.append({'title': title, 'data': data})
 
     min_distance_to_shore, max_distance_to_shore = get_range(grid_cells, 'shore_distance')
