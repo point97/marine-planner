@@ -134,7 +134,9 @@ class ScenarioForm(FeatureForm):
     injury_site_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters', 'layer_id': '918', 'layer_title': 'Reef Injury Site'}), choices=(('Y', 'Include'), ('N', 'Exclude')), initial='Y')
 
     inlet_distance = forms.BooleanField(label="Distance from Coastal Inlet", required=False, help_text="Distance from nearest inlet in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 339, 'layer_title': 'Show Inlets and Passes'}))
-    inlet_distance_min = forms.FloatField(required=False, initial=3, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max', 'pre_text': '', 'post_text': 'miles'}, min=0, max=8.5, step=.5))
+    inlet_distance_min = forms.FloatField(required=False, initial=2, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
+    inlet_distance_max = forms.FloatField(required=False, initial=6, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to', 'post_text': 'miles'}))
+    inlet_distance_input = forms.FloatField(widget=DualSliderWidget('inlet_distance_min', 'inlet_distance_max', min=0, max=8.5, step=0.5))
 
     large_live_coral = forms.BooleanField(label="Large Live Corals", required=False, help_text="Planning units that contain at least one known live coral greater than 2m.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     large_live_coral_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Y', 'Include'), ('N', 'Exclude')), initial='Y')
@@ -153,7 +155,9 @@ class ScenarioForm(FeatureForm):
         initial='Low')
 
     outfall_distance = forms.BooleanField(label="Distance from Outfall", required=False, help_text="Distance from nearest outfall in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 350, 'layer_title': 'Show Outfall Locations'}))
-    outfall_distance_min = forms.FloatField(required=False, initial=2, widget=SliderWidget(attrs={'class':'slidervalue', 'range': 'max', 'pre_text': '', 'post_text': 'miles'}, min=0, max=60, step=.5))
+    outfall_distance_min = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
+    outfall_distance_max = forms.FloatField(required=False, initial=40, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to', 'post_text': 'miles'}))
+    outfall_distance_input = forms.FloatField(widget=DualSliderWidget('outfall_distance_min', 'outfall_distance_max', min=0, max=60, step=0.5))
 
     pier_distance = forms.BooleanField(label="Distance from Pier", required=False, help_text="Distance from nearest pier in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 326, 'layer_title': 'Show Pier Locations'}))
     pier_distance_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
@@ -300,8 +304,8 @@ class ScenarioForm(FeatureForm):
     def get_step_5_fields(self):
         names = (
                 ('pier_distance', 'pier_distance_min', 'pier_distance_max', 'pier_distance_input'),
-                ('inlet_distance', 'inlet_distance_min', None),
-                ('outfall_distance', 'outfall_distance_min', None),
+                ('inlet_distance', 'inlet_distance_min', 'inlet_distance_max', 'inlet_distance_input'),
+                ('outfall_distance', 'outfall_distance_min', 'outfall_distance_max', 'outfall_distance_input'),
                 ('mooring_buoy', None, None, 'mooring_buoy_input'),
                 ('anchorage', None, None, 'anchorage_input'),
                 ('injury_site', None, None, 'injury_site_input'),

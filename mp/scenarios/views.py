@@ -299,6 +299,7 @@ def run_filter_query(filters):
 
     if 'inlet_distance' in filters.keys() and filters['inlet_distance']:
         query = query.filter(inlet_distance__gte=filters['inlet_distance_min'])
+        query = query.filter(inlet_distance__lte=filters['inlet_distance_max'])
 
     if 'large_live_coral' in filters.keys() and filters['large_live_coral']:
         query = query.filter(large_live_coral=filters['large_live_coral_input'])
@@ -314,6 +315,7 @@ def run_filter_query(filters):
 
     if 'outfall_distance' in filters.keys() and filters['outfall_distance']:
         query = query.filter(outfall_distance__gte=filters['outfall_distance_min'])
+        query = query.filter(outfall_distance__lte=filters['outfall_distance_max'])
 
     if 'pier_distance' in filters.keys() and filters['pier_distance']:
         query = query.filter(pier_distance__gte=filters['pier_distance_min'])
