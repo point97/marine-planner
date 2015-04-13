@@ -30,7 +30,7 @@
 }
 
 /*.ofr a:hover, .ofr a:focus {
-	color: #EF3824; 
+	color: #EF3824;
 	text-decoration: none;
 }*/
 
@@ -100,6 +100,11 @@
 	font-size: 18px;
 }
 
+.ofr .create-new-button span {
+	font-family: "bebas_neueregular";
+	font-size: 16px;
+}
+
 .ofr .accordion-heading.active {
 	font-weight: inherit;
 }
@@ -163,14 +168,14 @@
 }
 
 .ofr div.olControlZoom a {
-	/*background: #00446D;  
-	background: rgba(0, 68, 109, 0.5);*/	
+	/*background: #00446D;
+	background: rgba(0, 68, 109, 0.5);*/
 	background: white; /* for IE8 */
 	background: rgba(255,255,255, 0.95);
 	color: #00446D;
 }
 
-.ofr div.olControlZoom a:hover {	
+.ofr div.olControlZoom a:hover {
 	background: white; /* for IE8 */
 	background: rgba(255,255,255, 0.95);
 	color: #EF3824;
@@ -186,8 +191,8 @@
 	color: #00446D;
 	top: 250px;
 	right: 12px;
-	height: 300px; 
-	width: 350px; 
+	height: 300px;
+	width: 350px;
 	border-radius: 4px;
 }
 
@@ -199,7 +204,7 @@
 	background: white; /* for IE8 */
 	background: rgba(255,255,255, 0.95);
 	color: #00446D;
-	top: 250px; 
+	top: 250px;
 	right: 12px;
 }
 
@@ -232,7 +237,7 @@
 
 .ofr #basemaps {
 	background-color: white;
-	opacity: .95;	
+	opacity: .95;
 	padding: 0px;
 	margin: 6px;
 }
@@ -266,12 +271,12 @@
 }
 
 .ofr #feedback-tab {
-	/*border-color: white; 
+	/*border-color: white;
 	border-color: rgba(255,255,255,.4);*/
 	border-width: 3px;
 	border-bottom-width: 0px;
 	bottom: -2px;
-	/*background: #00446D;  
+	/*background: #00446D;
 	background: rgba(0, 68, 109, .5);
 	background: rgba(70,104,138,.7);*/
 	margin-left: 50%;
@@ -281,7 +286,7 @@
 	background: white;  /* for IE */
 	background: rgba(255,255,255,.95);
 	/* attemting to fix problem in which IE8 continues to rotate feedback button */
-	/*-webkit-transform: rotate(0deg);	
+	/*-webkit-transform: rotate(0deg);
 	-moz-transform: rotate(0deg);
 	-ms-transform: rotate(0deg);
 	-o-transform: rotate(0deg);
