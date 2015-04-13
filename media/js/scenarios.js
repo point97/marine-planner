@@ -1034,13 +1034,27 @@ function scenariosModel(options) {
 
     self.createPointDesign = function() {};
 
-    //
+    self.uidToId = function(uid) {
+        return parseInt(uid.split("_")[2]);
+    };
+
+    self.scenarioColor = function(id) {
+        // For a given id, return the corresponding color from preset color ramp
+        // ramp is a combination of the "12-class" categoricals from colorbrewer2.org
+
+        var ramp = [
+            '#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c',
+            '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928',
+            '#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3', '#fdb462',
+            '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd', '#ccebc5', '#ffed6f'];
+
+        return ramp[id % ramp.length];
+    };
+
     self.addScenarioToMap = function(scenario, options) {
         var scenarioId,
-            opacity = .8,
-            stroke = 1,
-            fillColor = "#00A29B",
-            strokeColor = "#00827B",
+            opacity = 0.8,
+            stroke = 0,
             zoomTo = (options && options.zoomTo) || false;
 
         if ( scenario ) {
@@ -1059,6 +1073,9 @@ function scenariosModel(options) {
             isScenarioModel = true;
         }
 
+        var fillColor = self.scenarioColor(self.uidToId(scenarioId));
+        var strokeColor = fillColor;
+
         //perhaps much of this is not necessary once a scenario has been added to app.map.layers initially...?
         //(add check for scenario.layer, reset the style and move on?)
         $.ajax( {
@@ -1071,9 +1088,6 @@ function scenariosModel(options) {
                     stroke = scenario.opacity();
                 }
                 if ( isDrawingModel ) {
-                    fillColor = "#C9BE62";
-                    strokeColor = "#A99E42";
-
                     $.ajax( {
                         url: '/drawing/get_geometry_orig/' + scenarioId + '/',
                         type: 'GET',
