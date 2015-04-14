@@ -72,7 +72,8 @@ class ScenarioForm(FeatureForm):
     anchorage = forms.BooleanField(label="Anchorage Areas", required=False, help_text="Planning units that overlap presently designated anchorages.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 334, 'layer_title': 'Show Commercial Anchorage Areas'}))
     anchorage_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Y', 'Include'), ('N', 'Exclude')), initial='Y')
 
-    boat_use = forms.BooleanField(label="Boater Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for boating in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 418, 'layer_title': "Show Boater Use"}))
+    boat_use = forms.BooleanField(label="Boater Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for boating in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+        #, 'layer_id': 418, 'layer_title': "Show Boater Use"}))
     boat_use_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     boat_use_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     boat_use_input = forms.FloatField(widget=DualSliderWidget('boat_use_min', 'boat_use_max', min=1, max=420, step=10))
@@ -117,12 +118,14 @@ class ScenarioForm(FeatureForm):
     depth_mean_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     depth_mean_input = forms.FloatField(widget=DualSliderWidget('depth_mean_min', 'depth_mean_max', min=-11, max=220, step=1))
 
-    divefish_overlap = forms.BooleanField(label="Diving and Fishing use overlap (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for both fishing and diving in the 2015 OFR survey. Negative numbers are more fishing than diving. Positive numbers are more diving than fishing. Zero is an equal amount of both activities.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 424, 'layer_title': "Show Recreational Fishing and Diving Activity Overlap"}))
+    divefish_overlap = forms.BooleanField(label="Diving and Fishing use overlap (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for both fishing and diving in the 2015 OFR survey. Negative numbers are more fishing than diving. Positive numbers are more diving than fishing. Zero is an equal amount of both activities.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+        #  'layer_id': 424, 'layer_title': "Show Recreational Fishing and Diving Activity Overlap"}))
     divefish_overlap_min = forms.FloatField(required=False, initial=10, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     divefish_overlap_max = forms.FloatField(required=False, initial=200, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     divefish_overlap_input = forms.FloatField(widget=DualSliderWidget('divefish_overlap_min', 'divefish_overlap_max', min=-70, max=640, step=10))
 
-    extdive_use = forms.BooleanField(label="Extractive Diving Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for extractive diving in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 421, 'layer_title': "Show Extractive Diving Activities"}))
+    extdive_use = forms.BooleanField(label="Extractive Diving Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for extractive diving in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+        #, 'layer_id': 421, 'layer_title': "Show Extractive Diving Activities"}))
     extdive_use_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     extdive_use_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     extdive_use_input = forms.FloatField(widget=DualSliderWidget('extdive_use_min', 'extdive_use_max', min=0, max=70, step=10))  # spreadsheet says 1 to 65 steps of 10?
@@ -192,7 +195,8 @@ class ScenarioForm(FeatureForm):
     reccom_fish_max = forms.FloatField(required=False, initial=500, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     reccom_fish_input = forms.FloatField(widget=DualSliderWidget('reccom_fish_min', 'reccom_fish_max', min=0, max=2275, step=1))
 
-    recfish_use = forms.BooleanField(label="Recreational Fishing Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for recreational fishing in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 420, 'layer_title': "Show Recreational Fishing Activities"}))
+    recfish_use = forms.BooleanField(label="Recreational Fishing Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for recreational fishing in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+        #, 'layer_id': 420, 'layer_title': "Show Recreational Fishing Activities"}))
     recfish_use_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     recfish_use_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     recfish_use_input = forms.FloatField(widget=DualSliderWidget('recfish_use_min', 'recfish_use_max', min=0, max=100, step=10))
@@ -207,7 +211,8 @@ class ScenarioForm(FeatureForm):
     reef_fish_richness_max = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     reef_fish_richness_input = forms.FloatField(widget=DualSliderWidget('reef_fish_richness_min', 'reef_fish_richness_max', min=0, max=56, step=1))
 
-    scuba_use = forms.BooleanField(label="Scuba Diving Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for SCUBA diving in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 419, 'layer_title': "Show Scuba Diving Activities"}))
+    scuba_use = forms.BooleanField(label="Scuba Diving Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for SCUBA diving in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+        # , 'layer_id': 419, 'layer_title': "Show Scuba Diving Activities"}))
     scuba_use_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     scuba_use_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     scuba_use_input = forms.FloatField(widget=DualSliderWidget('scuba_use_min', 'scuba_use_max', min=0, max=630, step=10))
@@ -217,7 +222,8 @@ class ScenarioForm(FeatureForm):
     shore_distance_max = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to', 'post_text': 'miles'}))
     shore_distance_input = forms.FloatField(widget=DualSliderWidget('shore_distance_min', 'shore_distance_max', min=0, max=10, step=0.5))
 
-    spear_use = forms.BooleanField(label="Spearfishing Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for spearfishing in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 422, 'layer_title': "Show Spearfishing Activities"}))
+    spear_use = forms.BooleanField(label="Spearfishing Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for spearfishing in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+        # , 'layer_id': 422, 'layer_title': "Show Spearfishing Activities"}))
     spear_use_min = forms.FloatField(required=False, initial=10, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     spear_use_max = forms.FloatField(required=False, initial=40, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     spear_use_input = forms.FloatField(widget=DualSliderWidget('spear_use_min', 'spear_use_max', min=0, max=50, step=10))
@@ -228,14 +234,16 @@ class ScenarioForm(FeatureForm):
     sponge_input = forms.FloatField(widget=DualSliderWidget('sponge_min', 'sponge_max', min=0, max=32, step=1))
 
     total_use = forms.BooleanField(label="Total Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+        # todo sublayers, 'layer_id': 417, 'layer_title': 'Show All Activities'}))
     total_use_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     total_use_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     total_use_input = forms.FloatField(widget=DualSliderWidget('total_use_min', 'total_use_max', min=0, max=720, step=10))
 
-    watersport_use = forms.BooleanField(label="Water Sports (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for watersports in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 423, 'layer_title': "Show Water Sports Activities"}))
+    watersport_use = forms.BooleanField(label="Water Sports (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for watersports in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
+        # , 'layer_id': 423, 'layer_title': "Show Water Sports Activities"}))
     watersport_use_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     watersport_use_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
-    watersport_use_input = forms.FloatField(widget=DualSliderWidget('total_use_min', 'total_use_max', min=0, max=60, step=10))
+    watersport_use_input = forms.FloatField(widget=DualSliderWidget('watersport_use_min', 'watersport_use_max', min=0, max=60, step=10))
 
     # Habitat
     def get_step_1_fields(self):

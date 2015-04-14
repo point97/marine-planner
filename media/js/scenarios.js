@@ -246,6 +246,8 @@ function scenarioFormModel(options) {
                 layer.activateLayer();
             }
             return true;
+        } else {
+            console.error("layerID " + layerID + " doesn't exist");
         }
         return false;
     };
