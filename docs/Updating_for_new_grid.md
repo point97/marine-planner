@@ -112,7 +112,7 @@ Then ssh into the ofr production server, pull code and run migrations
 
     ssh ofr
     source env/ofr/bin/activate
-    cd webapps/marine_planner
+    cd webapps/marine_planner/mp
 
     git fetch
     git reset -q --hard origin/ofr
