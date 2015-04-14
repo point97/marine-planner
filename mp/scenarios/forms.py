@@ -165,7 +165,7 @@ class ScenarioForm(FeatureForm):
     pier_distance_input = forms.FloatField(widget=DualSliderWidget('pier_distance_min', 'pier_distance_max', min=0, max=22, step=0.5))
 
     pillar_presence = forms.BooleanField(label="Pillar Corals", required=False, help_text="Planning units that contain at least one known pillar coral. (FWC database)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 398, 'layer_title': 'Show Pillar Coral Sites'}))
-    pillar_presence_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('P', 'Include'), ('A', 'Exclude')), initial='Y')
+    pillar_presence_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Y', 'Include'), ('N', 'Exclude')), initial='P')
 
     prcnt_art = forms.BooleanField(label="Percent Artificial Substrate", required=False, help_text="Minimum percent of mapped artificial substrate area (including dump sites, outfall pipes and designated artificial reefs) within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 436, 'layer_title': 'Show Artificial Habitat'}))
     prcnt_art_min = forms.FloatField(required=False, initial=30, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Minimum Percentage'}))
