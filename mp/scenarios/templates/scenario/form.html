@@ -175,7 +175,7 @@ madrona.onShow(function(){
             {% endif %}
         </p>
           <i>( page {{ forloop.counter }} of 6 )</i>
-        <p class="instructions">Select criteria to filter your results</p>
+        <p class="instructions">Select values to filter Planning Units</p>
         <div id="step{{ forloop.counter }}_inputs">
             <ul class="parameters">
                 {% for field, field_min, field_max, field_input in step %}
@@ -306,7 +306,7 @@ madrona.onShow(function(){
            <i style="font-size:75%">( page 6 of 6 )</i>
         </p>
         <div data-bind="css: { 'disabled': gridCellsRemaining()==0 }">
-            <p class="instructions">Provide a <b>Name</b> to identify your Planning Unit Filtering design </p>
+            <p class="instructions">Please name your design by the Management Action Code, the date, and your first name and last initial. (N143_20151231_JohnD) </p>
             <div class="step5-inputs">
                 <div class="step5-param">
                     {{ form.name.errors }}
@@ -315,7 +315,7 @@ madrona.onShow(function(){
                         <span class="help-inline">The <b>Name</b> field is required.</span>
                     </div>
                 </div>
-                <p class="instructions">Optionally, you may add a <b>Description</b> <!--and/or attach a file--> </p>
+                <p class="instructions">Please copy and paste the full management action title here and add any other pertinent information about this design</b> <!--and/or attach a file--> </p>
                 <div class="step5-param">
                     {{ form.description.errors }}
                     {{ form.description }}

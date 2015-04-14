@@ -7,9 +7,9 @@
     madrona.onShow(function(){
         madrona.setupForm($('#polygon-design-form'));
         var max_step = 2;
-        
+
         var step = 1;
-        
+
         function validate(step) {
             return_value = true;
             if (step == 1) {
@@ -21,16 +21,16 @@
                     return_value = false;
                 }
             } else if (step == max_step) {
-            
-            } 
+
+            }
             return return_value;
-        }; 
+        };
 
         function wizard(action) {
             if (step == 1 && action == 'next') {
                 if (app.viewModel.scenarios.drawingFormModel.isEditing()) {
                     // do nothing, button is / should be disabled
-                    return; 
+                    return;
                 }
                 if (validate(step)) {
                     step += 1;
@@ -68,8 +68,8 @@
             step = 2; // form errors exist
         {% endif %}
         wizard();
-        
-        
+
+
         $('#id_name').keypress(function (e) {
             if (e.which === 13) {
                 $('#drawing-form .submit_button').click();
@@ -81,7 +81,7 @@
         /*
         $('#drawing-form .submit_button').click( function() {
             var name = $('#id_name').val();
-            if ($.trim(name) !== "") {  
+            if ($.trim(name) !== "") {
                 return true;
             }
             $('#invalid-name-message').show();
@@ -94,10 +94,10 @@
 
 {% if form.media %} {{ form.media }} {% endif %}
 <h4>
-    Drawing 
+    Drawing
 </h4>
 
-<form id="polygon-design-form" action="{{action}}" method="post"> 
+<form id="polygon-design-form" action="{{action}}" method="post">
     {% for hidden in form.hidden_fields %}
         <div style="display:none;">
             {{ hidden.errors }}
@@ -137,10 +137,10 @@
             <div id="draw-editing" data-bind="visible: isEditing()">
                 <div id="editing-instructions" class="well">
                     <p class="instructions">
-                        <b>Click and drag</b> the handles or vertices of the drawing.                 
+                        <b>Click and drag</b> the handles or vertices of the drawing.
                     </p>
                     <p class="instructions">
-                        When you are done, click <b>Done Editing</b> below.                 
+                        When you are done, click <b>Done Editing</b> below.
                     </p>
                 </div>
                 <a class="btn" style="margin-top: 10px" data-bind="click: clipToGrid">
@@ -155,28 +155,28 @@
         </div>
         <div style="position: absolute; bottom: 66px; left-margin: 1px">
             <label id="planning-grid-layer-toggle" data-bind="click: togglePlanningGridLayer">
-                <input id="planning-grid-layer-checkbox" data-bind="checked: planningGridLayer.active()" type="checkbox" name="checkbox" value="value"> 
+                <input id="planning-grid-layer-checkbox" data-bind="checked: planningGridLayer.active()" type="checkbox" name="checkbox" value="value">
                 Show Planning Grid</input>
             </label>
         </div>
         <div id="PanelGeometry"></div>
     </div>
-     
+
     <div class="step" id="step2">
         <p class="step-text"><i>Step 2 of 2 </i></p>
-        <p class="instructions" style="margin-top: 10px">Provide a <b>Name</b> to identify your Drawing </p>
+        <p class="instructions" style="margin-top: 10px">Please name your drawing by the Management Action Code, the date (YYYYMMDD), and your first name and last initial. (N143_20151231_JohnD) </p>
         <div class="step3-inputs">
             <div class="step3-param">
                 {{ form.name.errors }}
-                {{ form.name }}  
+                {{ form.name }}
                 <div id="invalid-name-message" class="control-group error" style="display: none; margin-top: -10px; margin-left: -5px;">
                     <span class="help-inline">The <b>Name</b> field is required.</span>
-                </div>                     
+                </div>
             </div>
-            <p class="instructions">Optionally, you may add a <b>Description</b> <!--and/or attach a file--> </p>
+            <p class="instructions">Please provide any pertinent information about this drawing here</b> <!--and/or attach a file--> </p>
             <div class="step3-param">
                 {{ form.description.errors }}
-                {{ form.description }}            
+                {{ form.description }}
             </div>
         </div>
     </div>
@@ -194,10 +194,10 @@
 <div>
     <div class="btn-group pull-left" style="margin-left: 14px">
         <a href="#" class="cancel_button button red btn"><span>Cancel</span></a>
-        
+
     </div>
 </div>
-   
+
 <style type="text/css">
 
 </style>
