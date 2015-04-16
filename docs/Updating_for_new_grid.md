@@ -99,6 +99,17 @@ Verify Planning Grid on the tool and via the following URLs
     http://util.point97.io/tiles/OFR_Planning_Grid/14/4548/6946.grid.json
 
 
+## Fixing slivers
+
+For an unknown reason, tiny gaps sometimes appear between polygons delivered by the client. These gaps are visibly insignificant (< 1mm on the ground) but can cause the union step in designs to think they are non-adjacent.
+
+A quick fix is to buffer by some tiny amount. Confirm the presence of the sliver bug, identify the widest gap between cells and buffer by slightly more than 1/2 that amount:
+
+  UPDATE "public"."scenarios_gridcell"
+  SET "geometry" = ST_Multi(ST_Buffer("geometry", 0.0003));
+
+  VACUUM ANALYZE;
+
 
 ## Deployment
 
