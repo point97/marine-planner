@@ -1040,13 +1040,10 @@ function scenariosModel(options) {
 
     self.scenarioColor = function(id) {
         // For a given id, return the corresponding color from preset color ramp
-        // ramp is a combination of the "12-class" categoricals from colorbrewer2.org
+        // uses the "6 class Set 1" color ramp from colorbrewer2.org
 
-        var ramp = [
-            '#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c',
-            '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928',
-            '#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3', '#fdb462',
-            '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd', '#ccebc5', '#ffed6f'];
+        var ramp = ["#e41a1c", "#377eb8", "#4daf4a",
+                    "#984ea3", "#ff7f00", "#ffff33"];
 
         return ramp[id % ramp.length];
     };
