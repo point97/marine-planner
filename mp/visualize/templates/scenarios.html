@@ -29,7 +29,6 @@
                     <div class="accordion" style="">
 
                         <!-- PLANNING UNIT FILTERING -->
-                        {% if user.is_staff %}
                         <div>
                             <div class="accordion-group" style="border: 1px solid #e5e5e5;">
                                 <div class="accordion-heading" data-bind="click: toggleScenariosOpen, css: { 'active': isScenariosOpen() }">
@@ -96,7 +95,6 @@
                                 </div>
                             </div>
                         </div>
-                        {% endif %}
                         <!-- end planning unit filtering -->
 
                         <!-- DRAWINGS -->
