@@ -1034,13 +1034,24 @@ function scenariosModel(options) {
 
     self.createPointDesign = function() {};
 
-    //
+    self.uidToId = function(uid) {
+        return parseInt(uid.split("_")[2]);
+    };
+
+    self.scenarioColor = function(id) {
+        // For a given id, return the corresponding color from preset color ramp
+        // uses the "6 class Set 1" color ramp from colorbrewer2.org
+
+        var ramp = ["#e41a1c", "#377eb8", "#4daf4a",
+                    "#984ea3", "#ff7f00", "#ffff33"];
+
+        return ramp[id % ramp.length];
+    };
+
     self.addScenarioToMap = function(scenario, options) {
         var scenarioId,
-            opacity = .8,
-            stroke = 1,
-            fillColor = "#00A29B",
-            strokeColor = "#00827B",
+            opacity = 0.8,
+            stroke = 0,
             zoomTo = (options && options.zoomTo) || false;
 
         if ( scenario ) {
@@ -1059,6 +1070,9 @@ function scenariosModel(options) {
             isScenarioModel = true;
         }
 
+        var fillColor = self.scenarioColor(self.uidToId(scenarioId));
+        var strokeColor = fillColor;
+
         //perhaps much of this is not necessary once a scenario has been added to app.map.layers initially...?
         //(add check for scenario.layer, reset the style and move on?)
         $.ajax( {
@@ -1071,9 +1085,6 @@ function scenariosModel(options) {
                     stroke = scenario.opacity();
                 }
                 if ( isDrawingModel ) {
-                    fillColor = "#C9BE62";
-                    strokeColor = "#A99E42";
-
                     $.ajax( {
                         url: '/drawing/get_geometry_orig/' + scenarioId + '/',
                         type: 'GET',
