@@ -1072,6 +1072,9 @@ function scenariosModel(options) {
 
         var fillColor = self.scenarioColor(self.uidToId(scenarioId));
         var strokeColor = fillColor;
+        // Note: original colors for filtering scenarios was:
+        // fillColor = "#00A29B",
+        // strokeColor = "#00827B",
 
         //perhaps much of this is not necessary once a scenario has been added to app.map.layers initially...?
         //(add check for scenario.layer, reset the style and move on?)
@@ -1085,6 +1088,9 @@ function scenariosModel(options) {
                     stroke = scenario.opacity();
                 }
                 if ( isDrawingModel ) {
+                    // Note: original colors were:
+                    // var fillColor = "#C9BE62";
+                    // var strokeColor = "#A99E42";
                     $.ajax( {
                         url: '/drawing/get_geometry_orig/' + scenarioId + '/',
                         type: 'GET',
