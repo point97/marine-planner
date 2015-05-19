@@ -116,12 +116,14 @@
 
 
 #aggregated-attribute-overlay dl {
+  font-size: 95%;
   margin-top: 0px !important;
   /*margin-left: 5px;*/
   margin-bottom: 0px;
 }
 
 #aggregated-attribute-overlay dt {
+  font-size: 95%;
   font-weight: normal;
 }
 

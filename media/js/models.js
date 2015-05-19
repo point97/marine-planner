@@ -994,7 +994,7 @@ function viewModel() {
     self.updateAggregatedAttributesOverlayWidthAndScrollbar = function() {
         setTimeout( function() {
             var overlayWidth = (document.getElementById('aggregated-attribute-overlay-test').clientWidth+50),
-                width = overlayWidth < 380 ? overlayWidth : 380;
+                width = overlayWidth < 440 ? overlayWidth : 440;
             //console.log('setting overlay width to ' + width);
             self.aggregatedAttributesWidth(width + 'px');
             self.updateCustomScrollbar('#aggregated-attribute-content');
