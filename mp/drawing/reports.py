@@ -16,8 +16,8 @@ def get_max(grid_cells, field):
 def get_mode(grid_cells, field):
     grid_cells = remove_nulls(grid_cells, field)
     try:
-        mode = grid_cells.values('sponge').annotate(
-            count=Count('sponge')).order_by('-count')[0]['sponge']
+        mode = grid_cells.values(field).annotate(
+            count=Count(field)).order_by('-count')[0][field]
     except IndexError:
         mode = None
     return mode
@@ -25,7 +25,12 @@ def get_mode(grid_cells, field):
 def get_range(grid_cells, field):
     return get_min(grid_cells, field), get_max(grid_cells, field)
 
-def get_value_count(grid_cells, field, value):
+def get_count_gt(grid_cells, field, gt_value):
+    grid_cells = grid_cells.filter(Q((field + "__gt", gt_value)))
+    count = grid_cells.count()
+    return count
+
+def get_count_eq(grid_cells, field, value):
     grid_cells = grid_cells.filter(Q((field, value)))
     count = grid_cells.count()
     return count
@@ -58,6 +63,14 @@ def get_unique_values(grid_cells, field):
 def header(h):
     return {'title': '<h4>{}</h4>'.format(h), 'data': ''}
 
+def sefcri_area():
+    """
+    Instead of calculating this each time (4+ sec), we optimize through hardcoding
+        from scenarios.models import GridCell
+        region_area = sum([gc.geometry.area 
+            for gc in GridCell.objects.all()]) / 1000000  # m² to km²
+    """
+    return 1209.5066211463068
 
 def get_summary_reports(grid_cells):
     """
@@ -71,19 +84,17 @@ def get_summary_reports(grid_cells):
     # ################################### Habitat ##############################
     attributes.append(header('HABITAT'))
 
-    # Number of Grid Cells
     cell_count = grid_cells.count()
     attributes.append({'title': 'Total Number of Planning Units (PU)',
                        'data': format(cell_count, ',d')})
 
-    # Total Area
-    total_area = sum([gc.geometry.area for gc in grid_cells]) / 1000000  # sq m to sq km
+    selected_area = sum([gc.geometry.area for gc in grid_cells]) / 1000000  # m² to km²
     attributes.append({'title': 'Total Area',
-                       'data': str(format_precision(total_area, 2)) + ' sq km'})
+                       'data': str(format_precision(selected_area, 2)) + ' km²'})
 
     title = "Percent Area to SEFCRI region"
-    data = "TODO"
-    attributes.append({'title': title, 'data': data})
+    data = format_precision(selected_area / sefcri_area(), 1) * 100
+    attributes.append({'title': title, 'data': str(data) + '%'})
 
     title = "Benthic Habitat Eco-subregion(s)"
     regions = get_unique_values(grid_cells, 'region')
@@ -109,7 +120,7 @@ def get_summary_reports(grid_cells):
 
     min_distance_to_shore, max_distance_to_shore = get_range(
         grid_cells, 'shore_distance')
-    distance_to_shore = '%s to %s mi' % (
+    distance_to_shore = '%s - %s miles' % (
         format_precision(min_distance_to_shore, 1),
         format_precision(max_distance_to_shore, 1))
     attributes.append({
@@ -118,7 +129,7 @@ def get_summary_reports(grid_cells):
 
     min_distance_to_inlet, max_distance_to_inlet = get_range(
         grid_cells, 'inlet_distance')
-    distance_to_inlet = '%s to %s mi' % (
+    distance_to_inlet = '%s - %s miles' % (
         format_precision(min_distance_to_inlet, 1),
         format_precision(max_distance_to_inlet, 1))
     attributes.append({
@@ -129,7 +140,7 @@ def get_summary_reports(grid_cells):
 
     min_distance_to_outfall, max_distance_to_outfall = get_range(
         grid_cells, 'outfall_distance')
-    distance_to_outfall = '%s to %s mi' % (
+    distance_to_outfall = '%s - %s miles' % (
         format_precision(min_distance_to_outfall, 1),
         format_precision(max_distance_to_outfall, 1))
     attributes.append({
@@ -138,7 +149,7 @@ def get_summary_reports(grid_cells):
 
     min_distance_to_pier, max_distance_to_pier = get_range(
         grid_cells, 'pier_distance')
-    distance_to_pier = '%s to %s mi' % (
+    distance_to_pier = '%s - %s miles' % (
         format_precision(min_distance_to_pier, 1),
         format_precision(max_distance_to_pier, 1))
     attributes.append({
@@ -146,8 +157,8 @@ def get_summary_reports(grid_cells):
         'data': distance_to_pier})
 
     title = "Planning units that contain Reef habitat"
-    data = "TODO"
-    attributes.append({'title': title, 'data': data})
+    data = get_count_gt(grid_cells, 'reef_area', 0)
+    attributes.append({'title': title, 'data': str(data)})
 
     title = 'Mapped Reef Habitat Area'
     area = get_sum(grid_cells, 'reef_area')
@@ -155,8 +166,8 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = "Planning units that contain Sand habitat"
-    data = "TODO"
-    attributes.append({'title': title, 'data': data})
+    data = get_count_gt(grid_cells, 'sand_area', 0)
+    attributes.append({'title': title, 'data': str(data)})
 
     title = 'Mapped Sand Habitat Area'
     area = get_sum(grid_cells, 'sand_area')
@@ -164,8 +175,8 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = "Planning units that contain Seagrass habitat"
-    data = "TODO"
-    attributes.append({'title': title, 'data': data})
+    data = get_count_gt(grid_cells, 'sg_area', 0)
+    attributes.append({'title': title, 'data': str(data)})
 
     title = 'Mapped Seagrass Habitat Area'
     area = get_sum(grid_cells, 'sg_area')
@@ -173,8 +184,8 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = "Planning units that contain Artificial Substrate habitat"
-    data = "TODO"
-    attributes.append({'title': title, 'data': data})
+    data = get_count_gt(grid_cells, 'art_area', 0)
+    attributes.append({'title': title, 'data': str(data)})
 
     title = 'Mapped Artificial Habitat Area'
     art_area = get_sum(grid_cells, 'art_area')
@@ -202,14 +213,14 @@ def get_summary_reports(grid_cells):
     title = 'Planning Units containing Coral Density Surveys'
     val = get_count_notnull(grid_cells, 'coral_density')
     attributes.append({'title': title, 'data': str(int(val))})
-    title = 'Coral Density (corals per sq m) Range'
+    title = 'Coral Density (corals per m²) Range'
     data = "%s - %s" % get_range(grid_cells, 'coral_density')
     attributes.append({'title': title, 'data': data})
-    title = 'Coral Density (corals per sq m) Average'
+    title = 'Coral Density (corals per m²) Average'
     coral_density = get_average(grid_cells, 'coral_density')
     data = str(format_precision(coral_density, 0))
     attributes.append({'title': title, 'data': data})
-    title = "Coral Density (corals per sq m) Mode"
+    title = "Coral Density (corals per m²) Mode"
     val = get_mode(grid_cells, 'coral_density')
     data = str(format_precision(val, 0))
     attributes.append({'title': title, 'data': data})
@@ -218,11 +229,11 @@ def get_summary_reports(grid_cells):
     val = get_count_notnull(grid_cells, 'coral_cover')
     attributes.append({'title': title, 'data': str(int(val))})
     title = 'Coral Percent Cover Range'
-    data = "%s to %s" % get_range(grid_cells, 'coral_cover')
+    data = "%s - %s" % get_range(grid_cells, 'coral_cover')
     attributes.append({'title': title, 'data': data})
     title = 'Coral Percent Cover Average'
     coral_cover = get_average(grid_cells, 'coral_cover')
-    data = str(format_precision(coral_cover, 0)) + ' percent'
+    data = str(format_precision(coral_cover, 0))
     attributes.append({'title': title, 'data': data})
     title = "Coral Percent Cover Mode"
     val = get_mode(grid_cells, 'coral_cover')
@@ -233,7 +244,7 @@ def get_summary_reports(grid_cells):
     val = get_count_notnull(grid_cells, 'coral_richness')
     attributes.append({'title': title, 'data': str(int(val))})
     title = 'Number of Coral Species Range'
-    data = "%s to %s species" % get_range(grid_cells, 'coral_richness')
+    data = "%s - %s" % get_range(grid_cells, 'coral_richness')
     attributes.append({'title': title, 'data': data})
     title = 'Number of Coral Species Average'
     coral_richness = get_average(grid_cells, 'coral_richness')
@@ -245,12 +256,12 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = 'Large Live Coral Planning Units'
-    num_large_live_corals = get_value_count(grid_cells, 'large_live_coral', 'Y')
+    num_large_live_corals = get_count_eq(grid_cells, 'large_live_coral', 'Y')
     data = str(num_large_live_corals)
     attributes.append({'title': title, 'data': data})
 
     title = 'Dense Acropora Patch Planning Units'
-    num_acropora = get_value_count(grid_cells, 'acropora_pa', 'Y')
+    num_acropora = get_count_eq(grid_cells, 'acropora_pa', 'Y')
     data = str(num_acropora)
     attributes.append({'title': title, 'data': data})
 
@@ -260,55 +271,31 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': data})
 
     title = 'Pillar Coral Planning Units'
-    num_pillar_presence = get_value_count(grid_cells, 'pillar_presence', 'P')
+    num_pillar_presence = get_count_eq(grid_cells, 'pillar_presence', 'P')
     data = str(num_pillar_presence)
     attributes.append({'title': title, 'data': data})
 
-    title = 'Percentage of Planning Units containing Bleached Coral'
-    data = "TODO"
-    attributes.append({'title': title, 'data': data})
-    # title = 'Planning Units with Coral Bleaching Index data'
-    # val = get_count_notnull(grid_cells, 'coral_bleach')
-    # attributes.append({'title': title, 'data': str(int(val))})
-    # if val >= 1:
-    #     # average
-    #     title = 'Average Coral Bleaching Index'
-    #     val = get_average(grid_cells, 'coral_bleach')
-    #     data = str(format_precision(val, 0)) + ' units'
-    #     attributes.append({'title': title, 'data': data})
-    #     # range
-    #     title = 'Range of Coral Bleaching Index'
-    #     data = "%s to %s" % get_range(grid_cells, 'coral_bleach')
-    #     attributes.append({'title': title, 'data': data})
+    title = 'Planning Units containing Bleached Coral'
+    count = get_count_gt(grid_cells, 'coral_bleach', 0)
+    pct = format_precision(count / cell_count, 2)
+    attributes.append({'title': title, 'data': str(count)})
+    attributes.append({'title': "Percentage of " + title, 'data': str(pct)})
 
-    title = 'Percentage of Planning Units containing Diseased Coral'
-    data = "TODO"
-    attributes.append({'title': title, 'data': data})
-    # title = 'Planning Units with Coral Disease Index data'
-    # val = get_count_notnull(grid_cells, 'coral_disease')
-    # attributes.append({'title': title, 'data': str(int(val))})
-    # if val >= 1:
-    #     # average
-    #     title = 'Average Coral Disease Index'
-    #     val = get_average(grid_cells, 'coral_disease')
-    #     data = str(format_precision(val, 0)) + ' units'
-    #     attributes.append({'title': title, 'data': data})
-    #     # range
-    #     title = 'Range of Coral Disease Index'
-    #     data = "%s to %s" % get_range(grid_cells, 'coral_disease')
-    #     attributes.append({'title': title, 'data': data})
+    title = 'Planning Units containing Diseased Coral'
+    count = get_count_gt(grid_cells, 'coral_disease', 0)
+    data = format_precision(count / cell_count, 2)
+    attributes.append({'title': title, 'data': str(count)})
+    attributes.append({'title': "Percentage of " + title, 'data': str(pct)})
 
-    # TODO Confirm that get_value_count(.., 1) is appropriate
     title = 'Coral Resilience Index Planning Units (FRRP)'
-    count = get_value_count(grid_cells, 'coral_resilience', 1)
-    data = str(count)
-    attributes.append({'title': title, 'data': data})
+    count = get_count_notnull(grid_cells, 'coral_resilience')
+    attributes.append({'title': title, 'data': str(data)})
 
     title = 'Soft Coral Percent Cover Planning Units'
     val = get_count_notnull(grid_cells, 'coral_soft')
     attributes.append({'title': title, 'data': str(int(val))})
     title = 'Soft Coral Percent Cover Range'
-    data = "%s to %s percent" % get_range(grid_cells, 'coral_soft')
+    data = "%s - %s" % get_range(grid_cells, 'coral_soft')
     attributes.append({'title': title, 'data': data})
     title = 'Soft Coral Percent Cover Average'
     val = get_average(grid_cells, 'coral_soft')
@@ -341,7 +328,7 @@ def get_summary_reports(grid_cells):
     val = get_count_notnull(grid_cells, 'reef_fish_richness')
     attributes.append({'title': title, 'data': str(int(val))})
     title = 'Number of Reef Fish Species Range'
-    data = "%s - %s species" % get_range(grid_cells, 'reef_fish_richness')
+    data = "%s - %s" % get_range(grid_cells, 'reef_fish_richness')
     attributes.append({'title': title, 'data': data})
     title = 'Number of Reef Fish Species Average'
     val = get_average(grid_cells, 'reef_fish_richness')
@@ -405,42 +392,40 @@ def get_summary_reports(grid_cells):
     data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
-    # TODO 'Diving and Fishing Use Overlap Planning Units' (not sum?)
     title = 'Diving and Fishing Use Overlap Planning Units'
-    val = get_sum(grid_cells, 'divefish_overlap')
-    data = str(format_precision(val, 0)) + ' activity days'
-    attributes.append({'title': title, 'data': data})
+    data = get_count_notnull(grid_cells, 'divefish_overlap')
+    attributes.append({'title': title, 'data': str(data)})
 
     title = "Anchoring Density Planning Units (Berhinger data)"
     levels = ['Low', 'Medium', 'High', 'Very High']
     for level in levels:
-        data = get_value_count(grid_cells, 'anchor_desc', level)
+        data = get_count_eq(grid_cells, 'anchor_desc', level)
         attributes.append({
             'title': title + ": " + level,
             'data': str(data)})
 
     title = 'Anchorage Area Planning Units'
-    data = get_value_count(grid_cells, 'anchorage', 'Y')
+    data = get_count_eq(grid_cells, 'anchorage', 'Y')
     attributes.append({'title': title, 'data': str(data)})
 
     title = "Mooring Density Planning Units (Berhinger data)"
     levels = ['Low', 'Medium', 'High', 'Very High']
     for level in levels:
-        data = get_value_count(grid_cells, 'mooring_desc', level)
+        data = get_count_eq(grid_cells, 'mooring_desc', level)
         attributes.append({
             'title': title + ": " + level,
             'data': str(data)})
 
     title = 'Mooring Buoy Planning Units'
-    data = get_value_count(grid_cells, 'mooring_buoy', 'Y')
+    data = get_count_eq(grid_cells, 'mooring_buoy', 'Y')
     attributes.append({'title': title, 'data': str(data)})
 
     title = 'Injury Site Planning Units'
-    data = get_value_count(grid_cells, 'injury_site', 'Y')
+    data = get_count_eq(grid_cells, 'injury_site', 'Y')
     attributes.append({'title': title, 'data': str(data)})
 
     title = 'Historic Impacts Planning Units'
-    data = get_value_count(grid_cells, 'impacted', 'Y')
+    data = get_count_eq(grid_cells, 'impacted', 'Y')
     attributes.append({'title': title, 'data': str(data)})
 
     return attributes
