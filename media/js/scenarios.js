@@ -151,9 +151,9 @@ function scenarioFormModel(options) {
     var defaultStyle = new OpenLayers.Style({
         //display: 'none'
         fillColor: '#ee9900',
-        fillOpacity: .5,
+        fillOpacity: 0.5,
         strokeColor: '#DDDDDD',
-        strokeOpacity: .6,
+        strokeOpacity: 0.6,
         strokeWidth: 1
     });
     var styleMap = new OpenLayers.StyleMap( {
@@ -333,7 +333,6 @@ function scenarioFormModel(options) {
         })();
     };
 
-    // TODO: CHANGE TO A GET
     self.getUpdatedFilterResults = function() {
         self.updatedFilterResultsLayer.setVisibility(false);
         self.showButtonSpinner(true);
@@ -428,6 +427,7 @@ function scenarioFormModel(options) {
 function scenarioModel(options) {
     var self = this;
 
+    //
     self.id = options.uid || null;
     self.uid = options.uid || null;
     self.name = options.name;
@@ -545,6 +545,9 @@ function scenarioModel(options) {
     self.activateLayer = function() {
         var scenario = this;
         app.viewModel.scenarios.addScenarioToMap(scenario);
+        if (scenario.isDrawing()) {
+            app.viewModel.scenarios.activeDrawings.push(scenario);
+        }
     };
 
     self.deactivateLayer = function() {
@@ -566,6 +569,10 @@ function scenarioModel(options) {
         //     app.viewModel.aggregatedAttributes(false);
         // }
 
+        if (scenario.isDrawing()) {
+            var index = app.viewModel.scenarios.activeDrawings.indexOf(scenario);
+            app.viewModel.scenarios.activeDrawings.splice(index, 1);
+        }
     };
 
     self.editScenario = function() {
@@ -735,6 +742,15 @@ function scenarioModel(options) {
         app.viewModel.showMapAttribution();
     };
 
+    self.isDrawing = function() {
+        var scenario = this;
+        if (scenario.uid.indexOf('drawing') !== -1) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     return self;
 } // end scenarioModel
 
@@ -742,6 +758,47 @@ function scenarioModel(options) {
 function scenariosModel(options) {
     var self = this;
 
+    self.activeDrawings = ko.observableArray();
+    self.activateComparisonReports = function() {
+        self.refreshActiveDrawings(); // just to be safe? 
+        self.showComparisonReports(true);
+    };
+    self.deactivateComparisonReports = function() {
+        self.showComparisonReports(false);
+    };
+    self.toggleComparisonReports = function() {
+        alert("toggle Comparison Reports");
+        if (self.showComparisonReports()) {
+            self.deactivateComparisonReports();
+        } else {
+            self.activateComparisonReports();
+        }
+    };
+    self.introText = "Intro to reports for drawings";
+    self.makeShowReport = function(x) {
+        return function() {
+            if (x == 'intro') {
+                self.activeReportContents(self.introText);
+            } else {
+                self.activeReportContents("Here's a graph of " + x + " for all drawings");
+            }
+        };
+    };
+    self.activeReportContents = ko.observable(self.introText);
+
+    self.refreshActiveDrawings = function() {
+        // for those times when managing this rats nest of mutable state becomes
+        // unbearable, call this to reset the list of active drawings
+        self.activeDrawings([]);
+        for (var i = self.drawingList().length - 1; i >= 0; i--) {
+            var drawing = self.drawingList()[i];
+            if (drawing.active()) {
+                self.activeDrawings.push(drawing);
+            }
+        }
+    };
+
+    self.showComparisonReports = ko.observable(false);
     self.scenarioList = ko.observableArray();
     self.scenarioForm = ko.observable(false);
 
@@ -1185,6 +1242,7 @@ function scenariosModel(options) {
                             self.drawingList.push(scenario);
                         }
                         self.drawingList.sort(self.alphabetizeByName);
+                        self.refreshActiveDrawings();
                     } else {
                         var previousScenario = ko.utils.arrayFirst(self.scenarioList(), function(oldScenario) {
                             return oldScenario.uid === scenario.uid;

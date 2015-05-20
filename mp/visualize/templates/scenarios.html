@@ -22,16 +22,47 @@
     <div class="form-container" data-bind="visible: ! (loadingMessage() || errorMessage())">
         <div id="designs-data" data-bind="visible: !scenarioForm() && !drawingForm()">
             <div id="design-list" class="row-fluid">
-                <div style="
-                    padding-right: 2px;
-                    height: 388px;">
+
+
+                <div data-bind="visible: showComparisonReports()" style="padding-left: 12px;">
+                    <div>
+                        <button class="btn btn-small" data-bind="visible: activeDrawings().length, click:deactivateComparisonReports">
+                            <span> <i class="icon-backward"></i> Hide Comparison Reports </span>
+                        </button>
+                    </div>
+                    <h3> Compare <span data-bind="text: activeDrawings().length"></span> drawings </h3>
+                    <ul data-bind="foreach: activeDrawings">
+                        <li> 
+                          <span data-bind="text: name"></span>
+                        </li>
+                    </ul>
+                    <div id="create-new-design" class="btn-group">
+                        <a id="comparison-reports-button" 
+                           class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            Compare on...
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a data-bind="click: makeShowReport('intro')">intro</a></li>
+                            <li><a data-bind="click: makeShowReport('a')">A</a></li>
+                            <li><a data-bind="click: makeShowReport('b')">B</a></li>
+                            <li><a data-bind="click: makeShowReport('c')">C</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                      <span data-bind="text: activeReportContents"></span>
+                    </div>
+                </div>
+
+
+              <div data-bind="visible: !showComparisonReports()" style="padding-right: 2px; height: 388px;">
 
                 <p class="show-shared-check" data-bind="visible: isScenariosOpen() || isDrawingsOpen()">
                   Show shared scenarios <input type="checkbox" data-bind="checked: showShared" />
                 </p>
 
                 <div id="designs-accordion" class="designs">
-                    <div class="accordion" style="">
+                    <div class="accordion" data-bind="visible: !showComparisonReports()" >
 
                         <!-- PLANNING UNIT FILTERING -->
                         <div>
@@ -168,6 +199,15 @@
                                                 </div>
                                             </li>
                                         </ul>
+
+                                        <div>
+                                            <button class="btn btn-small" data-bind="visible: activeDrawings().length, click: activateComparisonReports">
+                                                <span> View Comparison Reports for <span data-bind="text: activeDrawings().length"></span> Drawing<span data-bind="visible: activeDrawings().length > 1">s</span> 
+
+                                                <i class="icon-forward"></i>
+                                            </button>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -175,8 +215,10 @@
                         <!-- end drawings -->
 
                     </div>
+
+
                 </div>
-                </div>
+              </div>
             </div>
         </div>
 
@@ -198,21 +240,7 @@
                                 <div class="btn pull-right" data-bind="click: app.viewModel.scenarios.returnToDesigns">
                                     Return to Designs
                                 </div>
-                                <div id="create-new-design" class="btn-group pull-left" style="padding-bottom: 10px;">
-                                    <a id="comparison-reports-button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                                        Comparison Reports
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a data-bind="click: hideReport">Introduction</a></li>
-                                        <li><a data-bind="click: showWindReport">Wind Energy Potential</a></li>
-                                        <li><a data-bind="click: showSubstationReport">Distance to Coastal Substations</a></li>
-                                        <li><a data-bind="click: showAWCReport">Distance to AWC Hubs</a></li>
-                                        <li><a data-bind="click: showShorelineReport">Distance to Shore</a></li>
-                                        <li><a data-bind="click: showDepthReport">Depth Range</a></li>
-                                        <li><a data-bind="click: showShippingReport">Distance to Ship Routing Measures</a></li>
-                                    </ul>
-                                </div>
+
                             </div>
                         </div>
                     </div>
