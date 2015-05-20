@@ -882,6 +882,7 @@ function scenariosModel(options) {
     self.scenariosLoaded = false;
 
     self.isScenariosOpen = ko.observable(false);
+    self.showShared = ko.observable(true);
     self.toggleScenariosOpen = function(force) {
         // ensure designs tab is activated
         $('#designsTab').tab('show');

@@ -654,3 +654,9 @@ a.disabled-link:hover {
 .group-members-popover:hover {
   text-decoration: none;
 }
+
+.show-shared-check {
+  float: right;
+  font-size: 85%;
+  margin-right: 22px;
+}

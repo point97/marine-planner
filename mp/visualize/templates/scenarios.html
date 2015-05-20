@@ -25,6 +25,11 @@
                 <div style="
                     padding-right: 2px;
                     height: 388px;">
+
+                <p class="show-shared-check" data-bind="visible: isScenariosOpen() || isDrawingsOpen()">
+                  Show shared scenarios <input type="checkbox" data-bind="checked: showShared" />
+                </p>
+
                 <div id="designs-accordion" class="designs">
                     <div class="accordion" style="">
 
@@ -59,7 +64,7 @@
                                         </div>
 
                                         <ul class="unstyled list" data-bind="foreach: scenarioList ">
-                                            <li class="layer">
+                                            <li class="layer" data-bind="visible: $parent.showShared() || !shared()">
                                                 <div class="btn-group btn-group-layer">
                                                     <a class="btn btn-info-sign" data-bind="click: toggleDescription, css: { 'active': infoActive() }">
                                                         <i class="icon-info-sign icon-large"></i>
@@ -133,8 +138,8 @@
                                         </div>
 
                                         <ul class="unstyled list" data-bind="foreach: drawingList ">
-                                            <li class="layer">
-                                                <div class="btn-group btn-group-layer">
+                                            <li class="layer" data-bind="visible: $parent.showShared() || !shared()">
+                                                <div class="btn-group btn-group-layer" >
                                                     <a class="btn btn-info-sign" data-bind="click: toggleDescription, css: { 'active': infoActive() }">
                                                         <i class="icon-info-sign icon-large"></i>
                                                     </a>
