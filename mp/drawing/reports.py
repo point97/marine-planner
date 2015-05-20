@@ -358,37 +358,37 @@ def get_summary_reports(grid_cells):
     attributes.append(header('People'))
 
     title = 'Total Use Intensity (OFR 2015)'
-    val = get_sum(grid_cells, 'total_use')
+    val = get_sum(grid_cells, 'sum_all')
     data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Boater Use Intensity (OFR 2015)'
-    val = get_sum(grid_cells, 'boat_use')
+    val = get_sum(grid_cells, 'sum_boat')
     data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Recreational Fishing Use Intensity (OFR 2015)'
-    val = get_sum(grid_cells, 'recfish_use')
+    val = get_sum(grid_cells, 'sum_rec')
     data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Scuba Diving Use Intensity (OFR 2015)'
-    val = get_sum(grid_cells, 'scuba_use')
+    val = get_sum(grid_cells, 'sum_scuba')
     data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Extractive Diving Use Intensity (OFR 2015)'
-    val = get_sum(grid_cells, 'extdive_use')
+    val = get_sum(grid_cells, 'sum_extdive')
     data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Spearfishing Use Intensity (OFR 2015)'
-    val = get_sum(grid_cells, 'spear_use')
+    val = get_sum(grid_cells, 'sum_spear')
     data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 
     title = 'Water Sports Use Intensity (OFR 2015)'
-    val = get_sum(grid_cells, 'watersport_use')
+    val = get_sum(grid_cells, 'sum_watersport')
     data = str(format_precision(val, 0)) + ' activity days'
     attributes.append({'title': title, 'data': data})
 

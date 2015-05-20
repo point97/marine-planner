@@ -174,13 +174,13 @@ app.clickAttributes = (function() {
         if ('Region' in data) {
             attrs.push({'display': 'Region', 'data': data['Region']});
         }
-        if ('RVCden1213' in data) {
+        if ('RVCden1214' in data) {
             attrs.push({'display': 'Reef Fish Density',
-                        'data': data['RVCden1213'].toFixed(1) + ' units'});
+                        'data': data['RVCden1214'].toFixed(1) + ' units'});
         }
-        if ('RVCrch1213' in data) {
+        if ('RVCrch1214' in data) {
             attrs.push({'display': 'Reef Fish Species Richness',
-                        'data': data['RVCrch1213'].toFixed(1) + ' units'});
+                        'data': data['RVCrch1214'].toFixed(1) + ' units'});
         }
         if ('SandArea_m' in data) {
             attrs.push({'display': 'Sand Area', 'data': data['SandArea_m'].toLocaleString() + ' m&sup2;'});
@@ -194,7 +194,27 @@ app.clickAttributes = (function() {
         if ('SpngPtCov' in data) {
             attrs.push({'display': 'Sponge Percent Cover', 'data': data['SpngPtCov']});
         }
-
+        if ('SUM_All_ac' in data) {
+            attrs.push({'display': 'Sum Total Use Intensity (OFR 2015)', 'data': data['SUM_All_ac']});
+        }
+        if ('Sum_Boatin' in data) {
+            attrs.push({'display': 'Sum Boater Use Intensity (OFR 2015)', 'data': data['Sum_Boatin']});
+        }
+        if ('Sum_Recrea' in data) {
+            attrs.push({'display': 'Sum Recreational Fishing Use Intensity (OFR 2015)', 'data': data['Sum_Recrea']});
+        }
+        if ('Sum_SCUBA_' in data) {
+            attrs.push({'display': 'Sum Scuba Diving Use Intensity (OFR 2015)', 'data': data['Sum_SCUBA_']});
+        }
+        if ('Sum_Extrac' in data) {
+            attrs.push({'display': 'Sum Extractive Diving Use Intensity (OFR 2015)', 'data': data['Sum_Extrac']});
+        }
+        if ('Sum_Spearf' in data) {
+            attrs.push({'display': 'Sum Spearfishing Use Intensity (OFR 2015)', 'data': data['Sum_Spearf']});
+        }
+        if ('Sum_Water_' in data) {
+            attrs.push({'display': 'Sum Water Sports Use Intensity (OFR 2015)', 'data': data['Sum_Water_']});
+        }
         return attrs;
     };
 

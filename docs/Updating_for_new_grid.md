@@ -105,10 +105,10 @@ For an unknown reason, tiny gaps sometimes appear between polygons delivered by 
 
 A quick fix is to buffer by some tiny amount. Confirm the presence of the sliver bug, identify the widest gap between cells and buffer by slightly more than 1/2 that amount:
 
-  UPDATE "public"."scenarios_gridcell"
-  SET "geometry" = ST_Multi(ST_Buffer("geometry", 0.0003));
+    UPDATE "public"."scenarios_gridcell"
+    SET "geometry" = ST_Multi(ST_Buffer("geometry", 0.0003));
 
-  VACUUM ANALYZE;
+    VACUUM ANALYZE;
 
 
 ## Deployment

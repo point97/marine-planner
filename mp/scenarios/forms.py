@@ -201,12 +201,12 @@ class ScenarioForm(FeatureForm):
     recfish_use_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     recfish_use_input = forms.FloatField(widget=DualSliderWidget('recfish_use_min', 'recfish_use_max', min=0, max=100, step=10))
 
-    reef_fish_density = forms.BooleanField(label="Relative Reef Fish Density", required=False, help_text="Mean fish density per Secondary Sampling Unit (RVC 2012 & 2013)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 427, 'layer_title': "Show Relative Reef Fish Density"}))
+    reef_fish_density = forms.BooleanField(label="Relative Reef Fish Density", required=False, help_text="Mean fish density per PSU (RVC 2012 & 2014)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 427, 'layer_title': "Show Relative Reef Fish Density"}))
     reef_fish_density_min = forms.FloatField(required=False, initial=10, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     reef_fish_density_max = forms.FloatField(required=False, initial=500, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     reef_fish_density_input = forms.FloatField(widget=DualSliderWidget('reef_fish_density_min', 'reef_fish_density_max', min=0, max=5571, step=1))
 
-    reef_fish_richness = forms.BooleanField(label="Number of Reef Fish Species", required=False, help_text="Number of fish species per Secondary Sampling Unit (RVC 2012 & 2013)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 426, 'layer_title': "Show Number of Reef Fish Species"}))
+    reef_fish_richness = forms.BooleanField(label="Number of Reef Fish Species", required=False, help_text="Number of fish species per PSU (RVC 2012 & 2014)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 426, 'layer_title': "Show Number of Reef Fish Species"}))
     reef_fish_richness_min = forms.FloatField(required=False, initial=2, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     reef_fish_richness_max = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
     reef_fish_richness_input = forms.FloatField(widget=DualSliderWidget('reef_fish_richness_min', 'reef_fish_richness_max', min=0, max=56, step=1))

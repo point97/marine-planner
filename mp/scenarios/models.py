@@ -542,8 +542,8 @@ class Scenario(Analysis):
 #     def __unicode__(self):
 #         return u'%s' % self.name
 
-class GridCell(models.Model):
 
+class GridCell(models.Model):
     acerv_area = models.IntegerField(null=True, blank=True)
     acropora_pa = models.TextField(null=True, blank=True)
     anchor_density = models.FloatField(null=True, blank=True)
@@ -595,10 +595,15 @@ class GridCell(models.Model):
     total_use = models.IntegerField(null=True, blank=True)
     unique_id = models.IntegerField(null=True, blank=True)
     watersport_use = models.IntegerField(null=True, blank=True)
-
+    sum_all = models.IntegerField(null=True, blank=True)
+    sum_boat = models.IntegerField(null=True, blank=True)
+    sum_rec = models.IntegerField(null=True, blank=True)
+    sum_scuba = models.IntegerField(null=True, blank=True)
+    sum_extdive = models.IntegerField(null=True, blank=True)
+    sum_spear = models.IntegerField(null=True, blank=True)
+    sum_watersport = models.IntegerField(null=True, blank=True)
     centroid = models.PointField(srid=settings.GEOMETRY_DB_SRID, null=True, blank=True)
     geometry = models.MultiPolygonField(srid=settings.GEOMETRY_DB_SRID,
-                                    null=True, blank=True,
-                                    verbose_name="Grid Cell Geometry")
+                                        null=True, blank=True,
+                                        verbose_name="Grid Cell Geometry")
     objects = models.GeoManager()
-
