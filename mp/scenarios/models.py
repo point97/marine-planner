@@ -342,7 +342,8 @@ class Scenario(Analysis):
 
         attributes.append({'title': 'Number of Grid Cells',
                            'data': '{:,}'.format(self.grid_cells.count(',')+1)})
-        return { 'event': 'click', 'attributes': attributes }
+
+        return {'event': 'click', 'attributes': attributes}
 
     def geojson(self, srid):
         props = get_properties_json(self)
@@ -356,7 +357,7 @@ class Scenario(Analysis):
         query = run_filter_query(model_to_dict(self))
 
         if len(query) == 0:
-            self.satisfied = False;
+            self.satisfied = False
             # raise Exception("No lease blocks available with the current filters.")
 
         dissolved_geom = query.aggregate(Union('geometry'))

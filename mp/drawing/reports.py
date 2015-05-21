@@ -63,14 +63,27 @@ def get_unique_values(grid_cells, field):
 def header(h):
     return {'title': '<h4>{}</h4>'.format(h), 'data': ''}
 
+
 def sefcri_area():
     """
     Instead of calculating this each time (4+ sec), we optimize through hardcoding
         from scenarios.models import GridCell
-        region_area = sum([gc.geometry.area 
+        region_area = sum([gc.geometry.area
             for gc in GridCell.objects.all()]) / 1000000  # m² to km²
+        return region_area
     """
-    return 1209.5066211463068
+    return 1209.5066211463068  # km²
+
+
+def total_reef_area():
+    """
+    Instead of calculating this each time (4+ sec), we optimize through hardcoding
+        from scenarios.models import GridCell
+        reef_area = get_sum(GridCell.objects.all(), 'reef_area')
+        return reef_area
+    """
+    return 228508729  # m²
+
 
 def get_summary_reports(grid_cells):
     """
@@ -429,3 +442,56 @@ def get_summary_reports(grid_cells):
     attributes.append({'title': title, 'data': str(data)})
 
     return attributes
+
+
+def get_chart_values(uid, grid_cells):
+    selected_area = sum([gc.geometry.area for gc in grid_cells])  # m2
+    selected_reef_area = get_sum(grid_cells, 'reef_area')
+    selected_sand_area = get_sum(grid_cells, 'sand_area')
+    fish_species = get_max(grid_cells, 'reef_fish_richness')
+    coral_species = get_max(grid_cells, 'coral_richness')
+    min_depth = get_min(grid_cells, 'depth_min')
+    max_depth = get_max(grid_cells, 'depth_max')
+    min_diving, max_diving = get_range(grid_cells, 'sum_scuba')
+    min_fishing, max_fishing = get_range(grid_cells, 'sum_rec')
+    min_total, max_total = get_range(grid_cells, 'sum_all')
+    all_reef_area = total_reef_area()
+    chart_values = {
+        'pct_reef': {
+            'min': 0,
+            'max': format_precision(100 * (selected_reef_area / selected_area)),
+            'selection_id': uid},
+        'pct_sand': {
+            'min': 0,
+            'max': format_precision(100 * (selected_sand_area / selected_area)),
+            'selection_id': uid},
+        'pct_reef_total': {
+            'min': 0,
+            'max': format_precision(100 * (float(selected_reef_area) / all_reef_area)),
+            'selection_id': uid},
+        'fish_species': {
+            'min': 0,
+            'max': fish_species,
+            'selection_id': uid},
+        'coral_species': {
+            'min': 0,
+            'max': coral_species,
+            'selection_id': uid},
+        'diving': {
+            'min': min_diving,
+            'max': max_diving,
+            'selection_id': uid},
+        'fishing': {
+            'min': min_fishing,
+            'max': max_fishing,
+            'selection_id': uid},
+        'total': {
+            'min': min_total,
+            'max': max_total,
+            'selection_id': uid},
+        'depth': {
+            'min': min_depth,
+            'max': max_depth,
+            'selection_id': uid},
+    }
+    return chart_values

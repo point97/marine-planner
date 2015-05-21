@@ -662,3 +662,12 @@ a.disabled-link:hover {
   font-size: 85%;
   margin-right: 22px;
 }
+
+.main-para {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+#comparison-intro {
+  min-height: 48px;
+}

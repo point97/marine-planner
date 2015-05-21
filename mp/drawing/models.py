@@ -3,9 +3,32 @@ from django.utils.html import escape
 from madrona.features import register
 from madrona.features.models import PolygonFeature
 from madrona.common.utils import LargestPolyFromMulti
-from general.utils import sq_meters_to_sq_miles, format_precision
+from general.utils import sq_meters_to_sq_miles
 from ofr_manipulators import clip_to_grid, intersecting_cells
-from reports import get_summary_reports
+from reports import get_summary_reports, get_chart_values
+from django.core.cache import cache
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+def cachemethod(cache_key, timeout=60 * 60 * 24 * 7):
+    '''
+    default timeout = 1 week
+    @property
+    @cachemethod("SomeClass_get_some_result_%(id)s")
+    '''
+    def paramed_decorator(func):
+        def decorated(self, *args):
+            key = cache_key % self.__dict__
+            res = cache.get(key)
+            if res is None:
+                res = func(self, *args)
+                cache.set(key, res, timeout)
+            return res
+        return decorated
+    return paramed_decorator
+
+cache_template = "drawing_aoi_%(id)s_serialize_attributes"
 
 @register
 class AOI(PolygonFeature):
@@ -19,18 +42,17 @@ class AOI(PolygonFeature):
     def area_in_sq_miles(self):
         return sq_meters_to_sq_miles(self.geometry_final.area)
 
-    def summary_reports(self, attributes=None):
-        # Call get_summary_reports with intersecting Grid Cells
-        grid_cells = intersecting_cells(self.geometry_orig)
-        return get_summary_reports(grid_cells)
 
     @property
+    @cachemethod(cache_template)
     def serialize_attributes(self):
         attributes = []
-        attributes.extend(self.summary_reports())
+        grid_cells = intersecting_cells(self.geometry_orig)
+        attributes.extend(get_summary_reports(grid_cells))
         if self.description:
             attributes.append({'title': 'Description', 'data': self.description})
-        return {'event': 'click', 'attributes': attributes}
+        report_values = get_chart_values(self.uid, grid_cells)
+        return {'event': 'click', 'attributes': attributes, 'report_values': report_values}
 
     @classmethod
     def fill_color(self):
@@ -50,8 +72,6 @@ class AOI(PolygonFeature):
 
     def save(self, *args, **kwargs):
         self.geometry_final = self.clip_to_grid()
-        # if self.geometry_final:
-        #     self.geometry_final = clean_geometry(self.geometry_final)
         super(AOI, self).save(*args, **kwargs) # Call the "real" save() method
 
     class Options:
@@ -64,3 +84,11 @@ class AOI(PolygonFeature):
         form = 'drawing.forms.AOIForm'
         form_template = 'aoi/form.html'
         show_template = 'aoi/show.html'
+
+
+# Signals; handle cache invalidation
+@receiver(post_save, sender=AOI)
+def postsave_stand_handler(sender, instance, *args, **kwargs):
+    key = cache_template % {'id': instance.id}
+    cache.delete(key)
+    assert cache.get(key) is None

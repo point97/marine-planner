@@ -552,9 +552,6 @@ function scenarioModel(options) {
         self.activateLayer = function() {
             var scenario = this;
             app.viewModel.scenarios.addScenarioToMap(scenario);
-            if (scenario.isDrawing()) {
-                app.viewModel.scenarios.activeDrawings.push(scenario);
-            }
         };
 
         self.deactivateLayer = function() {
@@ -566,20 +563,7 @@ function scenarioModel(options) {
             scenario.opacity(scenario.defaultOpacity);
             app.setLayerVisibility(scenario, false);
             app.viewModel.activeLayers.remove(scenario);
-
             app.viewModel.removeFromAggregatedAttributes(scenario.name);
-
-            // //remove the key/value pair from aggregatedAttributes
-            // delete app.viewModel.aggregatedAttributes()[scenario.name];
-            // //if there are no more attributes left to display, then remove the overlay altogether
-            // if ($.isEmptyObject(app.viewModel.aggregatedAttributes())) {
-            //     app.viewModel.aggregatedAttributes(false);
-            // }
-
-            if (scenario.isDrawing()) {
-                var index = app.viewModel.scenarios.activeDrawings.indexOf(scenario);
-                app.viewModel.scenarios.activeDrawings.splice(index, 1);
-            }
         };
 
         self.editScenario = function() {
@@ -767,10 +751,20 @@ function scenarioModel(options) {
 function scenariosModel(options) {
         var self = this;
 
-        self.activeDrawings = ko.observableArray();
+        self.activeDrawings = function() {
+            var drawings = self.drawingList();
+            var active = [];
+            for (var i=0; i<drawings.length; i++) {
+                if ( drawings[i].active() ) {
+                    active.push(drawings[i]);
+                }
+            }
+            return active;
+        };
+        
         self.activateComparisonReports = function() {
-            self.refreshActiveDrawings(); // just to be safe? 
             self.showComparisonReports(true);
+            self.chartMetric(null);
         };
         self.deactivateComparisonReports = function() {
             self.showComparisonReports(false);
@@ -783,29 +777,95 @@ function scenariosModel(options) {
                 self.activateComparisonReports();
             }
         };
-        self.introText = "Intro to reports for drawings";
-        self.makeShowReport = function(x) {
-            return function() {
-                if (x == 'intro') {
-                    self.activeReportContents(self.introText);
-                } else {
-                    self.activeReportContents("Here's a graph of " + x + " for all drawings");
-                }
-            };
-        };
-        self.activeReportContents = ko.observable(self.introText);
 
-        self.refreshActiveDrawings = function() {
-            // for those times when managing this rats nest of mutable state becomes
-            // unbearable, call this to reset the list of active drawings
-            self.activeDrawings([]);
-            for (var i = self.drawingList().length - 1; i >= 0; i--) {
-                var drawing = self.drawingList()[i];
-                if (drawing.active()) {
-                    self.activeDrawings.push(drawing);
+        self.chartMetric = ko.observable(null);
+        self.getDrawingNames = function() {
+            var names = [];
+            var drawings = self.activeDrawings();
+            for (var i=0; i<drawings.length; i++) {
+                names.push(drawings[i].name);
+            }
+            return names;
+        };
+        self.getSeriesData = function(key) {
+            var data = [];
+            var drawings = self.activeDrawings();
+            var drawing, vals;
+            for (var i=0; i<drawings.length; i++) {
+                drawing = drawings[i]; 
+                vals = drawing.scenarioReportValues[key];
+                if (!vals) {
+                    vals = {'min': 0, 'max': 0, 'avg': 0, 'id': drawing.id};
                 }
+                data.push({
+                    'low': vals.min, 
+                    'high': vals.max, 
+                    'avg': vals.avg, 
+                    'id': vals.drawing_id});
+            }
+            return data;
+        };
+        self.getOptions = function(metric) {
+            var options = {
+                'pct_reef': {units: "percent"},
+                'pct_sand': {units: "percent"},
+                'pct_reef_total': {units: "percent"},
+                'fish_species': {units: "species"},
+                'coral_species': {units: "species"},
+                'diving': {units: "activity days"},
+                'fishing': {units: "activity days"},
+                'total': {units: "activity days"},
+                'depth': {units: "feet"}
+            };
+            if (metric in options) {
+                opts = options[metric];
+                opts.seriesName = metric;
+                return opts;
+            } else {
+                return {seriesName: '', units: ''};
             }
         };
+        self.chartMetric.subscribe(
+            function() {
+                var drawingNames = self.getDrawingNames();
+                var data = self.getSeriesData(self.chartMetric());
+                options = self.getOptions(self.chartMetric());
+                var chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'reports-container',
+                        type: 'columnrange',
+                        inverted: true,
+                        animation: false
+                    },
+                    credits: {enabled: false},
+                    // title: {'text': options.title },
+                    // subtitle: options.subtitle,
+                    title: null,
+                    xAxis: {categories: drawingNames},
+                    yAxis: {title: {text: options.units}},
+                    // yAxis: {title: {text: options.units}, min: options.min},
+                    legend: {enabled: false},
+                    series: [{
+                        name: options.seriesName,
+                        data: data 
+                    }],
+                    plotOptions: {
+                        columnrange: {
+                            dataLabels: {
+                                enabled: true,
+                                formatter: function() {return this.y;}
+                            }
+                        }
+                    }
+                });
+                    var width = 350,
+                    height = 90 + app.viewModel.scenarios.activeDrawings().length * 30;
+                if (height > 500) {
+                    height = 500;
+                }
+                chart.setSize(width, height);
+            }
+        );
 
         self.showComparisonReports = ko.observable(false);
         self.scenarioList = ko.observableArray();
@@ -1239,6 +1299,7 @@ function scenariosModel(options) {
                             dataType: 'json',
                             success: function(result) {
                                 scenario.scenarioAttributes = result.attributes;
+                                scenario.scenarioReportValues = result.report_values;
                             },
                             error: function(result) {
                                 //debugger;
@@ -1259,7 +1320,6 @@ function scenariosModel(options) {
                                 self.drawingList.push(scenario);
                             }
                             self.drawingList.sort(self.alphabetizeByName);
-                            self.refreshActiveDrawings();
                         } else {
                             var previousScenario = ko.utils.arrayFirst(self.scenarioList(), function(oldScenario) {
                                 return oldScenario.uid === scenario.uid;

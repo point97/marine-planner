@@ -165,6 +165,14 @@ LOGGING = {
     }
 }
 
+tmpdir = os.path.join(os.path.expanduser("~"), "tmp", "django_cache")
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': tmpdir,
+    }
+}
+
 import logging
 logging.getLogger('django.db.backends').setLevel(logging.ERROR)
 
