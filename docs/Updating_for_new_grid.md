@@ -20,7 +20,14 @@
 * `media/js/scenarios.js`: add knockout observables to the `ScenarioFormModel`
 * `media/js/scenarios.js`: add the internal names to the `parameters` Array
 
+#### If the attribute is to be included in the drawing comparison charts
+
+* `mp/drawing/reports.py`: Modify the `get_chart_values` function accordingly. The keys in the returned dictionary correspond to ...
+* `media/js/scenarios.js`: Modify the `getOptions` function to define units and other attribute-specific chart options.
+* `mp/visualize/templates/scenarios.html`: Modify the contents of divs with ids `chart-metric` and `comparison-intro` for the title and description as it appears in the UI. 
+
 #### If the attribute is to be reported on the gridcell click info:
+
 * `media/js/clickAttributes.js`: modify the `getGridAttributes` function for UTFGrid callbacks. Keep in mind that this uses the case-sensitive field name from the original shapefile!
 
 #### If the attribute is to be included in summary reports for drawings:
