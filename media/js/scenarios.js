@@ -827,12 +827,17 @@ function scenariosModel(options) {
         };
         self.chartMetric.subscribe(
             function() {
+                var container = 'reports-container';
+                if (!self.chartMetric()) {
+                    $("#" + container).html('');
+                    return;
+                }
                 var drawingNames = self.getDrawingNames();
                 var data = self.getSeriesData(self.chartMetric());
                 options = self.getOptions(self.chartMetric());
                 var chart = new Highcharts.Chart({
                     chart: {
-                        renderTo: 'reports-container',
+                        renderTo: container,
                         type: 'columnrange',
                         inverted: true,
                         animation: false
