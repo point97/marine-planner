@@ -779,17 +779,15 @@ function scenariosModel(options) {
         };
 
         self.chartMetric = ko.observable(null);
-        self.getDrawingNames = function() {
+        self.getDrawingNames = function(drawings) {
             var names = [];
-            var drawings = self.activeDrawings();
             for (var i=0; i<drawings.length; i++) {
                 names.push(drawings[i].name);
             }
             return names;
         };
-        self.getSeriesData = function(key) {
+        self.getSeriesData = function(key, drawings) {
             var data = [];
-            var drawings = self.activeDrawings();
             var drawing, vals;
             for (var i=0; i<drawings.length; i++) {
                 drawing = drawings[i]; 
@@ -825,16 +823,32 @@ function scenariosModel(options) {
                 return {seriesName: '', units: ''};
             }
         };
+        self.getColors = function(metric, drawings) {
+            var data = [];
+            var drawing, vals;
+            for (var i=0; i<drawings.length; i++) {
+                drawing = drawings[i]; 
+                data.push("#ff2266");
+            }
+            return data;
+        };
         self.chartMetric.subscribe(
             function() {
                 var container = 'reports-container';
-                if (!self.chartMetric()) {
+                var chartMetric = self.chartMetric();
+
+                if (!chartMetric) {
                     $("#" + container).html('');
                     return;
                 }
-                var drawingNames = self.getDrawingNames();
-                var data = self.getSeriesData(self.chartMetric());
-                options = self.getOptions(self.chartMetric());
+
+                var drawings = self.activeDrawings();
+
+                var drawingNames = self.getDrawingNames(drawings);
+                var data = self.getSeriesData(chartMetric, drawings);
+                var options = self.getOptions(chartMetric);
+                var colors = self.getColors(chartMetric, drawings);
+
                 var chart = new Highcharts.Chart({
                     chart: {
                         renderTo: container,
