@@ -447,7 +447,11 @@ def get_summary_reports(grid_cells):
 def get_chart_values(uid, grid_cells):
     selected_area = sum([gc.geometry.area for gc in grid_cells])  # m2
     selected_reef_area = get_sum(grid_cells, 'reef_area')
+    if not selected_reef_area:
+        selected_reef_area = 0
     selected_sand_area = get_sum(grid_cells, 'sand_area')
+    if not selected_sand_area:
+        selected_sand_area = 0
     fish_species = get_max(grid_cells, 'reef_fish_richness')
     coral_species = get_max(grid_cells, 'coral_richness')
     min_depth = get_min(grid_cells, 'depth_min')
