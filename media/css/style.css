@@ -671,3 +671,7 @@ a.disabled-link:hover {
 #comparison-intro {
   min-height: 48px;
 }
+
+#reports-container {
+  margin-left: -10px;
+}

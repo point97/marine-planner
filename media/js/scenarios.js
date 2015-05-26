@@ -865,7 +865,7 @@ function scenariosModel(options) {
                         renderTo: container,
                         type: 'columnrange',
                         inverted: true,
-                        spacingRight: 20,
+                        spacingRight: 28,
                         animation: false
                     },
                     credits: {enabled: false},
@@ -908,7 +908,7 @@ function scenariosModel(options) {
                         }
                     }
                 });
-                    var width = 350,
+                    var width = 370,
                     height = 90 + app.viewModel.scenarios.activeDrawings().length * 30;
                 if (height > 500) {
                     height = 500;
