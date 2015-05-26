@@ -457,6 +457,9 @@ def get_chart_values(uid, grid_cells):
     fish_species = get_max(grid_cells, 'reef_fish_richness')
     coral_species = get_max(grid_cells, 'coral_richness')
     min_depth = get_min(grid_cells, 'depth_min')
+    # Pin min_depth to zero, don't show elev as neg depth
+    if min_depth < 0:
+        min_depth = 0
     max_depth = get_max(grid_cells, 'depth_max')
     min_diving, max_diving = get_range(grid_cells, 'sum_scuba')
     min_fishing, max_fishing = get_range(grid_cells, 'sum_rec')
