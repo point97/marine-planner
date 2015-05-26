@@ -50,34 +50,35 @@
                         </select>
                         <div id="comparison-intro">
                             <p data-bind="visible: !chartMetric()">
-                                Comparison Reports can be used to visually compare your Drawings across various measurable values.
+                                Comparison Reports can be used to visually compare your
+                                Drawings across various measurable values.
                             </p>
                             <div data-bind="visible: chartMetric() == 'pct_reef'">
-                                %reef per drawing scale 0-100%-increments 10%
+                                % reef within drawing: scale 0-100%
                             </div>
                             <div data-bind="visible: chartMetric() == 'pct_reef_total'">
-                                %reef in relation to entire total mapped region this
+                                % reef of entire mapped SEFCRI region
                             </div>
                             <div data-bind="visible: chartMetric() == 'fish_species'">
-                                Max number of fish species this would be the largest
+                                Max number of fish species
                             </div>
                             <div data-bind="visible: chartMetric() == 'coral_species'">
-                                max number of coral species same as fish above.
+                                Max number of coral species
                             </div>
                             <div data-bind="visible: chartMetric() == 'diving'">
-                                total sum of all diving activity days scuba diving layer
+                                Total sum of all diving activity days
                             </div>
                             <div data-bind="visible: chartMetric() == 'fishing'">
-                                total sum of all fishing activity days rec fishing activies layer
+                                Total sum of all fishing activity days
                             </div>
                             <div data-bind="visible: chartMetric() == 'total'">
-                                total activity days
+                                Total sum of all activity days
                             </div>
                             <div data-bind="visible: chartMetric() == 'depth'">
-                                depth range min and max depth of the drawing
+                                Depth range, min and max depth of the drawing
                             </div>
                             <div data-bind="visible: chartMetric() == 'pct_sand'">
-                                %sand same as reef above, % of sand within the drawing
+                                % sand within drawing: scale 0-100%
                             </div>
                         </div>
                         <div id="reports-container"></div>
