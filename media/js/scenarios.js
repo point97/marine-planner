@@ -778,6 +778,7 @@ function scenariosModel(options) {
         };
         self.deactivateComparisonReports = function() {
             self.showComparisonReports(false);
+            self.updateDesignsScrollBar();
         };
         self.toggleComparisonReports = function() {
             alert("toggle Comparison Reports");
