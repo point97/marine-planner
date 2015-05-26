@@ -865,6 +865,7 @@ function scenariosModel(options) {
                         renderTo: container,
                         type: 'columnrange',
                         inverted: true,
+                        spacingRight: 20,
                         animation: false
                     },
                     credits: {enabled: false},
