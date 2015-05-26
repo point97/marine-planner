@@ -90,7 +90,7 @@ Save to local drive
 
     OFR_Planning_Grid_20150406b.mbtiles
 
-Move to util server, overwriting the master OFR_Planning_Grid layer. If you want to test it out, just name it something other than `OFR_Planning_Grid.mbtiles` which should be considered the "production" layer.
+Move to util server, overwriting the master `OFR_Planning_Grid` layer. If you want to test it out, just name it something other than `OFR_Planning_Grid.mbtiles` which should be considered the "production" layer.
 
     scp OFR_Planning_Grid_20150406b.mbtiles util:/var/apps/mbtiles/OFR_Planning_Grid.mbtiles
 
@@ -148,6 +148,13 @@ Restart the app server
     ~/webapps/marine_planner/apache2/bin/restart
 
 and test away. It would not hurt to again refer to the google docs spreadsheet and check that all issues have been addressed.
+
+You may need to clear the cache and optionally re-populate the cache after any changes that affect drawing reports
+
+    python manage.py clear_cache
+    python manage.py shell
+    >>> from drawing.models import AOI
+    >>> [(x.uid, x.serialize_attributes.keys()) for x in AOI.objects.all()]
 
 
 ## Provisioning notes
