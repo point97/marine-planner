@@ -8,28 +8,40 @@ from scenarios.models import GridCell
 from models import *
 from ofr_manipulators import clip_to_grid
 from simplejson import dumps
-    
+
 
 
 '''
 '''
 def get_drawings(request):
     json = []
-    
+
     drawings = AOI.objects.filter(user=request.user).order_by('date_created')
     for drawing in drawings:
         sharing_groups = [group.name for group in drawing.sharing_groups.all()]
+        try:
+            attrs = drawing.serialize_attributes
+        except:
+            # skip drawing if reports are failing for any reason
+            continue  # TODO log errors
+
         json.append({
             'id': drawing.id,
             'uid': drawing.uid,
             'name': drawing.name,
             'description': drawing.description,
-            'attributes': drawing.serialize_attributes,
+            'attributes': attrs,
             'sharing_groups': sharing_groups
         })
-        
+
     shared_drawings = AOI.objects.shared_with_user(request.user)
     for drawing in shared_drawings:
+        try:
+            attrs = drawing.serialize_attributes
+        except:
+            # skip drawing if reports are failing for any reason
+            continue  # TODO log errors
+
         if drawing not in drawings:
             username = drawing.user.username
             actual_name = drawing.user.first_name + ' ' + drawing.user.last_name
@@ -38,12 +50,12 @@ def get_drawings(request):
                 'uid': drawing.uid,
                 'name': drawing.name,
                 'description': drawing.description,
-                'attributes': drawing.serialize_attributes,
+                'attributes': attrs,
                 'shared': True,
                 'shared_by_username': username,
                 'shared_by_name': actual_name
             })
-        
+
     return HttpResponse(dumps(json))
 
 '''
@@ -53,14 +65,14 @@ def delete_drawing(request, uid):
         drawing_obj = get_feature_by_uid(uid)
     except Feature.DoesNotExist:
         raise Http404
-    
+
     #check permissions
     viewable, response = drawing_obj.is_viewable(request.user)
     if not viewable:
         return response
-        
+
     drawing_obj.delete()
-    
+
     return HttpResponse("", status=200)
 
 '''
@@ -71,7 +83,7 @@ def get_clipped_shape(request):
     if not (request.POST and request.POST['target_shape']):
         return HTTPResponse("No shape submitted", status=400)
 
-    target_shape = request.POST['target_shape']    
+    target_shape = request.POST['target_shape']
     geom = GEOSGeometry(target_shape, srid=3857)
 
     clipped_shape = clip_to_grid(geom)
@@ -81,11 +93,11 @@ def get_clipped_shape(request):
         largest_poly = LargestPolyFromMulti(clipped_shape)
         wkt = largest_poly.wkt
         return HttpResponse(dumps({"clipped_wkt": wkt}), status=200)
-    else: 
+    else:
         return HttpResponse("Submitted Shape is outside Grid Cell Boundaries (no overlap).", status=400)
 
-    # return HttpResponse(dumps({"clipped_wkt": wkt}), status=200)    
-    
+    # return HttpResponse(dumps({"clipped_wkt": wkt}), status=200)
+
 
 '''
 '''
@@ -121,12 +133,12 @@ def get_geometry_orig(request, uid):
         wkt = scenario_obj.geometry_orig.wkt
     except Scenario.DoesNotExist:
         raise Http404
-    
+
     #check permissions
     viewable, response = scenario_obj.is_viewable(request.user)
     if not viewable:
         return response
-    
+
     return HttpResponse(dumps({"geometry_orig": wkt}), status=200)
 
 
