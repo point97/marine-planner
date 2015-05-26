@@ -48,8 +48,6 @@ class AOI(PolygonFeature):
     def serialize_attributes(self):
         attributes = []
         grid_cells = intersecting_cells(self.geometry_orig)
-        if grid_cells.count() == 0:
-            raise ValueError("No grid cells for {}".format(self.uid))
         attributes.extend(get_summary_reports(grid_cells))
         if self.description:
             attributes.append({'title': 'Description', 'data': self.description})
