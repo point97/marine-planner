@@ -751,6 +751,16 @@ function scenarioModel(options) {
 function scenariosModel(options) {
         var self = this;
 
+        self.getDrawingById = function(id) {
+            var drawings = self.drawingList();
+            for (var i=0; i<drawings.length; i++) {
+                if ( drawings[i].id === id ) {
+                    return drawings[i];
+                }
+            }
+            return false;
+        };
+
         self.activeDrawings = function() {
             var drawings = self.drawingList();
             var active = [];
@@ -799,7 +809,7 @@ function scenariosModel(options) {
                     'low': vals.min, 
                     'high': vals.max, 
                     'avg': vals.avg, 
-                    'id': vals.drawing_id});
+                    'id': drawing.id});
             }
             return data;
         };
@@ -857,12 +867,9 @@ function scenariosModel(options) {
                         animation: false
                     },
                     credits: {enabled: false},
-                    // title: {'text': options.title },
-                    // subtitle: options.subtitle,
                     title: null,
                     xAxis: {categories: drawingNames},
                     yAxis: {title: {text: options.units}},
-                    // yAxis: {title: {text: options.units}, min: options.min},
                     legend: {enabled: false},
                     series: [{
                         name: options.seriesName,
@@ -873,6 +880,28 @@ function scenariosModel(options) {
                             dataLabels: {
                                 enabled: true,
                                 formatter: function() {return this.y;}
+                            }
+                        },
+                        series: {
+                            point: {
+                                events: {
+                                    mouseOver: function() {
+                                        var selection = app.viewModel.scenarios.getDrawingById(this.id);
+                                        if (selection && selection.layer) {
+                                            selection.layer.styleMap.styles['default'].defaultStyle.strokeColor = '#0ff';
+                                            selection.layer.redraw();
+                                        }
+                                    },
+                                    mouseOut: function() {
+                                        var selection = app.viewModel.scenarios.getDrawingById(this.id);
+                                        if (selection && selection.layer) {
+                                            // Assumes the OFR style uses a stroke == fill for normal shapes
+                                            var fill = selection.layer.styleMap.styles['default'].defaultStyle.fillColor;
+                                            selection.layer.styleMap.styles['default'].defaultStyle.strokeColor = fill;
+                                            selection.layer.redraw(); 
+                                        }                         
+                                    }
+                                }
                             }
                         }
                     }
@@ -901,7 +930,7 @@ function scenariosModel(options) {
             app.viewModel.updateAttributeLayers();
         });
 
-        self.scenarioLeaseBlocksLayerName = 'Selected OCS Blocks';
+        self.scenarioLeaseBlocksLayerName = 'Selected Planning Units';
 
         // loading message for showing spinner
         // false for normal operation
