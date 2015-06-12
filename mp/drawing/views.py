@@ -6,9 +6,37 @@ from madrona.features import get_feature_by_uid
 from madrona.common.utils import LargestPolyFromMulti
 from scenarios.models import GridCell
 from models import *
+from mp.drawing.export import geometries_to_shp_zip
 from ofr_manipulators import clip_to_grid
 from simplejson import dumps
 
+def export_shp(request, drawing_id):
+    """Generate a zipped shape file and return it in a response.
+    """
+    try:
+        drawing = get_feature_by_uid(drawing_id)
+    except AOI.DoesNotExist:
+        raise Http404()
+
+    if not drawing.user == request.user:
+        raise Http404()
+
+    attrs = drawing.serialize_attributes
+    attrs = attrs.get('attributes', [])
+    # the attrs list seems to contain two strings, 'data' and 'title', not sure
+    # why, filter them out.
+    attrs = [a for a in attrs if isinstance(a, dict)]
+    new_attrs = {}
+    for a in attrs:
+        new_attrs[a['title']] = a['data']
+    attrs = new_attrs
+    del new_attrs
+
+    zip = geometries_to_shp_zip(drawing.name, ((drawing.geometry_final, attrs),))
+
+    response = HttpResponse(content=zip.read(), content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=%s.zip' % drawing.name
+    return response
 
 
 '''
