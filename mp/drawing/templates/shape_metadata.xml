@@ -7,22 +7,19 @@
             </citeinfo>
         </citation>
         <descript>
-            <abstract>
-                {{ description }}
-            </abstract>
-            <purpose>{{ purpose }}</purpose>
+            <abstract></abstract>
+            <purpose></purpose>
         </descript>
     </idinfo>
     <dataIdInfo>
-        <idPurp></idPurp>
-        <idAbs></idAbs>
+        <idPurp>{{ summary }}</idPurp>
+        <idAbs>&lt;DIV STYLE="text-align:Left;"&gt;
+            {{ description }}
+        &lt;/DIV&gt;</idAbs>
         <idCredit></idCredit>
         <idCitation>
             <resTitle>{{ title }}</resTitle>
         </idCitation>
-        <searchKeys>
-            <keyword></keyword>
-        </searchKeys>
         <resConst>
             <Consts>
                 <useLimit>NOT AN OFFICIAL Our Florida Reefs Product. Your use of
@@ -49,5 +46,8 @@
                 </useLimit>
             </Consts>
         </resConst>
+        <searchKeys>
+            <keyword>{{ title }}</keyword>
+        </searchKeys>
     </dataIdInfo>
 </metadata>

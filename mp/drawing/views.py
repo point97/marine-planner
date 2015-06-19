@@ -1,7 +1,7 @@
 import io
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
-from django.contrib.gis.geos import GEOSGeometry
+from django.contrib.gis.geos import GEOSGeometry, Polygon
 from django.template import Context
 from django.template.loader import get_template
 from madrona.features.models import Feature
@@ -14,15 +14,26 @@ from ofr_manipulators import clip_to_grid
 
 def attrs_to_description(attrs):
     # Note: the attributes have raw UTF8 escapes in them
-    return u'<br>'.join('%s: %s' % (attr['title'].decode('utf8'),
-                                    attr['data'].decode('utf8'))
-                       for attr in attrs)
+    # ArcMap only seems to recognize caps HTML tags in some special HTML subset
+    decoded = ((attr['title'].decode('utf8'), attr['data'].decode('utf8'))
+               for attr in attrs)
+    lines = ('<DIV><P>%s: %s</P></DIV>' % (k, v)
+             for k, v in decoded)
+    desc = u'\n'.join(lines)
+    return desc
 
-def export_shp(request, drawing_id):
+def attrs_to_csv(attrs):
+    decoded = ((attr['title'].decode('utf8'), attr['data'].decode('utf8'))
+               for attr in attrs)
+    lines = (u'"%s","%s"' % (k, v) for k, v in decoded)
+    desc = u'\n'.join(lines)
+    return desc
+
+def export_shp(request, feature_id):
     """Generate a zipped shape file and return it in a response.
     """
     try:
-        drawing = get_feature_by_uid(drawing_id)
+        drawing = get_feature_by_uid(feature_id)
     except AOI.DoesNotExist:
         raise Http404()
 
@@ -36,33 +47,61 @@ def export_shp(request, drawing_id):
     drawing_attributes = drawing.serialize_attributes
     attrs = {'name': drawing.name, 'description': drawing.description}
 
-    items = geometries_to_shp(drawing.name, ((drawing.geometry_final, attrs),))
-
     try:
-        description = attrs_to_description(drawing_attributes['attributes'])
-    except TypeError:
-        description = ''
+        geom = drawing.geometry_final
+    except AttributeError:
+        # Naturally, planning units have a different field for geometry
+        geom = drawing.geometry_dissolved
 
-    metadata_context = {
-        'title': drawing.name,
-        'description': description,
-        # 'purpose': '...',
-    }
-    t = get_template('shape_metadata.xml')
-    metadata_xml = t.render(Context(metadata_context))
-    metadata_xml = metadata_xml.encode('utf8')
-    metadata_xml = io.BytesIO(metadata_xml)
-    items.append({
-        "timestamp": items[0]['timestamp'],
-        "bytes": metadata_xml,
-        "name": '%s.shp.xml' % drawing.name,
-    })
+    items = geometries_to_shp(drawing.name, ((geom, attrs),))
+
+    metadata_file = create_metadata_xml(drawing, drawing_attributes['attributes'],
+                                        items[0]['timestamp'],)
+    items.append(metadata_file)
+
+    csv_file = create_csv(drawing, drawing_attributes['attributes'], items[0]['timestamp'])
+    items.append(csv_file)
 
     zip = zip_objects(items)
 
     response = HttpResponse(content=zip.read(), content_type='application/zip')
     response['Content-Disposition'] = 'attachment; filename=%s.zip' % drawing.name
     return response
+
+def create_csv(drawing, attributes, timestamp):
+    csv = attrs_to_csv(attributes)
+    csv = csv.encode('utf8')
+    csv = io.BytesIO(csv)
+
+    return {
+        "timestamp": timestamp,
+        "bytes": csv,
+        "name": '%s.csv' % drawing.name,
+    }
+
+
+def create_metadata_xml(drawing, attributes, timestamp):
+    try:
+        description = attrs_to_description(attributes)
+    except TypeError:
+        description = ''
+
+    metadata_context = {
+        'title': drawing.name,
+        'description': description,
+        'summary': drawing.description,
+        # 'purpose': '...',
+    }
+    t = get_template('shape_metadata.xml')
+    metadata_xml = t.render(Context(metadata_context))
+    metadata_xml = metadata_xml.encode('utf8')
+    metadata_xml = io.BytesIO(metadata_xml)
+
+    return {
+        "timestamp": timestamp,
+        "bytes": metadata_xml,
+        "name": '%s.shp.xml' % drawing.name,
+    }
 
 
 '''
