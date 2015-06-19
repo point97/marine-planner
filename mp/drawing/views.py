@@ -34,12 +34,12 @@ def export_shp(request, feature_id):
     """
     try:
         drawing = get_feature_by_uid(feature_id)
-    except AOI.DoesNotExist:
+    except drawing.__class__.DoesNotExist:
         raise Http404()
 
     if not drawing.user == request.user:
         # if we don't own the drawing, see if it's shared with us
-        shared_with_user = AOI.objects.shared_with_user(request.user)
+        shared_with_user = drawing.__class__.objects.shared_with_user(request.user)
         shared_with_user = shared_with_user.filter(id=drawing.id)
         if not shared_with_user.exists():
             raise Http404()
