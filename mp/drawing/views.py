@@ -55,11 +55,11 @@ def export_shp(request, feature_id):
 
     items = geometries_to_shp(drawing.name, ((geom, attrs),))
 
-    metadata_file = create_metadata_xml(drawing, drawing_attributes['attributes'],
+    metadata_file = create_metadata_xml(drawing, drawing_attributes,
                                         items[0]['timestamp'],)
     items.append(metadata_file)
 
-    csv_file = create_csv(drawing, drawing_attributes['attributes'], items[0]['timestamp'])
+    csv_file = create_csv(drawing, drawing_attributes, items[0]['timestamp'])
     items.append(csv_file)
 
     zip = zip_objects(items)
@@ -69,7 +69,10 @@ def export_shp(request, feature_id):
     return response
 
 def create_csv(drawing, attributes, timestamp):
-    csv = attrs_to_csv(attributes)
+    try:
+        csv = attrs_to_csv(attributes['attributes'])
+    except TypeError:
+        csv = ''
     csv = csv.encode('utf8')
     csv = io.BytesIO(csv)
 
@@ -82,7 +85,7 @@ def create_csv(drawing, attributes, timestamp):
 
 def create_metadata_xml(drawing, attributes, timestamp):
     try:
-        description = attrs_to_description(attributes)
+        description = attrs_to_description(attributes['attributes'])
     except TypeError:
         description = ''
 
