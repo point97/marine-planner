@@ -27,7 +27,11 @@ def export_shp(request, drawing_id):
         raise Http404()
 
     if not drawing.user == request.user:
-        raise Http404()
+        # if we don't own the drawing, see if it's shared with us
+        shared_with_user = AOI.objects.shared_with_user(request.user)
+        shared_with_user = shared_with_user.filter(id=drawing.id)
+        if not shared_with_user.exists():
+            raise Http404()
 
     drawing_attributes = drawing.serialize_attributes
     attrs = {'name': drawing.name, 'description': drawing.description}
