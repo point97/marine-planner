@@ -1,6 +1,9 @@
 from django.conf.urls.defaults import *
 from views import *
 
+# Borrow the shape file export from drawings
+from mp.drawing.views import export_shp
+
 urlpatterns = patterns('',
     #feature reports
     url(r'sdc_report/(\d+)', sdc_analysis, name='sdc_analysis'), #user requested sdc analysis 
@@ -14,5 +17,7 @@ urlpatterns = patterns('',
     url(r'get_selections$', get_selections),
     url(r'get_leaseblock_features$', get_leaseblock_features),
     url(r'get_filter_count$', get_filter_count),
-    url(r'get_filter_results$', get_filter_results)
+    url(r'get_filter_results$', get_filter_results),
+    url(r'export/shp/(?P<feature_id>[\w_]+)$', export_shp,
+        name='export_pu_shp'),
 )

@@ -41,7 +41,7 @@ def zip_objects(items, compress_type=zipfile.ZIP_DEFLATED):
     return zip
 
 
-def geometries_to_shp(base_name, geom_attrs):
+def geometries_to_shp(base_name, geom_attrs, srid=4326):
     """Produce an item dictionary file containing shp, shx, dbf, and prj files.
     base_name is the base name for the shape files.
     The item dict is for use with the zip_objects function above.
@@ -63,12 +63,16 @@ def geometries_to_shp(base_name, geom_attrs):
     field_names and types are determined by the first attribute dictionary,
     i.e., names from from geom_attrs[0][1].keys(), and types come from examining
     geom_attrs[0][1].values()
+
+    If srid is specified, then the geometries are transformed to that SRID prior
+    to being written to the shape file. The default value is 4326; ArcMap
+    doesn't seem to recognize 3857 (Web mercator) as a valid projection.
     """
     shp_bytes = io.BytesIO()
     shx_bytes = io.BytesIO()
     dbf_bytes = io.BytesIO()
 
-    writer = shapefile.Writer()
+    writer = shapefile.Writer(shapefile.POLYGON)
 
     # type_map and field_transform should be extracted
     field_data = geom_attrs[0][1]
@@ -94,11 +98,26 @@ def geometries_to_shp(base_name, geom_attrs):
     }
     field_transform[unicode] = field_transform[str]
 
+    geometry = geom_attrs[0][0]
+    if not srid:
+        srid = geometry.srid
+
     for geometry, attrs in geom_attrs:
-        writer.poly(parts=geometry)
+        if srid != geometry.srid:
+            geometry = geometry.transform(srid, clone=True)
+
         transformed_attrs = dict((k, field_transform[type(v)](v))
-                                 for k, v in attrs.iteritems())
-        writer.record(**transformed_attrs)
+                         for k, v in attrs.iteritems())
+
+        if len(geometry) > 1:
+            # Multipolygon; shapefiles apparently support polygons with multiple
+            # exterior rings, but pyshp doesn't know how to write multipolygons
+            for poly in geometry:
+                writer.poly(parts=poly)
+                writer.record(**transformed_attrs)
+        else:
+            writer.poly(parts=geometry)
+            writer.record(**transformed_attrs)
 
     writer.saveShp(shp_bytes)
     writer.saveShx(shx_bytes)
@@ -113,7 +132,7 @@ def geometries_to_shp(base_name, geom_attrs):
     # Now, fetch the srtext from spatial_ref_sys and put that in the prj file.
     prj_bytes = io.StringIO()
 
-    srtext = get_shp_projection(3857)
+    srtext = get_shp_projection(srid)
     prj_bytes.write(srtext)
     prj_bytes.seek(0)
 

@@ -744,8 +744,11 @@ function scenarioModel(options) {
             }
         };
 
-        self.exportShapeFileUrl = function() {
+        self.exportDrawingShapeFileUrl = function() {
             return '/drawing/export/shp/'+ self.uid;
+        };
+        self.exportPlanningUnitShapeFileUrl = function() {
+            return '/scenario/export/shp/'+ self.uid;
         };
 
 
