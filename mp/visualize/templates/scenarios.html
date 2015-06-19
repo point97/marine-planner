@@ -208,10 +208,11 @@
                                                         <a class="btn btn-group dropdown-toggle" data-toggle="dropdown" href="#">
                                                             <span class="caret"></span>
                                                         </a>
-                                                        <ul class="dropdown-menu">
+                                                        <ul class="dropdown-menu" style="left:auto;right:0">
                                                             <li><a data-bind="visible: ! shared(), click: editDrawing">Edit</a></li>
                                                             <li><a id="share-option" data-bind="visible: ! shared() && $parent.hasSharingGroups, click: $parent.showSharingModal">Share</a></li>
                                                             <li><a data-bind="click: $parent.zoomToScenario">Zoom To</a></li>
+                                                            <li><a data-bind="attr: {href: exportShapeFileUrl()}">Export Shapefile</a></li>
                                                             <li class="divider"></li>
                                                             <li><a data-bind="visible: ! shared(), click: deleteDrawing">Delete</a></li>
                                                             <li><a data-bind="visible: shared, click: createCopyDrawing">Create Copy</a></li>

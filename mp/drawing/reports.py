@@ -146,8 +146,6 @@ def get_summary_reports(grid_cells):
         'title': 'Distance Range from Coastal Inlet',
         'data': distance_to_inlet})
 
-    attributes.extend(header('TESTING'))
-
     min_distance_to_outfall, max_distance_to_outfall = get_range(
         grid_cells, 'outfall_distance')
     distance_to_outfall = '%s - %s miles' % (

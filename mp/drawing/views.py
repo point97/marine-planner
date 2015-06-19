@@ -1,14 +1,59 @@
+import io
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.contrib.gis.geos import GEOSGeometry
+from django.template import Context
+from django.template.loader import get_template
 from madrona.features.models import Feature
 from madrona.features import get_feature_by_uid
-from madrona.common.utils import LargestPolyFromMulti
-from scenarios.models import GridCell
-from models import *
-from ofr_manipulators import clip_to_grid
 from simplejson import dumps
 
+from models import *
+from mp.drawing.export import geometries_to_shp, zip_objects
+from ofr_manipulators import clip_to_grid
+
+def attrs_to_description(attrs):
+    # Note: the attributes have raw UTF8 escapes in them
+    return u'<br>'.join('%s: %s' % (attr['title'].decode('utf8'),
+                                    attr['data'].decode('utf8'))
+                       for attr in attrs)
+
+def export_shp(request, drawing_id):
+    """Generate a zipped shape file and return it in a response.
+    """
+    try:
+        drawing = get_feature_by_uid(drawing_id)
+    except AOI.DoesNotExist:
+        raise Http404()
+
+    if not drawing.user == request.user:
+        raise Http404()
+
+    drawing_attributes = drawing.serialize_attributes
+    attrs = {'name': drawing.name, 'description': drawing.description}
+
+    items = geometries_to_shp(drawing.name, ((drawing.geometry_final, attrs),))
+
+    metadata_context = {
+        'title': drawing.name,
+        'description': attrs_to_description(drawing_attributes['attributes']),
+        # 'purpose': '...',
+    }
+    t = get_template('shape_metadata.xml')
+    metadata_xml = t.render(Context(metadata_context))
+    metadata_xml = metadata_xml.encode('utf8')
+    metadata_xml = io.BytesIO(metadata_xml)
+    items.append({
+        "timestamp": items[0]['timestamp'],
+        "bytes": metadata_xml,
+        "name": '%s.shp.xml' % drawing.name,
+    })
+
+    zip = zip_objects(items)
+
+    response = HttpResponse(content=zip.read(), content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=%s.zip' % drawing.name
+    return response
 
 
 '''

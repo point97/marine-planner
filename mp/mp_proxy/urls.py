@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from views import *
+from views import getLegendJSON, layer_proxy_view
 
 urlpatterns = patterns('',
     (r'^get_legend_json/(?P<url>)$', getLegendJSON),

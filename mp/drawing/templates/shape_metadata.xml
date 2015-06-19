@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<metadata>
+    <idinfo>
+        <citation>
+            <citeinfo>
+                <title>{{ title }}</title>
+            </citeinfo>
+        </citation>
+        <descript>
+            <abstract>
+                {{ description }}
+            </abstract>
+            <purpose>{{ purpose }}</purpose>
+        </descript>
+    </idinfo>
+    <dataIdInfo>
+        <idPurp></idPurp>
+        <idAbs></idAbs>
+        <idCredit></idCredit>
+        <idCitation>
+            <resTitle>{{ title }}</resTitle>
+        </idCitation>
+        <searchKeys>
+            <keyword></keyword>
+        </searchKeys>
+        <resConst>
+            <Consts>
+                <useLimit>NOT AN OFFICIAL Our Florida Reefs Product. Your use of
+                    this map is at your own risk. This map is not intended to be
+                    used for navigational purposes and is not intended to be
+                    relied upon in situations where precise location information
+                    is needed or where erroneous, inaccurate, or incomplete
+                    location data may lead to death, personal injury, property
+                    or environmental damage. Neither the Florida Department of
+                    Environmental Protection (FDEP), Board of Trustees (BOT) of
+                    the Internal Improvement Trust Fund of the State of Florida
+                    nor any content providers, guarantees the accuracy,
+                    completeness, or reliability of displayed data. In no event
+                    will the FDEP or BOT of the Internal Improvement Trust Fund
+                    of the State of Florida be liable for any damages whatsoever
+                    (including, but not limited to, incidental, exemplary, and
+                    consequential damages, lost profits, or damages resulting
+                    from lost data or business interruption) resulting from the
+                    use or inability to use this information, whether based on
+                    warranty, contract, tort, or any other legal theory, and
+                    whether or not the FDEP or BOT of the Internal Improvement
+                    Trust Fund of the State of Florida are advised of the
+                    possibility of such damages.
+                </useLimit>
+            </Consts>
+        </resConst>
+    </dataIdInfo>
+</metadata>
