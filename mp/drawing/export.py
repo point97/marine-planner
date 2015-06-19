@@ -41,9 +41,10 @@ def zip_objects(items, compress_type=zipfile.ZIP_DEFLATED):
     return zip
 
 
-def geometries_to_shp_zip(base_name, geom_attrs):
-    """Produce a zip file containing shp, shx, and dbf files.
+def geometries_to_shp(base_name, geom_attrs):
+    """Produce an item dictionary file containing shp, shx, dbf, and prj files.
     base_name is the base name for the shape files.
+    The item dict is for use with the zip_objects function above.
 
     Geometries and attributes are provided as a list of tuples in geom_attrs:
     geom_attrs = ((geom1, geom1_attrs), (geom2, geom2_attrs), ...)
@@ -123,4 +124,4 @@ def geometries_to_shp_zip(base_name, geom_attrs):
         {'name': '%s.prj' % base_name, 'timestamp': now, 'bytes': prj_bytes},
     ]
 
-    return zip_objects(items)
+    return items
