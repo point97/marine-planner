@@ -38,9 +38,14 @@ def export_shp(request, drawing_id):
 
     items = geometries_to_shp(drawing.name, ((drawing.geometry_final, attrs),))
 
+    try:
+        description = attrs_to_description(drawing_attributes['attributes'])
+    except TypeError:
+        description = ''
+
     metadata_context = {
         'title': drawing.name,
-        'description': attrs_to_description(drawing_attributes['attributes']),
+        'description': description,
         # 'purpose': '...',
     }
     t = get_template('shape_metadata.xml')
