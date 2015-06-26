@@ -240,7 +240,7 @@
 
 		self.url = ko.computed({
             read: function () {
-                var url = 'http://localhost:8023/copy/';
+                var url = 'http://copymachine.point97.io/copy/';
                 var printUrl = location.href + "&print=true";
                 var qs = [];
                 var param;
