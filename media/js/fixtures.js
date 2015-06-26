@@ -1,6 +1,7 @@
 if (typeof app === 'undefined') {
 	app = {};
 }
+window.__ok_to_print__ = false; // set the magic printing variable to false
 
 // TODO: same layer belongs to multiple themes
 app.fixture = {

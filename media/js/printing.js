@@ -1,8 +1,4 @@
 (function () {
-	var socket,
-		socketUrl = app.socketUrl || 'http://localhost:8989';
-		// socketUrl = marco_settings !== 'undefined' ? marco_settings.socketUrl : 'http://localhost:8989';
-
 	function printModel (map, viewModel) {
 		var self = this;
 		self.$popover = $('#printing-popover');
@@ -54,8 +50,9 @@
 		self.showSpinner = ko.observable();
 
 		// job options
-		self.format = ko.observable(".pdf");
+		self.format = ko.observable("pdf");
 		self.paperSize = ko.observable("letter");
+		self.orientation = ko.observable("landscape");
 
 		// final dimensions of image in pixels
 		self.shotHeight = ko.observable();
@@ -239,14 +236,35 @@
 			self.$popover.hide();
 		};
 
-		// make sure we have a socket
-		if (typeof io !== 'undefined') {
-			socket = io.connect(socketUrl);	
-			self.enabled(true);
-		} else {
-			self.enabled(false);				
-		}
+		self.enabled(true);
 
+		self.url = ko.computed({
+            read: function () {
+                var url = 'http://localhost:8023/copy/';
+                var printUrl = location.href + "&print=true";
+                var qs = [];
+                var param;
+
+                param = ['url', encodeURIComponent(printUrl)];
+                qs.push(param.join('='));
+
+                param = ['title', encodeURIComponent('FooBAR!')];
+                qs.push(param.join('='));
+
+                param = ['format', encodeURIComponent(self.format())];
+                qs.push(param.join('='));
+
+                param = ['paper', encodeURIComponent(self.paperSize())];
+                qs.push(param.join('='));
+
+                param = ['orientation', encodeURIComponent(self.orientation())];
+                qs.push(param.join('='));
+
+                url = [url, qs.join('&')];
+                url = url.join('?');
+				return url;
+			}
+        });
 	}
 	var shots = {
 		$popover: $("#printing-popover")	

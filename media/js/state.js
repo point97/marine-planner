@@ -44,7 +44,10 @@ app.establishLayerLoadState = function () {
             });
             if (status === true) {
                 app.layersAreLoaded = true;
-                //console.log('layers are loaded');
+                if (app.viewModel.printView()) {
+                    window.__ok_to_print__ = true;    // set the magic variable for the printing system.
+                    alert("Ready to print.");
+                }
                 clearInterval(loadTimer);
             }
         }, 100);
@@ -86,7 +89,11 @@ app.loadCompressedState = function(state) {
             app.viewModel.unloadedDesigns = unloadedDesigns;
             // $('#designsTab').tab('show'); //to activate the loading of designs
             // better yet...
-            app.viewModel.scenarios.loadDesigns(); 
+            try {
+                // this often fails when printing, just ignore the error
+                app.viewModel.scenarios.loadDesigns();
+            }
+            catch (e) {}
        }
     }
 
@@ -186,7 +193,8 @@ app.setMapPosition = function(x, y, z) {
 
 // hide buttons and other features for printing
 app.printMode = function () {
-    $('body').addClass('print');
+    app.viewModel.printView(true);
+//    $('body').addClass('print');
 };
 
 // also hide logo and rules

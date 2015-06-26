@@ -21,10 +21,6 @@ from mp_settings.models import *
 
 def show_planner(request, project=None, template='planner.html'):
     try:
-        socket_url = settings.SOCKET_URL
-    except AttributeError:
-        socket_url = ''
-    try:
         if project:
             mp_settings = MarinePlannerSettings.objects.get(slug_name=project)
         else:
@@ -59,7 +55,7 @@ def show_planner(request, project=None, template='planner.html'):
         latitude = longitude = zoom = min_zoom = max_zoom = None
         enable_drawing = False
     context = {
-        'MEDIA_URL': settings.MEDIA_URL, 'SOCKET_URL': socket_url, 'login': 'true',
+        'MEDIA_URL': settings.MEDIA_URL, 'login': 'true',
         'project_name': project_name, 'latitude': latitude, 'longitude': longitude, 'zoom': zoom,
         'default_hash': default_hash, 'min_zoom': min_zoom, 'max_zoom': max_zoom,
         'project_logo': project_logo, 'project_icon': project_icon, 'project_home_page': project_home_page,
