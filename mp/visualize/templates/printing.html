@@ -14,18 +14,15 @@
                         <strong>Format</strong>
                         <div class="control-group">
                             <label class="radio control-label">
-                                <input type="radio" value=".pdf" name="format" data-bind="checked: format">PDF
+                                <input type="radio" value="pdf" name="format" data-bind="checked: format">PDF document
                             </label>
                             <label class="radio control-label">
-                                <input type="radio" name="format" value=".png" checked data-bind="checked: format">PNG
+                                <input type="radio" name="format" value="png" checked data-bind="checked: format">PNG image
                             </label>
                             <label class="radio control-label">
-                                <input type="radio" name="format" value=".jpg" data-bind="checked: format">JPG
+                                <input type="radio" name="format" value="jpg" data-bind="checked: format">JPG image
                             </label>
-                           <!-- <label class="radio control-label">
-                                <input type="radio" value=".tiff" name="format" data-bind="checked: format">Georeferenced TIFF
-                            </label> -->
-                            
+
                         </div>
                         <strong>Options</strong>
                         <label class="checkbox">
@@ -38,7 +35,7 @@
                     <div class="span6">
                         <div class="well">
 
-                            <fieldset data-bind="visible: format() !== '.pdf'">
+                            <fieldset style="display: none" data-bind-no="visible: format() !== 'pdf'">
                                 <strong>Image Size</strong> 
                                 <label>Width (<span data-bind="text: units">inches</span>)</label>
                                 <input type="text" class="spinner" data-bind="spinner: shotWidthDisplay, spinnerOptions: { step: .1 }">
@@ -50,20 +47,29 @@
                                     <option value="pixels">pixels</option>
                                 </select>
                             </fieldset>
-                            <fieldset data-bind="visible: format() === '.pdf'">
+                            <fieldset data-bind-no="visible: format() === 'pdf'">
                                 <strong>Paper Size</strong>
-                                    <label class="radio control-label">
-                                        <input type="radio" name="paperSize" value='letter' data-bind="checked: paperSize">Letter (8.5" x 11")
-                                    </label>
-                                    <label class="radio control-label">
-                                        <input type="radio"  name="paperSize" value='ledger' data-bind="checked: paperSize">Ledger (11" x 17")
-                                    </label>
-                                    <label class="radio control-label">
-                                        <input type="radio" name="paperSize"  value='A4' data-bind="checked: paperSize">A4 (297mm x 210mm)
-                                    </label>
-                                    <label class="radio control-label">
-                                        <input type="radio" name="paperSize"  value='A3' data-bind="checked: paperSize">A3 (420mm x 297mm)
-                                    </label>
+                                <label class="radio control-label">
+                                    <input type="radio" name="paperSize" value='letter' data-bind="checked: paperSize">Letter (8.5" x 11")
+                                </label>
+                                <label class="radio control-label">
+                                    <input type="radio"  name="paperSize" value='tabloid' data-bind="checked: paperSize">Tabloid (11" x 17")
+                                </label>
+                                <label class="radio control-label">
+                                    <input type="radio" name="paperSize"  value='a4' data-bind="checked: paperSize">A4 (210mm x 297mm)
+                                </label>
+                                <label class="radio control-label">
+                                    <input type="radio" name="paperSize"  value='a3' data-bind="checked: paperSize">A3 (297mm x 420mm)
+                                </label>
+                                <strong>Orientation</strong>
+                                <label class="radio control-label">
+                                    <input type="radio" name="orientation" value="portrait" data-bind="checked: orientation">
+                                    Portrait
+                                </label>
+                                <label class="radio control-label">
+                                    <input type="radio" name="orientation" value="landscape" data-bind="checked: orientation">
+                                    Landscape
+                                </label>
                             </fieldset>
                         </div>
                     </div>
@@ -72,6 +78,11 @@
                     <label><strong data-bind="css: { disabled: borderLess }">Title</strong></label>
                     <input class="print-title" type="text" data-bind="value: title, valueUpdate: 'afterkeydown', disable: borderLess" placeholder="Optional title for map...">
                 </fieldset>
+
+                URL:
+                <textarea data-bind="html: url"></textarea>
+
+                <a data-bind="attr: {href: url}" target="_blank">Download PDF</a>
             </div>
 
             <div data-bind="visible: isGoogle">
