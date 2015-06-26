@@ -985,13 +985,14 @@ img + h3 {
 	width: 100%;
 }
 
+body.print #login-buttons,
 body.print .tabs,
 body.print .user-btn,
 body.print #feedback-tab,
 body.print #help-tab,
 body.print #basemaps,
 body.print .olControlZoom
- {
+{
 	display: none;
 }
 

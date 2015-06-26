@@ -62,10 +62,6 @@ FEEDBACK_RECIPIENT = "Marine Planning Team <mp-team@marineplanner.org>"
 HELP_EMAIL = "mp-team@marineplanner.org"
 DEFAULT_FROM_EMAIL = "Marine Planning Team <mp-team@marineplanner.org>"
 
-# url for socket.io printing
-SOCKET_URL = 'http://ofr.marineplanner.io:8080'
-# SOCKET_URL = False
-
 # Change the following line to True,
 # to display the 'under maintenance' template
 UNDER_MAINTENANCE_TEMPLATE = False

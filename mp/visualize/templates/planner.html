@@ -100,7 +100,7 @@
         
     </head>
     
-    <body class="ofr" style="margin: 0px;">
+    <body class="ofr" style="margin: 0px;" data-bind="css: {print: printView}">
     
         
         <!-- modals -->
@@ -651,7 +651,7 @@
                                                             </div>
                                                         </div>
                                                         <div data-bind="if: legend['colors']">
-                                                            <div data-bind="foreach: legend['colors']"> 
+                                                            <div data-bind="foreach: legend['colors']">
                                                                 <div>
                                                                     <svg style="width: 150px; height: 15px;">
                                                                         <rect width="15" height="15" data-bind="style: { fill: color }"></rect>
@@ -684,43 +684,7 @@
                 
                 <div class="span5"></div>
                 
-                <!-- Legends Panel (right panel) 
-                <div data-bind="visible: showLegend(), css: {'fullscreen-legend': isFullScreen() }" class="span3" id="legend">
-                    <div id="legend-wrapper">
-                        <div id="legend-header">
-                            <span class="pull-right">
-                                <a href="#" style="margin-left: 10px; margin-top: -2px; opacity: .6;" class="btn btn-mini close" data-bind="click: toggleLegend"> x </a> 
-                            </span>
-                            <span style="text-transform: uppercase;">
-                                Legends (<span data-bind="text: activeLegendLayers().length"></span>)
-                            </span>
-                        </div>
-                        <div id="legend-content">
-                          <div data-bind="foreach: activeLegendLayers">
-                            <div style="padding-bottom: 10px;">
-                                <span class="pagination-centered legend-title" data-bind="html: legendTitle ? legendTitle : name"></span>
-                                <p style="margin: 0px -5px 3px; text-align: left;font-size: 12px;" data-bind="visible: legendSubTitle, html: legendSubTitle"></p>
-                                <span data-bind="if: legend">
-                                    <div data-bind="if: legend['elements']">
-                                        <div data-bind="foreach: legend['elements']">
-                                            <div>
-                                                <img data-bind="attr: {src: swatch}" />
-                                                <span data-bind="text: label" style="font-size: 11px; font-weight: bold;"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div data-bind="if: !legend['elements']">
-                                        <div data-bind="css: { 'in': legendVisibility }" style="padding-top: 5px;">
-                                            <img data-bind="attr: { src: legend }" />
-                                        </div>
-                                    </div>
-                                </span>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- /Legends Panel -->
+
                 </div>
             </div>
             <span class="timestamp" data-bind="visible: mapTitle"><span data-bind="text: new Date().toString('M/d/yyyy HH:mm')"></span></span>
@@ -742,10 +706,64 @@
                 </div>
             </div>
         </div>
-        
+
         {% include "bookmarks.html" %}
         
         {% include "printing.html" %}
+
+
+        <!-- legend again (for printing) -->
+        <style>
+            .abcd {
+                position: absolute;
+                width: 400px; height: 300px; overflow-y: scroll;
+                top: 40px;
+                left: 400px;
+                z-index: 111111;
+                background-color: #EEE;
+            }
+        </style>
+        <div id="page2" style="display:none" data-bind="visible: printView, css: { 'break-before': printView }">
+            <img src="http://localhost:8022/media/ofr/img/ofr-logo.png">
+            <h3 data-bind="visible: activeLegendLayers().length > 0">Legend</h3>
+            <div class="legends" data-bind="foreach: activeLegendLayers">
+                <h4 data-bind="html: legendTitle ? legendTitle : name"></h4>
+                <p data-bind="visible: legendSubTitle, html: legendSubTitle"></p>
+                <div data-bind="if: legend">
+                    <div data-bind="if: legend['elements']">
+                        <div data-bind="foreach: legend['elements']">
+                            <div>
+                                <img data-bind="attr: {src: swatch}" />
+                                <span data-bind="text: label" style="font-size: 11px; font-weight: bold;"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-bind="if: legend['colors']">
+                        <div data-bind="foreach: legend['colors']">
+                            <div>
+                                <svg style="width: 150px; height: 15px;">
+                                    <rect width="15" height="15" data-bind="style: { fill: color }"></rect>
+                                    <text x="25" y="12" style="font-size: 11px; fill: #555;" data-bind="text: label">
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-bind="if: !legend['elements'] && !legend['colors']">
+                        <div data-bind="css: { 'in': legendVisibility }" style="padding-top: 5px;">
+                            <img data-bind="attr: { src: legend }" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <p style="margin-top: 1in; font-size: 10px; line-height: 14px">
+                <strong>NOT AN OFFICIAL Our Florida Reefs Product.</strong> Your use of this map is at your own risk. This map is not intended to be used for navigational purposes and is not intended to be relied upon in situations where precise location information is needed or where erroneous, inaccurate, or incomplete location data may lead to death, personal injury, property or environmental damage. Neither the Florida Department of Environmental Protection (FDEP), Board of Trustees (BOT) of the Internal Improvement Trust Fund of the State of Florida nor any content providers, guarantees the accuracy, completeness, or reliability of displayed data. In no event will the FDEP or BOT of the Internal Improvement Trust Fund of the State of Florida be liable for any damages whatsoever (including, but not limited to, incidental, exemplary, and consequential damages, lost profits, or damages resulting from lost data or business interruption) resulting from the use or inability to use this information, whether based on warranty, contract, tort, or any other legal theory, and whether or not the FDEP or BOT of the Internal Improvement Trust Fund of the State of Florida are advised of the possibility of such damages.
+            </p>
+        </div>
+
+
+
         {% if not user.is_authenticated %}
         <form id="google-plus" method="post" action="{% url 'social:complete' "google-plus" %}">{% csrf_token %}
             <input id="at" type="hidden" name="access_token" value="" />
@@ -791,13 +809,6 @@
             app.is_authenticated = false;
             {% endif %}
         </script>
-        
-        {% if SOCKET_URL %}
-        <script src="{{SOCKET_URL}}/socket.io/socket.io.js"></script>
-        <script>
-            app.socketUrl = "{{ SOCKET_URL }}";
-        </script>
-        {% endif %}
         
         <!-- Check for Marine Planner Settings -->
         <script type="text/javascript">
@@ -897,7 +908,6 @@
             }
         }(document, "script", "twitter-wjs");
         </script>
-        
     </body>
 
 </html>

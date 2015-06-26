@@ -40,7 +40,6 @@ DATABASES = {
 
 MEDIA_ROOT = '/home/vagrant/marine-planner/media/'
 MEDIA_URL = '/media/'
-SOCKET_URL = ''
 SOCIAL_AUTH_GOOGLE_PLUS_KEY = ''
 SOCIAL_AUTH_GOOGLE_PLUS_SECRET = ''
 ADMIN_MEDIA_PATH = '/home/vagrant/.virtualenvs/marine-planner/lib/python2.7/site-packages/django/contrib/admin/static/admin/'

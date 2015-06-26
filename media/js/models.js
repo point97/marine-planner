@@ -1167,6 +1167,8 @@ function viewModel() {
 
     });
 
+    self.printView = ko.observable(false);
+
     self.activeLegendLayers = ko.computed(function() {
         var layers = $.map(self.visibleLayers(), function(layer) {
             if (layer.legend || layer.legendTitle) {
