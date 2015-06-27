@@ -236,7 +236,8 @@
 			self.$popover.hide();
 		};
 
-		self.enabled(true);
+        // not quite ready yet
+		self.enabled(false);
 
 		self.url = ko.computed({
             read: function () {
