@@ -237,7 +237,7 @@
 		};
 
 		self.url = ko.computed(function () {
-            var url = 'http://copymachine.point97.io/copy/';
+		    var url = app.MPSettings.copymachine_endpoint;
             var here = location.protocol + '//' + location.host;
             var printUrl = here + app.viewModel.currentURL() + "&print=true";
             var qs = [];
@@ -271,7 +271,6 @@
             url = url.join('?');
             return url;
         });
-//        self.url.subscribe()
 	}
 	var shots = {
 		$popover: $("#printing-popover")	

@@ -60,7 +60,8 @@ def show_planner(request, project=None, template='planner.html'):
         'default_hash': default_hash, 'min_zoom': min_zoom, 'max_zoom': max_zoom,
         'project_logo': project_logo, 'project_icon': project_icon, 'project_home_page': project_home_page,
         'enable_drawing': enable_drawing,
-        'bitly_registered_domain': bitly_registered_domain, 'bitly_username': bitly_username, 'bitly_api_key': bitly_api_key
+        'bitly_registered_domain': bitly_registered_domain, 'bitly_username': bitly_username, 'bitly_api_key': bitly_api_key,
+        'copymachine_endpoint': settings.COPYMACHINE_ENDPOINT,
     }
     if request.user.is_authenticated:
         context['session'] = request.session._session_key
