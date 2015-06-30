@@ -44,7 +44,7 @@
 		};
 
 		// print server is enabled, don't show button without it
-		self.enabled = ko.observable(false);
+		self.enabled = ko.observable(true);
 
 		self.jobStatus = ko.observable();
 		self.showSpinner = ko.observable();
@@ -80,7 +80,7 @@
 
 		// warn if baselayer is google
 		self.isGoogle = ko.observable(false);
-		self.units = ko.observable("inches");
+		self.units = ko.observable("pixels");
 
 
 		self.shotHeightDisplay = ko.computed({
@@ -236,36 +236,43 @@
 			self.$popover.hide();
 		};
 
-        // not quite ready yet
-		self.enabled(false);
+		self.url = ko.computed(function () {
+//            var url = 'http://copymachine.point97.io/copy/';
+            var url = 'http://localhost:8023/copy/';
+            var here = location.protocol + '//' + location.host;
+            var printUrl = here + app.viewModel.currentURL() + "&print=true";
+            var qs = [];
+            var param;
 
-		self.url = ko.computed({
-            read: function () {
-                var url = 'http://copymachine.point97.io/copy/';
-                var printUrl = location.href + "&print=true";
-                var qs = [];
-                var param;
+            param = ['url', encodeURIComponent(printUrl)];
+            qs.push(param.join('='));
 
-                param = ['url', encodeURIComponent(printUrl)];
-                qs.push(param.join('='));
+            param = ['title', encodeURIComponent('FooBAR!')];
+            qs.push(param.join('='));
 
-                param = ['title', encodeURIComponent('FooBAR!')];
-                qs.push(param.join('='));
+            param = ['format', encodeURIComponent(self.format())];
+            qs.push(param.join('='));
 
-                param = ['format', encodeURIComponent(self.format())];
-                qs.push(param.join('='));
-
+            if (self.format() == 'pdf') {
                 param = ['paper', encodeURIComponent(self.paperSize())];
                 qs.push(param.join('='));
 
                 param = ['orientation', encodeURIComponent(self.orientation())];
                 qs.push(param.join('='));
+            }
 
-                url = [url, qs.join('&')];
-                url = url.join('?');
-				return url;
-			}
+            else {
+                param = ['width', encodeURIComponent(self.shotWidth())];
+                qs.push(param.join('='));
+                param = ['height', encodeURIComponent(self.shotHeight())];
+                qs.push(param.join('='));
+            }
+
+            url = [url, qs.join('&')];
+            url = url.join('?');
+            return url;
         });
+//        self.url.subscribe()
 	}
 	var shots = {
 		$popover: $("#printing-popover")	

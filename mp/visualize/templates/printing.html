@@ -24,30 +24,31 @@
                             </label>
 
                         </div>
-                        <strong>Options</strong>
-                        <label class="checkbox">
-                            <input type="checkbox" data-bind="checked: borderLess">Borderless Map
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" data-bind="checked: showLegend, disable: borderLess">Show Legend
-                        </label>
+
+                        <!--<strong>Options</strong>-->
+                        <!--<label class="checkbox">-->
+                            <!--<input type="checkbox" data-bind="checked: borderLess">Borderless Map-->
+                        <!--</label>-->
+                        <!--<label class="checkbox">-->
+                            <!--<input type="checkbox" data-bind="checked: showLegend, disable: borderLess">Show Legend-->
+                        <!--</label>-->
                     </div>
                     <div class="span6">
                         <div class="well">
 
-                            <fieldset style="display: none" data-bind-no="visible: format() !== 'pdf'">
+                            <fieldset data-bind="visible: format() != 'pdf'">
                                 <strong>Image Size</strong> 
-                                <label>Width (<span data-bind="text: units">inches</span>)</label>
-                                <input type="text" class="spinner" data-bind="spinner: shotWidthDisplay, spinnerOptions: { step: .1 }">
-                                <label>Height (<span data-bind="text: units">inches</span>)</label>
-                                <input type="text" class="spinner" data-bind="spinner: shotHeightDisplay, spinnerOptions: { step: .1 }">
+                                <label>Width (<span data-bind="text: units">pixels</span>)</label>
+                                <input type="text" class="spinner" data-bind="spinner: shotWidthDisplay, spinnerOptions: { step: 1 }">
+                                <label>Height (<span data-bind="text: units">pixels</span>)</label>
+                                <input type="text" class="spinner" data-bind="spinner: shotHeightDisplay, spinnerOptions: { step: 1 }">
                                 <label>Units</label>
                                 <select class="span7" data-bind="value: units">
-                                    <option value="inches">inches</option>
                                     <option value="pixels">pixels</option>
+                                    <option value="inches">inches</option>
                                 </select>
                             </fieldset>
-                            <fieldset data-bind-no="visible: format() === 'pdf'">
+                            <fieldset data-bind="visible: format() == 'pdf'">
                                 <strong>Paper Size</strong>
                                 <label class="radio control-label">
                                     <input type="radio" name="paperSize" value='letter' data-bind="checked: paperSize">Letter (8.5" x 11")
@@ -74,15 +75,11 @@
                         </div>
                     </div>
                 </div>
-                <fieldset>
-                    <label><strong data-bind="css: { disabled: borderLess }">Title</strong></label>
-                    <input class="print-title" type="text" data-bind="value: title, valueUpdate: 'afterkeydown', disable: borderLess" placeholder="Optional title for map...">
-                </fieldset>
 
-                URL:
-                <textarea data-bind="html: url"></textarea>
-
-                <a data-bind="attr: {href: url}" target="_blank">Download PDF</a>
+                <!--<fieldset>-->
+                    <!--<label><strong data-bind="css: { disabled: borderLess }">Title</strong></label>-->
+                    <!--<input class="print-title" type="text" data-bind="value: title, valueUpdate: 'afterkeydown', disable: borderLess" placeholder="Optional title for map...">-->
+                <!--</fieldset>-->
             </div>
 
             <div data-bind="visible: isGoogle">
@@ -93,7 +90,8 @@
 
             <div class="pull-right" style="padding-bottom: 8px;">
                 <a class="btn" data-bind="click: cancel">cancel</a>
-                <button class="btn" data-bind="click: sendJob, disable: isGoogle">export</button>
+                <!--<button class="btn" data-bind="click: sendJob, disable: isGoogle">export</button>-->
+                <a class="btn" data-bind="attr: {href: url}" target="_blank">Download <span data-bind="text: format"></span></a>
                 <div class="clearfix"></div>
             </div>
         </div>

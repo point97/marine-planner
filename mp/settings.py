@@ -172,5 +172,6 @@ CACHES = {
 import logging
 logging.getLogger('django.db.backends').setLevel(logging.ERROR)
 
-from settings_local import *
+COPYMACHINE_URL = 'http://copymachine.point97.io'
 
+from settings_local import *
