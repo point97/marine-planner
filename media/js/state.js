@@ -46,7 +46,6 @@ app.establishLayerLoadState = function () {
                 app.layersAreLoaded = true;
                 if (app.viewModel.printView()) {
                     window.__ok_to_print__ = true;    // set the magic variable for the printing system.
-                    alert("Ready to print.");
                 }
                 clearInterval(loadTimer);
             }
