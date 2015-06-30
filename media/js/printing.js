@@ -237,8 +237,7 @@
 		};
 
 		self.url = ko.computed(function () {
-//            var url = 'http://copymachine.point97.io/copy/';
-            var url = 'http://localhost:8023/copy/';
+            var url = 'http://copymachine.point97.io/copy/';
             var here = location.protocol + '//' + location.host;
             var printUrl = here + app.viewModel.currentURL() + "&print=true";
             var qs = [];
