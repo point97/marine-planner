@@ -31,7 +31,7 @@
                 self.$popover.hide();
             } else {
                 // hide the popover if already visible
-                self.jobStatus("Waiting for print/export to complete");
+                self.jobStatus("Waiting for PDF generation to complete.\nThis may take 30 - 60 seconds, depending on the complexity of the map.\n");
                 self.showSpinner(true);
                 self.thumbnail(false);
                 self.$popover.show().draggable().position({
@@ -82,6 +82,7 @@
 		self.isGoogle = ko.observable(false);
 		self.units = ko.observable("pixels");
 
+        self.token = 0;
 
 		self.shotHeightDisplay = ko.computed({
 			read: function () {
@@ -164,8 +165,39 @@
 			}
 		});
 
+        self.doPrint = function() {
+            self.$popover.hide();
+            self.token = (new Date()).getTime();
+
+            document.forms['printDownloadForm']['token'].value = self.token;
+            if (self.interval) {
+                window.clearInterval(self.interval);
+            }
+            self.interval = setInterval(function() {
+                function getCookie(name) {
+                    // nonsense from https://developer.mozilla.org/en-US/docs/Web/API/document/cookie?redirectlocale=en-US&redirectslug=DOM%2Fdocument.cookie
+                    return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(name).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+                }
+                function tossCookie(name) {
+                    document.cookie = encodeURIComponent(name) +
+                                      "=deleted; expires=" +
+                                      (new Date(0)).toUTCString();
+                }
+
+                var token = getCookie('token');
+                if (token == self.token) {
+                    tossCookie('token');
+                    window.clearInterval(self.interval);
+                    $('#print-modal').modal('hide');
+                }
+            }, 1000);
+            $("#print-modal").modal('show');
+            return true;
+        }
+
 		// print button in result dialog
 		self.print = function () {
+
 			var w = window.open(self.download());
 			setTimeout(function () {
 				w.print();

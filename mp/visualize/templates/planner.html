@@ -89,8 +89,6 @@
     </head>
     
     <body class="ofr" style="margin: 0px;" data-bind="css: {print: printView}">
-    
-        
         <!-- modals -->
         {% include "modals.html" %}
         {% include "bookmark-modals.html" %}
@@ -712,8 +710,10 @@
             }
         </style>
         <div id="page2" style="display:none" data-bind="visible: printView, css: { 'break-before': printView }">
-            <img src="http://localhost:8022/media/ofr/img/ofr-logo.png">
+            <img style="width: 186px; height: 76px; float: right;" src="{{ MEDIA_URL }}ofr/img/ofr-logo.png">
+
             <h3 data-bind="visible: activeLegendLayers().length > 0">Legend</h3>
+
             <div class="legends" data-bind="foreach: activeLegendLayers">
                 <h4 data-bind="html: legendTitle ? legendTitle : name"></h4>
                 <p data-bind="visible: legendSubTitle, html: legendSubTitle"></p>
@@ -815,7 +815,8 @@
                 enable_drawing: "{{enable_drawing}}",
                 bitly_registered_domain: "{{bitly_registered_domain}}",
                 bitly_username: "{{bitly_username}}",
-                bitly_api_key: "{{bitly_api_key}}"
+                bitly_api_key: "{{bitly_api_key}}",
+                copymachine_endpoint: "{{ copymachine_endpoint }}",
             };
         </script>
         

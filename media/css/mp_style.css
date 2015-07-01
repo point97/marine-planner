@@ -986,7 +986,7 @@ img + h3 {
 }
 
 body.print #login-buttons,
-body.print .tabs,
+/*body.print .tabs,*/
 body.print .user-btn,
 body.print #feedback-tab,
 body.print #help-tab,

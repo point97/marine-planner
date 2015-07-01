@@ -92,7 +92,7 @@ app.loadCompressedState = function(state) {
                 // this often fails when printing, just ignore the error
                 app.viewModel.scenarios.loadDesigns();
             }
-            catch (e) {}
+            catch (e) {console.error("Scenarios Failed", e)}
        }
     }
 
@@ -132,9 +132,9 @@ app.loadCompressedState = function(state) {
     }
 
     //if (app.embeddedMap) {
-    if ( $(window).width() < 768 || app.embeddedMap ) {
-        state.tab = "data";
-    }
+//    if ( $(window).width() < 768 || app.embeddedMap ) {
+//        state.tab = "data";
+//    }
 
     // active tab -- the following prevents theme and data layers from loading in either tab (not sure why...disbling for now)
     // it appears the dataTab show in state.themes above was causing the problem...?
@@ -193,6 +193,7 @@ app.setMapPosition = function(x, y, z) {
 // hide buttons and other features for printing
 app.printMode = function () {
     app.viewModel.printView(true);
+    app.viewModel.minimizeLeftPanel();
 //    $('body').addClass('print');
 };
 

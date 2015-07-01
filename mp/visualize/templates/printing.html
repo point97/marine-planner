@@ -16,13 +16,14 @@
                             <label class="radio control-label">
                                 <input type="radio" value="pdf" name="format" data-bind="checked: format">PDF document
                             </label>
+                            <!--
                             <label class="radio control-label">
                                 <input type="radio" name="format" value="png" checked data-bind="checked: format">PNG image
                             </label>
                             <label class="radio control-label">
                                 <input type="radio" name="format" value="jpg" data-bind="checked: format">JPG image
                             </label>
-
+                            -->
                         </div>
 
                         <!--<strong>Options</strong>-->
@@ -89,9 +90,14 @@
             </div>
 
             <div class="pull-right" style="padding-bottom: 8px;">
-                <a class="btn" data-bind="click: cancel">cancel</a>
                 <!--<button class="btn" data-bind="click: sendJob, disable: isGoogle">export</button>-->
-                <a class="btn" data-bind="attr: {href: url}" target="_blank">Download <span data-bind="text: format"></span></a>
+                <form id="printDownloadForm" method="POST" action="print" data-bind="submit: doPrint">
+                    <input type="hidden" name="url" data-bind="value: url">
+                    <input type="hidden" name="token">
+                    <a class="btn" data-bind="click: cancel">Cancel</a>
+                    <button class="btn" type="submit">Download <span data-bind="text: format"></span></button>
+                    <!--<a class="btn" data-bind="attr: {href: url}">Download <span data-bind="text: format"></span></a>-->
+                </form>
                 <div class="clearfix"></div>
             </div>
         </div>
