@@ -38,8 +38,12 @@ def print_page(request):
 
     if response.ok:
         download = HttpResponse(content=response.content, content_type='application/pdf')
-        for name, value in response.headers.items():
-            download[name] = value
+
+        if 'content-disposition' in response.headers:
+            download['content-disposition'] = response.headers['content-disposition']
+        if 'content-type' in response.headers:
+            download['content-type'] = response.headers['content-type']
+
         download.set_cookie('token', token)
         return download
 
