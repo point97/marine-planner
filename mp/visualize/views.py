@@ -2,11 +2,12 @@
 from django.contrib.auth.models import Group
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 import os
 from querystring_parser import parser
+import requests
 import simplejson
 
 from simplejson import dumps
@@ -18,6 +19,35 @@ import settings
 from models import *
 from data_manager.models import *
 from mp_settings.models import *
+
+def print_page(request):
+    """Proxy a request to the copy machine.
+    This is used to hide the session id, so we can get a logged-in view.
+    """
+
+    url = request.POST.get('url', None)
+    token = request.POST.get('token', None)
+    if not url or not token:
+        raise Http404()
+
+    url += "&footer=" + settings.PRINT_FOOTER
+
+    if request.user.is_authenticated:
+        url += "&session=sessionid:%s" % request.session.session_key
+    response = requests.get(url)
+
+    if response.ok:
+        download = HttpResponse(content=response.content, content_type='application/pdf')
+        for name, value in response.headers.items():
+            download[name] = value
+        download.set_cookie('token', token)
+        return download
+
+    else:
+        r = HttpResponse(content=response.content, status=response.status_code)
+        r.set_cookie('token', token)
+        return r
+
 
 def show_planner(request, project=None, template='planner.html'):
     try:
@@ -60,7 +90,8 @@ def show_planner(request, project=None, template='planner.html'):
         'default_hash': default_hash, 'min_zoom': min_zoom, 'max_zoom': max_zoom,
         'project_logo': project_logo, 'project_icon': project_icon, 'project_home_page': project_home_page,
         'enable_drawing': enable_drawing,
-        'bitly_registered_domain': bitly_registered_domain, 'bitly_username': bitly_username, 'bitly_api_key': bitly_api_key
+        'bitly_registered_domain': bitly_registered_domain, 'bitly_username': bitly_username, 'bitly_api_key': bitly_api_key,
+        'copymachine_endpoint': settings.COPYMACHINE_ENDPOINT,
     }
     if request.user.is_authenticated:
         context['session'] = request.session._session_key

@@ -9,5 +9,6 @@ urlpatterns = patterns('',
     url(r'share_bookmark$', share_bookmark),
     (r'^map', show_embedded_map),
     (r'^mobile', show_mobile_map),
+    (r'^print', print_page),
     (r'', show_planner),
 )

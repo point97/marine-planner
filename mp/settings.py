@@ -172,6 +172,7 @@ CACHES = {
 import logging
 logging.getLogger('django.db.backends').setLevel(logging.ERROR)
 
-COPYMACHINE_URL = 'http://copymachine.point97.io'
+COPYMACHINE_ENDPOINT = 'http://copymachine.point97.io/copy/'
+PRINT_FOOTER = '<span style="font-size: 10px">NOT AN OFFICIAL <i>Our Florida Reefs</i> product. The presentation of information and views expressed by this product are that of the user, not that of the <i>Our Florida Reefs</i> process.</span>'
 
 from settings_local import *
