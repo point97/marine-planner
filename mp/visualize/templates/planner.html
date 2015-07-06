@@ -709,6 +709,17 @@
                 background-color: #EEE;
             }
         </style>
+        <div data-bind="visible: printView"
+             style="display: none;
+                    background-color: white;
+                    border-radius: 10px;
+                    padding: 0.125in 0.25in;
+                    position: absolute;
+                    z-index: 1000;
+                    top: 0.25in;
+                    right: 0.25in;">
+            <img style="width: 186px; height: 76px;" src="{{ MEDIA_URL }}ofr/img/ofr-logo.png">
+        </div>
         <div id="page2" style="display:none" data-bind="visible: printView, css: { 'break-before': printView }">
             <img style="width: 186px; height: 76px; float: right;" src="{{ MEDIA_URL }}ofr/img/ofr-logo.png">
 
