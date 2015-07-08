@@ -986,7 +986,7 @@ img + h3 {
 }
 
 body.print #login-buttons,
-/*body.print .tabs,*/
+body.print .tabs, /* re-hide the tab box, we're showing the logo on the right now */
 body.print .user-btn,
 body.print #feedback-tab,
 body.print #help-tab,

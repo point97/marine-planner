@@ -193,7 +193,7 @@ app.setMapPosition = function(x, y, z) {
 // hide buttons and other features for printing
 app.printMode = function () {
     app.viewModel.printView(true);
-    app.viewModel.minimizeLeftPanel();
+//    app.viewModel.minimizeLeftPanel();
 //    $('body').addClass('print');
 };
 
