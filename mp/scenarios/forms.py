@@ -111,12 +111,12 @@ class ScenarioForm(FeatureForm):
     coral_soft = forms.BooleanField(label="Soft Coral Percent Cover", required=False, help_text="The maximum value of percent Soft Coral cover in all compiled benthic survey sites within the Planning Unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 409, 'layer_title': "Show Soft Coral Percent Cover"}))
     coral_soft_min = forms.FloatField(required=False, initial=2, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     coral_soft_max = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to', 'post_text': 'percent'}))
-    coral_soft_input = forms.FloatField(widget=DualSliderWidget('coral_soft_min', 'coral_soft_max', min=0, max=38, step=1))
+    coral_soft_input = forms.FloatField(widget=DualSliderWidget('coral_soft_min', 'coral_soft_max', min=0, max=39, step=1))
 
     depth_mean = forms.BooleanField(label="Average Depth", required=False, help_text="The average depth in a planning unit in ft. Positive sign indicates depth, negative indicates elevation", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
     depth_mean_min = forms.FloatField(required=False, initial=10, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Depth Range (feet)'}))
     depth_mean_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
-    depth_mean_input = forms.FloatField(widget=DualSliderWidget('depth_mean_min', 'depth_mean_max', min=-11, max=220, step=1))
+    depth_mean_input = forms.FloatField(widget=DualSliderWidget('depth_mean_min', 'depth_mean_max', min=-11, max=200, step=1))
 
     divefish_overlap = forms.BooleanField(label="Diving and Fishing use overlap (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for both fishing and diving in the 2015 OFR survey. Negative numbers are more fishing than diving. Positive numbers are more diving than fishing. Zero is an equal amount of both activities.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
         #  'layer_id': 424, 'layer_title': "Show Recreational Fishing and Diving Activity Overlap"}))
@@ -139,7 +139,7 @@ class ScenarioForm(FeatureForm):
     inlet_distance = forms.BooleanField(label="Distance from Coastal Inlet", required=False, help_text="Distance from nearest inlet in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 339, 'layer_title': 'Show Inlets and Passes'}))
     inlet_distance_min = forms.FloatField(required=False, initial=2, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     inlet_distance_max = forms.FloatField(required=False, initial=6, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to', 'post_text': 'miles'}))
-    inlet_distance_input = forms.FloatField(widget=DualSliderWidget('inlet_distance_min', 'inlet_distance_max', min=0, max=8.5, step=0.5))
+    inlet_distance_input = forms.FloatField(widget=DualSliderWidget('inlet_distance_min', 'inlet_distance_max', min=0, max=10.5, step=0.5))
 
     large_live_coral = forms.BooleanField(label="Large Live Corals", required=False, help_text="Planning units that contain at least one known live coral greater than 2m.", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 404, 'layer_title': "Show Large Live Corals"}))
     large_live_coral_input = forms.ChoiceField(required=False, widget=forms.Select(attrs={'class': 'parameters'}), choices=(('Y', 'Include'), ('N', 'Exclude')), initial='Y')
@@ -160,7 +160,7 @@ class ScenarioForm(FeatureForm):
     outfall_distance = forms.BooleanField(label="Distance from Outfall", required=False, help_text="Distance from nearest outfall in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 350, 'layer_title': 'Show Outfall Locations'}))
     outfall_distance_min = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     outfall_distance_max = forms.FloatField(required=False, initial=40, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to', 'post_text': 'miles'}))
-    outfall_distance_input = forms.FloatField(widget=DualSliderWidget('outfall_distance_min', 'outfall_distance_max', min=0, max=60, step=0.5))
+    outfall_distance_input = forms.FloatField(widget=DualSliderWidget('outfall_distance_min', 'outfall_distance_max', min=0, max=56, step=0.5))
 
     pier_distance = forms.BooleanField(label="Distance from Pier", required=False, help_text="Distance from nearest pier in miles", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 326, 'layer_title': 'Show Pier Locations'}))
     pier_distance_min = forms.FloatField(required=False, initial=5, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
@@ -173,7 +173,7 @@ class ScenarioForm(FeatureForm):
     prcnt_art = forms.BooleanField(label="Percent Artificial Substrate", required=False, help_text="Minimum percent of mapped artificial substrate area (including dump sites, outfall pipes and designated artificial reefs) within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 436, 'layer_title': 'Show Artificial Habitat'}))
     prcnt_art_min = forms.FloatField(required=False, initial=30, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Minimum Percentage'}))
     prcnt_art_max = forms.FloatField(required=False, initial=50, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
-    prcnt_art_input = forms.FloatField(widget=DualSliderWidget('prcnt_art_min', 'prcnt_art_max', min=0, max=100, step=10))
+    prcnt_art_input = forms.FloatField(widget=DualSliderWidget('prcnt_art_min', 'prcnt_art_max', min=0, max=50, step=10))
 
     prcnt_reef = forms.BooleanField(label="Percent Reef", required=False, help_text="Minimum percent of mapped reef area within each planning unit", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 437, 'layer_title': 'Show Coral Reef and Hardbottom Habitat'}))
     prcnt_reef_min = forms.FloatField(required=False, initial=30, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'Minimum Percentage'}))
@@ -209,7 +209,7 @@ class ScenarioForm(FeatureForm):
     reef_fish_richness = forms.BooleanField(label="Number of Reef Fish Species", required=False, help_text="Number of fish species per PSU (RVC 2012 & 2014)", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox', 'layer_id': 426, 'layer_title': "Show Number of Reef Fish Species"}))
     reef_fish_richness_min = forms.FloatField(required=False, initial=2, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': ''}))
     reef_fish_richness_max = forms.FloatField(required=False, initial=20, widget=forms.TextInput(attrs={'class':'slidervalue', 'pre_text': 'to'}))
-    reef_fish_richness_input = forms.FloatField(widget=DualSliderWidget('reef_fish_richness_min', 'reef_fish_richness_max', min=0, max=56, step=1))
+    reef_fish_richness_input = forms.FloatField(widget=DualSliderWidget('reef_fish_richness_min', 'reef_fish_richness_max', min=3, max=68, step=1))
 
     scuba_use = forms.BooleanField(label="Scuba Diving Use Intensity (OFR 2015)", required=False, help_text="Planning units that contain at least one entry for SCUBA diving in the 2015 OFR survey", widget=CheckboxInput(attrs={'class': 'parameters hidden_checkbox'}))
         # , 'layer_id': 419, 'layer_title': "Show Scuba Diving Activities"}))
