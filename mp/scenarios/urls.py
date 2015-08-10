@@ -2,11 +2,11 @@ from django.conf.urls.defaults import *
 from views import *
 
 # Borrow the shape file export from drawings
-from mp.drawing.views import export_shp
+from drawing.views import export_shp
 
 urlpatterns = patterns('',
     #feature reports
-    url(r'sdc_report/(\d+)', sdc_analysis, name='sdc_analysis'), #user requested sdc analysis 
+    url(r'sdc_report/(\d+)', sdc_analysis, name='sdc_analysis'), #user requested sdc analysis
     url(r'delete_design/(?P<uid>[\w_]+)/$', delete_design), #user deletes scenario (or cancels empty geometry result)
     url(r'get_attributes/(?P<uid>[\w_]+)/$', get_attributes), #get attributes for a given scenario
     url(r'get_scenarios$', get_scenarios),

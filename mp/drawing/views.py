@@ -9,7 +9,7 @@ from madrona.features import get_feature_by_uid
 from simplejson import dumps
 
 from models import *
-from mp.drawing.export import geometries_to_shp, zip_objects
+from drawing.export import geometries_to_shp, zip_objects
 from ofr_manipulators import clip_to_grid
 
 def attrs_to_description(attrs):
