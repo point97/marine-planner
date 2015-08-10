@@ -133,6 +133,36 @@ app.init = function() {
     });
     map.addControl(map.zoomBox);
 
+
+    //////////////////////////////////////////////////////////////////////////
+    function handleMeasurements(event) {
+        var geometry = event.geometry;
+        var units = event.units;
+        var order = event.order;
+        var measure = event.measure;
+        // var out = "";
+        // if(order == 1) {
+        //     out += "measure: " + measure.toFixed(3) + " " + units;
+        // } else {
+        //     out += "measure: " + measure.toFixed(3) + " " + units + "<sup>2</" + "sup>";
+        // }
+        // console.log(out);
+        app.viewModel.measure.distance(measure);
+    }
+    map.lineMeasure = new OpenLayers.Control.Measure(
+        OpenLayers.Handler.Path, {
+            persist: true,
+        }
+    );
+    map.lineMeasure.events.on({
+        "measure": handleMeasurements,
+        "measurepartial": handleMeasurements
+    });
+    map.lineMeasure.geodesic = true;
+    map.addControl(map.lineMeasure);
+    // map.lineMeasure.activate();
+    //////////////////////////////////////////////////////////////////////////
+
     // only allow onetime zooming with box
     map.events.register("zoomend", null, function() {
         if (app.MPSettings && app.MPSettings.min_zoom) {

@@ -195,6 +195,11 @@
                                               <i class="icon-fullscreen icon-large"></i>
                                               <span>Fullscreen</span>
                                           </a>
+                                          <!--Measure Button-->
+                                          <a class="btn" id="btn-measure" data-bind="click: measure.showMeasureDialog, visible: !isFullScreen()">
+                                              <i class="icon-resize-horizontal icon-large"></i>
+                                              <span>Measure</span>
+                                          </a>
                                         </div>
                                     </div>
                                     <div id="map-buttons">
@@ -697,6 +702,8 @@
         
         {% include "printing.html" %}
 
+        {% include "measure.html" %}
+
 
         <!-- legend again (for printing) -->
         <style>
@@ -786,7 +793,7 @@
         <script src="{{MEDIA_URL}}assets/underscore/underscore-min.js"></script>
         <script src="http://maps.google.com/maps/api/js?v=3.6&amp;sensor=false"></script>
         
-        <script src="{{MEDIA_URL}}assets/openlayers/OpenLayers-mp-min.js"></script>
+        <script src="{{MEDIA_URL}}assets/openlayers/OpenLayers-mp-build.js"></script>
         <!-- <script src="{{MEDIA_URL}}assets/openlayers/OpenLayers.js"></script>
         <script src="{{MEDIA_URL}}assets/openlayers/arcgisrestidentify.js"></script>
         <script src="{{MEDIA_URL}}assets/openlayers/featureclick.js"></script> -->
@@ -845,6 +852,7 @@
         {% endif %}
         <script src="{{MEDIA_URL}}js/server.js"></script>
         <script src="{{MEDIA_URL}}js/printing.js"></script>
+        <script src="{{MEDIA_URL}}js/measure.js"></script>
         {% if user.is_staff %}
         <script src="{{MEDIA_URL}}js/add-layer.js"></script>
         {% endif %}
