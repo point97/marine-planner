@@ -286,6 +286,22 @@ madrona.onShow(function(){
                                                 }
                                             });
                                         {% endif %}
+
+                                        {% if field_min %}
+                                            $('#id_{{ field_min.html_name }}').change( function() {
+                                                if (app.viewModel.scenarios.scenarioFormModel) {
+                                                    app.viewModel.scenarios.scenarioFormModel.updateFiltersAndCount('{{ field.html_name }}');
+                                                }
+                                            });
+                                        {% endif %}
+                                        {% if field_max %}
+                                            $('#id_{{ field_max.html_name }}').change( function() {
+                                                if (app.viewModel.scenarios.scenarioFormModel) {
+                                                    app.viewModel.scenarios.scenarioFormModel.updateFiltersAndCount('{{ field.html_name }}');
+                                                }
+                                            });
+                                        {% endif %}
+
                                     </script>
                                 </div>
                             </div>
