@@ -3,13 +3,13 @@
         var self = this;
         self.$popover = $('#measure-popover');
 
-        self.showMeasureDialog = function(vm, event) {
+        self.toggleMeasureDialog = function(vm, event) {
             app.map.lineMeasure.activate();
             var width = $("#map-panel").width() + $("#legend:visible").width();
             self.$popover.width(width);
             self.$button = $(event.target).closest('.btn');
             if (self.$popover.is(":visible")) {
-                self.$popover.hide();
+                self.cancel();
             } else {
                 self.$popover.show();
             }
