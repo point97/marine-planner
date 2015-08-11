@@ -15,8 +15,11 @@
                     </div>
                     <div class="span6">
                         <span data-bind="text: roundedDistance"></span>
-                        <span data-bind="text: units, visible: roundedDistance() > 0"></span>
-                        <!-- TODO english AND metric units or button to switch -->
+                        <span data-bind="text: units, visible: meters() > 0"></span>
+                        <span data-bind="visible: meters() > 0">
+                            (<span data-bind="text: roundedDistanceEnglish, visible: meters() > 0"></span>
+                             <span data-bind="text: unitsEnglish, visible: meters() > 0"></span>)
+                        </span>
                     </div>
                 </div>
             </div>

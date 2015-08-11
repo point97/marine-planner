@@ -15,26 +15,42 @@
             }
         };
 
-        self.distance = ko.observable(0);
+        self.meters = ko.observable(0); // Requires OL control to be meters only
+
+        // Metric
         self.units = ko.observable();
         self.roundedDistance = ko.computed(function() {
-            var units = self.units();
-            if (units == 'mi' || units == 'km') {
-                return self.distance().toFixed(2);
-            } else if (units == 'ft' || units == 'm') {
-                return self.distance().toFixed(0);
+            var meters = self.meters();
+            if (meters > 250) {
+                // Convert to km, 2 dec points
+                self.units("km");
+                return (meters / 1000).toFixed(2);
             } else {
-                return self.distance();
+                // Return rounded meters
+                self.units("m");
+                return meters.toFixed(0);
             }
         });
+
+        // English
+        self.unitsEnglish = ko.observable();
+        self.roundedDistanceEnglish = ko.computed(function() {
+            var meters = self.meters();
+            if (meters > 402.366) {
+                // 1/4 mi threshold, Convert to mi, 2 dec points
+                self.unitsEnglish("mi");
+                return (meters / 1609.34).toFixed(2);
+            } else {
+                // Convert to rounded ft
+                self.unitsEnglish("ft");
+                return (meters / 0.3048).toFixed(0);
+            }
+        });
+
         self.cancel = function() {
             self.$popover.hide();
-            self.distance(0);
+            self.meters(0);
             app.map.lineMeasure.deactivate();
-        };
-        self.doPrint = function() {
-            $("#measure-modal").modal('show');
-            return true;
         };
     }
     app.viewModel.measure = new measureModel(app.map, app.viewModel);

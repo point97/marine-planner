@@ -136,9 +136,13 @@ app.init = function() {
 
     function handleMeasurements(event) {
         var units = event.units;
+        if (units != 'm') {
+            // viewModel *requires* meters only
+            console.error("Meters only");
+            return false;
+        }
         var measure = event.measure;
-        app.viewModel.measure.distance(measure);
-        app.viewModel.measure.units(units);
+        app.viewModel.measure.meters(measure);
     }
 
    var measureSymbolizers = {
@@ -166,6 +170,8 @@ app.init = function() {
     map.lineMeasure = new OpenLayers.Control.Measure(
         OpenLayers.Handler.Path, {
             persist: true,
+            displaySystem: 'metric',
+            displaySystemUnits: {'metric': ['m']},
             handlerOptions: {
                 layerOptions: { styleMap: measureStyleMap }
             }
@@ -177,7 +183,6 @@ app.init = function() {
     });
     map.lineMeasure.geodesic = true;
     map.lineMeasure.setImmediate(true);
-    map.lineMeasure.displaySystem = 'english';
     map.addControl(map.lineMeasure);
 
     // only allow onetime zooming with box
