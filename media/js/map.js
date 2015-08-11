@@ -140,9 +140,35 @@ app.init = function() {
         app.viewModel.measure.distance(measure);
         app.viewModel.measure.units(units);
     }
+
+   var measureSymbolizers = {
+        "Point": {
+            pointRadius: 6,
+            graphicName: "square",
+            fillColor: "orange",
+            fillOpacity: 1,
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            strokeColor: "#333333"
+        },
+        "Line": {
+            strokeWidth: 2,
+            strokeOpacity: 1,
+            strokeColor: "orange",
+            strokeDashstyle: "dash"
+        }
+    };
+    var measureStyle = new OpenLayers.Style();
+    measureStyle.addRules([
+        new OpenLayers.Rule({symbolizer: measureSymbolizers})
+    ]);
+    var measureStyleMap = new OpenLayers.StyleMap({"default": measureStyle});
     map.lineMeasure = new OpenLayers.Control.Measure(
         OpenLayers.Handler.Path, {
-            persist: true
+            persist: true,
+            handlerOptions: {
+                layerOptions: { styleMap: measureStyleMap }
+            }
         }
     );
     map.lineMeasure.events.on({
