@@ -15,12 +15,18 @@
             }
         };
 
-        // working dimensions of map for rendering purposes
         self.distance = ko.observable(0);
-        self.roundedDistance = ko.computed(function() {
-            return self.distance().toFixed(3);
-        });
         self.units = ko.observable();
+        self.roundedDistance = ko.computed(function() {
+            var units = self.units();
+            if (units == 'mi' || units == 'km') {
+                return self.distance().toFixed(2);
+            } else if (units == 'ft' || units == 'm') {
+                return self.distance().toFixed(0);
+            } else {
+                return self.distance();
+            }
+        });
         self.cancel = function() {
             self.$popover.hide();
             self.distance(0);
