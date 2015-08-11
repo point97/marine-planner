@@ -933,6 +933,17 @@ img + h3 {
 	color: #777 !important;
 }
 
+/*** MEASUREMENT STYLES ***/
+#measure-popover {
+	width: 292px;
+	max-width: 292px;
+    position: absolute;
+    bottom: 85px;
+    right: 15px;
+    top: auto;
+    left: auto;
+}
+
 /*** PRINTING STYLES ***/
 
 #printing-popover .radio input {

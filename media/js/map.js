@@ -134,24 +134,15 @@ app.init = function() {
     map.addControl(map.zoomBox);
 
 
-    //////////////////////////////////////////////////////////////////////////
     function handleMeasurements(event) {
-        var geometry = event.geometry;
         var units = event.units;
-        var order = event.order;
         var measure = event.measure;
-        // var out = "";
-        // if(order == 1) {
-        //     out += "measure: " + measure.toFixed(3) + " " + units;
-        // } else {
-        //     out += "measure: " + measure.toFixed(3) + " " + units + "<sup>2</" + "sup>";
-        // }
-        // console.log(out);
         app.viewModel.measure.distance(measure);
+        app.viewModel.measure.units(units);
     }
     map.lineMeasure = new OpenLayers.Control.Measure(
         OpenLayers.Handler.Path, {
-            persist: true,
+            persist: true
         }
     );
     map.lineMeasure.events.on({
@@ -159,9 +150,9 @@ app.init = function() {
         "measurepartial": handleMeasurements
     });
     map.lineMeasure.geodesic = true;
+    map.lineMeasure.setImmediate(true);
+    map.lineMeasure.displaySystem = 'english';
     map.addControl(map.lineMeasure);
-    // map.lineMeasure.activate();
-    //////////////////////////////////////////////////////////////////////////
 
     // only allow onetime zooming with box
     map.events.register("zoomend", null, function() {
