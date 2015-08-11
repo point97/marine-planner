@@ -51,11 +51,13 @@ Note that, at this point, we have manually created a postgres table for the `sce
 
 Then open the `mp/scenarios/migrations/<migration>.py` file and delete all actions related to the `scenarios_gridcell` table from both the `forwards` and `backwards` methods.
 
-Finally, apply the migrations locally and commit them to the repo.
+Then apply the migrations locally and commit them to the repo.
 
     dj migrate scenarios
 
-Finally, test and update/check the google docs spreadsheet
+With the new data, we may need to update some code to ensure that the slider bar range (in the planning unit filter tool) is consistent with the values in the dataset. Edit `mp/scenarios/forms.py` and modify the `ScenarioForm` class, specifically the `DualSliderWidget` min and max values for each attribute. There is management command that will print the min/max for each gridcell attribute, `dj gridcell_minmax`, which you should reference in order to update the min/max values.
+
+Finally, test and update/check the google docs spreadsheet.
 
 ## Generate mbtiles:
 
