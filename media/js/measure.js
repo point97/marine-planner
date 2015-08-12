@@ -4,13 +4,21 @@
         self.$popover = $('#measure-popover');
 
         self.toggleMeasureDialog = function(vm, event) {
-            app.map.lineMeasure.activate();
-            var width = $("#map-panel").width() + $("#legend:visible").width();
-            self.$popover.width(width);
-            self.$button = $(event.target).closest('.btn');
+
+            // If drawing tool is active, ensure that measure tool is disabled
+            if (app.viewModel.scenarios.drawingFormModel && 
+                app.viewModel.scenarios.drawingFormModel.isDrawing()) {
+                self.cancel();
+                return false;
+            }
+
             if (self.$popover.is(":visible")) {
                 self.cancel();
             } else {
+                app.map.lineMeasure.activate();
+                var width = $("#map-panel").width() + $("#legend:visible").width();
+                self.$popover.width(width);
+                self.$button = $(event.target).closest('.btn');
                 self.$popover.show();
             }
         };
