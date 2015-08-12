@@ -180,6 +180,8 @@ function polygonFormModel(options) {
         self.editControl.activate();
         //disable feature attribution
         app.viewModel.disableFeatureAttribution();
+        //disable measuring
+        app.viewModel.measure.cancel();
 
         if (self.clippedDrawing && app.map.getLayer(self.clippedDrawing.id)) {
             app.map.removeLayer(self.clippedDrawing);
@@ -221,6 +223,8 @@ function polygonFormModel(options) {
         self.polygonControl.activate();
         //disable feature attribution
         app.viewModel.disableFeatureAttribution();
+        //disable measuring
+        app.viewModel.measure.cancel();
 
         $('#drawing-instructions').effect("highlight", {}, 1000);
     };
