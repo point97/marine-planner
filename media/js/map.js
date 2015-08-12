@@ -147,7 +147,7 @@ app.init = function() {
 
    var measureSymbolizers = {
         "Point": {
-            pointRadius: 6,
+            pointRadius: 4,
             graphicName: "square",
             fillColor: "orange",
             fillOpacity: 1,
