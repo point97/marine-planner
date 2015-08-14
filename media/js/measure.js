@@ -6,7 +6,8 @@
         self.toggleMeasureDialog = function(vm, event) {
 
             // If drawing tool is active, ensure that measure tool is disabled
-            if (app.viewModel.scenarios.drawingFormModel && 
+            if (app.viewModel.scenarios &&
+                app.viewModel.scenarios.drawingFormModel &&
                 app.viewModel.scenarios.drawingFormModel.isDrawing()) {
                 self.cancel();
                 return false;
